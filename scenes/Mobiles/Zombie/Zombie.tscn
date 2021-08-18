@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Mobiles/Mobile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Mobiles/Zombie/Zombie.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.72099
+height = 3.28894
+
+[node name="Zombie" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+SPEED = 15.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Sprite" parent="." index="1"]
+modulate = Color( 0.796078, 0.027451, 0.027451, 1 )

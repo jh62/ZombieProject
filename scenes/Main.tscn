@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -13,3 +14,7 @@ script = ExtResource( 1 )
 position = Vector2( -21.8268, 21.2315 )
 scale = Vector2( 0.317913, 0.336515 )
 texture = ExtResource( 3 )
+
+[node name="Zombie" parent="." instance=ExtResource( 4 )]
+position = Vector2( 39.465, 15.6271 )
+target = NodePath("../Player")

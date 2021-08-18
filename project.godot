@@ -9,13 +9,55 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
-"class": "Weapon",
+"base": "Node",
+"class": "BaseItem",
 "language": "GDScript",
-"path": "res://scenes/Weapon/Weapon.gd"
+"path": "res://scenes/Items/BaseItem.gd"
+}, {
+"base": "BaseItem",
+"class": "BaseWeapon",
+"language": "GDScript",
+"path": "res://scenes/Items/Weapon/BaseWeapon.gd"
+}, {
+"base": "State",
+"class": "IdleState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/IdleState.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Mobile",
+"language": "GDScript",
+"path": "res://scenes/Mobiles/Mobile.gd"
+}, {
+"base": "Mobile",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scenes/Mobiles/Player/Player.gd"
+}, {
+"base": "State",
+"class": "RunState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/RunState.gd"
+}, {
+"base": "Reference",
+"class": "State",
+"language": "GDScript",
+"path": "res://scripts/fsm/State.gd"
+}, {
+"base": "Reference",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://scripts/fsm/StateMachine.gd"
 } ]
 _global_script_class_icons={
-"Weapon": ""
+"BaseItem": "",
+"BaseWeapon": "",
+"IdleState": "",
+"Mobile": "",
+"Player": "",
+"RunState": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
