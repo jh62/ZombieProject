@@ -7,8 +7,8 @@ func get_name() -> String:
 	return ""
 
 func get_texture(current_state) -> Texture:
-	if current_state is IdleState:
+	if current_state == "idle":
 		return texture_idle
-	elif current_state is RunState:
+	elif current_state == "run":
 		return texture_run
 	return null

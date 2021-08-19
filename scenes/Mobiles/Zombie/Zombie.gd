@@ -47,4 +47,4 @@ func _process(delta: float) -> void:
 
 	if anim.current_animation != current_anim:
 		var backwards := (facing-dir).length() > 1.4 && facing != dir
-		call_deferred("_set_animations", current_anim, backwards)
+		anim.play(current_anim)

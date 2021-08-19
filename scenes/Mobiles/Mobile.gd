@@ -17,9 +17,3 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	fsm.input(event)
-
-func _set_animations(anim_name : String, backwards := false) -> void:
-	if backwards:
-		anim.play_backwards(anim_name)
-	else:
-		anim.play(anim_name)
