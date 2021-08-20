@@ -1,15 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Items/Pickable/Pistol/Pistol.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="YSort" type="YSort" parent="."]
+script = ExtResource( 6 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 

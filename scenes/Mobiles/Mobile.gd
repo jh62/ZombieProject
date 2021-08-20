@@ -1,7 +1,7 @@
 class_name Mobile extends KinematicBody2D
 
 onready var sprite := $Sprite
-onready var anim := $AnimationPlayer
+onready var anim_p := $AnimationPlayer
 
 export var SPEED := 60.0
 
@@ -17,3 +17,19 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	fsm.input(event)
+
+static func get_facing_as_string(facing : Vector2) -> String:
+	var f := ""
+
+	if facing.y > 0:
+		f += "s"
+	elif facing.y < 0:
+		f += "n"
+
+	if facing.x != 0:
+		f += "e"
+
+	if f.empty():
+		f = "e"
+
+	return f

@@ -45,6 +45,6 @@ func _process(delta: float) -> void:
 	var anim_name = fsm.current_state.get_name()
 	var current_anim := "{0}_{1}".format({0:anim_name,1:anim_data})
 
-	if anim.current_animation != current_anim:
+	if anim_p.current_animation != current_anim:
 		var backwards := (facing-dir).length() > 1.4 && facing != dir
-		anim.play(current_anim)
+		anim_p.play(current_anim)
