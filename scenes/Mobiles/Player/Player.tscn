@@ -1,15 +1,80 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Mobiles/Mobile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Mobiles/Player/Equipment.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Mobiles/Player/Player.gd" type="Script" id=3]
 [ext_resource path="res://scenes/Items/Weapon/Disarmed/Disarmed.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/spritesheet.png" type="Texture" id=5]
+[ext_resource path="res://assets/res/char/die.tres" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 resource_local_to_scene = true
 atlas = ExtResource( 5 )
 region = Rect2( 0, 96, 64, 80 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "die"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:vframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Equipment:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="Player" instance=ExtResource( 1 )]
 collision_layer = 2
@@ -21,6 +86,9 @@ script = ExtResource( 2 )
 
 [node name="Disarmed" parent="Equipment" index="0" instance=ExtResource( 4 )]
 texture = SubResource( 1 )
+
+[node name="AnimationPlayer" parent="." index="3"]
+anims/die = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="." index="4"]
 current = true

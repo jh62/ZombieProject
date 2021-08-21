@@ -3,7 +3,7 @@ extends Mobile
 export var target : NodePath
 
 func _ready() -> void:
-	fsm.current_state = preload("res://scripts/fsm/states/RunState.gd").new()
+	fsm.current_state = preload("res://scripts/fsm/states/RunState.gd").new(self)
 	dir = Vector2(-1,0)
 
 func _process(delta: float) -> void:
@@ -12,20 +12,22 @@ func _process(delta: float) -> void:
 	if target == null:
 		return
 
+	if hitpoints <= 0:
+		return
+
 	var t := get_node(target)
 
 	dir = global_position.direction_to(t.global_position).normalized()
-	var look_at_dir := dir
 
-	if look_at_dir.x != 0:
-		facing.x = look_at_dir.x
-		if look_at_dir.y == 0:
+	if dir.x != 0:
+		facing.x = dir.x
+		if dir.y == 0:
 			facing.y = 0
 
-	if look_at_dir.y != 0:
-		if look_at_dir.x == 0:
+	if dir.y != 0:
+		if dir.x == 0:
 			facing.x = 0
-		facing.y = look_at_dir.y
+		facing.y = dir.y
 
 	var anim_data : String
 
@@ -48,3 +50,10 @@ func _process(delta: float) -> void:
 	if anim_p.current_animation != current_anim:
 		var backwards := (facing-dir).length() > 1.4 && facing != dir
 		anim_p.play(current_anim)
+
+func on_hit(attacker) -> void:
+	hitpoints -= 1
+
+	if !is_alive():
+		var die_state := preload("res://scripts/fsm/states/DieState.gd").new(self)
+		fsm.travel_to(die_state)

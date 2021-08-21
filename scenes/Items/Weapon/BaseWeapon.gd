@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 func _on_action_pressed(facing) -> void:
 	if magazine == 0:
 		return
+
 	in_use = true
 
 func _on_action_released(facing) -> void:
@@ -30,18 +31,21 @@ func update_animations() -> void:
 	var anim_dir = Mobile.get_facing_as_string(facing)
 
 	if in_use:
+		if anim_p.current_animation.begins_with("shoot"):
+			return
 		anim_name = "shoot"
 
 	anim_p.play("{0}_{1}".format({0:anim_name,1:anim_dir}))
 	self.flip_h = facing.x < 0
 
-func _on_action_finished(anim_name, facing) -> void:
+func _on_action_started(anim_name, facing) -> void:
 	match anim_name:
 		"shoot":
+			if magazine == 0:
+				in_use = false
+				return
+
 			magazine -= 1
 			emit_signal("on_action_activated")
 			EventBus.emit_signal("on_bullet_spawn", global_position, self.facing)
-
-			if magazine == 0:
-				in_use = false
 

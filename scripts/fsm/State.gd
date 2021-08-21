@@ -1,5 +1,11 @@
 class_name State
 
+var owner : Node2D
+
+func _init(owner) -> void:
+	self.owner = owner
+
+# The name of the State should be the same as the beggining of the animation name that corresponds to it.
 func get_name():
 	pass
 
@@ -9,8 +15,8 @@ func enter_state() -> void:
 func exit_state() -> void:
 	pass
 
-func update(owner, delta) -> void:
+func update(delta) -> void:
 	pass
 
-func input(owner, input : InputEvent) -> void:
+func input(input : InputEvent) -> void:
 	pass

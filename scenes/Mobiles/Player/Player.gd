@@ -3,7 +3,8 @@ class_name Player extends Mobile
 onready var equipment := $Equipment
 
 func _ready() -> void:
-	fsm.current_state = preload("res://scripts/fsm/states/IdleState.gd").new()
+	var current_state = preload("res://scripts/fsm/states/IdleState.gd").new(self)
+	fsm.current_state = current_state
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 
 func _process(delta: float) -> void:

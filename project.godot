@@ -20,6 +20,11 @@ _global_script_classes=[ {
 "path": "res://scenes/Items/Weapon/BaseWeapon.gd"
 }, {
 "base": "State",
+"class": "DieState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/DieState.gd"
+}, {
+"base": "State",
 "class": "IdleState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/IdleState.gd"
@@ -57,6 +62,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "BaseItem": "",
 "BaseWeapon": "",
+"DieState": "",
 "IdleState": "",
 "Mobile": "",
 "Pickable": "",
@@ -107,6 +113,10 @@ texture={
 "size_limit": 0,
 "stream": false,
 "svg/scale": 1.0
+}
+mp3={
+"loop": false,
+"loop_offset": 0
 }
 
 [input]

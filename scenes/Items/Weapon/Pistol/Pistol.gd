@@ -1,7 +1,7 @@
 extends BaseWeapon
 
 const sounds := {
-	"shoot": preload("res://assets/sfx/weapons/shoot_pistol1.wav")
+	"shoot": preload("res://assets/sfx/weapons/gunshot_47.mp3")
 }
 
 func _ready() -> void:

@@ -7,10 +7,10 @@ func _init(owner : Node2D) -> void:
 	self.owner = owner
 
 func update(delta: float) -> void:
-	current_state.update(owner, delta)
+	current_state.update(delta)
 
 func input(event: InputEvent) -> void:
-	current_state.input(owner, event)
+	current_state.input(event)
 
 func travel_to(new_state : State) -> void:
 	if current_state != null:
