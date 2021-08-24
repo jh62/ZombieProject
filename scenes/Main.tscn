@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
 [ext_resource path="res://scenes/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Items/Pickable/Pistol/Pistol.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
@@ -49,17 +48,13 @@ region_rect = Rect2( 0, 0, 320, 176 )
 [node name="TileMap" type="TileMap" parent="Map"]
 tile_set = SubResource( 2 )
 cell_size = Vector2( 16, 16 )
+collision_mask = 14
 format = 1
 
 [node name="YSort" type="YSort" parent="."]
 script = ExtResource( 6 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-
-[node name="Sprite" type="Sprite" parent="YSort"]
-position = Vector2( -21.8268, 21.2315 )
-scale = Vector2( 0.317913, 0.336515 )
-texture = ExtResource( 3 )
 
 [node name="Zombie" parent="YSort" instance=ExtResource( 4 )]
 position = Vector2( 39.465, 15.6271 )

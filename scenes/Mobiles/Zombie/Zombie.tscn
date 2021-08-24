@@ -61,6 +61,8 @@ tracks/3/keys = {
 }
 
 [node name="Zombie" instance=ExtResource( 1 )]
+collision_layer = 4
+collision_mask = 7
 script = ExtResource( 4 )
 SPEED = 15.0
 
@@ -69,10 +71,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 modulate = Color( 0.796078, 0.027451, 0.027451, 1 )
-texture = ExtResource( 2 )
-hframes = 6
-vframes = 1
-frame = 5
+frame = 2
 
 [node name="AnimationPlayer" parent="." index="2"]
+autoplay = "idle_e"
 anims/die = SubResource( 2 )
