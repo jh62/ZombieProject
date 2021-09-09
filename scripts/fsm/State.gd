@@ -1,9 +1,9 @@
 class_name State
 
-var owner : Node2D
+var owner : KinematicBody2D
 
-func _init(owner) -> void:
-	self.owner = owner
+func _init(_owner : KinematicBody2D) -> void:
+	self.owner = _owner
 
 # The name of the State should be the same as the beggining of the animation name that corresponds to it.
 func get_name():
@@ -15,8 +15,8 @@ func enter_state() -> void:
 func exit_state() -> void:
 	pass
 
-func update(delta) -> void:
+func update(_delta) -> void:
 	pass
 
-func input(input : InputEvent) -> void:
+func input(_input : InputEvent) -> void:
 	pass

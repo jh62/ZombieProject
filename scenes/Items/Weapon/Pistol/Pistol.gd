@@ -1,14 +1,28 @@
 extends BaseWeapon
 
 const sounds := {
-	"shoot": preload("res://assets/sfx/weapons/gunshot_47.mp3")
+	"shoot": [
+		preload("res://assets/sfx/weapons/shoot_pistol_1.wav"),
+		preload("res://assets/sfx/weapons/shoot_pistol_2.wav"),
+		preload("res://assets/sfx/weapons/shoot_pistol_3.wav"),
+		preload("res://assets/sfx/weapons/shoot_pistol_4.wav")
+	],
+	"dry": [
+		preload("res://assets/sfx/weapons/dry_pistol_1.wav"),
+	],
+	"reload":[
+		preload("res://assets/sfx/weapons/reload_pistol_1.wav"),
+	]
 }
 
 func _ready() -> void:
 	magazine = clamp(bullets, 0, mag_size)
 
-func _on_Pistol_on_action_activated() -> void:
-	audio_p.pitch_scale = rand_range(1.0,1.1)
-	audio_p.stream = sounds.shoot
-	audio_p.play()
+func get_sound_dry():
+	return sounds.dry[randi()%sounds.dry.size()]
 
+func get_sound_shoot():
+	return sounds.shoot[randi()%sounds.shoot.size()]
+
+func get_reload_sound():
+	return sounds.reload[randi()%sounds.reload.size()]

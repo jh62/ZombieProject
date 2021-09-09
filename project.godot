@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/fsm/states/DieState.gd"
 }, {
+"base": "Node",
+"class": "Globals",
+"language": "GDScript",
+"path": "res://autoload/Global.gd"
+}, {
 "base": "State",
 "class": "IdleState",
 "language": "GDScript",
@@ -44,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Mobiles/Player/Player.gd"
 }, {
+"base": "RigidBody2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://scenes/Items/Projectile/Projectile.gd"
+}, {
 "base": "State",
 "class": "RunState",
 "language": "GDScript",
@@ -58,18 +68,68 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://scripts/fsm/StateMachine.gd"
+}, {
+"base": "State",
+"class": "ZombieAttackState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieAttackState.gd"
+}, {
+"base": "State",
+"class": "ZombieDieState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieDieState.gd"
+}, {
+"base": "State",
+"class": "ZombieEatState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieEatState.gd"
+}, {
+"base": "State",
+"class": "ZombieEatWaitState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieEatWaitState.gd"
+}, {
+"base": "State",
+"class": "ZombieHeadshotState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"
+}, {
+"base": "State",
+"class": "ZombieHitState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieHitState.gd"
+}, {
+"base": "State",
+"class": "ZombieIdleState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieIdleState.gd"
+}, {
+"base": "State",
+"class": "ZombieMoveState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieMoveState.gd"
 } ]
 _global_script_class_icons={
 "BaseItem": "",
 "BaseWeapon": "",
 "DieState": "",
+"Globals": "",
 "IdleState": "",
 "Mobile": "",
 "Pickable": "",
 "Player": "",
+"Projectile": "",
 "RunState": "",
 "State": "",
-"StateMachine": ""
+"StateMachine": "",
+"ZombieAttackState": "",
+"ZombieDieState": "",
+"ZombieEatState": "",
+"ZombieEatWaitState": "",
+"ZombieHeadshotState": "",
+"ZombieHitState": "",
+"ZombieIdleState": "",
+"ZombieMoveState": ""
 }
 
 [application]
@@ -81,7 +141,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
+Global="*res://autoload/Global.gd"
 EventBus="*res://autoload/EventBus.gd"
+SoundManager="*res://scenes/SoundManager/SoundManager.tscn"
+MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
 
 [display]
 
@@ -150,6 +213,11 @@ action={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+reload={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -158,6 +226,7 @@ action={
 2d_physics/layer_3="zombies"
 2d_physics/layer_4="objects"
 2d_physics/layer_5="pickable"
+2d_physics/layer_6="bullets"
 
 [physics]
 

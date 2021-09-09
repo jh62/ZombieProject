@@ -1,29 +1,33 @@
 class_name BaseItem extends Sprite
 
 onready var anim_p : AnimationPlayer = $AnimationPlayer
-onready var audio_p : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-var state : State
-var facing : Vector2
+var equipper : Mobile
+var in_use := false # used when an item or weapon is actioned
 
 func _ready() -> void:
 	EventBus.connect("action_pressed", self, "_on_action_pressed")
 	EventBus.connect("action_released", self, "_on_action_released")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
+	if equipper == null || !equipper.is_alive():
+		return
 	update_animations()
 
 func update_animations() -> void:
-	var anim_name = state.get_name()
+	var state = equipper.fsm.current_state.get_name()
+	var facing = equipper.facing
+
+	var anim_name = state
 	var anim_dir = Mobile.get_facing_as_string(facing)
 
 	anim_p.play("{0}_{1}".format({0:anim_name,1:anim_dir}))
 	self.flip_h = facing.x < 0
 
-func _on_action_pressed(facing) -> void:
+func _on_action_pressed(action_name, facing) -> void:
 	pass
 
-func _on_action_released(facing) -> void:
+func _on_action_released(action_name, facing) -> void:
 	pass
 
 func _on_action_started(anim_name, facing) -> void:
@@ -39,4 +43,3 @@ func _on_animation_started(anim_name: String) -> void:
 func _on_animation_finished(anim_name: String) -> void:
 	var anim_data = anim_name.split("_")
 	_on_action_finished(anim_data[0],anim_data[1])
-

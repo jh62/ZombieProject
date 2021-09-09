@@ -1,18 +1,20 @@
 extends Node2D
 
+export var item : PackedScene
+
 func _ready() -> void:
-	pass
+	if item != null:
+		var t = item.instance()
+		equip(t)		
 
 func equip(item : BaseItem) -> void:
-	var child : BaseItem = get_child(0)
-
-	if child != null:
+	if get_child_count() > 0:
+		var child : BaseItem = get_child(0)
 		child.queue_free()
 
+	item.equipper = self.owner
+	visible = true
 	add_child(item)
 
 func _process(delta: float) -> void:
-	var owner := self.owner as Player
-	var child : BaseItem = get_child(0)
-	child.state = owner.fsm.current_state
-	child.facing = owner.facing
+	pass

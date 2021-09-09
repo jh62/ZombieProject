@@ -3,8 +3,8 @@ class_name StateMachine
 var owner : Node2D
 var current_state : State
 
-func _init(owner : Node2D) -> void:
-	self.owner = owner
+func _init(_owner : Node2D) -> void:
+	self.owner = _owner
 
 func update(delta: float) -> void:
 	current_state.update(delta)

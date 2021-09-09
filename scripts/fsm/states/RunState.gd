@@ -8,8 +8,10 @@ func get_name():
 
 func update(delta) -> void:
 	if owner.dir.length() == 0:
-		var new_state : State = load("res://scripts/fsm/states/IdleState.gd").new(owner)
+		var new_state = owner.States.idle.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
 
-	owner.move_and_slide(owner.SPEED * owner.dir)
+	owner.vel += owner.speed * owner.dir
+	owner.vel = owner.move_and_slide(owner.vel)
+	owner.vel = owner.vel.clamped(owner.speed)

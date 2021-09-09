@@ -1,17 +1,21 @@
 class_name Mobile extends KinematicBody2D
 
 onready var sprite := $Sprite
-onready var anim_p := $AnimationPlayer
 
-export var SPEED := 60.0
+export var speed := 20.0
 export var hitpoints := 10.0 setget set_hitpoints
 
 var dir := Vector2.ZERO
+var vel := Vector2.ZERO
 var facing := Vector2.ZERO
+var is_eaten := false
 var fsm : StateMachine
 
 # virtual methods
-func on_hit(attacker : Node2D) -> void:
+func on_hit(_attacker : Node2D) -> void:
+	pass
+
+func _process_animations() -> void:
 	pass
 
 func _ready() -> void:
@@ -21,23 +25,27 @@ func is_alive() -> bool:
 	return hitpoints > 0
 
 func _process(delta: float) -> void:
+	_process_animations()
 	fsm.update(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
 	fsm.input(event)
 
+func get_anim_player() -> AnimationPlayer:
+	return get_node("AnimationPlayer") as AnimationPlayer
+
 func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
 
-static func get_facing_as_string(facing : Vector2) -> String:
+static func get_facing_as_string(_facing : Vector2) -> String:
 	var f := ""
 
-	if facing.y > 0:
+	if _facing.y > 0:
 		f += "s"
-	elif facing.y < 0:
+	elif _facing.y < 0:
 		f += "n"
 
-	if facing.x != 0:
+	if _facing.x != 0:
 		f += "e"
 
 	if f.empty():
