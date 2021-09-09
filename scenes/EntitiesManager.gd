@@ -1,5 +1,7 @@
 extends YSort
 
+signal on_mob_spawned(mob)
+
 const Bullet := preload("res://scenes/Items/Projectile/Projectile.tscn")
 const Zombie := preload("res://scenes/Mobiles/Zombie/Zombie.tscn")
 
@@ -30,3 +32,4 @@ func _on_mob_spawn(position) -> void:
 		zombie.queue_free()
 	else:
 		zombie.visible = true
+		emit_signal("on_mob_spawned", zombie)

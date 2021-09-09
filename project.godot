@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "AreaSound",
+"language": "GDScript",
+"path": "res://scripts/AreaSound.gd"
+}, {
 "base": "Sprite",
 "class": "BaseItem",
 "language": "GDScript",
@@ -110,6 +115,7 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieMoveState.gd"
 } ]
 _global_script_class_icons={
+"AreaSound": "",
 "BaseItem": "",
 "BaseWeapon": "",
 "DieState": "",
@@ -143,8 +149,8 @@ config/icon="res://icon.png"
 
 Global="*res://autoload/Global.gd"
 EventBus="*res://autoload/EventBus.gd"
-SoundManager="*res://scenes/SoundManager/SoundManager.tscn"
 MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
+SoundManager="*res://scenes/SoundManager/SoundManager.tscn"
 
 [display]
 

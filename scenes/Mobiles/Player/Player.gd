@@ -9,6 +9,7 @@ const States := {
 onready var equipment := $Equipment
 
 func _ready() -> void:
+	add_to_group(Global.GROUP_PLAYER)
 	var current_state = States.idle.new(self)
 	fsm.current_state = current_state
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")

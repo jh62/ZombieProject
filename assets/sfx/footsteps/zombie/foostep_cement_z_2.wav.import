@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/foostep_cement_z_2.wav-43b17ed3bfd6b6f19a5f2f030ed18366.sample"
+
+[deps]
+
+source_file="res://assets/sfx/footsteps/zombie/foostep_cement_z_2.wav"
+dest_files=[ "res://.import/foostep_cement_z_2.wav-43b17ed3bfd6b6f19a5f2f030ed18366.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

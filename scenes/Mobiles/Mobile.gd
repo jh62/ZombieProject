@@ -1,9 +1,11 @@
 class_name Mobile extends KinematicBody2D
 
-onready var sprite := $Sprite
+signal on_footstep(mob)
 
 export var speed := 20.0
 export var hitpoints := 10.0 setget set_hitpoints
+
+onready var sprite := $Sprite
 
 var dir := Vector2.ZERO
 var vel := Vector2.ZERO
@@ -36,6 +38,9 @@ func get_anim_player() -> AnimationPlayer:
 
 func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
+
+func on_footstep_keyframe():
+	emit_signal("on_footstep", self)
 
 static func get_facing_as_string(_facing : Vector2) -> String:
 	var f := ""

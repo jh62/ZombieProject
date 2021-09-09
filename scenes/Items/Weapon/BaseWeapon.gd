@@ -22,7 +22,7 @@ func _on_action_pressed(action_type, facing) -> void:
 		EventBus.ActionEvent.USE:
 			if magazine == 0:
 				var snd = get_sound_dry()
-				SoundManager.play_sound(snd)
+				SoundManager.play_sound(snd, equipper.global_position)
 				return
 			in_use = true
 		EventBus.ActionEvent.RELOAD:
@@ -31,8 +31,8 @@ func _on_action_pressed(action_type, facing) -> void:
 			var to_reload = clamp(bullets - mag_size, 0, mag_size)
 			bullets -= to_reload
 			magazine = to_reload
-			var snd = get_sound_dry()
-			SoundManager.play_sound(get_reload_sound())
+			var snd = get_reload_sound()
+			SoundManager.play_sound(snd, equipper.global_position)
 
 func _on_action_released(action_type : int, facing) -> void:
 	if in_use:
@@ -68,7 +68,7 @@ func _on_action_started(anim_name, facing) -> void:
 		"shoot":
 			if magazine == 0:
 				var snd = get_sound_dry()
-				SoundManager.play_sound(snd)
+				Global.emit_signal("play_sound", snd, Vector2.ZERO)
 				in_use = false
 				return
 
