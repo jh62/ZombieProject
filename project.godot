@@ -113,6 +113,11 @@ _global_script_classes=[ {
 "class": "ZombieMoveState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieMoveState.gd"
+}, {
+"base": "State",
+"class": "ZombieStandUpState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieStandupState.gd"
 } ]
 _global_script_class_icons={
 "AreaSound": "",
@@ -135,7 +140,8 @@ _global_script_class_icons={
 "ZombieHeadshotState": "",
 "ZombieHitState": "",
 "ZombieIdleState": "",
-"ZombieMoveState": ""
+"ZombieMoveState": "",
+"ZombieStandUpState": ""
 }
 
 [application]
@@ -150,7 +156,6 @@ config/icon="res://icon.png"
 Global="*res://autoload/Global.gd"
 EventBus="*res://autoload/EventBus.gd"
 MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
-SoundManager="*res://scenes/SoundManager/SoundManager.tscn"
 
 [display]
 

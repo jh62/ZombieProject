@@ -30,3 +30,4 @@ func _spawn_mob() -> void:
 	pos.y = clamp(pos.y, 0, 360)
 	spawn_count += 1
 	EventBus.emit_signal("on_mob_spawn", pos)
+	

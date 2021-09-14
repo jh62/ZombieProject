@@ -3,10 +3,11 @@ class_name Mobile extends KinematicBody2D
 signal on_footstep(mob)
 
 export var speed := 20.0
-export var hitpoints := 10.0 setget set_hitpoints
+export var max_hitpoints := 10.0 
 
 onready var sprite := $Sprite
 
+var hitpoints := max_hitpoints setget set_hitpoints
 var dir := Vector2.ZERO
 var vel := Vector2.ZERO
 var facing := Vector2.ZERO
@@ -16,10 +17,10 @@ var fsm : StateMachine
 # virtual methods
 func on_hit(_attacker : Node2D) -> void:
 	pass
-
 func _process_animations() -> void:
 	pass
 
+# class methods
 func _ready() -> void:
 	fsm = StateMachine.new(self)
 

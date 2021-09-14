@@ -24,12 +24,13 @@ func _on_bullet_spawn(position, damage, knockback := 0.0, direction = null ) -> 
 
 func _on_mob_spawn(position) -> void:
 	var zombie : Mobile = Zombie.instance()
-	add_child(zombie)
 	zombie.global_position = position
 	zombie.visible = false
 	yield(get_tree().create_timer(.05),"timeout")
 	if zombie.get_slide_count() > 0:
 		zombie.queue_free()
-	else:
-		zombie.visible = true
-		emit_signal("on_mob_spawned", zombie)
+		return
+		
+	zombie.visible = true
+	add_child(zombie)
+	emit_signal("on_mob_spawned", zombie)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bullet_glass_03.wav-fc6ba1af8e98c06ce9bddf97e7ea151b.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/bullet_glass_03.wav"
+dest_files=[ "res://.import/bullet_glass_03.wav-fc6ba1af8e98c06ce9bddf97e7ea151b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

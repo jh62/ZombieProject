@@ -6,6 +6,11 @@ func _init(owner).(owner):
 func get_name():
 	return "walk"
 
+func enter_state() -> void:
+	var anim_p : AnimationPlayer = owner.get_anim_player()
+	var facing := Mobile.get_facing_as_string(owner.facing)
+	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+
 func update(delta) -> void:
 	var target = owner.target
 	
@@ -18,6 +23,10 @@ func update(delta) -> void:
 		owner.dir = owner.global_position.direction_to(target.global_position)
 	elif target is Vector2:
 		owner.dir = owner.global_position.direction_to(target)
+		
+	
+	var facing := Mobile.get_facing_as_string(owner.facing)
+	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
 	owner.vel += owner.speed * owner.dir
 	owner.vel = owner.move_and_slide(owner.vel)
@@ -34,5 +43,4 @@ func update(delta) -> void:
 			elif !p.is_eaten:
 				var new_state = owner.States.eat_wait.new(owner, p)
 				owner.fsm.travel_to(new_state)
-				print_debug("eateb")
 			return

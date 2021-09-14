@@ -10,9 +10,8 @@
 [ext_resource path="res://assets/res/char/run.tres" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
-resource_local_to_scene = true
-radius = 4.0
-height = 3.7
+radius = 3.92417
+height = 1.85766
 
 [sub_resource type="Animation" id=2]
 step = 0.166667
@@ -593,7 +592,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.334 ),
+"times": PoolRealArray( 0.167, 0.501 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -663,7 +662,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.334 ),
+"times": PoolRealArray( 0.167, 0.501 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -733,7 +732,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.334 ),
+"times": PoolRealArray( 0.167, 0.501 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -803,7 +802,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.334 ),
+"times": PoolRealArray( 0.167, 0.501 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -873,7 +872,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.334 ),
+"times": PoolRealArray( 0.167, 0.501 ),
 "transitions": PoolRealArray( 1, 1 ),
 "values": [ {
 "args": [  ],
@@ -1150,12 +1149,13 @@ collision_mask = 7
 script = ExtResource( 3 )
 speed = 14.0
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+position = Vector2( 0, 2.83163 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-texture = ExtResource( 6 )
-hframes = 6
+texture = ExtResource( 8 )
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 anims/die_e = SubResource( 2 )

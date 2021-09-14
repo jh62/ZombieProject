@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bullet_body_03.wav-80c8d6cf592da1ffe2587c28bd4f58a0.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/bullet_body_03.wav"
+dest_files=[ "res://.import/bullet_body_03.wav-80c8d6cf592da1ffe2587c28bd4f58a0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -5,6 +5,7 @@ const States := {
 	"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState.gd"),
 	"attack": preload("res://scripts/fsm/states/zombie/ZombieAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/zombie/ZombieDieState.gd"),
+	"standup": preload("res://scripts/fsm/states/zombie/ZombieStandupState.gd"),
 	"headshot": preload("res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"),
 	"eat_wait": preload("res://scripts/fsm/states/zombie/ZombieEatWaitState.gd"),
 	"eat": preload("res://scripts/fsm/states/zombie/ZombieEatState.gd"),
@@ -37,29 +38,8 @@ func _process_animations() -> void:
 		if dir.x > -epsilon && dir.x < epsilon:
 			facing.x = 0.0
 		facing.y = dir.y
-
-	var anim_data : String
-	var anim_name = fsm.current_state.get_name()
-
-	if facing.y < 0:
-		anim_data += "n"
-	elif facing.y > 0:
-		anim_data += "s"
-
-	if !anim_name.begins_with("eat") && !anim_name.begins_with("die") && !anim_name.begins_with("stand"):
-		if facing.x != 0:
-			anim_data += "e"
-
-	if anim_data.empty():
-		anim_data = "e"
-
+#
 	sprite.flip_h = facing.x < 0
-
-	var anim_p := get_anim_player()
-	var current_anim := "{0}_{1}".format({0:anim_name,1:anim_data})
-	
-	if anim_p.current_animation != current_anim:
-		anim_p.play(current_anim)
 
 func _process(delta: float) -> void:
 	._process(delta)
@@ -79,7 +59,7 @@ func on_hit(attacker) -> void:
 		new_state = States.die.new(self)
 	else:
 		new_state = States.hit.new(self, attacker)
-		
+	
 	fsm.travel_to(new_state)
 
 func _on_body_entered(body: Node) -> void:
@@ -93,9 +73,10 @@ func _on_body_entered(body: Node) -> void:
 	elif global_position.distance_to(body.global_position) < global_position.distance_to(target.global_position):
 		target = body
 
-func _on_AreaHead_body_entered(body):
+func _on_AreaHead_body_entered(body : Node2D):
 	var new_state = States.headshot.new(self)
 	fsm.travel_to(new_state)
+	body.call_deferred("queue_free")
 	
 func _on_bullet_spawn(position, damage, direction = null) -> void:
 	if target != null && !(target is Vector2):
