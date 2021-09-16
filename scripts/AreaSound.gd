@@ -14,4 +14,4 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		sound = sound_pool.get(Globals.GROUP_PLAYER)
 	else:
 		sound = sound_pool.get(Globals.GROUP_ZOMBIE)
-	Global.emit_signal("play_sound_random", sound, mob.global_position)
+	EventBus.emit_signal("play_sound_random", sound, mob.global_position)

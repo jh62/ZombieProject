@@ -8,10 +8,10 @@ var last_played_ms := 0.0
 var last_played_id := []
 
 func _ready() -> void:
-	Global.connect("play_sound_random_full", self, "_rplay_sound")
-	Global.connect("play_sound_random", self, "_rplay_sound")
-	Global.connect("play_sound_full", self, "_play_sound")
-	Global.connect("play_sound", self, "_play_sound")
+	EventBus.connect("play_sound_random_full", self, "_rplay_sound")
+	EventBus.connect("play_sound_random", self, "_rplay_sound")
+	EventBus.connect("play_sound_full", self, "_play_sound")
+	EventBus.connect("play_sound", self, "_play_sound")
 
 func get_audio_player():
 	idx = wrapi(idx + 1, 0, get_child_count())

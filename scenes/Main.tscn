@@ -1,14 +1,14 @@
 [gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=3]
-[ext_resource path="res://scenes/Items/Pickable/Pistol/Pistol.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Entities/Items/Pickable/Pistol/Pistol.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/maps/map_1.png" type="Texture" id=9]
-[ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -440,8 +440,17 @@ polygon = PoolVector2Array( 478, 228, 468, 256, 439, 268, 406, 268, 378, 256, 37
 [node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="Map/TileMap/AreaCement"]
 polygon = PoolVector2Array( 568, 271, 579, 290, 580, 296, 567, 319, 637, 323 )
 
+[node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
+position = Vector2( 521, 323 )
+radius = 150.0
+spawn_delay_sec = 5.0
+restartable = true
+
 [node name="YSort" type="YSort" parent="."]
+z_index = 1
 script = ExtResource( 6 )
+
+[node name="StaticOBjects" type="YSort" parent="YSort"]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 226, 354 )
@@ -452,28 +461,24 @@ current = true
 [node name="SoundManager" parent="YSort/Player/Camera" instance=ExtResource( 8 )]
 origin = NodePath("../..")
 
-[node name="Pistol" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 253, 404 )
-
-[node name="ZombieSpawner" parent="YSort" instance=ExtResource( 10 )]
-position = Vector2( 368, 449 )
-radius = 10.0
-mob_max = 10
-spawn_delay_sec = 2.0
-
 [node name="MapObjects" type="YSort" parent="YSort"]
+z_index = 1
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
 
 [node name="Button" type="Button" parent="UI"]
-anchor_right = 0.178125
-anchor_bottom = 0.111111
-margin_right = -45.0
+anchor_left = 0.410937
+anchor_top = 0.888888
+anchor_right = 0.589063
+anchor_bottom = 1.0
 text = "Restart"
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="Pistol" parent="." instance=ExtResource( 5 )]
+position = Vector2( 252, 404 )
 
 [connection signal="on_mob_spawned" from="YSort" to="Map/TileMap" method="_on_mob_spawned"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]

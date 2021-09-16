@@ -1,5 +1,22 @@
 class_name ZombieHitState extends State
 
+const SOUNDS := {
+	"body_impact":[
+		preload("res://assets/sfx/impact/bullet_body_01.wav"),
+		preload("res://assets/sfx/impact/bullet_body_02.wav"),
+		preload("res://assets/sfx/impact/bullet_body_03.wav"),
+		preload("res://assets/sfx/impact/bullet_body_04.wav"),
+	],
+	"hurt":[
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_01.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_02.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_03.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_04.wav"),
+	]
+}
+
+const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
+
 var attacker
 
 func _init(owner, _attacker).(owner):
@@ -15,6 +32,10 @@ func enter_state() -> void:
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 	owner.vel *= -(attacker.knockback)
+	EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
+	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
+	
+	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 
 func exit_state() -> void:
 	pass

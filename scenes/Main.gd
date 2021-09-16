@@ -4,6 +4,7 @@ onready var tilemap := $Map/TileMap
 onready var camera := $YSort/Player/Camera
 
 func _ready() -> void:
+	randomize()
 	$Map/TileMap.area_connect_to_mob($YSort/Player)
 	camera.limit_left = 0
 	camera.limit_top = 0

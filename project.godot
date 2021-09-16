@@ -14,15 +14,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/AreaSound.gd"
 }, {
-"base": "Sprite",
+"base": "Reference",
 "class": "BaseItem",
 "language": "GDScript",
-"path": "res://scenes/Items/BaseItem.gd"
+"path": "res://scenes/Entities/Items/BaseItem.gd"
 }, {
 "base": "BaseItem",
 "class": "BaseWeapon",
 "language": "GDScript",
-"path": "res://scenes/Items/Weapon/BaseWeapon.gd"
+"path": "res://scenes/Entities/Items/Weapon/BaseWeapon.gd"
 }, {
 "base": "State",
 "class": "DieState",
@@ -42,27 +42,37 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Mobile",
 "language": "GDScript",
-"path": "res://scenes/Mobiles/Mobile.gd"
+"path": "res://scenes/Entities/Mobiles/Mobile.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "Pickable",
 "language": "GDScript",
-"path": "res://scenes/Items/Pickable/Pickable.gd"
+"path": "res://scenes/Entities/Items/Pickable/Pickable.gd"
 }, {
 "base": "Mobile",
 "class": "Player",
 "language": "GDScript",
-"path": "res://scenes/Mobiles/Player/Player.gd"
+"path": "res://scenes/Entities/Mobiles/Player/Player.gd"
 }, {
-"base": "RigidBody2D",
+"base": "Node",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://autoload/PlayerStatus.gd"
+}, {
+"base": "Reference",
 "class": "Projectile",
 "language": "GDScript",
-"path": "res://scenes/Items/Projectile/Projectile.gd"
+"path": "res://scenes/Entities/Items/Projectile/Projectile.gd"
 }, {
 "base": "State",
 "class": "RunState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/RunState.gd"
+}, {
+"base": "State",
+"class": "SearchState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/SearchState.gd"
 }, {
 "base": "Reference",
 "class": "State",
@@ -129,8 +139,10 @@ _global_script_class_icons={
 "Mobile": "",
 "Pickable": "",
 "Player": "",
+"PlayerStats": "",
 "Projectile": "",
 "RunState": "",
+"SearchState": "",
 "State": "",
 "StateMachine": "",
 "ZombieAttackState": "",
@@ -156,6 +168,7 @@ config/icon="res://icon.png"
 Global="*res://autoload/Global.gd"
 EventBus="*res://autoload/EventBus.gd"
 MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
+PlayerStatus="*res://autoload/PlayerStatus.gd"
 
 [display]
 

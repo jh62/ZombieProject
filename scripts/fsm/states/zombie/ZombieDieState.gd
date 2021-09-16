@@ -21,7 +21,7 @@ func enter_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
-	Global.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 func exit_state() -> void:
 	pass

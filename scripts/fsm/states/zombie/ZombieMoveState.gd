@@ -22,12 +22,11 @@ func update(delta) -> void:
 	if target is Node2D:
 		owner.dir = owner.global_position.direction_to(target.global_position)
 	elif target is Vector2:
-		owner.dir = owner.global_position.direction_to(target)
-		
+		owner.dir = owner.global_position.direction_to(target)		
 	
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
-
+	
 	owner.vel += owner.speed * owner.dir
 	owner.vel = owner.move_and_slide(owner.vel)
 	owner.vel = owner.vel.clamped(owner.speed)

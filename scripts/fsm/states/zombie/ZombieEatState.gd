@@ -10,18 +10,17 @@ func get_name():
 
 func enter_state() -> void:	
 	var anim_p : AnimationPlayer = owner.get_anim_player()
-	var facing := Mobile.get_facing_as_string(owner.facing)	
+	var facing := "s" if owner.facing.y > 0 else "n"
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	
 	owner.target = null
 	owner.dir = Vector2.ZERO
-	
 
 func exit_state() -> void:
 	pass
 
 var elapsed := 0.0
-var eat_time := rand_range(3.0,7.5)
+var eat_time := rand_range(12,18)
 
 func update(delta) -> void:
 	if elapsed >= eat_time:

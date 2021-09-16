@@ -30,6 +30,6 @@ func update(delta) -> void:
 func _on_animation_finished(anim : String) -> void:
 	if owner.global_position.distance_to(collider.global_position) < 16.0:
 		collider.on_hit(owner)
-		Global.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+		EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 		
 	owner.fsm.travel_to(owner.States.idle.new(owner))
