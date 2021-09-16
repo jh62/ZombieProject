@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/Entities/Mobiles/Mobile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Equipment.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/res/char/idle.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/char/run.tres" type="Texture" id=8]
 [ext_resource path="res://assets/res/char/searching.tres" type="Texture" id=9]
+[ext_resource path="res://scenes/UI/ProgressWheel/ProgressWheel.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.92417
@@ -1452,3 +1453,12 @@ anims/shoot_se = SubResource( 26 )
 visible = false
 script = ExtResource( 2 )
 item = ExtResource( 4 )
+
+[node name="ProgressWheel" parent="." index="4" instance=ExtResource( 10 )]
+visible = false
+margin_left = -7.0
+margin_top = -27.0
+margin_right = 9.0
+margin_bottom = -11.0
+
+[connection signal="on_progress_complete" from="ProgressWheel" to="." method="_on_ProgressWheel_on_progress_complete"]

@@ -1,5 +1,8 @@
 class_name Player extends Mobile
 
+signal on_search_start
+signal on_search_end
+
 const States := {
 	"idle": preload("res://scripts/fsm/states/IdleState.gd"),
 	"run": preload("res://scripts/fsm/states/RunState.gd"),
@@ -21,11 +24,24 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("action"):
 		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
-	elif event.is_action_pressed("reload"):
-		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
+		return
 	elif event.is_action_released("action"):
 		EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
-
+		return
+		
+	if event.is_action_pressed("reload"):
+		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
+		return
+	
+	if event.is_action_pressed("action_alt"):
+		$ProgressWheel.start()
+		emit_signal("on_search_start")
+		return
+	elif event.is_action_released("action_alt"):
+		$ProgressWheel.stop()
+		emit_signal("on_search_end")
+		return
+		
 const look_at_dir := Vector2()
 
 func _process_input() -> void:
@@ -72,3 +88,7 @@ func get_equipped():
 
 func _on_item_pickedup(item : BaseItem) -> void:
 	equipment.equip(item)
+
+func _on_ProgressWheel_on_progress_complete():
+	$ProgressWheel.stop()
+	emit_signal("on_search_end")

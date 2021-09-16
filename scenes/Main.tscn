@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/maps/map_1.png" type="Texture" id=9]
+[ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=10]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -445,6 +446,9 @@ position = Vector2( 521, 323 )
 radius = 150.0
 spawn_delay_sec = 5.0
 restartable = true
+
+[node name="SearchableArea" parent="." instance=ExtResource( 10 )]
+position = Vector2( 255, 282 )
 
 [node name="YSort" type="YSort" parent="."]
 z_index = 1
