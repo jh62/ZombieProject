@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/AreaSound.gd"
 }, {
-"base": "Reference",
+"base": "Sprite",
 "class": "BaseItem",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/BaseItem.gd"
@@ -39,12 +39,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/fsm/states/IdleState.gd"
 }, {
+"base": "Pickable",
+"class": "LootItem",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Pickable/LootItem/LootItem.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Mobile",
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Mobile.gd"
 }, {
-"base": "Reference",
+"base": "Area2D",
 "class": "Pickable",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/Pickable.gd"
@@ -59,7 +64,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://autoload/PlayerStatus.gd"
 }, {
-"base": "Reference",
+"base": "RigidBody2D",
 "class": "Projectile",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Projectile/Projectile.gd"
@@ -141,6 +146,7 @@ _global_script_class_icons={
 "DieState": "",
 "Globals": "",
 "IdleState": "",
+"LootItem": "",
 "Mobile": "",
 "Pickable": "",
 "Player": "",

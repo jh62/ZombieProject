@@ -4,7 +4,7 @@ export var damage := 0.0
 export var knockback := 0.0
 export var bullets := 0
 export var mag_size := 0
-export var fire_rate := 1.0
+export var fire_rate := 0.0
 
 var magazine := 0 setget set_magazine
 
@@ -25,7 +25,9 @@ func _on_action_pressed(action_type, facing) -> void:
 				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 				return
 			in_use = true
+			emit_signal("on_use")
 		EventBus.ActionEvent.RELOAD:
+			emit_signal("on_use")
 			if bullets == 0:
 				return
 			var to_reload = clamp(bullets - mag_size, 0, mag_size)
@@ -63,7 +65,7 @@ func update_animations() -> void:
 
 	anim_p.play("{0}_{1}".format({0:anim_name,1:anim_dir}))
 
-func _on_action_started(anim_name, facing) -> void:
+func _on_action_animation_started(anim_name, facing) -> void:
 	match anim_name:
 		"shoot":
 			if magazine == 0:
@@ -73,6 +75,8 @@ func _on_action_started(anim_name, facing) -> void:
 				return
 
 			magazine -= 1
+			bullets -= 1
+			print_debug(bullets)
 
 			equipper.vel += -equipper.facing * damage * 10
 

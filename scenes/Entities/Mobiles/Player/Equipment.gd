@@ -9,12 +9,15 @@ func _ready() -> void:
 
 func equip(item : BaseItem) -> void:
 	if get_child_count() > 0:
-		var child : BaseItem = get_child(0)
-		child.queue_free()
+		for child in get_children():
+			child.call_deferred("queue_free")
 		
 	item.equipper = self.owner	
 	visible = true
 	add_child(item)
+
+func get_item() -> BaseItem:
+	return get_child(0) as BaseItem
 
 func _process(delta: float) -> void:
 	pass

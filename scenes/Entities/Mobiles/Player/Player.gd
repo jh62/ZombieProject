@@ -1,7 +1,11 @@
 class_name Player extends Mobile
 
-signal on_search_start
-signal on_search_end
+signal on_search_start(mob)
+signal on_search_end(mob)
+
+signal on_hit
+signal on_item_pickedup
+signal on_loot_pickedup
 
 const States := {
 	"idle": preload("res://scripts/fsm/states/IdleState.gd"),
@@ -11,11 +15,14 @@ const States := {
 
 onready var equipment := $Equipment
 
+var loot_count := 0
+
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
 	var current_state = States.idle.new(self)
 	fsm.current_state = current_state
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
+	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 
 func _process(delta: float) -> void:
 	._process(delta)
@@ -34,12 +41,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action_pressed("action_alt"):
-		$ProgressWheel.start()
-		emit_signal("on_search_start")
+		emit_signal("on_search_start", self)
 		return
 	elif event.is_action_released("action_alt"):
-		$ProgressWheel.stop()
-		emit_signal("on_search_end")
+		emit_signal("on_search_end", self)
 		return
 		
 const look_at_dir := Vector2()
@@ -77,17 +82,30 @@ func _process_input() -> void:
 
 	sprite.flip_h = facing.x < 0
 
-func on_hit(attacker) -> void:
-	if attacker.is_in_group(Globals.GROUP_ZOMBIE):
+func on_hit(attacker) -> void:	
+#	if attacker.is_in_group(Globals.GROUP_ZOMBIE):
+#		vel *= vel * attacker.dir
+#		var die_state = States.die.new(self)
+#		fsm.travel_to(die_state)
+	self.hitpoints -= attacker.damage
+	
+	if hitpoints == 0:
 		vel *= vel * attacker.dir
 		var die_state = States.die.new(self)
 		fsm.travel_to(die_state)
+		
+	emit_signal("on_hit")
 
 func get_equipped():
 	return equipment.get_child(0)
 
-func _on_item_pickedup(item : BaseItem) -> void:
+func _on_item_pickedup(item) -> void:
 	equipment.equip(item)
+	emit_signal("on_item_pickedup")
+
+func _on_loot_pickedup(loot) -> void:
+	loot_count += 1
+	emit_signal("on_loot_pickedup")
 
 func _on_ProgressWheel_on_progress_complete():
 	$ProgressWheel.stop()

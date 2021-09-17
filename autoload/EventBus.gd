@@ -11,6 +11,7 @@ signal action_released(action_name, facing)
 
 # Pickable signals
 signal on_item_pickedup(item)
+signal on_loot_pickedup(items)
 
 # Entity signals
 signal on_bullet_spawn(position, direction, damage)

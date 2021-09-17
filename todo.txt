@@ -1,0 +1,3 @@
+- when player is hit by a zombie, instead of dying, he will be put down to the ground and he'll need to quickly tap some buttons to get up or risk getting eaten. The less health, the more difficult it'll be to get up!
+
+- Add attraction zone to items, so when you walk near them, they "feel" you and gravitate towards you.

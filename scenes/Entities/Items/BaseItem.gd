@@ -1,5 +1,7 @@
 class_name BaseItem extends Sprite
 
+signal on_use
+
 onready var anim_p : AnimationPlayer = $AnimationPlayer
 
 var equipper : Mobile
@@ -30,16 +32,16 @@ func _on_action_pressed(action_name, facing) -> void:
 func _on_action_released(action_name, facing) -> void:
 	pass
 
-func _on_action_started(anim_name, facing) -> void:
+func _on_action_animation_started(anim_name, facing) -> void:
 	pass
 
-func _on_action_finished(anim_name, facing) -> void:
+func _on_action_animation_finished(anim_name, facing) -> void:
 	pass
 
 func _on_animation_started(anim_name: String) -> void:
 	var anim_data = anim_name.split("_")
-	_on_action_started(anim_data[0],anim_data[1])
+	_on_action_animation_started(anim_data[0],anim_data[1])
 
 func _on_animation_finished(anim_name: String) -> void:
 	var anim_data = anim_name.split("_")
-	_on_action_finished(anim_data[0],anim_data[1])
+	_on_action_animation_finished(anim_data[0],anim_data[1])

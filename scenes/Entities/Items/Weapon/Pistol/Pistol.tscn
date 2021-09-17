@@ -818,8 +818,8 @@ vframes = 5
 script = ExtResource( 4 )
 damage = 2.0
 knockback = 1.45
-bullets = 1000
-mag_size = 10
+bullets = 30
+mag_size = 15
 fire_rate = 2.25
 
 [node name="AnimationPlayer" parent="." index="0"]

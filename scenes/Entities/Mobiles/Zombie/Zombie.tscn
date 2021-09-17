@@ -1558,7 +1558,7 @@ tracks/3/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=31]
 resource_name = "standup_n"
 length = 0.666667
 step = 0.166667
@@ -1611,7 +1611,7 @@ tracks/3/keys = {
 "values": [ 4, 5, 6, 3 ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=32]
 resource_name = "standup_s"
 length = 0.666667
 step = 0.166667
@@ -1664,7 +1664,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=33]
 resource_name = "walk_e"
 length = 0.666667
 loop = true
@@ -1735,7 +1735,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=37]
+[sub_resource type="Animation" id=34]
 resource_name = "walk_n"
 length = 0.666667
 loop = true
@@ -1806,7 +1806,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=38]
+[sub_resource type="Animation" id=35]
 resource_name = "walk_ne"
 length = 0.666667
 loop = true
@@ -1877,7 +1877,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=39]
+[sub_resource type="Animation" id=36]
 resource_name = "walk_s"
 length = 0.666667
 loop = true
@@ -1948,7 +1948,7 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=40]
+[sub_resource type="Animation" id=37]
 resource_name = "walk_se"
 length = 0.666667
 loop = true
@@ -2019,10 +2019,10 @@ tracks/4/keys = {
 } ]
 }
 
-[sub_resource type="CircleShape2D" id=41]
+[sub_resource type="CircleShape2D" id=38]
 radius = 100.0
 
-[sub_resource type="CircleShape2D" id=42]
+[sub_resource type="CircleShape2D" id=39]
 radius = 2.0
 
 [node name="Zombie" instance=ExtResource( 1 )]
@@ -2072,13 +2072,13 @@ anims/idle_n = SubResource( 27 )
 anims/idle_ne = SubResource( 28 )
 anims/idle_s = SubResource( 29 )
 anims/idle_se = SubResource( 30 )
-anims/standup_n = SubResource( 32 )
-anims/standup_s = SubResource( 34 )
-anims/walk_e = SubResource( 36 )
-anims/walk_n = SubResource( 37 )
-anims/walk_ne = SubResource( 38 )
-anims/walk_s = SubResource( 39 )
-anims/walk_se = SubResource( 40 )
+anims/standup_n = SubResource( 31 )
+anims/standup_s = SubResource( 32 )
+anims/walk_e = SubResource( 33 )
+anims/walk_n = SubResource( 34 )
+anims/walk_ne = SubResource( 35 )
+anims/walk_s = SubResource( 36 )
+anims/walk_se = SubResource( 37 )
 
 [node name="AreaPerception" type="Area2D" parent="." index="3"]
 visible = false
@@ -2086,7 +2086,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaPerception" index="0"]
-shape = SubResource( 41 )
+shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="." index="4"]
 collision_layer = 0
@@ -2094,7 +2094,7 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHead" index="0"]
 position = Vector2( 0, -5 )
-shape = SubResource( 42 )
+shape = SubResource( 39 )
 
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]

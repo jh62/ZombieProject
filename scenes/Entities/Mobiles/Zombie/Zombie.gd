@@ -15,8 +15,10 @@ const States := {
 export var sight_radius := 60.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
+export var attack_damage := 3
 
 onready var area_collision := $AreaPerception/CollisionShape2D
+onready var damage := attack_damage
 
 var target
 

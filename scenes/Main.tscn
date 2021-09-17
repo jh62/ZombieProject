@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/maps/map_1.png" type="Texture" id=9]
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -448,7 +449,10 @@ spawn_delay_sec = 5.0
 restartable = true
 
 [node name="SearchableArea" parent="." instance=ExtResource( 10 )]
-position = Vector2( 255, 282 )
+position = Vector2( 665, 441 )
+
+[node name="Pistol" parent="." instance=ExtResource( 5 )]
+position = Vector2( 673, 480 )
 
 [node name="YSort" type="YSort" parent="."]
 z_index = 1
@@ -457,7 +461,7 @@ script = ExtResource( 6 )
 [node name="StaticOBjects" type="YSort" parent="YSort"]
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 226, 354 )
+position = Vector2( 682, 449 )
 
 [node name="Camera" type="Camera2D" parent="YSort/Player"]
 current = true
@@ -481,8 +485,8 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Pistol" parent="." instance=ExtResource( 5 )]
-position = Vector2( 252, 404 )
+[node name="HUD" parent="UI" instance=ExtResource( 12 )]
+player = NodePath("../../YSort/Player")
 
 [connection signal="on_mob_spawned" from="YSort" to="Map/TileMap" method="_on_mob_spawned"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]
