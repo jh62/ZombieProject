@@ -407,6 +407,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 640, 368 )
 
 [node name="TileMap" type="TileMap" parent="Map"]
+visible = false
 z_index = 10
 tile_set = SubResource( 14 )
 cell_size = Vector2( 16, 16 )
@@ -496,6 +497,13 @@ position = Vector2( 392, 158 )
 
 [node name="Camera" type="Camera2D" parent="YSort/Player"]
 current = true
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.25
+drag_margin_right = 0.25
+editor_draw_drag_margin = true
 
 [node name="SoundManager" parent="YSort/Player/Camera" instance=ExtResource( 8 )]
 origin = NodePath("../..")

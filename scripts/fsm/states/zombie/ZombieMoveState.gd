@@ -14,15 +14,20 @@ func enter_state() -> void:
 func update(delta) -> void:
 	var target = owner.target
 	
-	if target == null && owner.dir.length() == 0 :
-		var new_state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(new_state)
-		return	
+	if owner.dir.length() != 0: #has a destination
+		if target == null:
+			var new_state = owner.States.idle.new(owner)
+			owner.fsm.travel_to(new_state)
+			return
+#	if target == null && owner.dir.length() == 0:
+#		var new_state = owner.States.idle.new(owner)
+#		owner.fsm.travel_to(new_state)
+#		return
 	
-	if target is Node2D:
+	if target is Vector2:
+		owner.dir = owner.global_position.direction_to(target)
+	else:
 		owner.dir = owner.global_position.direction_to(target.global_position)
-	elif target is Vector2:
-		owner.dir = owner.global_position.direction_to(target)		
 	
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))

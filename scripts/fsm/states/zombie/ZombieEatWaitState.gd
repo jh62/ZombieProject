@@ -14,7 +14,7 @@ func enter_state() -> void:
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	
-	corpse.is_eaten = true
+#	corpse.is_eaten = true
 
 func exit_state() -> void:
 	pass

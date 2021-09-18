@@ -82,11 +82,7 @@ func _process_input() -> void:
 
 	sprite.flip_h = facing.x < 0
 
-func on_hit(attacker) -> void:	
-#	if attacker.is_in_group(Globals.GROUP_ZOMBIE):
-#		vel *= vel * attacker.dir
-#		var die_state = States.die.new(self)
-#		fsm.travel_to(die_state)
+func on_hit(attacker) -> void:
 	self.hitpoints -= attacker.damage
 	
 	if hitpoints == 0:
