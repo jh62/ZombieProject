@@ -13,7 +13,7 @@ func enter_state() -> void:
 
 func update(delta) -> void:
 	var target = owner.target
-	
+
 	if owner.dir.length() != 0: #has a destination
 		if target == null:
 			var new_state = owner.States.idle.new(owner)
@@ -23,15 +23,15 @@ func update(delta) -> void:
 #		var new_state = owner.States.idle.new(owner)
 #		owner.fsm.travel_to(new_state)
 #		return
-	
+
 	if target is Vector2:
 		owner.dir = owner.global_position.direction_to(target)
 	else:
 		owner.dir = owner.global_position.direction_to(target.global_position)
-	
+
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
-	
+
 	owner.vel += owner.speed * owner.dir
 	owner.vel = owner.move_and_slide(owner.vel)
 	owner.vel = owner.vel.clamped(owner.speed)
@@ -40,7 +40,7 @@ func update(delta) -> void:
 		var collider = owner.get_slide_collision(0).collider
 		if collider is Player:
 			var p = collider as Player
-			
+
 			if p.is_alive():
 				var new_state = owner.States.attack.new(owner, p)
 				owner.fsm.travel_to(new_state)

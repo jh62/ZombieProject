@@ -19,7 +19,7 @@ func get_name():
 
 func enter_state() -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
-	var facing := Mobile.get_facing_as_string(owner.facing)	
+	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 
@@ -34,11 +34,11 @@ func _on_animation_finished(anim : String) -> void:
 		var target_pos := attack_target.global_position
 		var target_dir := owner.global_position.direction_to(target_pos)
 		var is_facing = owner.dir.dot(target_dir) > 0
-		
+
 		if is_facing:
 			var dist := owner.global_position.distance_to(target_pos)
 			if dist <= ATTACK_DISTANCE:
 				attack_target.on_hit(owner)
 				EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
-		
+
 	owner.fsm.travel_to(owner.States.idle.new(owner))

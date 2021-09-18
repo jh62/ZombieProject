@@ -27,7 +27,7 @@ func _on_action_pressed(action_type, facing) -> void:
 			in_use = true
 			emit_signal("on_use")
 		EventBus.ActionEvent.RELOAD:
-			emit_signal("on_use")			
+			emit_signal("on_use")
 			if bullets / mag_size == 0:
 				return
 #			var to_reload = clamp(bullets - mag_size, 0, mag_size)
@@ -43,14 +43,14 @@ func _on_action_released(action_type : int, facing) -> void:
 
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
-	
+
 func set_magazine(val : int):
 	magazine = clamp(val, 0, mag_size)
 
 func update_animations() -> void:
 	if equipper == null:
 		return
-	
+
 	var state = equipper.fsm.current_state
 	var facing = equipper.facing
 

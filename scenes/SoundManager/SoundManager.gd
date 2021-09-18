@@ -25,26 +25,26 @@ func _rplay_sound(stream_pool, position := Vector2.ZERO, pitch := rand_range(.95
 func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_range(.95,1.05), db := 1.0, max_distance := 100.0) -> void:
 	if stream == null:
 		return
-		
+
 	var audio_p
 	var stream_id := stream.get_instance_id()
-	
+
 	if stream_id in last_played_id:
 		if OS.get_ticks_msec() - last_played_ms < 50.0:
 			return
 		last_played_id = []
-		
+
 	last_played_ms = OS.get_ticks_msec()
 	last_played_id.append(stream.get_instance_id())
 	audio_p = get_audio_player()
-	
+
 	if position != Vector2.ZERO:
 		var dist : float = get_node(origin).global_position.distance_to(position)
 		if dist > get_tree().root.get_visible_rect().size.x * .5:
 			return
 		var mul := db - dist / (max_distance * .1)
 		db += mul
-	
+
 	audio_p.stream = stream
 	audio_p.pitch_scale = pitch
 	audio_p.volume_db = db

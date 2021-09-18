@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://autoload/Global.gd"
 }, {
 "base": "State",
+"class": "HitState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/HitState.gd"
+}, {
+"base": "State",
 "class": "IdleState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/IdleState.gd"
@@ -145,6 +150,7 @@ _global_script_class_icons={
 "BaseWeapon": "",
 "DieState": "",
 "Globals": "",
+"HitState": "",
 "IdleState": "",
 "LootItem": "",
 "Mobile": "",
@@ -172,7 +178,6 @@ _global_script_class_icons={
 
 config/name="HardCharlie2"
 run/main_scene="res://scenes/Main.tscn"
-boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]

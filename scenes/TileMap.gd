@@ -2,7 +2,7 @@ extends TileMap
 
 func _ready():
 	visible = false
-	
+
 func _on_mob_spawned(mob : Mobile) -> void:
 	area_connect_to_mob(mob)
 

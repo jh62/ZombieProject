@@ -14,10 +14,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	elapsed += delta
-	
+
 	if elapsed < 0.0:
 		return
-		
+
 	if elapsed > spawn_delay_sec:
 		elapsed = 0.0
 
@@ -38,4 +38,4 @@ func _spawn_mob() -> void:
 	pos.y = clamp(pos.y, 0, 360)
 	spawn_count += 1
 	EventBus.emit_signal("on_mob_spawn", pos)
-	
+

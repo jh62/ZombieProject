@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/maps/door_open.tres" type="Texture" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/UI.gd" type="Script" id=13]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -466,8 +467,8 @@ polygon = PoolVector2Array( 568, 271, 579, 290, 580, 296, 567, 319, 637, 323 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
 position = Vector2( 421, 160 )
-radius = 150.0
-spawn_delay_sec = 5.0
+radius = 50.0
+spawn_delay_sec = 2.0
 restartable = true
 
 [node name="SearchableArea" parent="." instance=ExtResource( 10 )]
@@ -515,6 +516,17 @@ __meta__ = {
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
+script = ExtResource( 13 )
+
+[node name="ColorRectHitFX" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Button" parent="UI"]
 visible = false
@@ -532,4 +544,5 @@ player = NodePath("../../YSort/Player")
 
 [connection signal="on_search_successful" from="SearchableArea" to="SearchableArea/AnimatedSprite" method="_on_SearchableArea_on_search_successful"]
 [connection signal="on_mob_spawned" from="YSort" to="Map/TileMap" method="_on_mob_spawned"]
+[connection signal="on_hit" from="YSort/Player" to="UI" method="_on_Player_on_hit"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]

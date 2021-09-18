@@ -3,7 +3,7 @@ class_name Mobile extends KinematicBody2D
 signal on_footstep(mob)
 
 export var max_speed := 20.0
-export var max_hitpoints := 10.0 
+export var max_hitpoints := 10.0
 
 onready var sprite := $Sprite
 

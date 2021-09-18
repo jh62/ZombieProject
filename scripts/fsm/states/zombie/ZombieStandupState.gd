@@ -6,7 +6,7 @@ func _init(owner).(owner):
 func get_name():
 	return "standup"
 
-func enter_state() -> void:	
+func enter_state() -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := "s" if owner.facing.y > 0 else "n"
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))

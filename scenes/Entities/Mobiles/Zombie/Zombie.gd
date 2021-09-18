@@ -37,7 +37,7 @@ func _ready() -> void:
 
 func _process_animations() -> void:
 	var epsilon := .25
-	
+
 	if dir.x < -epsilon || dir.x > epsilon:
 		facing.x = dir.x
 		if dir.y > -epsilon && dir.y < epsilon:
@@ -52,7 +52,7 @@ func _process_animations() -> void:
 
 func _process(delta: float) -> void:
 	._process(delta)
-	
+
 #	if target != null:
 #		if target is Mobile && !target.is_alive():
 #			target = null
@@ -61,21 +61,21 @@ func on_hit(attacker) -> void:
 	if attacker is Projectile:
 		attacker = attacker as Projectile
 		hitpoints -=  attacker.damage
-		
+
 	var new_state : State
-	
+
 	if !is_alive():
 		new_state = States.die.new(self)
 	else:
 		new_state = States.hit.new(self, attacker)
-	
+
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
 	var new_state = States.headshot.new(self)
 	fsm.travel_to(new_state)
 	body.call_deferred("queue_free")
-	
+
 func _on_bullet_spawn(position, damage, direction = null) -> void:
 	if target != null && !(target is Vector2):
 		return
@@ -94,13 +94,13 @@ func _on_AreaPerception_body_entered(body):
 
 	if !mob.is_alive():
 		return
-		
+
 	if target == null || target is Vector2:
 		target = mob
 		return
-	
-	var dist_to_mob := global_position.distance_to(mob.global_position)	
-	var dist_to_target := global_position.distance_to(target.global_position)	
-	
+
+	var dist_to_mob := global_position.distance_to(mob.global_position)
+	var dist_to_target := global_position.distance_to(target.global_position)
+
 	if dist_to_mob < dist_to_target:
 		target = mob

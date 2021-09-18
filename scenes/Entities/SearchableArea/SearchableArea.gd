@@ -25,10 +25,10 @@ func is_searchable() -> bool:
 func _on_SearchableArea_body_entered(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
 		return
-	
+
 	if !is_searchable():
 		return
-		
+
 	body = body as Player
 	body.connect("on_search_start", self, "_on_search_start")
 	body.connect("on_search_end", self, "_on_search_end")
@@ -36,11 +36,11 @@ func _on_SearchableArea_body_entered(body : Node2D):
 func _on_SearchableArea_body_exited(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
 		return
-		
+
 	body = body as Player
 	body.disconnect("on_search_start", self, "_on_search_start")
 	body.disconnect("on_search_end", self, "_on_search_end")
-	
+
 	if searched_by == body:
 		searched_by = null
 		searching = false
@@ -49,15 +49,15 @@ func _on_SearchableArea_body_exited(body : Node2D):
 func _on_search_start(mob) -> void:
 	if !is_searchable():
 		return
-	
+
 	searched_by = mob
 	searching = true
 	progress_wheel.start()
-	
+
 func _on_search_end(mob) -> void:
 	if !is_searchable():
 		return
-	
+
 	searched_by = null
 	searching = false
 	progress_wheel.stop()

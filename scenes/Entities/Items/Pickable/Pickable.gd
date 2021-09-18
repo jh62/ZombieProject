@@ -10,6 +10,6 @@ func _on_Pickable_body_entered(body: Node) -> void:
 func _ready():
 	if texture != null:
 		_set_texture(texture)
-	
+
 func _set_texture(_texture) -> void:
 	$AnimatedSprite.frames.add_frame("default", _texture)
