@@ -24,22 +24,23 @@ func _on_player_hit() -> void:
 	update_healthbar()
 
 func update_loot_count() -> void:
+	yield(get_tree(),"idle_frame") # so it updates properly
 	loot_count.text = "x {0}".format({0:m_player.loot_count})
 
 func update_weapon_status() -> void:
+	yield(get_tree(),"idle_frame") # so it updates properly
 	var weapon = m_player.equipment.get_item()
 
 	if weapon != null:
 		if!weapon.is_connected("on_use", self, "_on_equipment_use"):
 			weapon.connect("on_use", self, "_on_equipment_use")
 
-	var mag_left := round(weapon.bullets / weapon.mag_size)
+	var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
 
-	weapon_ammo.visible = weapon.bullets > 0
+	weapon_ammo.visible = weapon.bullets + weapon.magazine > 0
 	weapon_ammo.text = str(mag_left)
 
 func _on_item_pickedup() -> void:
-	yield(get_tree(),"idle_frame") # so it updates properly
 	update_weapon_status()
 
 func _on_player_loot() -> void:

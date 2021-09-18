@@ -25,7 +25,6 @@ func _on_action_pressed(action_type, facing) -> void:
 				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 				return
 			in_use = true
-			emit_signal("on_use")
 		EventBus.ActionEvent.RELOAD:
 			emit_signal("on_use")
 			if bullets / mag_size == 0:
@@ -83,6 +82,8 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			equipper.vel += -equipper.facing * damage * 10
 
 			var snd = get_sound_shoot()
+			emit_signal("on_use")
+
 			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 			EventBus.emit_signal("on_bullet_spawn", equipper.global_position, damage, knockback)
 
