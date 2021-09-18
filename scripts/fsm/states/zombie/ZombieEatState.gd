@@ -1,5 +1,9 @@
 class_name ZombieEatState extends State
 
+const SOUNDS := [
+	preload("res://assets/sfx/mobs/zombie/eat/zombie_eating_1.wav")
+]
+
 var corpse : Mobile
 
 func _init(owner, _corpse).(owner):
@@ -15,6 +19,7 @@ func enter_state() -> void:
 	
 	owner.target = null
 	owner.dir = Vector2.ZERO
+	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 func exit_state() -> void:
 	pass

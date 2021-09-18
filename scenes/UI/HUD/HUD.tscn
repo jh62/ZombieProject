@@ -25,9 +25,28 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="HealthBar" type="TextureProgress" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="CharStats" type="MarginContainer" parent="."]
+anchor_right = 0.203125
+anchor_bottom = 0.222222
+margin_right = -8.0
+margin_bottom = -8.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharStats"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 61.0
+margin_bottom = 36.0
+
+[node name="HealthBar" type="TextureProgress" parent="CharStats/HBoxContainer"]
+margin_right = 18.0
+margin_bottom = 32.0
 mouse_filter = 2
 max_value = 10.0
 texture_under = ExtResource( 5 )
@@ -37,18 +56,57 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GasTank" type="MarginContainer" parent="."]
-anchor_left = 0.853125
-anchor_right = 1.0
-anchor_bottom = 0.116667
+[node name="LootBag" type="MarginContainer" parent="CharStats/HBoxContainer"]
+margin_left = 22.0
+margin_top = 8.0
+margin_right = 57.0
+margin_bottom = 23.0
 mouse_filter = 2
+size_flags_vertical = 4
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/LootBag"]
+margin_right = 35.0
+margin_bottom = 15.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/LootBag/HBoxContainer"]
+margin_right = 12.0
+margin_bottom = 15.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CharStats/HBoxContainer/LootBag/HBoxContainer"]
+margin_left = 16.0
+margin_right = 35.0
+margin_bottom = 14.0
+text = "x 0"
+align = 1
+valign = 1
+
+[node name="GasTank" type="MarginContainer" parent="."]
+anchor_left = 0.828125
+anchor_right = 1.0
+anchor_bottom = 0.161111
+mouse_filter = 2
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="ProgressBar" type="TextureProgress" parent="GasTank"]
-margin_right = 47.0
-margin_bottom = 21.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 51.0
+margin_bottom = 25.0
 mouse_filter = 2
 texture_under = SubResource( 1 )
 texture_progress = SubResource( 2 )
@@ -58,48 +116,15 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="GasTank"]
-margin_right = 47.0
-margin_bottom = 21.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 51.0
+margin_bottom = 25.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
 text = "0%"
 align = 1
 valign = 2
-
-[node name="LootBag" type="MarginContainer" parent="."]
-anchor_left = 0.06875
-anchor_top = 0.0944444
-anchor_right = 0.178125
-anchor_bottom = 0.177778
-margin_right = -23.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LootBag"]
-margin_right = 35.0
-margin_bottom = 15.0
-mouse_filter = 2
-
-[node name="TextureRect" type="TextureRect" parent="LootBag/HBoxContainer"]
-margin_right = 12.0
-margin_bottom = 15.0
-mouse_filter = 2
-texture = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="LootBag/HBoxContainer"]
-margin_left = 16.0
-margin_right = 35.0
-margin_bottom = 15.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
-text = "x 0"
-align = 1
-valign = 1
 
 [node name="Gun" type="MarginContainer" parent="."]
 anchor_left = 0.878125

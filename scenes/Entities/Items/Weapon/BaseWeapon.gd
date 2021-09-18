@@ -2,7 +2,7 @@ class_name BaseWeapon extends BaseItem
 
 export var damage := 0.0
 export var knockback := 0.0
-export var bullets := 0
+export var bullets := 0 setget set_bullets
 export var mag_size := 0
 export var fire_rate := 0.0
 
@@ -27,12 +27,12 @@ func _on_action_pressed(action_type, facing) -> void:
 			in_use = true
 			emit_signal("on_use")
 		EventBus.ActionEvent.RELOAD:
-			emit_signal("on_use")
-			if bullets == 0:
+			emit_signal("on_use")			
+			if bullets / mag_size == 0:
 				return
-			var to_reload = clamp(bullets - mag_size, 0, mag_size)
-			bullets -= to_reload
-			magazine = to_reload
+#			var to_reload = clamp(bullets - mag_size, 0, mag_size)
+			self.bullets -= mag_size
+			self.magazine = mag_size
 			var snd = get_reload_sound()
 			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 
@@ -41,6 +41,9 @@ func _on_action_released(action_type : int, facing) -> void:
 		yield(anim_p,"animation_finished")
 	in_use = false
 
+func set_bullets(val : int) -> void:
+	bullets = max(val, 0)
+	
 func set_magazine(val : int):
 	magazine = clamp(val, 0, mag_size)
 
@@ -74,9 +77,8 @@ func _on_action_animation_started(anim_name, facing) -> void:
 				in_use = false
 				return
 
-			magazine -= 1
-			bullets -= 1
-			print_debug(bullets)
+			self.magazine -= 1
+			self.bullets -= 1
 
 			equipper.vel += -equipper.facing * damage * 10
 

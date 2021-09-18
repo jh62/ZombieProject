@@ -1,5 +1,7 @@
 class_name SearchableArea extends Area2D
 
+signal on_search_successful
+
 onready var progress_wheel := $ProgressWheel
 
 var searched_by : Node2D
@@ -63,5 +65,6 @@ func _on_search_end(mob) -> void:
 func _on_ProgressWheel_on_progress_complete():
 	looted = true
 	progress_wheel.stop()
-	var item = loot[1]
+	var item = loot[randi()%loot.size()]
+	emit_signal("on_search_successful")
 	EventBus.emit_signal("on_object_spawn", item, global_position)

@@ -1026,7 +1026,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=21]
 resource_name = "hit_e"
-length = 0.666667
+length = 0.333333
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1071,15 +1071,15 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 3 ]
 }
 
 [sub_resource type="Animation" id=22]
 resource_name = "hit_n"
-length = 0.666667
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1124,15 +1124,15 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [ 4, 7 ]
 }
 
 [sub_resource type="Animation" id=23]
 resource_name = "hit_ne"
-length = 0.666667
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1177,15 +1177,15 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 15 ]
+"values": [ 12, 15 ]
 }
 
 [sub_resource type="Animation" id=24]
 resource_name = "hit_s"
-length = 0.666667
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1230,15 +1230,15 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11 ]
+"values": [ 8, 11 ]
 }
 
 [sub_resource type="Animation" id=25]
 resource_name = "hit_se"
-length = 0.666667
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1283,10 +1283,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 16, 17, 18, 19 ]
+"values": [ 16, 19 ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -2036,10 +2036,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-texture = ExtResource( 4 )
-hframes = 7
-vframes = 2
-frame = 3
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"
