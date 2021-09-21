@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -10,9 +10,7 @@
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/maps/map_test.png" type="Texture" id=9]
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=10]
-[ext_resource path="res://assets/maps/door_open.tres" type="Texture" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scripts/UI.gd" type="Script" id=13]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -328,26 +326,6 @@ points = PoolVector2Array( 8, 0, 8, 8, 16, 8, 16, 16, 0, 16, 0, 0, 0, 0 )
 } ]
 12/z_index = 0
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 11 )
-region = Rect2( 640, 0, 16, 19 )
-
-[sub_resource type="SpriteFrames" id=18]
-animations = [ {
-"frames": [ SubResource( 17 ) ],
-"loop": false,
-"name": "default",
-"speed": 12.0
-} ]
-
-[sub_resource type="GDScript" id=19]
-script/source = "extends AnimatedSprite
-
-
-func _on_SearchableArea_on_search_successful():
-	visible = true
-"
-
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -385,12 +363,7 @@ __meta__ = {
 }
 
 [node name="SearchableArea" parent="Entities/Statics" instance=ExtResource( 10 )]
-position = Vector2( 66, 56 )
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Entities/Statics/SearchableArea"]
-position = Vector2( 0, -7 )
-frames = SubResource( 18 )
-script = SubResource( 19 )
+position = Vector2( 501, 71 )
 
 [node name="ZombieSpawner" parent="Entities/Statics" instance=ExtResource( 4 )]
 position = Vector2( 421, 160 )
@@ -409,7 +382,7 @@ position = Vector2( 297, 121 )
 [node name="Mobs" type="YSort" parent="Entities"]
 
 [node name="Player" parent="Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 392, 158 )
+position = Vector2( 501, 105 )
 
 [node name="Camera" type="Camera2D" parent="Entities/Mobs/Player"]
 current = true
@@ -426,17 +399,6 @@ origin = NodePath("../..")
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
-script = ExtResource( 13 )
-
-[node name="ColorRectHitFX" type="ColorRect" parent="UI"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-color = Color( 1, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Button" type="Button" parent="UI"]
 visible = false
@@ -453,6 +415,5 @@ __meta__ = {
 player = NodePath("../../Entities/Mobs/Player")
 
 [connection signal="on_mob_spawned" from="Entities" to="Map/TileMap" method="_on_mob_spawned"]
-[connection signal="on_search_successful" from="Entities/Statics/SearchableArea" to="Entities/Statics/SearchableArea/AnimatedSprite" method="_on_SearchableArea_on_search_successful"]
 [connection signal="on_hit" from="Entities/Mobs/Player" to="UI" method="_on_Player_on_hit"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]

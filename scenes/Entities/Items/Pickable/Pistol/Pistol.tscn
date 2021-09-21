@@ -4,14 +4,14 @@
 [ext_resource path="res://assets/res/weapon/icons/pistol.tres" type="Texture" id=2]
 [ext_resource path="res://scenes/Entities/Items/Pickable/Pistol/Pistol.gd" type="Script" id=3]
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 304, 16, 16 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 resource_local_to_scene = true
 animations = [ {
-"frames": [ SubResource( 2 ) ],
+"frames": [ SubResource( 1 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -21,4 +21,4 @@ animations = [ {
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" parent="." index="0"]
-frames = SubResource( 3 )
+frames = SubResource( 2 )

@@ -7,8 +7,6 @@ enum ColorCodes {
 	METAL
 }
 
-var json : JSONParseResult
-
 const sound_color_codes := {
 	ColorCodes.GRASS: {
 		"hex": "",
@@ -65,6 +63,9 @@ const sound_color_codes := {
 	},
 }
 
+var json : JSONParseResult
+
+
 func _ready():
 	visible = false
 	var file := File.new()
@@ -92,6 +93,8 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		code = ColorCodes.CEMENT
 	elif pix in sound_color_codes.get(ColorCodes.METAL).hex:
 		code = ColorCodes.METAL
+	else:
+		return
 
 	var grp
 

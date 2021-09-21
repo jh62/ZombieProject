@@ -5,7 +5,7 @@ signal on_use
 onready var anim_p : AnimationPlayer = $AnimationPlayer
 
 var equipper : Mobile
-var in_use := false # used when an item or weapon is actioned
+var in_use := false
 
 func _ready() -> void:
 	EventBus.connect("action_pressed", self, "_on_action_pressed")

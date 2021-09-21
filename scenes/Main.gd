@@ -5,9 +5,7 @@ onready var n_Player := $Entities/Mobs/Player
 
 func _ready() -> void:
 	randomize()
-#	n_Tilemap.area_connect_to_mob(n_Player)
-	$Map/Background.texture.get_data().lock()
-	n_Tilemap._on_mob_spawned(n_Player)
+	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 
 	var n_Camera := n_Player.get_node("Camera")
 	n_Camera.limit_left = 0
