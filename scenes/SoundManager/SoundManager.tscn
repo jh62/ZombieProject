@@ -44,3 +44,63 @@ script = ExtResource( 1 )
 [node name="AudioStreamPlayer19" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer20" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer21" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer22" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer23" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer24" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer25" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer26" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer27" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer28" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer29" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer30" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer31" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer32" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer33" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer34" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer35" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer36" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer37" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer38" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer39" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer40" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer41" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer42" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer43" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer44" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer45" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer46" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer47" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer48" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer49" type="AudioStreamPlayer" parent="."]
+
+[node name="AudioStreamPlayer50" type="AudioStreamPlayer" parent="."]

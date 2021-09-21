@@ -1,5 +1,6 @@
 extends StaticBody2D
 
+export var active := true
 export var radius := 200.0
 export var mob_max := 50
 export var spawn_delay_sec := 1.5
@@ -13,6 +14,9 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
+	if !active:
+		return
+
 	elapsed += delta
 
 	if elapsed < 0.0:
