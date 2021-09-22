@@ -435,7 +435,7 @@ __meta__ = {
 position = Vector2( 501, 71 )
 
 [node name="ZombieSpawner" parent="Entities/Statics" instance=ExtResource( 4 )]
-position = Vector2( 639, 278 )
+position = Vector2( 923, 253 )
 mob_max = 100
 spawn_delay_sec = 0.1
 restartable = true
@@ -445,8 +445,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Pistol" parent="Entities/MapObjects" instance=ExtResource( 5 )]
-position = Vector2( 297, 121 )
+[node name="PickablePistol" parent="Entities/MapObjects" instance=ExtResource( 5 )]
+position = Vector2( 481, 108 )
 
 [node name="Mobs" type="YSort" parent="Entities"]
 
