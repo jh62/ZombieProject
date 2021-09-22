@@ -16,17 +16,17 @@ func _ready() -> void:
 
 func _on_bullet_spawn(position, damage, knockback := 0.0, direction = null ) -> void:
 	var bullet : Projectile = Bullet.instance()
+	n_Mobs.add_child(bullet)
 
 	if direction == null:
 		direction = position.direction_to(get_global_mouse_position())
 
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
-	bullet.look_at(position + (direction * 500))
 	bullet.damage = damage
 	bullet.knockback = knockback
 
-	n_Mobs.add_child(bullet)
 	bullet.global_position = position
+	bullet.look_at(position + (direction * 500))
 
 func _on_mob_spawn(position) -> void:
 	var zombie : Mobile = Zombie.instance()

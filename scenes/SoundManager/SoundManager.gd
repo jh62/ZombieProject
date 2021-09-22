@@ -33,7 +33,7 @@ func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_ra
 	var stream_id := stream.get_instance_id()
 
 	if stream_id in last_played_id:
-		if OS.get_ticks_msec() - last_played_ms < .015:
+		if OS.get_ticks_msec() - last_played_ms < 167:
 			return
 		last_played_id = []
 

@@ -1,10 +1,16 @@
 class_name ZombieAttackState extends State
 
+#const SOUNDS := [
+#	preload("res://assets/sfx/impact/body_hit_1.wav"),
+#	preload("res://assets/sfx/impact/body_hit_2.wav"),
+#	preload("res://assets/sfx/impact/body_hit_3.wav"),
+#	preload("res://assets/sfx/impact/body_hit_4.wav")
+#]
+
 const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_attack_0.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_attack_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_attack_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_attack_3.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_1.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_2.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_3.wav"),
 ]
 
 const ATTACK_DISTANCE := 16
@@ -20,8 +26,8 @@ func get_name():
 func enter_state() -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
+	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
 func exit_state() -> void:
 	pass
@@ -35,10 +41,12 @@ func _on_animation_finished(anim : String) -> void:
 		var target_dir := owner.global_position.direction_to(target_pos)
 		var is_facing = owner.dir.dot(target_dir) > 0
 
-		if is_facing:
-			var dist := owner.global_position.distance_to(target_pos)
-			if dist <= ATTACK_DISTANCE:
+		var dist := owner.global_position.distance_to(target_pos)
+
+		if dist <= 32:
+			EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+		if dist <= ATTACK_DISTANCE:
+			if is_facing:
 				attack_target.on_hit(owner)
-				EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 	owner.fsm.travel_to(owner.States.idle.new(owner))

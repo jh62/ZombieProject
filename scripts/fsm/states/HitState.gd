@@ -1,5 +1,12 @@
 class_name HitState extends State
 
+const SOUNDS := [
+	preload("res://assets/sfx/impact/bullet_body_01.wav"),
+	preload("res://assets/sfx/impact/bullet_body_02.wav"),
+	preload("res://assets/sfx/impact/bullet_body_03.wav"),
+	preload("res://assets/sfx/impact/bullet_body_04.wav"),
+]
+
 var attacker : Mobile
 
 func _init(owner, _attacker).(owner):
@@ -18,6 +25,7 @@ func enter_state() -> void:
 	anim_p.play(current_anim)
 
 	owner.vel += attacker.dir * 2.2
+	EventBus.emit_signal("play_sound_random",SOUNDS, owner.global_position)
 
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel)

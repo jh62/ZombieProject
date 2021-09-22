@@ -98,7 +98,7 @@ func _on_mob_footstep(mob : Mobile) -> void:
 
 #	var texture : Image = get_node("../Background").texture.get_data()
 #	texture.lock()
-#
+
 	var pix := texture.get_pixel(mob.global_position.x, mob.global_position.y + 720).to_html().substr(2)
 	var code
 

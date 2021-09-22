@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/body_hit_1.wav-1a97a277818f14767f4ff0451f881416.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/body_hit_1.wav"
+dest_files=[ "res://.import/body_hit_1.wav-1a97a277818f14767f4ff0451f881416.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

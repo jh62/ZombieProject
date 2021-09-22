@@ -12,6 +12,12 @@ const States := {
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
 }
 
+const Sounds  := [
+	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
+	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
+	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav"),
+]
+
 export var sight_radius := 60.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
@@ -23,13 +29,6 @@ onready var damage := attack_damage
 var target
 
 func _ready() -> void:
-#	var collision := CollisionShape2D.new()
-#	collision.shape = CapsuleShape2D.new()
-#	collision.shape.radius = 3.5
-#	collision.shape.height = 4.5
-#	collision.position = Vector2(0,2.0)
-#	collision.name = "CollisionShape2D"
-#	add_child(collision)
 	add_to_group(Globals.GROUP_ZOMBIE)
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	fsm.current_state = States.idle.new(self)
@@ -104,3 +103,6 @@ func _on_AreaPerception_body_entered(body):
 
 	if dist_to_mob < dist_to_target:
 		target = mob
+
+func play_random_sound() -> void:
+	EventBus.emit_signal("play_sound_random",Sounds, global_position)

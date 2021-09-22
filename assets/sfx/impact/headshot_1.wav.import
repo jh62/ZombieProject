@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/headshot_1.wav-bcd409903cd24f9ac1b82f151c7afdea.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/headshot_1.wav"
+dest_files=[ "res://.import/headshot_1.wav-bcd409903cd24f9ac1b82f151c7afdea.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

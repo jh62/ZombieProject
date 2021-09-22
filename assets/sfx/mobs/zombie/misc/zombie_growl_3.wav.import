@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/zombie_growl_3.wav-bc6a8db55da57176332801e397d50198.sample"
+
+[deps]
+
+source_file="res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav"
+dest_files=[ "res://.import/zombie_growl_3.wav-bc6a8db55da57176332801e397d50198.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
