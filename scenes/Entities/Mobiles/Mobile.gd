@@ -14,6 +14,7 @@ var vel := Vector2.ZERO
 var facing := Vector2.ZERO
 var is_eaten := false
 var fsm : StateMachine
+var _visible_viewport := true
 
 # virtual methods
 func on_hit(_attacker : Node2D) -> void:
@@ -29,7 +30,8 @@ func is_alive() -> bool:
 	return hitpoints > 0
 
 func _process(delta: float) -> void:
-	_process_animations()
+	if _visible_viewport:
+		_process_animations()
 	fsm.update(delta)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -42,7 +44,8 @@ func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
 
 func on_footstep_keyframe():
-	emit_signal("on_footstep", self)
+	if _visible_viewport:
+		emit_signal("on_footstep", self)
 
 static func get_facing_as_string(_facing : Vector2) -> String:
 	var f := ""
@@ -59,3 +62,9 @@ static func get_facing_as_string(_facing : Vector2) -> String:
 		f = "e"
 
 	return f
+
+func _on_screen_entered():
+	_visible_viewport = true
+
+func _on_screen_exited():
+	_visible_viewport = false

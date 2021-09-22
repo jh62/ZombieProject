@@ -64,7 +64,7 @@ const sound_color_codes := {
 }
 
 var json : JSONParseResult
-
+var texture : Image
 
 func _ready():
 	visible = false
@@ -77,13 +77,28 @@ func _ready():
 	sound_color_codes[ColorCodes.DIRT].hex = json.result["dirt"]
 	sound_color_codes[ColorCodes.METAL].hex = json.result["metal"]
 
+	texture = get_node("../Background").texture.get_data()
+	texture.lock()
+
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.connect("on_footstep", self, "_on_mob_footstep")
 
 func _on_mob_footstep(mob : Mobile) -> void:
-	var texture : Image = get_node("../Background").texture.get_data()
-	texture.lock()
+#	var code
+#
+#	if mob in $AreaGrass.get_overlapping_bodies():
+#		code = ColorCodes.GRASS
+#	elif mob in $AreaCement.get_overlapping_bodies():
+#		code = ColorCodes.CEMENT
+#	elif mob in $AreaMetal.get_overlapping_bodies():
+#		code = ColorCodes.METAL
+#	else:
+#		return
 
+
+#	var texture : Image = get_node("../Background").texture.get_data()
+#	texture.lock()
+#
 	var pix := texture.get_pixel(mob.global_position.x, mob.global_position.y + 720).to_html().substr(2)
 	var code
 
