@@ -70,7 +70,6 @@ var json : JSONParseResult
 var texture : Image
 
 func _ready():
-	visible = false
 	var file := File.new()
 	file.open("res://assets/maps/map_test.json",File.READ)
 	json = JSON.parse(file.get_as_text())
@@ -80,7 +79,7 @@ func _ready():
 	sound_color_codes[ColorCodes.DIRT].hex = json.result["dirt"]
 	sound_color_codes[ColorCodes.METAL].hex = json.result["metal"]
 
-	texture = get_node("../Background").texture.get_data()
+	texture = $Background.texture.get_data()
 	texture.lock()
 
 func _on_mob_spawned(mob : Mobile) -> void:
