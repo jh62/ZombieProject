@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=3]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/Entities/Items/Pickable/Pistol/PickablePistol.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
@@ -444,9 +443,6 @@ restartable = true
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="PickablePistol" parent="Entities/MapObjects" instance=ExtResource( 5 )]
-position = Vector2( 481, 108 )
 
 [node name="Mobs" type="YSort" parent="Entities"]
 

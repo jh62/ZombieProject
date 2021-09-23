@@ -9,7 +9,7 @@ var searching := false setget, is_searching
 var looted := false setget ,is_looted
 
 var loot := [
-	preload("res://scenes/Entities/Items/Pickable/Pistol/Pistol.tscn"),
+	preload("res://scenes/Entities/Items/Pickable/Pistol/PickablePistol.tscn"),
 	preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
 ]
 

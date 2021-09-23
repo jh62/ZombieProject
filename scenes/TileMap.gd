@@ -56,9 +56,12 @@ const sound_color_codes := {
 				preload("res://assets/sfx/footsteps/player/footstep_metal_1.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_metal_2.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_metal_3.wav"),
-				preload("res://assets/sfx/footsteps/player/footstep_metal_4.wav"),
 			],
-			Global.GROUP_ZOMBIE: []
+			Global.GROUP_ZOMBIE: [
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_1.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_2.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_3.wav"),
+			]
 		}
 	},
 }
