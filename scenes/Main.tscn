@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+tonemap_exposure = 0.02
+adjustment_enabled = true
+adjustment_brightness = 0.58
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -39,15 +45,10 @@ mob_max = 100
 spawn_delay_sec = 0.1
 restartable = true
 
-[node name="MapObjects" type="YSort" parent="TileMap/Entities"]
-__meta__ = {
-"_edit_lock_": true
-}
-
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 471, 106 )
+position = Vector2( 728, 253 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -61,6 +62,9 @@ editor_draw_drag_margin = true
 
 [node name="SoundManager" parent="TileMap/Entities/Mobs/Player/Camera" instance=ExtResource( 8 )]
 origin = NodePath("../..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="TileMap"]
+environment = SubResource( 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
@@ -78,6 +82,15 @@ __meta__ = {
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
 player = NodePath("../../TileMap/Entities/Mobs/Player")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.901961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="on_hit" from="TileMap/Entities/Mobs/Player" to="UI" method="_on_Player_on_hit"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]
