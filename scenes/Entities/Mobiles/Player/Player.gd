@@ -3,6 +3,7 @@ class_name Player extends Mobile
 signal on_search_start(mob)
 signal on_search_end(mob)
 
+signal on_death
 signal on_hit
 signal on_item_pickedup
 signal on_loot_pickedup
@@ -44,9 +45,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("action_alt"):
 		emit_signal("on_search_start", self)
+		fsm.travel_to(States.search.new(self))
 		return
 	elif event.is_action_released("action_alt"):
 		emit_signal("on_search_end", self)
+		fsm.travel_to(States.idle.new(self))
 		return
 
 const look_at_dir := Vector2()
@@ -90,6 +93,7 @@ func on_hit(attacker) -> void:
 	if hitpoints == 0:
 		vel *= vel * attacker.dir
 		fsm.travel_to(States.die.new(self))
+		emit_signal("on_death")
 	else:
 		fsm.travel_to(States.hit.new(self, attacker))
 

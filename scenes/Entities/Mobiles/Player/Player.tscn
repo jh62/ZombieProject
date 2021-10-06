@@ -1151,6 +1151,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=22]
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1203,6 +1204,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=23]
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1255,6 +1257,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=24]
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1307,6 +1310,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=25]
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1359,6 +1363,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=26]
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1680,7 +1685,7 @@ position = Vector2( 0, 2.83163 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
@@ -1719,3 +1724,6 @@ anims/shoot_se = SubResource( 31 )
 visible = false
 script = ExtResource( 2 )
 item = ExtResource( 4 )
+
+[node name="VisibilityNotifier2D" parent="." index="4"]
+visible = false

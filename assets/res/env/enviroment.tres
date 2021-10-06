@@ -1,0 +1,17 @@
+[gd_resource type="Environment" format=2]
+
+[resource]
+background_mode = 4
+background_color = Color( 0.780392, 0.25098, 0.25098, 1 )
+fog_depth_begin = 0.0
+fog_depth_end = 4000.0
+fog_height_curve = 3.03143
+tonemap_exposure = 0.1
+glow_levels/3 = false
+glow_levels/4 = true
+glow_levels/6 = true
+glow_levels/7 = true
+glow_strength = 0.2
+glow_bloom = 0.11
+adjustment_brightness = 0.78
+adjustment_contrast = 0.78

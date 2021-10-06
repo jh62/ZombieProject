@@ -1,4 +1,4 @@
-extends Node
+class_name StaticObject extends StaticBody2D
 
 onready var n_sprite := $Sprite
 

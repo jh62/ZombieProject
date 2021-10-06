@@ -16,11 +16,15 @@ func enter_state() -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
+var wp_idx := 0
+var last_update := 0
+var update_delay := 2500
+
 func update(delta) -> void:
 	var target = owner.target
 
-	if owner.dir.length() != 0: #has a destination
-		if target == null:
+	if owner.dir.length() != 0: # is going somewhere
+		if target == null || owner.waypoints.empty():
 			var new_state = owner.States.idle.new(owner)
 			owner.fsm.travel_to(new_state)
 			return
@@ -36,10 +40,25 @@ func update(delta) -> void:
 			last_growl = OS.get_ticks_msec()
 			owner.play_random_sound()
 
-		if target is Vector2:
-			owner.dir = owner.global_position.direction_to(target)
-		else:
-			owner.dir = owner.global_position.direction_to(target.global_position)
+	if target != null:
+		if OS.get_ticks_msec() - last_update > update_delay:
+			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target.global_position, true)
+			wp_idx = 0
+			last_update = OS.get_ticks_msec()
+	else:
+		return
+
+	var wp : Vector2 = owner.waypoints[wp_idx]
+
+	if owner.global_position.distance_to(wp) < 1:
+		wp_idx = clamp(wp_idx + 1, 0, owner.waypoints.size() - 1)
+
+	owner.dir = owner.global_position.direction_to(wp)
+
+#	if target is Vector2:
+#		owner.dir = owner.global_position.direction_to(target)
+#	else:
+#		owner.dir = owner.global_position.direction_to(target.global_position)
 
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))

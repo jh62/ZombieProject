@@ -27,6 +27,8 @@ onready var area_collision := $AreaPerception/CollisionShape2D
 onready var damage := attack_damage
 
 var target
+var nav : Navigation2D
+var waypoints : PoolVector2Array
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
@@ -51,7 +53,6 @@ func _process_animations() -> void:
 
 func _process(delta: float) -> void:
 	._process(delta)
-
 #	if target != null:
 #		if target is Mobile && !target.is_alive():
 #			target = null
@@ -82,11 +83,13 @@ func _on_bullet_spawn(position, damage, direction = null) -> void:
 	if global_position.distance_to(position) > hearing_distance:
 		return
 
-	target = position
+	waypoints = nav.get_simple_path(global_position, position)
 
-	area_collision.shape.radius = sight_radius * 2
-	yield(get_tree().create_timer(awareness_timer),"timeout")
-	area_collision.shape.radius = sight_radius
+#	target = position
+
+#	area_collision.shape.radius = sight_radius * 2
+#	yield(get_tree().create_timer(awareness_timer),"timeout")
+#	area_collision.shape.radius = sight_radius
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile
@@ -94,15 +97,15 @@ func _on_AreaPerception_body_entered(body):
 	if !mob.is_alive():
 		return
 
-	if target == null || target is Vector2:
-		target = mob
-		return
+	if target != null:
+		var dist_to_mob := global_position.distance_to(mob.global_position)
+		var dist_to_target := global_position.distance_to(target.global_position)
 
-	var dist_to_mob := global_position.distance_to(mob.global_position)
-	var dist_to_target := global_position.distance_to(target.global_position)
+		if dist_to_mob > dist_to_target:
+			return
 
-	if dist_to_mob < dist_to_target:
-		target = mob
+	target = mob
+	print_debug("i have target")
 
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",Sounds, global_position)

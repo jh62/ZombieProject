@@ -8,18 +8,29 @@
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 12 )
 texture = ExtResource( 1 )
+offset = Vector2( 0, -13 )
 region_enabled = true
 region_rect = Rect2( 612, 37, 11, 26 )
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -4, 9, -2, 9, -2, 12, -4, 12 )
+position = Vector2( -0.20625, -5.775 )
+scale = Vector2( 0.8125, 1.4375 )
+polygon = PoolVector2Array( -4.66923, 8.1913, -2.20769, 8.1913, -0.976923, 12.3652, -5.9, 12.3652 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
 
 [node name="Light2D" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2, -8 )
+texture_scale = 2.0
+color = Color( 0.211765, 0.211765, 0.211765, 1 )
+energy = 2.25
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 20.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]

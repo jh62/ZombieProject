@@ -5,23 +5,37 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Light2D
 
+export var flickers := true setget set_flickers
+export var min_intensity := 2.0
+export var max_intensity := 2.5
+
+func _ready():
+	if flickers:
+		$Timer.start()
+
 func _process(delta):
 	pass
 
 func _on_Timer_timeout():
-#	energy = rand_range(1.0,1.25)
-	texture_scale = rand_range(4.5,5.0)
+	energy = rand_range(min_intensity, max_intensity)
+
+func set_flickers(value) -> void:
+	flickers = value
+	if flickers:
+		$Timer.start()
+	else:
+		$Timer.stop()
 "
 
 [node name="Light2D" type="Light2D"]
 position = Vector2( 10, 15 )
 texture = ExtResource( 1 )
-color = Color( 0.639216, 0.615686, 0.239216, 1 )
 energy = 4.1
+shadow_filter = 2
+shadow_filter_smooth = 50.0
 script = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
