@@ -38,7 +38,7 @@ func _on_mob_spawn(position) -> void:
 		return
 
 	zombie.visible = true
-	zombie.nav = get_parent().get_parent().get_node("Navigation2D")
+	zombie.nav = get_parent().get_node("Navigation2D")
 	n_Mobs.add_child(zombie)
 	emit_signal("on_mob_spawned", zombie)
 

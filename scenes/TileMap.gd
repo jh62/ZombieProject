@@ -66,6 +66,8 @@ const sound_color_codes := {
 	},
 }
 
+onready var n_navigation := $Navigation2D
+
 var json : JSONParseResult
 var texture : Image
 
@@ -82,6 +84,37 @@ func _ready():
 	texture = $Background.texture.get_data()
 	texture.lock()
 
+	_update_navigation_polygon()
+
+func _update_navigation_polygon() -> void:
+	var statics = get_node("MapObjects")
+
+	for obj in statics.get_children():
+		if !(obj is StaticObject):
+			continue
+		var poly = obj.get_node("CollisionShape").get_polygon()
+		var outlines : PoolVector2Array
+		for p in poly:
+			outlines.append(obj.position + p)
+		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
+
+#	for cell_pos in get_used_cells_by_id(13):
+#		var cell_id = get_cellv(cell_pos)
+##		if cell_id != 13 && cell_id != 14:
+##			continue
+#		var outlines : PoolVector2Array
+#		var pos = map_to_world(cell_pos)
+#		outlines.append(pos + Vector2(0,0))
+#		outlines.append(pos + Vector2(cell_size.x,0))
+#		outlines.append(pos + Vector2(cell_size.x,cell_size.y))
+#		outlines.append(pos + Vector2(0,cell_size.y))
+#		print_debug(pos)
+#		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
+
+	$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().make_polygons_from_outlines()
+	$Navigation2D/NavigationPolygonInstance.enabled = false
+	yield(get_tree(),"idle_frame")
+	$Navigation2D/NavigationPolygonInstance.enabled = true
 
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.connect("on_footstep", self, "_on_mob_footstep")

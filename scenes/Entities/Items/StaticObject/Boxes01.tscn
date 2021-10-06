@@ -12,7 +12,7 @@ polygon = PoolVector2Array( -10, -9, -10, -4, -8, -4, -8, 5, -2, 5, -2, 1, 6, 6,
 region_rect = Rect2( 603, 172, 20, 20 )
 
 [node name="CollisionShape" parent="." index="1"]
-polygon = PoolVector2Array( -10, -8, -10, 0, -8, 0, -8, 5, -1, 5, 5, 8, 10, 0, 2, -3, 0, -3, 0, -8 )
+polygon = PoolVector2Array( -10, -9, -11, 0, -8, 9, 6, 9, 11, 0, 0, -9 )
 
 [node name="LightOccluder2D" parent="." index="2"]
 occluder = SubResource( 1 )

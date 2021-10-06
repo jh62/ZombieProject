@@ -42,7 +42,7 @@ func update(delta) -> void:
 
 	if target != null:
 		if OS.get_ticks_msec() - last_update > update_delay:
-			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target.global_position, true)
+			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target.global_position, false)
 			wp_idx = 0
 			last_update = OS.get_ticks_msec()
 	else:
