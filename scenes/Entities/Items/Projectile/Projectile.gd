@@ -36,7 +36,7 @@ func _ready() -> void:
 
 func _on_Projectile_body_entered(body: Node) -> void:
 	if body.is_in_group(Globals.GROUP_ZOMBIE):
-		body.call_deferred("on_hit", self)
+		body.call_deferred("on_hit_by", self)
 	queue_free()
 
 func _on_Projectile_body_shape_entered(body_id, body, body_shape, local_shape):

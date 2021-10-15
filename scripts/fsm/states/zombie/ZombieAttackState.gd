@@ -48,6 +48,6 @@ func _on_animation_finished(anim : String) -> void:
 
 		if dist <= ATTACK_DISTANCE:
 			if is_facing:
-				attack_target.on_hit(owner)
+				attack_target.on_hit_by(owner)
 
 	owner.fsm.travel_to(owner.States.idle.new(owner))

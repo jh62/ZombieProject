@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
-
-[sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( 87, -42, 88, 50, -59, 50, -59, 32, -87, 38, -87, -26, -58, -42 )
 
 [node name="Building01" instance=ExtResource( 1 )]
 
@@ -12,6 +9,3 @@ region_rect = Rect2( 2, 160, 176, 108 )
 
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( -59, 52, 88, 52, 88, -42, -59, -42, -87, -24, -88, 38, -59, 32 )
-
-[node name="LightOccluder2D" parent="." index="2"]
-occluder = SubResource( 1 )

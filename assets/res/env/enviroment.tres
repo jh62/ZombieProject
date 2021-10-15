@@ -2,16 +2,16 @@
 
 [resource]
 background_mode = 4
-background_color = Color( 0.780392, 0.25098, 0.25098, 1 )
-fog_depth_begin = 0.0
-fog_depth_end = 4000.0
-fog_height_curve = 3.03143
-tonemap_exposure = 0.1
-glow_levels/3 = false
-glow_levels/4 = true
-glow_levels/6 = true
-glow_levels/7 = true
-glow_strength = 0.2
-glow_bloom = 0.11
-adjustment_brightness = 0.78
-adjustment_contrast = 0.78
+tonemap_exposure = 0.05
+ss_reflections_max_steps = 434
+ss_reflections_depth_tolerance = 91.1
+ssao_radius = 61.58
+ssao_intensity = 52.07
+ssao_radius2 = 57.26
+ssao_intensity2 = 59.95
+ssao_bias = 2.01
+ssao_light_affect = 0.26
+ssao_ao_channel_affect = 0.46
+dof_blur_far_distance = 0.98
+dof_blur_far_transition = 5.64
+dof_blur_far_amount = 0.64

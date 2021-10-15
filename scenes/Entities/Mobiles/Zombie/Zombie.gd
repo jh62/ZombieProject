@@ -53,11 +53,12 @@ func _process_animations() -> void:
 
 func _process(delta: float) -> void:
 	._process(delta)
+
 #	if target != null:
 #		if target is Mobile && !target.is_alive():
 #			target = null
 
-func on_hit(attacker) -> void:
+func on_hit_by(attacker) -> void:
 	if attacker is Projectile:
 		attacker = attacker as Projectile
 		hitpoints -=  attacker.damage
@@ -83,13 +84,8 @@ func _on_bullet_spawn(position, damage, direction = null) -> void:
 	if global_position.distance_to(position) > hearing_distance:
 		return
 
-	waypoints = nav.get_simple_path(global_position, position)
-
-#	target = position
-
-#	area_collision.shape.radius = sight_radius * 2
-#	yield(get_tree().create_timer(awareness_timer),"timeout")
-#	area_collision.shape.radius = sight_radius
+	target = position
+#	waypoints = nav.get_simple_path(global_position, target_pos, true)
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile
@@ -97,7 +93,7 @@ func _on_AreaPerception_body_entered(body):
 	if !mob.is_alive():
 		return
 
-	if target != null:
+	if target != null && (target is Mobile):
 		var dist_to_mob := global_position.distance_to(mob.global_position)
 		var dist_to_target := global_position.distance_to(target.global_position)
 
@@ -105,7 +101,14 @@ func _on_AreaPerception_body_entered(body):
 			return
 
 	target = mob
-	print_debug("i have target")
 
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",Sounds, global_position)
+
+func _on_screen_exited():
+	._on_screen_exited()
+
+	if target == null || (target is Vector2):
+		return
+
+	target = target.global_position # go to last known location

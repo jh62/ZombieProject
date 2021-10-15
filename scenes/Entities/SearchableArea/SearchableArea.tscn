@@ -20,6 +20,23 @@ margin_top = -8.0
 margin_right = 8.0
 margin_bottom = 8.0
 rect_pivot_offset = Vector2( 8, 8 )
+value = 100.0
+fill_time = 3.7
+
+[node name="Label" type="Label" parent="."]
+visible = false
+margin_left = -54.0
+margin_top = -28.0
+margin_right = 55.0
+margin_bottom = -14.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Press E to search"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [connection signal="body_entered" from="." to="." method="_on_SearchableArea_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_SearchableArea_body_exited"]

@@ -13,6 +13,8 @@ func _ready() -> void:
 	n_Camera.limit_right = n_Tilemap.get_node("Background").get_rect().size.x
 	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
 
+	$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()
 

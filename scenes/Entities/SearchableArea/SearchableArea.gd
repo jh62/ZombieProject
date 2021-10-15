@@ -13,6 +13,9 @@ var loot := [
 	preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
 ]
 
+func _ready():
+	connect("on_search_successful", get_parent(), "on_search_successful")
+
 func is_looted() -> bool:
 	return looted
 
@@ -32,6 +35,7 @@ func _on_SearchableArea_body_entered(body : Node2D):
 	body = body as Player
 	body.connect("on_search_start", self, "_on_search_start")
 	body.connect("on_search_end", self, "_on_search_end")
+	$Label.visible = true
 
 func _on_SearchableArea_body_exited(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
@@ -40,6 +44,7 @@ func _on_SearchableArea_body_exited(body : Node2D):
 	body = body as Player
 	body.disconnect("on_search_start", self, "_on_search_start")
 	body.disconnect("on_search_end", self, "_on_search_end")
+	$Label.visible = false
 
 	if searched_by == body:
 		searched_by = null
@@ -53,6 +58,7 @@ func _on_search_start(mob) -> void:
 	searched_by = mob
 	searching = true
 	progress_wheel.start()
+	$Label.visible = false
 
 func _on_search_end(mob) -> void:
 	if !is_searchable():
@@ -61,6 +67,7 @@ func _on_search_end(mob) -> void:
 	searched_by = null
 	searching = false
 	progress_wheel.stop()
+	$Label.visible = true
 
 func _on_ProgressWheel_on_progress_complete():
 	looted = true

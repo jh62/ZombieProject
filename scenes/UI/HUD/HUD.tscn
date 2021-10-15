@@ -26,10 +26,10 @@ __meta__ = {
 }
 
 [node name="CharStats" type="MarginContainer" parent="."]
-anchor_right = 0.203125
+anchor_right = 0.184375
 anchor_bottom = 0.222222
-margin_right = -8.0
-margin_bottom = -8.0
+margin_right = -2.0
+margin_bottom = -8.00004
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -58,43 +58,90 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LootBag" type="MarginContainer" parent="CharStats/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer"]
 margin_left = 22.0
-margin_top = 8.0
 margin_right = 57.0
-margin_bottom = 23.0
+margin_bottom = 32.0
+
+[node name="LootBag" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
+margin_right = 35.0
+margin_bottom = 17.0
 mouse_filter = 2
-size_flags_vertical = 4
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 4.33
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/LootBag"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/LootBag"]
 margin_right = 35.0
-margin_bottom = 15.0
+margin_bottom = 17.0
 mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/LootBag/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer"]
 margin_right = 12.0
-margin_bottom = 15.0
+margin_bottom = 17.0
 mouse_filter = 2
 texture = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CharStats/HBoxContainer/LootBag/HBoxContainer"]
+[node name="Label" type="Label" parent="CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer"]
 margin_left = 16.0
+margin_top = 2.0
 margin_right = 35.0
-margin_bottom = 14.0
+margin_bottom = 15.0
 text = "x 0"
 align = 1
 valign = 1
 
+[node name="Gun" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
+margin_top = 21.0
+margin_right = 35.0
+margin_bottom = 32.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun"]
+margin_right = 35.0
+margin_bottom = 11.0
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer"]
+margin_right = 35.0
+margin_bottom = 11.0
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/MarginContainer"]
+margin_right = 35.0
+margin_bottom = 11.0
+mouse_filter = 2
+size_flags_vertical = 3
+texture = ExtResource( 1 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/MarginContainer/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "x 5"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="GasTank" type="MarginContainer" parent="."]
 anchor_left = 0.828125
+anchor_top = 0.838889
 anchor_right = 1.0
-anchor_bottom = 0.161111
+anchor_bottom = 1.0
 mouse_filter = 2
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -124,45 +171,6 @@ margin_right = 51.0
 margin_bottom = 25.0
 size_flags_horizontal = 7
 size_flags_vertical = 7
-text = "0%"
+text = "100%"
 align = 1
 valign = 2
-
-[node name="Gun" type="MarginContainer" parent="."]
-anchor_left = 0.878125
-anchor_top = 0.811111
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Gun"]
-margin_right = 39.0
-margin_bottom = 34.0
-mouse_filter = 2
-alignment = 1
-
-[node name="TextureRect" type="TextureRect" parent="Gun/VBoxContainer"]
-margin_right = 39.0
-margin_bottom = 16.0
-mouse_filter = 2
-size_flags_vertical = 3
-texture = ExtResource( 1 )
-stretch_mode = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="Gun/VBoxContainer"]
-margin_top = 20.0
-margin_right = 39.0
-margin_bottom = 34.0
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Gun/VBoxContainer/MarginContainer"]
-margin_right = 39.0
-margin_bottom = 14.0
-size_flags_horizontal = 7
-size_flags_vertical = 7
-text = "x 5"
-align = 1
-valign = 1

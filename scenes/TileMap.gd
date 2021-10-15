@@ -86,30 +86,26 @@ func _ready():
 
 	_update_navigation_polygon()
 
-func _update_navigation_polygon() -> void:
-	var statics = get_node("MapObjects")
+	for c in $MapObjects.get_children():
+		c.visible = true
 
-	for obj in statics.get_children():
+func _update_navigation_polygon() -> void:
+	var statics := []
+	statics.append_array($MapObjects/Buildings.get_children())
+#	statics.append_array($MapObjects/StreetLamps.get_children())
+	statics.append_array($MapObjects/Objects.get_children())
+
+	for obj in statics:
 		if !(obj is StaticObject):
 			continue
-		var poly = obj.get_node("CollisionShape").get_polygon()
+		if !obj.visible:
+			return
 		var outlines : PoolVector2Array
-		for p in poly:
-			outlines.append(obj.position + p)
+		var offset = obj.get_node("Sprite").offset
+		var shape = obj.get_node("CollisionShape")
+		for p in shape.get_polygon():
+			outlines.append(obj.global_position + shape.position + p)
 		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
-
-#	for cell_pos in get_used_cells_by_id(13):
-#		var cell_id = get_cellv(cell_pos)
-##		if cell_id != 13 && cell_id != 14:
-##			continue
-#		var outlines : PoolVector2Array
-#		var pos = map_to_world(cell_pos)
-#		outlines.append(pos + Vector2(0,0))
-#		outlines.append(pos + Vector2(cell_size.x,0))
-#		outlines.append(pos + Vector2(cell_size.x,cell_size.y))
-#		outlines.append(pos + Vector2(0,cell_size.y))
-#		print_debug(pos)
-#		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
 
 	$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().make_polygons_from_outlines()
 	$Navigation2D/NavigationPolygonInstance.enabled = false

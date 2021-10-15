@@ -27,5 +27,3 @@ func update(delta) -> void:
 func _on_animation_finished(anim : String) -> void:
 	owner.set_process(false)
 	owner.set_physics_process(false)
-	owner.get_node("CollisionShape2D").call_deferred("queue_free")
-	owner.get_node("AreaHead/CollisionShape2D").call_deferred("queue_free")

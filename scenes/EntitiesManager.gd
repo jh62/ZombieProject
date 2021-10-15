@@ -6,7 +6,6 @@ const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn"
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 
 onready var n_Statics := $Statics
-onready var n_MapObjects := $MapObjects
 onready var n_Mobs := $Mobs
 
 func _ready() -> void:
@@ -30,19 +29,12 @@ func _on_bullet_spawn(position, damage, knockback := 0.0, direction = null ) -> 
 
 func _on_mob_spawn(position) -> void:
 	var zombie : Mobile = Zombie.instance()
-	zombie.global_position = position
-	zombie.visible = false
-	yield(get_tree().create_timer(.05),"timeout")
-	if zombie.get_slide_count() > 0:
-		zombie.queue_free()
-		return
-
-	zombie.visible = true
-	zombie.nav = get_parent().get_node("Navigation2D")
 	n_Mobs.add_child(zombie)
+	zombie.nav = get_parent().get_node("Navigation2D")
+	zombie.global_position = position
 	emit_signal("on_mob_spawned", zombie)
 
 func _on_object_spawn(scene : PackedScene, position : Vector2) -> void:
 	var obj := scene.instance()
-	obj.global_position = position
 	n_Statics.add_child(obj)
+	obj.global_position = position

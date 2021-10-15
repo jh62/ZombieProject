@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://assets/res/weapon/arms/pistol/idle_handgun.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/weapon/arms/pistol/shoot_handgun.tres" type="Texture" id=2]
@@ -6,8 +6,272 @@
 [ext_resource path="res://scenes/Entities/Items/Weapon/Pistol/Pistol.gd" type="Script" id=4]
 [ext_resource path="res://assets/res/weapon/arms/pistol/run_handgun.tres" type="Texture" id=5]
 
-[sub_resource type="Animation" id=1]
-resource_name = "idle_e"
+[sub_resource type="Animation" id=21]
+resource_name = "hit_e"
+length = 0.1
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "hit_n"
+length = 0.166667
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "hit_ne"
+length = 0.166667
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 15 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "hit_s"
+length = 0.166667
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 11 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "hit_se"
+length = 0.166667
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:vframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 18 ]
+}
+
+[sub_resource type="Animation" id=26]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -60,8 +324,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle_n"
+[sub_resource type="Animation" id=27]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -114,8 +377,7 @@ tracks/3/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "idle_ne"
+[sub_resource type="Animation" id=28]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -168,8 +430,7 @@ tracks/3/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "idle_s"
+[sub_resource type="Animation" id=29]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -222,8 +483,7 @@ tracks/3/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "idle_se"
+[sub_resource type="Animation" id=30]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -276,8 +536,7 @@ tracks/3/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "run_e"
+[sub_resource type="Animation" id=31]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -330,8 +589,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "run_n"
+[sub_resource type="Animation" id=32]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -384,8 +642,7 @@ tracks/3/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "run_ne"
+[sub_resource type="Animation" id=33]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -438,8 +695,7 @@ tracks/3/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "run_s"
+[sub_resource type="Animation" id=34]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -492,8 +748,7 @@ tracks/3/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "run_se"
+[sub_resource type="Animation" id=35]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -546,8 +801,7 @@ tracks/3/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "shoot_e"
+[sub_resource type="Animation" id=16]
 length = 0.666667
 step = 0.166667
 tracks/0/type = "value"
@@ -599,8 +853,7 @@ tracks/3/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "shoot_n"
+[sub_resource type="Animation" id=17]
 length = 0.666667
 step = 0.166667
 tracks/0/type = "value"
@@ -652,8 +905,7 @@ tracks/3/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=13]
-resource_name = "shoot_ne"
+[sub_resource type="Animation" id=18]
 length = 0.666667
 step = 0.166667
 tracks/0/type = "value"
@@ -705,8 +957,7 @@ tracks/3/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "shoot_s"
+[sub_resource type="Animation" id=19]
 length = 0.666667
 step = 0.166667
 tracks/0/type = "value"
@@ -758,8 +1009,7 @@ tracks/3/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "shoot_se"
+[sub_resource type="Animation" id=20]
 length = 0.666667
 step = 0.166667
 tracks/0/type = "value"
@@ -812,9 +1062,11 @@ tracks/3/keys = {
 }
 
 [node name="Pistol" instance=ExtResource( 3 )]
-texture = ExtResource( 1 )
+texture = ExtResource( 5 )
 hframes = 4
 vframes = 5
+frame = 18
+region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 4 )
 damage = 2.0
 knockback = 1.45
@@ -823,18 +1075,23 @@ mag_size = 15
 fire_rate = 2.25
 
 [node name="AnimationPlayer" parent="." index="0"]
-anims/idle_e = SubResource( 1 )
-anims/idle_n = SubResource( 2 )
-anims/idle_ne = SubResource( 3 )
-anims/idle_s = SubResource( 4 )
-anims/idle_se = SubResource( 5 )
-anims/run_e = SubResource( 6 )
-anims/run_n = SubResource( 7 )
-anims/run_ne = SubResource( 8 )
-anims/run_s = SubResource( 9 )
-anims/run_se = SubResource( 10 )
-anims/shoot_e = SubResource( 11 )
-anims/shoot_n = SubResource( 12 )
-anims/shoot_ne = SubResource( 13 )
-anims/shoot_s = SubResource( 14 )
-anims/shoot_se = SubResource( 15 )
+anims/hit_e = SubResource( 21 )
+anims/hit_n = SubResource( 22 )
+anims/hit_ne = SubResource( 23 )
+anims/hit_s = SubResource( 24 )
+anims/hit_se = SubResource( 25 )
+anims/idle_e = SubResource( 26 )
+anims/idle_n = SubResource( 27 )
+anims/idle_ne = SubResource( 28 )
+anims/idle_s = SubResource( 29 )
+anims/idle_se = SubResource( 30 )
+anims/run_e = SubResource( 31 )
+anims/run_n = SubResource( 32 )
+anims/run_ne = SubResource( 33 )
+anims/run_s = SubResource( 34 )
+anims/run_se = SubResource( 35 )
+anims/shoot_e = SubResource( 16 )
+anims/shoot_n = SubResource( 17 )
+anims/shoot_ne = SubResource( 18 )
+anims/shoot_s = SubResource( 19 )
+anims/shoot_se = SubResource( 20 )

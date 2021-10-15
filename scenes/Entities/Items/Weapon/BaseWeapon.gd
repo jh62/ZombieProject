@@ -53,19 +53,24 @@ func update_animations() -> void:
 	var state = equipper.fsm.current_state
 	var facing = equipper.facing
 
-	var anim_name =  state.get_name()
-	var anim_dir = Mobile.get_facing_as_string(facing)
+	var state_name =  state.get_name()
+	var facing_name = Mobile.get_facing_as_string(facing)
+	var anim_name = "{0}_{1}".format({0:state_name,1:facing_name})
+
+	if !anim_p.has_animation(anim_name):
+		return
+
 	self.flip_h = facing.x < 0
 
 	if in_use:
 		if anim_p.current_animation.begins_with("shoot"):
 			return
-		anim_name = "shoot"
+		anim_name = "shoot_{0}".format({0:facing_name})
 		anim_p.playback_speed = fire_rate
 	else:
 		anim_p.playback_speed = 1.0
 
-	anim_p.play("{0}_{1}".format({0:anim_name,1:anim_dir}))
+	anim_p.play(anim_name)
 
 func _on_action_animation_started(anim_name, facing) -> void:
 	match anim_name:

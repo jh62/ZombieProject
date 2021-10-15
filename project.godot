@@ -208,6 +208,10 @@ window/size/test_height=480
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[gui]
+
+theme/custom_font="res://assets/ui/fonts/default_font.tres"
+
 [importer_defaults]
 
 texture={

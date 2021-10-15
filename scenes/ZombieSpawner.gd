@@ -1,17 +1,24 @@
-extends StaticBody2D
+extends Node
 
 export var active := true
-export var radius := 200.0
-export var mob_max := 50
-export var spawn_delay_sec := 1.5
+export var mob_max := 100
+export var mob_group_max := 4
+export var spawn_delay_sec := 30.0
 export var restart_delay := 15.0
 export var restartable := false
+
+onready var n_visible := $VisibilityNotifier2D
+
+var tilemap : TileMap
 
 var elapsed := 0.0
 var spawn_count := 0
 
 func _ready() -> void:
-	pass
+	tilemap = get_parent()
+	if active:
+		yield(get_tree().create_timer(.15),"timeout")
+		_spawn_mob()
 
 func _process(delta: float) -> void:
 	if !active:
@@ -30,16 +37,21 @@ func _process(delta: float) -> void:
 		else:
 			if !restartable:
 				set_process(false)
-				modulate = Color.black
 				return
 			elapsed = -restart_delay
 
-func _spawn_mob() -> void:
-	var angle := rand_range(0.0, 2.0) * PI
-	var direction = Vector2(cos(angle), sin(angle))
-	var pos = global_position + direction * radius
-	pos.x = clamp(pos.x, 0, 640)
-	pos.y = clamp(pos.y, 0, 360)
-	spawn_count += 1
-	EventBus.emit_signal("on_mob_spawn", pos)
+func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
+	var areas := tilemap.get_node("AreaSpawns")
+	for area in areas.get_children():
+		var area_pos = area.global_position
+		n_visible.global_position = area_pos
+		yield(get_tree(),"idle_frame")
+		if n_visible.is_on_screen():
+			continue
 
+		for i in count:
+			var angle := rand_range(0.0, 2.0) * PI
+			var direction = Vector2(cos(angle), sin(angle))
+			var pos =  area_pos + direction * area.shape.radius
+			spawn_count += 1
+			EventBus.emit_signal("on_mob_spawn", pos)

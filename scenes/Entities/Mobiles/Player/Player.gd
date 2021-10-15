@@ -29,7 +29,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	._process(delta)
-	_process_input()
+
+	if is_alive():
+		_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("action"):
@@ -87,7 +89,7 @@ func _process_input() -> void:
 
 	sprite.flip_h = facing.x < 0
 
-func on_hit(attacker) -> void:
+func on_hit_by(attacker) -> void:
 	self.hitpoints -= attacker.damage
 
 	if hitpoints == 0:

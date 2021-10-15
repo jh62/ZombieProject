@@ -19,6 +19,7 @@ func enter_state() -> void:
 	anim_p.play(current_anim)
 
 	owner.hitpoints = 0
+	owner.set_process_unhandled_input(false)
 
 	if owner.equipment != null:
 		owner.equipment.set_process(false)

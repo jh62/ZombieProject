@@ -3,6 +3,10 @@ class_name ZombieMoveState extends State
 var growl_delay := randi() % 15000 + 15000
 var last_growl := 0.0
 
+var wp_idx := 0
+var last_update := 0
+var update_delay := 1150
+
 func _init(owner).(owner):
 	pass
 
@@ -10,28 +14,21 @@ func get_name():
 	return "walk"
 
 func enter_state() -> void:
+	wp_idx = 0
 	last_growl = OS.get_ticks_msec()
 
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-var wp_idx := 0
-var last_update := 0
-var update_delay := 2500
-
 func update(delta) -> void:
 	var target = owner.target
 
 	if owner.dir.length() != 0: # is going somewhere
-		if target == null || owner.waypoints.empty():
+		if target == null && owner.waypoints.empty():
 			var new_state = owner.States.idle.new(owner)
 			owner.fsm.travel_to(new_state)
 			return
-#	if target == null && owner.dir.length() == 0:
-#		var new_state = owner.States.idle.new(owner)
-#		owner.fsm.travel_to(new_state)
-#		return
 
 	if owner._visible_viewport:
 		last_growl += delta
@@ -42,23 +39,23 @@ func update(delta) -> void:
 
 	if target != null:
 		if OS.get_ticks_msec() - last_update > update_delay:
-			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target.global_position, false)
+			var target_pos = target if (target is Vector2) else target.global_position
+			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
 			wp_idx = 0
 			last_update = OS.get_ticks_msec()
-	else:
+
+	if owner.waypoints.empty() || wp_idx >= owner.waypoints.size():
+		if (target is Vector2):
+			target = null
+		var new_state = owner.States.idle.new(owner)
+		owner.fsm.travel_to(new_state)
 		return
 
 	var wp : Vector2 = owner.waypoints[wp_idx]
-
-	if owner.global_position.distance_to(wp) < 1:
-		wp_idx = clamp(wp_idx + 1, 0, owner.waypoints.size() - 1)
-
 	owner.dir = owner.global_position.direction_to(wp)
 
-#	if target is Vector2:
-#		owner.dir = owner.global_position.direction_to(target)
-#	else:
-#		owner.dir = owner.global_position.direction_to(target.global_position)
+	if owner.global_position.distance_to(wp) < 4.0:
+		wp_idx += 1
 
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))

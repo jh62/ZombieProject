@@ -10,8 +10,8 @@ func _ready():
 	var direction = Vector2(cos(angle), sin(angle))
 	apply_impulse(Vector2.ZERO, Vector2(impulse * direction.x, impulse * direction.y))
 	angular_velocity = impulse
-	
-	var scale := clamp(randf(), .5, 1.0)
+
+	var scale := clamp(randf(), .96, 1.0)
 	var frames = $Sprite.hframes * $Sprite.vframes
 	$Sprite.frame = randi() % frames
 	$Sprite.scale = Vector2(scale,scale)
