@@ -5,7 +5,8 @@ var last_growl := 0.0
 
 var wp_idx := 0
 var last_update := 0
-var update_delay := 1150
+var update_delay := 650
+var knows_about := 0.0
 
 func _init(owner).(owner):
 	pass
@@ -20,6 +21,9 @@ func enter_state() -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+
+	if owner.target != null && (owner.target is Mobile):
+		knows_about = 7.0
 
 func update(delta) -> void:
 	var target = owner.target
@@ -38,6 +42,13 @@ func update(delta) -> void:
 			owner.play_random_sound()
 
 	if target != null:
+		if (target is Mobile):
+			if !owner.area_perception.overlaps_body(target):
+				knows_about -= delta
+				if knows_about <= 0:
+					owner.target = null
+					return
+
 		if OS.get_ticks_msec() - last_update > update_delay:
 			var target_pos = target if (target is Vector2) else target.global_position
 			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
@@ -46,7 +57,7 @@ func update(delta) -> void:
 
 	if owner.waypoints.empty() || wp_idx >= owner.waypoints.size():
 		if (target is Vector2):
-			target = null
+			owner.target = null
 		var new_state = owner.States.idle.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
@@ -66,14 +77,20 @@ func update(delta) -> void:
 
 	if owner._visible_viewport:
 		if owner.get_slide_count() > 0:
-			var collider = owner.get_slide_collision(0).collider
-			if collider is Player:
-				var p = collider as Player
+			var collision = owner.get_slide_collision(0)
+			var collider = collision.collider
+			if collider is Mobile:
 
-				if p.is_alive():
-					var new_state = owner.States.attack.new(owner, p)
-					owner.fsm.travel_to(new_state)
-				elif !p.is_eaten:
-					var new_state = owner.States.eat_wait.new(owner, p)
-					owner.fsm.travel_to(new_state)
-				return
+				if collider is Player:
+					var p = collider as Player
+					if p.is_alive():
+						var new_state = owner.States.attack.new(owner, p)
+						owner.fsm.travel_to(new_state)
+					elif !p.is_eaten:
+						var new_state = owner.States.eat_wait.new(owner, p)
+						owner.fsm.travel_to(new_state)
+					return
+				else:
+					var p = collider as Mobile
+					if p.fsm.current_state.get_name().begins_with("idle"):
+						p.vel = -(collision.normal * 16.25)

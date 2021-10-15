@@ -23,6 +23,7 @@ export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 3
 
+onready var area_perception := $AreaPerception
 onready var area_collision := $AreaPerception/CollisionShape2D
 onready var damage := attack_damage
 
@@ -84,8 +85,12 @@ func _on_bullet_spawn(position, damage, direction = null) -> void:
 	if global_position.distance_to(position) > hearing_distance:
 		return
 
-	target = position
-#	waypoints = nav.get_simple_path(global_position, target_pos, true)
+	var angle := rand_range(0.0, 2.0) * PI
+	var dir := Vector2(sin(angle),cos(angle))
+	var radius := 50.0
+	var target_pos = position + dir * radius
+
+	target = nav.get_closest_point(target_pos)
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile

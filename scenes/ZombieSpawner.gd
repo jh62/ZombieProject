@@ -55,3 +55,6 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 			var pos =  area_pos + direction * area.shape.radius
 			spawn_count += 1
 			EventBus.emit_signal("on_mob_spawn", pos)
+
+			if spawn_count >= mob_max:
+				return

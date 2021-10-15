@@ -18,7 +18,7 @@ func enter_state() -> void:
 func update(delta) -> void:
 	var target = owner.target
 
-	if target != null || owner.dir.length() > 0 || !owner.waypoints.empty():
+	if target != null || !owner.waypoints.empty(): #|| owner.dir.length() > 0
 		var new_state = owner.States.walk.new(owner)
 		owner.fsm.travel_to(new_state)
 		return

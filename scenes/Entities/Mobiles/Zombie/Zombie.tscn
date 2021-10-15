@@ -2027,7 +2027,7 @@ radius = 2.0
 
 [node name="Zombie" instance=ExtResource( 1 )]
 collision_layer = 4
-collision_mask = 6
+collision_mask = 15
 script = ExtResource( 3 )
 max_speed = 5.0
 
