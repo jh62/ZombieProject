@@ -7,6 +7,9 @@ const SOUNDS := [
 	preload("res://assets/sfx/mobs/zombie/die/zombie_die_3.wav"),
 ]
 
+var elapsed := 0.0
+var dead_time := rand_range(5.0,18.0)
+
 func _init(owner).(owner):
 	pass
 
@@ -25,14 +28,11 @@ func enter_state() -> void:
 
 func exit_state() -> void:
 	pass
-	
-var elapsed := 0.0
-var dead_time := rand_range(5.0,18.0)
 
 func update(delta) -> void:
 	if elapsed >= dead_time:
 		var new_state = owner.States.standup.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
-		
+
 	elapsed += delta

@@ -32,6 +32,10 @@ func _on_mob_spawn(position) -> void:
 	n_Mobs.add_child(zombie)
 	zombie.nav = get_parent().get_node("Navigation2D")
 	zombie.global_position = position
+
+	if .07 > randf():
+		zombie.fsm.travel_to(ZombieRestState.new(zombie))
+
 	emit_signal("on_mob_spawned", zombie)
 
 func _on_object_spawn(scene : PackedScene, position : Vector2) -> void:
