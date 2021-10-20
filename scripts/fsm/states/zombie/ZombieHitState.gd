@@ -15,8 +15,6 @@ const SOUNDS := {
 	]
 }
 
-const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
-
 var attacker
 
 func _init(owner, _attacker).(owner):
@@ -34,8 +32,6 @@ func enter_state() -> void:
 	owner.vel *= -(attacker.knockback)
 	EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
 	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
-
-	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 
 func exit_state() -> void:
 	pass

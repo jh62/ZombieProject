@@ -14,9 +14,11 @@ func enter_state() -> void:
 	var anim_p = owner.get_anim_player()
 	anim_p.play(current_anim)
 	owner.equipment.visible = false
+	owner.can_move = false
 
 func exit_state() -> void:
 	owner.equipment.visible = true
+	owner.can_move = true
 
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(Vector2.ZERO)

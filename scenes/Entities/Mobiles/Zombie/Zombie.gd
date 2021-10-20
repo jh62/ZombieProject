@@ -8,6 +8,7 @@ const States := {
 	"rest": preload("res://scripts/fsm/states/zombie/ZombieRestState.gd"),
 	"standup": preload("res://scripts/fsm/states/zombie/ZombieStandupState.gd"),
 	"headshot": preload("res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"),
+	"melee": preload("res://scripts/fsm/states/zombie/ZombieBashedState.gd"),
 	"eat_wait": preload("res://scripts/fsm/states/zombie/ZombieEatWaitState.gd"),
 	"eat": preload("res://scripts/fsm/states/zombie/ZombieEatState.gd"),
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
@@ -61,14 +62,15 @@ func _process(delta: float) -> void:
 #			target = null
 
 func on_hit_by(attacker) -> void:
-	if attacker is Projectile:
-		attacker = attacker as Projectile
-		hitpoints -=  attacker.damage
+	hitpoints -=  attacker.damage
 
 	var new_state : State
 
 	if !is_alive():
-		new_state = States.die.new(self)
+		if attacker is MeleeWeapon:
+			new_state = States.melee.new(self)
+		else:
+			new_state = States.die.new(self)
 	else:
 		new_state = States.hit.new(self, attacker)
 

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/res/items/corpses.tres" type="Texture" id=1]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends StaticObject
+
+func _ready():
+	$Sprite.frame = randi() % int($Sprite.hframes * $Sprite.vframes)
+
+	if .07 > randf():
+		$SearchableArea.queue_free()
+"
+
+[node name="Corpse" instance=ExtResource( 2 )]
+script = SubResource( 1 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 5
+region_enabled = false
+
+[node name="SearchableArea" parent="." index="3" instance=ExtResource( 3 )]
+fill_time = 2.3

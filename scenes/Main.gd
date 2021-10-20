@@ -8,8 +8,8 @@ func _ready() -> void:
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 
 	var n_Camera := n_Player.get_node("Camera")
-	n_Camera.limit_left = 0
 	n_Camera.limit_top = 0
+	n_Camera.limit_left = 0
 	n_Camera.limit_right = n_Tilemap.get_node("Background").get_rect().size.x
 	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
 

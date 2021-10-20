@@ -18,6 +18,7 @@ const States := {
 
 onready var equipment := $Equipment
 
+var can_move := true
 var loot_count := 0
 
 func _ready() -> void:
@@ -30,7 +31,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	if is_alive():
+	if is_alive() && can_move:
 		_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -47,11 +48,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("action_alt"):
 		emit_signal("on_search_start", self)
-		fsm.travel_to(States.search.new(self))
 		return
 	elif event.is_action_released("action_alt"):
 		emit_signal("on_search_end", self)
-		fsm.travel_to(States.idle.new(self))
 		return
 
 const look_at_dir := Vector2()
@@ -75,7 +74,7 @@ func _process_input() -> void:
 	else:
 		speed = max_speed
 
-	var epsilon := .15
+	var epsilon := .35
 
 	if look_at_dir.x < -epsilon || look_at_dir.x > epsilon:
 		facing.x = look_at_dir.x
@@ -88,6 +87,12 @@ func _process_input() -> void:
 		facing.y = look_at_dir.y
 
 	sprite.flip_h = facing.x < 0
+
+func begin_search() -> void:
+	fsm.travel_to(States.search.new(self))
+
+func stop_search() -> void:
+	fsm.travel_to(States.idle.new(self))
 
 func on_hit_by(attacker) -> void:
 	self.hitpoints -= attacker.damage

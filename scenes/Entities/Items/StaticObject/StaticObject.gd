@@ -3,6 +3,7 @@ class_name StaticObject extends StaticBody2D
 onready var n_sprite := $Sprite
 
 func _ready():
+	$Sprite/LightOccluder2D.visible = true
 	set_physics_process(false)
 	yield(get_tree().create_timer(.25),"timeout")
 

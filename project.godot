@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/LootItem/LootItem.gd"
 }, {
+"base": "BaseWeapon",
+"class": "MeleeWeapon",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Weapon/MeleeWeapon/MeleeWeapon.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Mobile",
 "language": "GDScript",
@@ -115,6 +120,11 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieAttackState.gd"
 }, {
 "base": "State",
+"class": "ZombieBashedState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieBashedState.gd"
+}, {
+"base": "State",
 "class": "ZombieDieState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieDieState.gd"
@@ -169,6 +179,7 @@ _global_script_class_icons={
 "HitState": "",
 "IdleState": "",
 "LootItem": "",
+"MeleeWeapon": "",
 "Mobile": "",
 "Pickable": "",
 "Player": "",
@@ -181,6 +192,7 @@ _global_script_class_icons={
 "StateMachine": "",
 "StaticObject": "",
 "ZombieAttackState": "",
+"ZombieBashedState": "",
 "ZombieDieState": "",
 "ZombieEatState": "",
 "ZombieEatWaitState": "",

@@ -7,6 +7,8 @@ const SOUNDS := [
 	preload("res://assets/sfx/mobs/zombie/die/zombie_die_3.wav"),
 ]
 
+const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
+
 var elapsed := 0.0
 var dead_time := rand_range(5.0,18.0)
 
@@ -24,6 +26,7 @@ func enter_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
+	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 func exit_state() -> void:

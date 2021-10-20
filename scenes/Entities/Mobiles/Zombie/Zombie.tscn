@@ -2032,6 +2032,7 @@ script = ExtResource( 3 )
 max_speed = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+visible = false
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
@@ -2078,6 +2079,7 @@ anims/walk_s = SubResource( 36 )
 anims/walk_se = SubResource( 37 )
 
 [node name="AreaPerception" type="Area2D" parent="." index="3"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
