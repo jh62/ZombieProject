@@ -812,10 +812,10 @@ region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="AreaGrass" type="Area2D" parent="."]
 visible = false
-input_pickable = false
-monitorable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaGrass"]
 position = Vector2( 640.1, 362.2 )
@@ -859,10 +859,10 @@ polygon = PoolVector2Array( 640, -230, 559.8, -230, 562.2, -256, 621.6, -256, 63
 
 [node name="AreaCement" type="Area2D" parent="."]
 visible = false
-input_pickable = false
-monitorable = false
 collision_layer = 0
 collision_mask = 6
+input_pickable = false
+monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaCement"]
 polygon = PoolVector2Array( 1280, 126, 1280, 340, 1191, 340, 1191, 477, 1280, 477, 1280, 514, 782, 514, 782, 355, 622, 355, 622, 194, 398, 194, 398, 130, 298, 130, 298, 265, 301.1, 270, 421.1, 270, 443.2, 277, 477, 291.9, 515, 327.2, 535, 381, 534, 578, 539.1, 586, 1280, 586, 1280, 654, 539.8, 654, 536, 657.8, 536, 720, 469, 720, 469, 671, 469, 397, 460, 371, 446.2, 354, 436.3, 345, 418.6, 339, 133, 339, 133, 270, 226.2, 270, 230, 266.2, 230, 0, 298, 0, 298, 94, 398, 94, 398, 0, 1011, 0, 1011, 125, 1168, 126 )

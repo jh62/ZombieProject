@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/res/items/motorbike.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/Entities/Items/Bike/Bike.gd" type="Script" id=2]
+[ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.5
 height = 14.0001
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 352, 1216, 32, 15 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 12.0416
@@ -20,6 +25,7 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+normal_map = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false

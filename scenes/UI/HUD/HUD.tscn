@@ -34,7 +34,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 113.0
+margin_right = 71.0
 margin_bottom = 35.0
 
 [node name="HealthBar" type="TextureProgress" parent="CharStats/HBoxContainer"]
@@ -52,7 +52,7 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer"]
 margin_left = 21.0
-margin_right = 109.0
+margin_right = 67.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
@@ -94,7 +94,7 @@ valign = 1
 
 [node name="Gun" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
 margin_top = 17.0
-margin_right = 88.0
+margin_right = 46.0
 margin_bottom = 31.0
 mouse_filter = 2
 size_flags_vertical = 3

@@ -3,7 +3,6 @@
 [resource]
 background_mode = 4
 tonemap_mode = 2
-tonemap_exposure = 0.12
 auto_exposure_scale = 1.24
 auto_exposure_speed = 0.01
 ss_reflections_max_steps = 434
@@ -25,4 +24,3 @@ glow_hdr_threshold = 1.42
 glow_hdr_scale = 1.87
 glow_bicubic_upscale = true
 adjustment_enabled = true
-adjustment_contrast = 1.04
