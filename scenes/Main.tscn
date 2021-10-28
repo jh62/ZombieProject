@@ -60,6 +60,9 @@ editor_draw_drag_margin = true
 [node name="SoundManager" parent="TileMap/Entities/Mobs/Player/Camera" instance=ExtResource( 8 )]
 origin = NodePath("../..")
 
+[node name="Listener2D" type="Listener2D" parent="TileMap/Entities/Mobs/Player"]
+current = true
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TileMap"]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TileMap"]

@@ -46,7 +46,7 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 		var area_pos = area.global_position
 		n_visible.global_position = area_pos
 		yield(get_tree(),"idle_frame")
-		if n_visible.is_on_screen():
+		if n_visible.is_on_screen(): # don't spawn zombies in player's view, it's not nice
 			continue
 
 		for i in count:

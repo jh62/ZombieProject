@@ -72,6 +72,8 @@ var json : JSONParseResult
 var texture : Image
 
 func _ready():
+	$Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
+
 	var file := File.new()
 	file.open("res://assets/maps/map_test.json",File.READ)
 	json = JSON.parse(file.get_as_text())
@@ -140,6 +142,7 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		grp = Global.GROUP_PLAYER
 	else:
 		grp = Global.GROUP_ZOMBIE
+		print_debug("zombie")
 
 	var snd = sound_color_codes[code].sound.get(grp)
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position)

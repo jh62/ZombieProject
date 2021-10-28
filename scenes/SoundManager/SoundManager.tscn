@@ -6,106 +6,158 @@
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer8" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer9" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer10" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer11" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer12" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer13" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer14" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer15" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer17" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer18" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer19" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer20" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer21" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer22" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer23" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer24" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer25" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer26" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer27" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer28" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer29" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer30" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer31" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer32" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer33" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer34" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer35" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer36" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer37" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer38" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer39" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer40" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer41" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer42" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer43" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer44" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer45" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer46" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer47" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer48" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer49" type="AudioStreamPlayer" parent="."]
-
-[node name="AudioStreamPlayer50" type="AudioStreamPlayer" parent="."]
-
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 volume_db = -5.0
+
+[node name="AudioStreams" type="Node" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D3" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D4" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D5" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D6" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D7" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D8" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D9" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D10" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D11" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D12" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D13" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D14" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D15" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D16" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D17" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D18" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D19" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D20" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D21" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D22" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D23" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D24" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D25" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D26" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D27" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D28" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D29" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D30" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D31" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D32" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D33" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D34" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D35" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D36" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D37" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D38" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D39" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D40" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D41" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D42" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D43" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D44" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D45" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D46" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D47" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D48" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D49" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0
+
+[node name="AudioStreamPlayer2D50" type="AudioStreamPlayer2D" parent="AudioStreams"]
+max_distance = 240.0

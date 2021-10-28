@@ -9,11 +9,11 @@ onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
 
 func _ready() -> void:
-	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
-	EventBus.connect("on_mob_spawn", self, "_on_mob_spawn")
-	EventBus.connect("on_object_spawn", self, "_on_object_spawn")
+	EventBus.connect("on_bullet_spawn", self, "_spawn_bullet")
+	EventBus.connect("on_mob_spawn", self, "_spawn_mob")
+	EventBus.connect("on_object_spawn", self, "_spawn_object")
 
-func _on_bullet_spawn(position, damage, knockback := 0.0, direction = null ) -> void:
+func _spawn_bullet(position, damage, knockback := 0.0, direction = null ) -> void:
 	var bullet : Projectile = Bullet.instance()
 	n_Mobs.add_child(bullet)
 
@@ -27,7 +27,7 @@ func _on_bullet_spawn(position, damage, knockback := 0.0, direction = null ) -> 
 	bullet.global_position = position
 	bullet.look_at(position + (direction * 500))
 
-func _on_mob_spawn(position) -> void:
+func _spawn_mob(position) -> void:
 	var zombie : Mobile = Zombie.instance()
 	n_Mobs.add_child(zombie)
 	zombie.nav = get_parent().get_node("Navigation2D")
@@ -38,7 +38,7 @@ func _on_mob_spawn(position) -> void:
 
 	emit_signal("on_mob_spawned", zombie)
 
-func _on_object_spawn(scene : PackedScene, position : Vector2) -> void:
+func _spawn_object(scene : PackedScene, position : Vector2) -> void:
 	var obj := scene.instance()
 	n_Statics.add_child(obj)
 	obj.global_position = position
