@@ -2,6 +2,10 @@ class_name StaticObject extends StaticBody2D
 
 onready var n_sprite := $Sprite
 
+# virtual methods
+func on_search_successful() -> void:
+	pass
+
 func _ready():
 	$Sprite/LightOccluder2D.visible = true
 	set_physics_process(false)
@@ -17,9 +21,6 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	n_sprite.self_modulate.a = 1.0
-
-func on_search_successful() -> void:
-	print_debug("not implemented")
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(false)

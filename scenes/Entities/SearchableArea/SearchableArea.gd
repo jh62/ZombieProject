@@ -3,8 +3,14 @@ class_name SearchableArea extends Area2D
 
 signal on_search_successful
 
+const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
+
+export var loot : PackedScene = preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
 export var radius := 10 setget set_radius
+export var min_amount := 1
+export var max_amount := 1
 export var fill_time := 3.5
+export var spawn_at_mob := false
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
 onready var label := $CanvasLayer/Label
@@ -12,11 +18,6 @@ onready var label := $CanvasLayer/Label
 var searched_by : Node2D
 var searching := false setget, is_searching
 var looted := false setget ,is_looted
-
-var loot := [
-	preload("res://scenes/Entities/Items/Pickable/Pistol/PickablePistol.tscn"),
-	preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
-]
 
 func _ready():
 	connect("on_search_successful", get_parent(), "on_search_successful")
@@ -69,7 +70,9 @@ func _on_search_start(mob) -> void:
 	if mob.fsm.current_state.get_name().begins_with("search"):
 		return
 
-	connect("on_search_successful", mob, "stop_search")
+	if !is_connected("on_search_successful", mob, "stop_search"):
+		connect("on_search_successful", mob, "stop_search")
+
 	mob.begin_search()
 
 	searched_by = mob
@@ -82,7 +85,7 @@ func _on_search_start(mob) -> void:
 func _on_search_end(mob) -> void:
 	mob.stop_search()
 
-	if mob.is_connected("on_search_successful", mob, "stop_search"):
+	if is_connected("on_search_successful", mob, "stop_search"):
 		disconnect("on_search_successful", mob, "stop_search")
 
 	searched_by = null
@@ -93,9 +96,14 @@ func _on_search_end(mob) -> void:
 func _on_ProgressWheel_on_progress_complete():
 	looted = true
 	progress_wheel.stop()
-	var item = loot[randi()%loot.size()]
+
+	var amount := int(rand_range(min_amount, max_amount))
+
+	for i in amount:
+		EventBus.emit_signal("on_object_spawn", loot, global_position)
+
 	emit_signal("on_search_successful")
-	EventBus.emit_signal("on_object_spawn", item, global_position)
+	EventBus.emit_signal("play_sound", audio_search_end, global_position)
 
 func set_radius(new_radius) -> void:
 	radius = new_radius

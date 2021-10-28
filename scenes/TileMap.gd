@@ -97,7 +97,6 @@ func make_outlines(objects) -> void:
 			continue
 #		if !obj.visible:
 #			return
-		print_debug(obj.name)
 		var outlines : PoolVector2Array
 		var offset = obj.get_node("Sprite").offset
 		var shape = obj.get_node("CollisionShape")

@@ -955,7 +955,7 @@ shape = SubResource( 29 )
 z_as_relative = false
 
 [node name="Corpse" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 943, 633 )
+position = Vector2( 943, 634 )
 
 [node name="Corpse2" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 867, 630 )
@@ -1069,7 +1069,7 @@ position = Vector2( 766, 38 )
 position = Vector2( 280, 336 )
 
 [node name="Corpse39" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 280, 146 )
+position = Vector2( 93, 91 )
 
 [node name="Corpse40" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 492, 423 )
@@ -1225,6 +1225,7 @@ position = Vector2( 856, 600 )
 [node name="SearchableArea" parent="MapObjects/Objects/Car" instance=ExtResource( 22 )]
 position = Vector2( 13, 0 )
 radius = 7
+max_amount = 3
 
 [node name="Car2" parent="MapObjects/Objects" instance=ExtResource( 32 )]
 position = Vector2( 846, 625 )
@@ -1246,6 +1247,7 @@ collision_layer = 1
 [node name="SearchableArea" parent="MapObjects/Objects/Car4" instance=ExtResource( 22 )]
 position = Vector2( 11, 0 )
 radius = 7
+max_amount = 3
 fill_time = 5.0
 
 [node name="Car5" parent="MapObjects/Objects" instance=ExtResource( 18 )]
@@ -1262,12 +1264,17 @@ collision_layer = 1
 [node name="SearchableArea" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
 position = Vector2( 0, -14 )
 radius = 7
+min_amount = 3
+max_amount = 5
 fill_time = 5.0
 
 [node name="GasPump1" parent="MapObjects/Objects" instance=ExtResource( 19 )]
 position = Vector2( 626, 21 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/GasPump1" instance=ExtResource( 22 )]
+position = Vector2( -1, 0 )
+loot = ExtResource( 40 )
+radius = 12
 fill_time = 5.0
 
 [node name="GasPump2" parent="MapObjects/Objects" instance=ExtResource( 19 )]
@@ -1284,6 +1291,8 @@ position = Vector2( 562, 90 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Boxes" instance=ExtResource( 22 )]
 position = Vector2( 2, 5 )
+min_amount = 3
+max_amount = 5
 fill_time = 5.0
 
 [node name="Boxes2" parent="MapObjects/Objects" instance=ExtResource( 21 )]
@@ -1291,12 +1300,15 @@ position = Vector2( 798, 370 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Boxes2" instance=ExtResource( 22 )]
 position = Vector2( 0, -6 )
+min_amount = 2
+max_amount = 5
 fill_time = 5.0
 
 [node name="Box" parent="MapObjects/Objects" instance=ExtResource( 23 )]
 position = Vector2( 557, 3 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Box" instance=ExtResource( 22 )]
+max_amount = 4
 fill_time = 5.0
 
 [node name="Trashbag" parent="MapObjects/Objects" instance=ExtResource( 26 )]

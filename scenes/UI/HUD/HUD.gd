@@ -12,6 +12,7 @@ onready var gas_tank_fill_amount := $GasTank/Label
 onready var weapon_ammo := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
 
 func _ready():
+#	print_debug($CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect.rect_global_position)
 	n_player.connect("on_hit", self, "_on_player_hit")
 	n_player.connect("on_item_pickedup", self, "_on_item_pickedup")
 	n_player.connect("on_loot_pickedup", self, "_on_player_loot")

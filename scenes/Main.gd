@@ -13,10 +13,14 @@ func _ready() -> void:
 	n_Camera.limit_right = n_Tilemap.get_node("Background").get_rect().size.x
 	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
 
-	if OS.get_name().is_subsequence_ofi("html5"):
-		$TileMap/WorldEnvironment.queue_free()
-	else:
-		$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+#	if OS.get_name().is_subsequence_ofi("html5"):
+#		$TileMap/WorldEnvironment.queue_free()
+#	else:
+#		$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+#		$TileMap/CanvasModulate.visible = true
+
+	$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+	$TileMap/CanvasModulate.visible = true
 
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()

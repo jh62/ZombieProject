@@ -53,7 +53,6 @@ __meta__ = {
 }
 
 [node name="Statics" type="YSort" parent="TileMap/Entities"]
-sort_enabled = false
 __meta__ = {
 "_edit_lock_": true
 }
@@ -67,7 +66,7 @@ position = Vector2( 1168, 620 )
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 280, 552 )
+position = Vector2( 139, 3 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -92,6 +91,7 @@ current = true
 environment = SubResource( 1 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TileMap"]
+visible = false
 color = Color( 0.156863, 0.156863, 0.156863, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]

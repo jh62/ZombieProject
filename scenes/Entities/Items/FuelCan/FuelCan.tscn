@@ -150,7 +150,7 @@ tracks/4/keys = {
 
 [node name="FuelCan" type="RigidBody2D"]
 collision_layer = 8
-collision_mask = 39
+collision_mask = 47
 mode = 2
 gravity_scale = 0.0
 linear_damp = 10.0
