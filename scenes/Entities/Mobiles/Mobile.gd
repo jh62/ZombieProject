@@ -17,6 +17,8 @@ var fsm : StateMachine
 var _visible_viewport := true
 
 # virtual methods
+func kill() -> void:
+	pass
 func on_hit_by(_attacker : Node2D) -> void:
 	pass
 func _process_animations() -> void:

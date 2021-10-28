@@ -89,25 +89,31 @@ func _ready():
 	for c in $MapObjects.get_children():
 		c.visible = true
 
-func _update_navigation_polygon() -> void:
-	var statics := []
-	statics.append_array($MapObjects/Buildings.get_children())
-#	statics.append_array($MapObjects/StreetLamps.get_children())
-	statics.append_array($MapObjects/Objects.get_children())
-
-	for obj in statics:
+func make_outlines(objects) -> void:
+	for obj in objects:
 		if !(obj is StaticObject):
 			continue
-		if !obj.visible:
-			return
+#		if !obj.visible:
+#			return
+		print_debug(obj.name)
 		var outlines : PoolVector2Array
 		var offset = obj.get_node("Sprite").offset
 		var shape = obj.get_node("CollisionShape")
 		for p in shape.get_polygon():
 			outlines.append(obj.global_position + shape.position + p)
-		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
 
-	$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().make_polygons_from_outlines()
+		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
+		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().make_polygons_from_outlines()
+
+func _update_navigation_polygon() -> void:
+	var buildings := $MapObjects/Buildings.get_children()
+	var objects := $MapObjects/Objects.get_children()
+	var streetlamps := $MapObjects/StreetLamps.get_children()
+
+	make_outlines(buildings)
+	make_outlines(objects)
+	make_outlines(streetlamps)
+
 	$Navigation2D/NavigationPolygonInstance.enabled = false
 	yield(get_tree(),"idle_frame")
 	$Navigation2D/NavigationPolygonInstance.enabled = true

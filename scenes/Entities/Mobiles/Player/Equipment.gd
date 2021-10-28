@@ -7,16 +7,17 @@ func _ready() -> void:
 		var t = item.instance()
 		equip(t)
 
-func equip(item : BaseItem) -> void:
+func equip(_item : BaseItem) -> void:
 	if has_item_equipped():
 		var old_item := get_item()
-		if old_item is BaseWeapon && item is BaseWeapon:
-			item.bullets += old_item.bullets
+		if old_item is BaseWeapon && _item is BaseWeapon:
+			_item.bullets += old_item.bullets
 		clear()
 
-	item.equipper = self.owner
+	_item.equipper = self.owner
+	_item.light_mask = get_parent().light_mask
 	visible = true
-	add_child(item)
+	add_child(_item)
 
 func clear() -> void:
 	for child in get_children():

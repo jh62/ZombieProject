@@ -16,4 +16,4 @@ region_rect = Rect2( 0, 0, 31, 17 )
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-polygon = PoolVector2Array( 14, -5, -14, -5, -16, -4, -16, 5, -14, 6, 14, 6, 15, 5, 15, -4 )
+polygon = PoolVector2Array( 14, -5, -15, -5, -15, 6, 14, 6 )

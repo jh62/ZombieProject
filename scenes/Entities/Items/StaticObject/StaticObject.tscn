@@ -26,5 +26,9 @@ collision_mask = 0
 
 [node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

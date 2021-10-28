@@ -20,3 +20,15 @@ func _on_body_exited(body):
 
 func on_search_successful() -> void:
 	print_debug("not implemented")
+
+func _on_VisibilityNotifier2D_screen_entered():
+	set_process(false)
+	set_physics_process(false)
+	$Area2D.monitorable = false
+	$Area2D.monitorable = false
+
+func _on_VisibilityNotifier2D_screen_exited():
+	set_process(true)
+	set_physics_process(true)
+	$Area2D.monitorable = true
+	$Area2D.monitorable = true

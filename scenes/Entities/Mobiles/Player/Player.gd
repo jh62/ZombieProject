@@ -94,17 +94,23 @@ func begin_search() -> void:
 func stop_search() -> void:
 	fsm.travel_to(States.idle.new(self))
 
+func kill() -> void:
+	fsm.travel_to(States.die.new(self))
+	emit_signal("on_death")
+
 func on_hit_by(attacker) -> void:
 	self.hitpoints -= attacker.damage
 
 	if hitpoints == 0:
-		vel *= vel * attacker.dir
-		fsm.travel_to(States.die.new(self))
-		emit_signal("on_death")
+#		vel *= vel * attacker.dir
+		kill()
 	else:
 		fsm.travel_to(States.hit.new(self, attacker))
 
 	emit_signal("on_hit")
+
+func has_fuelcan() -> bool:
+	return find_node("FuelCan*",true) != null
 
 func get_equipped():
 	return equipment.get_child(0)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/SoundManager/SoundManager.gd" type="Script" id=1]
+[ext_resource path="res://assets/music/track_01.ogg" type="AudioStream" id=2]
 
 [node name="SoundManager" type="Node2D"]
 script = ExtResource( 1 )
@@ -104,3 +105,7 @@ script = ExtResource( 1 )
 [node name="AudioStreamPlayer49" type="AudioStreamPlayer" parent="."]
 
 [node name="AudioStreamPlayer50" type="AudioStreamPlayer" parent="."]
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -5.0

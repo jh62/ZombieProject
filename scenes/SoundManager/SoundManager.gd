@@ -2,6 +2,8 @@ extends Node2D
 
 export var origin : NodePath
 
+onready var music_player := $MusicPlayer
+
 var idx := 0
 var idx_2d := 0
 var last_played_ms := 0.0
@@ -43,8 +45,8 @@ func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_ra
 
 	if position != Vector2.ZERO:
 		var dist : float = get_node(origin).global_position.distance_to(position)
-		if dist > get_tree().root.get_visible_rect().size.x * .5:
-			return
+#		if dist > get_tree().root.get_visible_rect().size.x * .5:
+#			return
 		var mul := db - dist / (max_distance * .1)
 		db += mul
 

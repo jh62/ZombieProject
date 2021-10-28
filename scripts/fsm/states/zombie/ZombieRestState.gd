@@ -24,7 +24,7 @@ func update(delta) -> void:
 		return
 
 	if elapsed >= 2.0:
-		if owner.area_perception.overlaps_body(owner.target):
+		if owner.target is Vector2 || owner.area_perception.overlaps_body(owner.target):
 			var new_state = owner.States.standup.new(owner)
 			owner.fsm.travel_to(new_state)
 			return

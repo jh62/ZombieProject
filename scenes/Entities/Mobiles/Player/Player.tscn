@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/Entities/Mobiles/Mobile.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Equipment.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/res/char/idle.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/char/run.tres" type="Texture" id=8]
 [ext_resource path="res://assets/res/char/searching.tres" type="Texture" id=9]
+[ext_resource path="res://assets/res/char/idle_n.tres" type="Texture" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.92417
@@ -585,6 +586,18 @@ tracks/3/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite:normal_map")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 10 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -1686,8 +1699,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 light_mask = 3
-texture = ExtResource( 6 )
-hframes = 6
+texture = ExtResource( 7 )
+normal_map = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fuelcan_pickup.wav-0068ecbd46974bfa4ec7a14f1854e417.sample"
+
+[deps]
+
+source_file="res://assets/sfx/misc/fuelcan_pickup.wav"
+dest_files=[ "res://.import/fuelcan_pickup.wav-0068ecbd46974bfa4ec7a14f1854e417.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

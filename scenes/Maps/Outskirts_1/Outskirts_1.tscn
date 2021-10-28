@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=2]
@@ -34,6 +34,12 @@
 [ext_resource path="res://scenes/Entities/Items/StaticObject/CarD.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Debris02.tscn" type="PackedScene" id=33]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/SmallBoxOpen01.tscn" type="PackedScene" id=34]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Lot.tscn" type="PackedScene" id=35]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building06.tscn" type="PackedScene" id=36]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building07.tscn" type="PackedScene" id=37]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building08.tscn" type="PackedScene" id=38]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building09.tscn" type="PackedScene" id=39]
+[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=40]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -958,7 +964,7 @@ position = Vector2( 867, 630 )
 position = Vector2( 838, 601 )
 
 [node name="Corpse4" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 810, 638 )
+position = Vector2( 791, 631 )
 
 [node name="Corpse5" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 901, 613 )
@@ -1059,6 +1065,30 @@ position = Vector2( 1140, 459 )
 [node name="Corpse37" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 766, 38 )
 
+[node name="Corpse38" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 280, 336 )
+
+[node name="Corpse39" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 280, 146 )
+
+[node name="Corpse40" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 492, 423 )
+
+[node name="Corpse41" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 512, 480 )
+
+[node name="Corpse42" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 264, 541 )
+
+[node name="Corpse43" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 344, 617 )
+
+[node name="Corpse44" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 584, 643 )
+
+[node name="Corpse45" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
+position = Vector2( 215, 296 )
+
 [node name="Debris" parent="MapObjects/BackgroundObjects" instance=ExtResource( 27 )]
 position = Vector2( 734, 332 )
 
@@ -1070,6 +1100,9 @@ position = Vector2( 876, 611 )
 
 [node name="Debris4" parent="MapObjects/BackgroundObjects" instance=ExtResource( 33 )]
 position = Vector2( 838, 648 )
+
+[node name="Lot" parent="MapObjects/BackgroundObjects" instance=ExtResource( 35 )]
+position = Vector2( 325, 451 )
 
 [node name="StreetLamps" type="YSort" parent="MapObjects"]
 visible = false
@@ -1180,26 +1213,24 @@ collision_layer = 1
 collision_mask = 6
 
 [node name="StreetLamp22" parent="MapObjects/StreetLamps" instance=ExtResource( 7 )]
-position = Vector2( 460, 475 )
+position = Vector2( 459, 472 )
 collision_layer = 1
 collision_mask = 6
 
 [node name="Objects" type="YSort" parent="MapObjects"]
 
 [node name="Car" parent="MapObjects/Objects" instance=ExtResource( 29 )]
-position = Vector2( 856, 601 )
+position = Vector2( 856, 600 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Car" instance=ExtResource( 22 )]
 position = Vector2( 13, 0 )
 radius = 7
 
 [node name="Car2" parent="MapObjects/Objects" instance=ExtResource( 32 )]
-position = Vector2( 844, 621 )
-rotation = 0.150098
-scale = Vector2( 1, 1 )
+position = Vector2( 846, 625 )
 
 [node name="Car3" parent="MapObjects/Objects" instance=ExtResource( 18 )]
-position = Vector2( 792, 643 )
+position = Vector2( 776, 643 )
 rotation = -3.05433
 collision_layer = 1
 
@@ -1209,7 +1240,7 @@ radius = 7
 fill_time = 5.0
 
 [node name="Car4" parent="MapObjects/Objects" instance=ExtResource( 16 )]
-position = Vector2( 889, 631 )
+position = Vector2( 888, 631 )
 collision_layer = 1
 
 [node name="SearchableArea" parent="MapObjects/Objects/Car4" instance=ExtResource( 22 )]
@@ -1218,15 +1249,14 @@ radius = 7
 fill_time = 5.0
 
 [node name="Car5" parent="MapObjects/Objects" instance=ExtResource( 18 )]
-position = Vector2( 766, 610 )
+position = Vector2( 752, 609 )
 scale = Vector2( -1, 1 )
 
 [node name="Car6" parent="MapObjects/Objects" instance=ExtResource( 16 )]
-position = Vector2( 796, 606 )
-rotation = -0.0349066
+position = Vector2( 792, 608 )
 
 [node name="TruckA" parent="MapObjects/Objects" instance=ExtResource( 17 )]
-position = Vector2( 824, 631 )
+position = Vector2( 810, 641 )
 collision_layer = 1
 
 [node name="SearchableArea" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
@@ -1290,6 +1320,22 @@ position = Vector2( 1074, 358 )
 [node name="Box2" parent="MapObjects/Objects" instance=ExtResource( 25 )]
 position = Vector2( 798, 493 )
 
+[node name="FuelCan" parent="MapObjects/Objects" instance=ExtResource( 40 )]
+position = Vector2( 522, 91 )
+chance = 0.23
+
+[node name="FuelCan2" parent="MapObjects/Objects" instance=ExtResource( 40 )]
+position = Vector2( 344, 413 )
+chance = 0.27
+
+[node name="FuelCan3" parent="MapObjects/Objects" instance=ExtResource( 40 )]
+position = Vector2( 818, 618 )
+chance = 0.34
+
+[node name="FuelCan4" parent="MapObjects/Objects" instance=ExtResource( 40 )]
+position = Vector2( 1250, 308 )
+chance = 0.21
+
 [node name="Buildings" type="YSort" parent="MapObjects"]
 
 [node name="Building01" parent="MapObjects/Buildings" instance=ExtResource( 4 )]
@@ -1344,8 +1390,20 @@ position = Vector2( 1068, 465 )
 collision_layer = 1
 
 [node name="Building05" parent="MapObjects/Buildings" instance=ExtResource( 12 )]
-position = Vector2( 826, 445 )
+position = Vector2( 832, 456 )
 collision_layer = 1
+
+[node name="Building06" parent="MapObjects/Buildings" instance=ExtResource( 36 )]
+position = Vector2( 387, 408 )
+
+[node name="Building07" parent="MapObjects/Buildings" instance=ExtResource( 37 )]
+position = Vector2( 308, 413 )
+
+[node name="Building08" parent="MapObjects/Buildings" instance=ExtResource( 38 )]
+position = Vector2( 394, 475 )
+
+[node name="Building09" parent="MapObjects/Buildings" instance=ExtResource( 39 )]
+position = Vector2( 256, 416 )
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
 visible = false

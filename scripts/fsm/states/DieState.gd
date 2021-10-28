@@ -28,6 +28,10 @@ func enter_state() -> void:
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 func update(delta) -> void:
+	if round(owner.vel.length()) >= 0.0:
+		owner.vel = owner.move_and_slide(owner.vel)
+		owner.vel *= .9
+
 	if owner.is_eaten:
 		owner.get_node("CollisionShape2D").disabled = true
 		owner.set_process(false)

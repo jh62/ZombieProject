@@ -81,12 +81,14 @@ func _on_search_start(mob) -> void:
 
 func _on_search_end(mob) -> void:
 	mob.stop_search()
-	disconnect("on_search_successful", mob, "stop_search")
+
+	if mob.is_connected("on_search_successful", mob, "stop_search"):
+		disconnect("on_search_successful", mob, "stop_search")
 
 	searched_by = null
 	searching = false
 	progress_wheel.stop()
-	label.visible = true
+	label.visible = !looted
 
 func _on_ProgressWheel_on_progress_complete():
 	looted = true

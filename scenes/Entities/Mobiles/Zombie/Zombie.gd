@@ -61,6 +61,10 @@ func _process(delta: float) -> void:
 #		if target is Mobile && !target.is_alive():
 #			target = null
 
+func kill() -> void:
+	var new_state = States.headshot.new(self)
+	fsm.travel_to(new_state)
+
 func on_hit_by(attacker) -> void:
 	hitpoints -=  attacker.damage
 
@@ -77,21 +81,20 @@ func on_hit_by(attacker) -> void:
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
-	var new_state = States.headshot.new(self)
-	fsm.travel_to(new_state)
+	kill()
 	body.call_deferred("queue_free")
 
-func _on_bullet_spawn(position, damage, direction = null) -> void:
+func _on_bullet_spawn(_position, _damage, _direction = null) -> void:
 	if target != null && !(target is Vector2):
 		return
 
-	if global_position.distance_to(position) > hearing_distance:
+	if global_position.distance_to(_position) > hearing_distance:
 		return
 
 	var angle := rand_range(0.0, 2.0) * PI
 	var dir := Vector2(sin(angle),cos(angle))
 	var radius := 50.0
-	var target_pos = position + dir * radius
+	var target_pos = _position + dir * radius
 
 	target = nav.get_closest_point(target_pos)
 
