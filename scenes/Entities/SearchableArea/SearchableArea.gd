@@ -5,6 +5,7 @@ signal on_search_successful
 
 const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
+export var lootpack := {}
 export var loot : PackedScene = preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
 export var radius := 10 setget set_radius
 export var min_amount := 1
@@ -13,7 +14,7 @@ export var fill_time := 3.5
 export var spawn_at_mob := false
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
-onready var label := $CanvasLayer/Label
+onready var icon := $TextureRect
 
 var searched_by : Node2D
 var searching := false setget, is_searching
@@ -23,6 +24,7 @@ func _ready():
 	connect("on_search_successful", get_parent(), "on_search_successful")
 	$CollisionShape2D.shape.radius = radius
 	$CanvasLayer/ProgressWheel.fill_time = fill_time
+	$TextureRect.visible = false
 
 func is_looted() -> bool:
 	return looted
@@ -40,14 +42,10 @@ func _on_SearchableArea_body_entered(body : Node2D):
 	if !is_searchable():
 		return
 
-	label.rect_position = get_global_transform_with_canvas().get_origin()
-	label.rect_position.x -= label.rect_size.x * .5
-	label.rect_position.y -= label.rect_size.y * 1.5
-
 	body = body as Player
 	body.connect("on_search_start", self, "_on_search_start")
 	body.connect("on_search_end", self, "_on_search_end")
-	label.visible = true
+	icon.visible = true
 
 func _on_SearchableArea_body_exited(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
@@ -56,7 +54,7 @@ func _on_SearchableArea_body_exited(body : Node2D):
 	body = body as Player
 	body.disconnect("on_search_start", self, "_on_search_start")
 	body.disconnect("on_search_end", self, "_on_search_end")
-	label.visible = false
+	icon.visible = false
 
 	if searched_by == body:
 		searched_by = null
@@ -75,12 +73,14 @@ func _on_search_start(mob) -> void:
 
 	mob.begin_search()
 
+	icon.visible = false
+
 	searched_by = mob
 	searching = true
-	progress_wheel.rect_position = get_global_transform_with_canvas().get_origin()
-	progress_wheel.rect_position -= progress_wheel.rect_size * .5
+	progress_wheel.rect_position = mob.get_global_transform_with_canvas().get_origin()
+	progress_wheel.rect_position.x -= progress_wheel.rect_size.x * .5
+	progress_wheel.rect_position.y -= mob.get_node("Sprite").region_rect.size.y * 1.5
 	progress_wheel.start()
-	label.visible = false
 
 func _on_search_end(mob) -> void:
 	mob.stop_search()
@@ -90,8 +90,8 @@ func _on_search_end(mob) -> void:
 
 	searched_by = null
 	searching = false
+	icon.visible = !looted
 	progress_wheel.stop()
-	label.visible = !looted
 
 func _on_ProgressWheel_on_progress_complete():
 	looted = true
@@ -100,7 +100,9 @@ func _on_ProgressWheel_on_progress_complete():
 	var amount := int(rand_range(min_amount, max_amount))
 
 	for i in amount:
-		EventBus.emit_signal("on_object_spawn", loot, global_position)
+		var _item = lootpack.get(randi() % lootpack.values().size())
+		EventBus.emit_signal("on_object_spawn", _item, global_position)
+#		EventBus.emit_signal("on_object_spawn", loot, global_position)
 
 	emit_signal("on_search_successful")
 	EventBus.emit_signal("play_sound", audio_search_end, global_position)

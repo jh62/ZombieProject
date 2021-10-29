@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -8,32 +8,10 @@
 [ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
 [ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/Entities/Items/Pickable/SMG/PickableSMG.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/res/env/enviroment.tres" type="Environment" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-
-[sub_resource type="Environment" id=1]
-background_mode = 4
-tonemap_mode = 2
-auto_exposure_scale = 1.24
-auto_exposure_speed = 0.01
-ss_reflections_max_steps = 434
-ss_reflections_depth_tolerance = 91.1
-ssao_radius = 61.58
-ssao_intensity = 52.07
-ssao_radius2 = 57.26
-ssao_intensity2 = 59.95
-ssao_bias = 2.01
-ssao_light_affect = 0.26
-ssao_ao_channel_affect = 0.46
-dof_blur_far_distance = 0.05
-dof_blur_far_transition = 5.64
-dof_blur_far_amount = 0.64
-glow_intensity = 4.17
-glow_strength = 1.32
-glow_bloom = 0.45
-glow_hdr_threshold = 1.42
-glow_hdr_scale = 1.87
-glow_bicubic_upscale = true
-adjustment_enabled = true
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -58,15 +36,16 @@ __meta__ = {
 }
 
 [node name="PickablePistol" parent="TileMap/Entities/Statics" instance=ExtResource( 5 )]
-position = Vector2( 1074, 617 )
+position = Vector2( 1140, 635 )
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 1168, 620 )
+fuel_amount = 12.0
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 139, 3 )
+position = Vector2( 1145, 621 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -87,29 +66,62 @@ origin = NodePath("../..")
 [node name="Listener2D" type="Listener2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
 
+[node name="FuelCan" parent="TileMap/Entities/Mobs" instance=ExtResource( 9 )]
+position = Vector2( 1161, 643 )
+
+[node name="PickableSMG" parent="TileMap/Entities/Mobs" instance=ExtResource( 10 )]
+position = Vector2( 1138, 657 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TileMap"]
-environment = SubResource( 1 )
+environment = ExtResource( 11 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="TileMap"]
 visible = false
+z_index = 200
 color = Color( 0.156863, 0.156863, 0.156863, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
 
-[node name="Button" type="Button" parent="UI"]
-visible = false
-anchor_left = 0.410937
-anchor_top = 0.888888
-anchor_right = 0.589063
-anchor_bottom = 1.0
-text = "Restart"
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
 p_player = NodePath("../../TileMap/Entities/Mobs/Player")
 p_bike = NodePath("../../TileMap/Entities/Statics/Bike")
 
+[node name="ScreenMessage" type="Control" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/ScreenMessage"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -27.0
+margin_top = -25.0
+margin_right = 27.0
+margin_bottom = -6.0
+text = "Restart"
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
+[connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="." method="_on_Player_on_death"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]

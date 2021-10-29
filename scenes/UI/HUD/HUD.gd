@@ -5,35 +5,39 @@ export var p_bike : NodePath
 
 onready var n_player : Player = get_node(p_player)
 onready var n_bike : Bike = get_node(p_bike)
-onready var health_bar := $CharStats/HBoxContainer/HealthBar
-onready var loot_count := $CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/Label
-onready var gas_tank := $GasTank/ProgressBar
-onready var gas_tank_fill_amount := $GasTank/Label
-onready var weapon_ammo := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
+onready var n_Stats := $CharStats
+onready var n_HealthBar := $CharStats/HBoxContainer/CenterContainer/HealthBar
+onready var n_LabelLootCount := $CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/Label
+onready var n_GasTank := $GasTank
+onready var n_GasTankProgressBar := $GasTank/ProgressBar
+onready var n_GasTankLabel := $GasTank/Label
+onready var n_AmmoLabel := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
+onready var n_Tween := $Tween
 
 func _ready():
-#	print_debug($CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect.rect_global_position)
 	n_player.connect("on_hit", self, "_on_player_hit")
 	n_player.connect("on_item_pickedup", self, "_on_item_pickedup")
 	n_player.connect("on_loot_pickedup", self, "_on_player_loot")
+	n_player.connect("on_footstep", self, "_on_player_footstep")
 	n_bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
 
-	health_bar.max_value = n_player.max_hitpoints
-	gas_tank.max_value = Globals.MAX_FUEL_LITERS
+	n_HealthBar.max_value = n_player.max_hitpoints
+	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 
 	update_healthbar()
 	update_weapon_status()
 	update_fuel_status()
+	update_loot_count()
 
 func update_healthbar() -> void:
-	health_bar.value = n_player.max_hitpoints - n_player.hitpoints
+	n_HealthBar.value = n_player.max_hitpoints - n_player.hitpoints
 
 func _on_player_hit() -> void:
 	update_healthbar()
 
 func update_loot_count() -> void:
 	yield(get_tree(),"idle_frame") # so it updates properly
-	loot_count.text = "x{0}".format({0:n_player.loot_count})
+	n_LabelLootCount.text = "x {0}".format({0:n_player.loot_count})
 
 func update_weapon_status() -> void:
 	yield(get_tree(),"idle_frame") # so it updates properly
@@ -45,18 +49,33 @@ func update_weapon_status() -> void:
 
 	var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
 
-	weapon_ammo.visible = weapon.bullets + weapon.magazine > 0
-	weapon_ammo.text = "x{0}".format({0:mag_left})
+	n_AmmoLabel.visible = weapon.bullets + weapon.magazine > 0
+	n_AmmoLabel.text = "x{0}".format({0:mag_left})
 
 func update_fuel_status() -> void:
-	gas_tank.value = n_bike.fuel_amount
-	gas_tank_fill_amount.text = "{0}%".format({0:(gas_tank.value / gas_tank.max_value) * 100})
+	n_GasTankProgressBar.value = n_bike.fuel_amount
+	n_GasTankLabel.text = "{0}%".format({0:(n_GasTankProgressBar.value / n_GasTankProgressBar.max_value) * 100})
+
+var alpha_when_behind := .05
+
+func _on_player_footstep(mob) -> void:
+	var behind_stats = n_Stats.get_rect().has_point(mob.get_global_transform_with_canvas().origin)
+	n_Stats.modulate.a = alpha_when_behind if behind_stats else 1.0
+
+	var behind_gas_tank = n_GasTank.get_rect().has_point(mob.get_global_transform_with_canvas().origin)
+	n_GasTank.modulate.a = alpha_when_behind if behind_gas_tank else 1.0
 
 func _on_item_pickedup() -> void:
 	update_weapon_status()
 
 func _on_player_loot() -> void:
 	update_loot_count()
+
+	if !n_Tween.is_active():
+		n_Tween.interpolate_property($CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect,"rect_scale",Vector2(1,1),Vector2(1.1,1.1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
+		n_Tween.start()
+		yield(n_Tween,"tween_completed")
+		$CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect.rect_scale = Vector2(1,1)
 
 func _on_equipment_use() -> void:
 	update_weapon_status()

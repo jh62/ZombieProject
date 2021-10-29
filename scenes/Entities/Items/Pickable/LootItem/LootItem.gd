@@ -2,6 +2,8 @@ class_name LootItem extends Pickable
 
 const ItemPopSound := preload("res://assets/sfx/misc/item_pop.wav")
 
+export var pick_delay := 1.15
+
 var dir_vel := Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * rand_range(40.0,60.0)
 var picked := false
 
@@ -9,7 +11,7 @@ func _ready():
 	$Sprite.frame = randi() % ($Sprite.hframes * $Sprite.vframes)
 
 	$CollisionShape2D.disabled = true
-	yield(get_tree().create_timer(1.7),"timeout")
+	yield(get_tree().create_timer(pick_delay),"timeout")
 	$CollisionShape2D.disabled = false
 
 func _process(delta):

@@ -66,6 +66,8 @@ const sound_color_codes := {
 	},
 }
 
+export var map_name := ""
+
 onready var n_navigation := $Navigation2D
 
 var json : JSONParseResult
@@ -141,7 +143,6 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		grp = Global.GROUP_PLAYER
 	else:
 		grp = Global.GROUP_ZOMBIE
-		print_debug("zombie")
 
 	var snd = sound_color_codes[code].sound.get(grp)
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position)

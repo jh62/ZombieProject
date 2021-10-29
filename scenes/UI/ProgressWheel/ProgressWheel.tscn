@@ -1,18 +1,20 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/ui/progress_wheel/progress_wheel_under.png" type="Texture" id=1]
+[ext_resource path="res://assets/res/ui/progress_bar/progress_bar_background.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/ProgressWheel/ProgressWheel.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui/progress_wheel/progress_wheel_fill.png" type="Texture" id=3]
+[ext_resource path="res://assets/res/ui/progress_bar/progress_bar_fill.tres" type="Texture" id=3]
 [ext_resource path="res://assets/sfx/misc/searching_ticking.wav" type="AudioStream" id=4]
 
 [node name="ProgressWheel" type="TextureProgress"]
-anchor_right = 0.05
-anchor_bottom = 0.0888889
+anchor_right = 0.2
+anchor_bottom = 0.0222222
+rect_min_size = Vector2( 64, 4 )
 value = 50.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 3 )
-fill_mode = 4
+tint_progress = Color( 0.12549, 1, 0, 1 )
 radial_initial_angle = 180.0
+nine_patch_stretch = true
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": true
@@ -25,4 +27,17 @@ fill_time = 3.5
 stream = ExtResource( 4 )
 volume_db = -30.0
 
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 4.25
+text = "SEARCHING"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TimerLabelBlink" type="Timer" parent="."]
+
 [connection signal="value_changed" from="." to="." method="_on_ProgressWheel_value_changed"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

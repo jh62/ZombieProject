@@ -1,16 +1,22 @@
 class_name Bike extends KinematicBody2D
 
+signal on_full_tank
 signal on_fuel_changed(amount)
+
+export var fuel_amount := 0.0 setget set_fuel_amount
 
 var player
 var fuelcan
-var fuel_amount := 0.0 setget set_fuel_amount
 
 func _ready():
 	$Area2D/CollisionShape2D.shape = $CollisionShape2D.shape
 
 func set_fuel_amount(new_amount) -> void:
 	fuel_amount = clamp(fuel_amount + new_amount, 0.0, Globals.MAX_FUEL_LITERS)
+
+	if fuel_amount >= Globals.MAX_FUEL_LITERS:
+		emit_signal("on_full_tank")
+		return
 
 func _on_body_entered(body):
 	var _player = body as Player
@@ -43,7 +49,7 @@ func _on_Timer_timeout():
 		$Timer.stop()
 		return
 
-	fuel_amount += .15
+	self.fuel_amount += .15
 	fuelcan.fuel_amount -= .15
 
 	if fuelcan.fuel_amount == 0.0:

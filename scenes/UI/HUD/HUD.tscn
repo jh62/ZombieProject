@@ -19,10 +19,10 @@ __meta__ = {
 }
 
 [node name="CharStats" type="MarginContainer" parent="."]
-anchor_right = 0.184375
-anchor_bottom = 0.222222
-margin_right = -2.0
-margin_bottom = -8.00004
+anchor_right = 0.25625
+anchor_bottom = 0.255556
+margin_right = -25.0
+margin_bottom = -14.0001
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -34,15 +34,20 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 71.0
-margin_bottom = 35.0
+margin_right = 78.0
+margin_bottom = 42.0
 
-[node name="HealthBar" type="TextureProgress" parent="CharStats/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="CharStats/HBoxContainer"]
 margin_right = 17.0
-margin_bottom = 31.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HealthBar" type="TextureProgress" parent="CharStats/HBoxContainer/CenterContainer"]
+margin_top = 3.0
+margin_right = 17.0
+margin_bottom = 34.0
 mouse_filter = 2
-size_flags_horizontal = 7
-size_flags_vertical = 7
 texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 2 )
 fill_mode = 3
@@ -52,14 +57,14 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer"]
 margin_left = 21.0
-margin_right = 67.0
-margin_bottom = 31.0
+margin_right = 74.0
+margin_bottom = 38.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
 
 [node name="LootBag" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
-margin_right = 46.0
-margin_bottom = 13.0
+margin_right = 53.0
+margin_bottom = 19.0
 mouse_filter = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
@@ -68,14 +73,16 @@ __meta__ = {
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/LootBag"]
-margin_right = 46.0
-margin_bottom = 13.0
+margin_right = 53.0
+margin_bottom = 19.0
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer"]
-margin_right = 9.0
-margin_bottom = 13.0
+margin_right = 16.0
+margin_bottom = 19.0
+rect_pivot_offset = Vector2( 8, 10 )
 mouse_filter = 2
+size_flags_horizontal = 3
 texture = ExtResource( 4 )
 stretch_mode = 6
 __meta__ = {
@@ -83,9 +90,9 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer"]
-margin_left = 13.0
-margin_right = 46.0
-margin_bottom = 13.0
+margin_left = 20.0
+margin_right = 53.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "x 200"
@@ -93,9 +100,9 @@ align = 1
 valign = 1
 
 [node name="Gun" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
-margin_top = 17.0
-margin_right = 46.0
-margin_bottom = 31.0
+margin_top = 23.0
+margin_right = 53.0
+margin_bottom = 38.0
 mouse_filter = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 10.0
@@ -104,26 +111,26 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun"]
-margin_right = 38.0
-margin_bottom = 14.0
+margin_right = 45.0
+margin_bottom = 15.0
 mouse_filter = 2
 size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer"]
-margin_right = 38.0
-margin_bottom = 13.0
+margin_right = 45.0
+margin_bottom = 15.0
 
 [node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer"]
-margin_right = 15.0
-margin_bottom = 13.0
+margin_right = 22.0
+margin_bottom = 15.0
 mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer"]
-margin_left = 19.0
-margin_right = 38.0
-margin_bottom = 13.0
+margin_left = 26.0
+margin_right = 45.0
+margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "x 5"
@@ -171,3 +178,5 @@ size_flags_vertical = 7
 text = "100%"
 align = 1
 valign = 2
+
+[node name="Tween" type="Tween" parent="."]

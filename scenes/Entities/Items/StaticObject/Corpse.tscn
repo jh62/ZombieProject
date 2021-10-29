@@ -24,5 +24,5 @@ vframes = 5
 region_enabled = false
 
 [node name="SearchableArea" parent="." index="3" instance=ExtResource( 3 )]
-max_amount = 5
+max_amount = 3
 fill_time = 2.3
