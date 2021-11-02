@@ -31,6 +31,8 @@ func _ready() -> void:
 	$Tween.interpolate_property($UI/ScreenMessage/Label, "percent_visible", 0, 1, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.5)
 	$Tween.interpolate_property($UI/ScreenMessage, "visible", true, false, 0.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 5.0)
 	$Tween.start()
+	yield($Tween,"tween_all_completed")
+	EventBus.emit_signal("map_ready")
 
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()

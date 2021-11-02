@@ -5,10 +5,10 @@ const States := {
 	"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState.gd"),
 	"attack": preload("res://scripts/fsm/states/zombie/ZombieAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/zombie/ZombieDieState.gd"),
+	"melee": preload("res://scripts/fsm/states/zombie/ZombieMeleeState.gd"),
 	"rest": preload("res://scripts/fsm/states/zombie/ZombieRestState.gd"),
 	"standup": preload("res://scripts/fsm/states/zombie/ZombieStandupState.gd"),
 	"headshot": preload("res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"),
-	"melee": preload("res://scripts/fsm/states/zombie/ZombieBashedState.gd"),
 	"eat_wait": preload("res://scripts/fsm/states/zombie/ZombieEatWaitState.gd"),
 	"eat": preload("res://scripts/fsm/states/zombie/ZombieEatState.gd"),
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
@@ -72,7 +72,7 @@ func on_hit_by(attacker) -> void:
 
 	if !is_alive():
 		if attacker is MeleeWeapon:
-			new_state = States.melee.new(self)
+			new_state = States.melee.new(self, attacker.melee_type)
 		else:
 			new_state = States.die.new(self)
 	else:

@@ -5,6 +5,9 @@ enum ActionEvent{
 	RELOAD
 }
 
+# Main signals
+signal map_ready
+
 # Player signals
 signal action_pressed(action_name, facing)
 signal action_released(action_name, facing)

@@ -1,11 +1,12 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/Weapon/MeleeWeapon/MeleeWeapon.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Items/BaseItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/res/weapon/arms/melee/melee_two_handed.tres" type="Texture" id=3]
 [ext_resource path="res://assets/res/weapon/arms/leadpipe/leadpipe_swing.tres" type="Texture" id=4]
 [ext_resource path="res://assets/res/weapon/arms/leadpipe/leadpipe_run.tres" type="Texture" id=5]
-[ext_resource path="res://assets/res/weapon/arms/leadpipe/leadpipe_idle.tres" type="Texture" id=6]
+[ext_resource path="res://assets/res/weapon/arms/sword/sword_idle.tres" type="Texture" id=6]
+[ext_resource path="res://assets/res/weapon/arms/sword/sword_run.tres" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "hit_e"
@@ -21,7 +22,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -74,7 +75,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -127,7 +128,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -180,7 +181,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -233,7 +234,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -1063,10 +1064,10 @@ tracks/3/keys = {
 }
 
 [node name="MeleeWeapon" instance=ExtResource( 2 )]
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 hframes = 4
 vframes = 5
-frame = 12
+frame = 2
 region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 1 )
 damage = 4.0

@@ -125,11 +125,6 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieAttackState.gd"
 }, {
 "base": "State",
-"class": "ZombieBashedState",
-"language": "GDScript",
-"path": "res://scripts/fsm/states/zombie/ZombieBashedState.gd"
-}, {
-"base": "State",
 "class": "ZombieDieState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieDieState.gd"
@@ -160,6 +155,11 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieIdleState.gd"
 }, {
 "base": "State",
+"class": "ZombieMeleeState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieMeleeState.gd"
+}, {
+"base": "State",
 "class": "ZombieMoveState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieMoveState.gd"
@@ -168,6 +168,11 @@ _global_script_classes=[ {
 "class": "ZombieRestState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieRestState.gd"
+}, {
+"base": "State",
+"class": "ZombieSlicedState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieSlicedState.gd"
 }, {
 "base": "State",
 "class": "ZombieStandUpState",
@@ -198,15 +203,16 @@ _global_script_class_icons={
 "StateMachine": "",
 "StaticObject": "",
 "ZombieAttackState": "",
-"ZombieBashedState": "",
 "ZombieDieState": "",
 "ZombieEatState": "",
 "ZombieEatWaitState": "",
 "ZombieHeadshotState": "",
 "ZombieHitState": "",
 "ZombieIdleState": "",
+"ZombieMeleeState": "",
 "ZombieMoveState": "",
 "ZombieRestState": "",
+"ZombieSlicedState": "",
 "ZombieStandUpState": ""
 }
 

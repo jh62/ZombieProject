@@ -14,6 +14,10 @@ func _ready() -> void:
 	EventBus.connect("play_sound_random", self, "_rplay_sound")
 	EventBus.connect("play_sound_full", self, "_play_sound")
 	EventBus.connect("play_sound", self, "_play_sound")
+	EventBus.connect("map_ready", self, "_on_map_ready")
+
+func _on_map_ready() -> void:
+	$MusicPlayer.play()
 
 func get_audio_player() -> AudioStreamPlayer2D:
 	idx = wrapi(idx + 1, 0, audio_streams.get_child_count())
