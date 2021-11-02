@@ -12,6 +12,12 @@ const SOUNDS := {
 	]
 }
 
+const ANIMATIONS := {
+	"idle": null,
+	"run": null,
+	"shoot": null
+}
+
 enum MeleeType {
 	EDGED,
 	BLUNT
@@ -20,6 +26,16 @@ enum MeleeType {
 export var melee_type := MeleeType.EDGED
 
 onready var raycast := $RayCast
+
+# virtual methods
+#func get_idle_animations() -> Resource:
+#	return null
+#func get_run_animations() -> Resource:
+#	return null
+#func get_swing_animations() -> Resource:
+#	return null
+#func get_hit_animations() -> Resource:
+#	return null
 
 func _ready() -> void:
 	pass
@@ -86,6 +102,9 @@ func raycast_enable(enable) -> void:
 		ray.force_raycast_update()
 
 func _on_action_animation_started(anim_name, facing) -> void:
+	assert(anim_name in ANIMATIONS)
+	texture = ANIMATIONS.get(anim_name)
+
 	match anim_name:
 		"shoot":
 			equipper.can_move = false

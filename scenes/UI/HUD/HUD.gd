@@ -47,10 +47,11 @@ func update_weapon_status() -> void:
 		if!weapon.is_connected("on_use", self, "_on_equipment_use"):
 			weapon.connect("on_use", self, "_on_equipment_use")
 
-	var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
-
 	n_AmmoLabel.visible = weapon.bullets + weapon.magazine > 0
-	n_AmmoLabel.text = "x{0}".format({0:mag_left})
+
+	if n_AmmoLabel.visible:
+		var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
+		n_AmmoLabel.text = "x{0}".format({0:mag_left})
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = n_bike.fuel_amount
