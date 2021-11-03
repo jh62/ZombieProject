@@ -21,9 +21,6 @@ func enter_state() -> void:
 	owner.dir = Vector2.ZERO
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
-func exit_state() -> void:
-	pass
-
 var elapsed := 0.0
 var eat_time := rand_range(12,18)
 

@@ -11,6 +11,7 @@ onready var n_LabelLootCount := $CharStats/HBoxContainer/VBoxContainer/LootBag/H
 onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/ProgressBar
 onready var n_GasTankLabel := $GasTank/Label
+onready var n_GunIcon := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
 onready var n_Tween := $Tween
 
@@ -47,6 +48,7 @@ func update_weapon_status() -> void:
 		if!weapon.is_connected("on_use", self, "_on_equipment_use"):
 			weapon.connect("on_use", self, "_on_equipment_use")
 
+	n_GunIcon.texture = weapon.get_icon()
 	n_AmmoLabel.visible = weapon.bullets + weapon.magazine > 0
 
 	if n_AmmoLabel.visible:

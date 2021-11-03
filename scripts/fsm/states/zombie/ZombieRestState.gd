@@ -16,9 +16,6 @@ func enter_state() -> void:
 #	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 #	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
-func exit_state() -> void:
-	pass
-
 func update(delta) -> void:
 	if owner.target == null:
 		return

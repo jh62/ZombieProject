@@ -29,9 +29,6 @@ func enter_state() -> void:
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-func exit_state() -> void:
-	pass
-
 func update(delta) -> void:
 	owner.move_and_slide(Vector2.ZERO) # this prevents getting the collision report stuck on the last attack_target
 

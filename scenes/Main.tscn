@@ -80,6 +80,9 @@ position = Vector2( 1064, 643 )
 [node name="PickableSword" parent="TileMap/Entities/Mobs" instance=ExtResource( 14 )]
 position = Vector2( 1079, 607 )
 
+[node name="PickablePistol" parent="TileMap/Entities/Mobs" instance=ExtResource( 5 )]
+position = Vector2( 1102, 628 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="TileMap"]
 environment = ExtResource( 11 )
 

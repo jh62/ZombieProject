@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/res/weapon/icons/pistol.tres" type="Texture" id=1]
+[ext_resource path="res://assets/res/weapon/icons/icon_pistol_full.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/ui/healthbar/healthbar_progress.tres" type="Texture" id=2]
 [ext_resource path="res://assets/res/ui/fueltank/fueltank_background.tres" type="Texture" id=3]
 [ext_resource path="res://assets/res/ui/lootbag/lootbag_icon.tres" type="Texture" id=4]
@@ -35,18 +35,18 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 78.0
-margin_bottom = 42.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="CenterContainer" type="CenterContainer" parent="CharStats/HBoxContainer"]
 margin_right = 17.0
-margin_bottom = 38.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+margin_bottom = 40.0
+size_flags_vertical = 7
 
 [node name="HealthBar" type="TextureProgress" parent="CharStats/HBoxContainer/CenterContainer"]
-margin_top = 3.0
+margin_top = 4.0
 margin_right = 17.0
-margin_bottom = 34.0
+margin_bottom = 35.0
 mouse_filter = 2
 texture_under = ExtResource( 5 )
 texture_progress = ExtResource( 2 )
@@ -58,7 +58,7 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer"]
 margin_left = 21.0
 margin_right = 74.0
-margin_bottom = 38.0
+margin_bottom = 40.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 10.0
 
@@ -67,7 +67,7 @@ margin_right = 53.0
 margin_bottom = 19.0
 mouse_filter = 2
 size_flags_horizontal = 0
-size_flags_vertical = 3
+size_flags_vertical = 2
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -102,35 +102,33 @@ valign = 1
 [node name="Gun" type="MarginContainer" parent="CharStats/HBoxContainer/VBoxContainer"]
 margin_top = 23.0
 margin_right = 53.0
-margin_bottom = 38.0
+margin_bottom = 40.0
 mouse_filter = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 10.0
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun"]
-margin_right = 45.0
-margin_bottom = 15.0
+margin_right = 53.0
+margin_bottom = 17.0
 mouse_filter = 2
-size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer"]
-margin_right = 45.0
-margin_bottom = 15.0
+margin_right = 53.0
+margin_bottom = 17.0
 
 [node name="TextureRect" type="TextureRect" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer"]
-margin_right = 22.0
-margin_bottom = 15.0
+margin_right = 24.0
+margin_bottom = 17.0
 mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 4
 
 [node name="Label" type="Label" parent="CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer"]
-margin_left = 26.0
-margin_right = 45.0
-margin_bottom = 15.0
+margin_left = 28.0
+margin_right = 53.0
+margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "x 5"

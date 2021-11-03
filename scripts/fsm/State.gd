@@ -13,7 +13,8 @@ func enter_state() -> void:
 	pass
 
 func exit_state() -> void:
-	pass
+	for connection in get_incoming_connections():
+		connection.source.disconnect(connection.signal_name, self, connection.method_name)
 
 func update(_delta) -> void:
 	pass

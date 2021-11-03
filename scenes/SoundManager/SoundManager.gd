@@ -17,12 +17,16 @@ func _ready() -> void:
 	EventBus.connect("map_ready", self, "_on_map_ready")
 
 func _on_map_ready() -> void:
-	$MusicPlayer.play()
+#	$MusicPlayer.play()
+	pass
 
 func get_audio_player() -> AudioStreamPlayer2D:
-	idx = wrapi(idx + 1, 0, audio_streams.get_child_count())
-	var a := audio_streams.get_child(idx)
-	return a as AudioStreamPlayer2D
+	var audio_p : AudioStreamPlayer2D
+
+	while audio_p == null || audio_p.playing:
+		idx = wrapi(idx + 1, 0, audio_streams.get_child_count())
+		audio_p = audio_streams.get_child(idx)
+	return audio_p
 
 func _rplay_sound(stream_pool, position := Vector2.ZERO, pitch := rand_range(.95,1.05), db := 1.0, max_distance := 240.0) -> void:
 	if stream_pool == null || stream_pool.size() == 0:

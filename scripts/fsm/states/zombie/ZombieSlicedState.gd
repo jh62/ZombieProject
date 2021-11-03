@@ -26,8 +26,5 @@ func enter_state() -> void:
 	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
-func exit_state() -> void:
-	pass
-
 func update(delta) -> void:
 	pass

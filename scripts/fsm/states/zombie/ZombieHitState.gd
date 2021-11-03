@@ -33,9 +33,6 @@ func enter_state() -> void:
 	EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
 	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
 
-func exit_state() -> void:
-	pass
-
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel) # this prevents getting the collision report stuck on the last collider
 

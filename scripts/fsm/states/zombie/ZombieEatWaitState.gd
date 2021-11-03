@@ -16,9 +16,6 @@ func enter_state() -> void:
 
 #	corpse.is_eaten = true
 
-func exit_state() -> void:
-	pass
-
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(Vector2.ZERO) # this prevents getting the collision report stuck on the last collider
 

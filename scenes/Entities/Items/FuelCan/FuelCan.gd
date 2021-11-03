@@ -1,13 +1,6 @@
 class_name FuelCan extends RigidBody2D
 
-const SOUNDS := {
-	"explode":[
-		preload("res://assets/sfx/impact/fuelcan_explode.wav")
-	],
-	"pickup":[
-		preload("res://assets/sfx/misc/fuelcan_pickup.wav")
-	]
-}
+const SoundPickUp := preload("res://assets/sfx/misc/fuelcan_pickup.wav")
 
 export var chance := 1.0
 export var fuel_amount := 0.0 setget set_fuelamount
@@ -31,22 +24,9 @@ func _process(delta):
 			global_position = player.global_position
 
 func explode() -> void:
-	if exploded:
-		return
-
-	exploded = true
-	EventBus.emit_signal("play_sound_random_full", SOUNDS.explode, global_position, rand_range(.9,1.1), 1.0, 500.0)
-
-	$Sprite.offset.y = -16
-	$AnimationPlayer.play("explode")
-	$Area2D/CollisionShape2D.shape.radius = 50.0
-	yield(get_tree().create_timer(.05),"timeout")
-	for b in $Area2D.get_overlapping_bodies():
-		if b.has_method("kill"):
-			b.vel = global_position.direction_to(b.global_position) * 10.0
-			b.kill()
-		elif b.has_method("explode"):
-			b.explode()
+	var explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
+	EventBus.emit_signal("on_object_spawn", explosion, global_position)
+	call_deferred("queue_free")
 
 func on_player_death() -> void:
 	set_process(false)
@@ -91,7 +71,7 @@ func on_action_pickup(mob) -> void:
 	$Area2D.monitoring = false
 	$Area2D.monitorable = false
 
-	EventBus.emit_signal("play_sound_random", SOUNDS.pickup, player.global_position)
+	EventBus.emit_signal("play_sound", SoundPickUp, player.global_position)
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name.begins_with("explode"):

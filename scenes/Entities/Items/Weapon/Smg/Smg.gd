@@ -17,7 +17,12 @@ const SOUNDS := {
 
 func _ready() -> void:
 	magazine = clamp(bullets, 0, mag_size)
-	print_debug("pocke smg")
+
+func get_item_name():
+	return "smg"
+
+func get_icon() -> Texture:
+	return preload("res://assets/res/weapon/icons/icon_smg_full.tres")
 
 func get_sound_dry():
 	return SOUNDS.dry

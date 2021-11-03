@@ -7,6 +7,12 @@ onready var anim_p : AnimationPlayer = $AnimationPlayer
 var equipper : Mobile
 var in_use := false
 
+# virtual methods
+func get_item_name() -> String:
+	return ""
+func get_icon() -> Texture:
+	return null
+
 func _ready() -> void:
 	EventBus.connect("action_pressed", self, "_on_action_pressed")
 	EventBus.connect("action_released", self, "_on_action_released")

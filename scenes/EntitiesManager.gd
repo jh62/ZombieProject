@@ -4,6 +4,7 @@ signal on_mob_spawned(mob)
 
 const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
+const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
 
 onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
