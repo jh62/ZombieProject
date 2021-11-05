@@ -811,12 +811,9 @@ tracks/3/keys = {
 texture = ExtResource( 2 )
 hframes = 4
 vframes = 5
-frame = 2
 script = ExtResource( 5 )
 damage = 5.0
 knockback = 4.0
-bullets = 1000
-mag_size = 2
 
 [node name="AnimationPlayer" parent="." index="0"]
 anims/idle_e = SubResource( 1 )

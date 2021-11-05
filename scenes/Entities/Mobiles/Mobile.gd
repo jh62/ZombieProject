@@ -2,6 +2,8 @@ class_name Mobile extends KinematicBody2D
 
 signal on_footstep(mob)
 
+const Blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
+
 export var max_speed := 20.0
 export var max_hitpoints := 10.0
 
@@ -20,7 +22,8 @@ var _visible_viewport := true
 func kill() -> void:
 	pass
 func on_hit_by(_attacker : Node2D) -> void:
-	pass
+	EventBus.emit_signal("on_object_spawn", Blood, global_position)
+
 func _process_animations() -> void:
 	pass
 

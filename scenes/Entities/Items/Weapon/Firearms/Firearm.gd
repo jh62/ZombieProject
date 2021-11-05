@@ -3,6 +3,8 @@ class_name Firearm extends BaseWeapon
 export var bullets := 0 setget set_bullets
 export var mag_size := 0
 
+onready var n_Muzzle : Sprite = get_node("GunMuzzle")
+
 var magazine := 0 setget set_magazine
 
 # Virtual methods
@@ -13,6 +15,11 @@ func get_reload_sound():
 
 func _ready():
 	pass
+
+func update_animations() -> void:
+	.update_animations()
+	n_Muzzle.flip_h = flip_h
+	n_Muzzle.offset.x = -n_Muzzle.position.x * 2 if flip_h else 0
 
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
@@ -55,4 +62,4 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			emit_signal("on_use")
 
 			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
-			EventBus.emit_signal("on_bullet_spawn", equipper.global_position, damage, knockback)
+			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback)

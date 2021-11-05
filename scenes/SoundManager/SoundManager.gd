@@ -14,10 +14,10 @@ func _ready() -> void:
 	EventBus.connect("play_sound_random", self, "_rplay_sound")
 	EventBus.connect("play_sound_full", self, "_play_sound")
 	EventBus.connect("play_sound", self, "_play_sound")
-	EventBus.connect("map_ready", self, "_on_map_ready")
+	EventBus.connect("intro_finished", self, "_on_intro_finished")
 
-func _on_map_ready() -> void:
-	$MusicPlayer.play()
+func _on_intro_finished() -> void:
+#	$MusicPlayer.play()
 	pass
 
 func get_audio_player() -> AudioStreamPlayer2D:

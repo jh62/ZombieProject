@@ -99,6 +99,7 @@ func kill() -> void:
 	emit_signal("on_death")
 
 func on_hit_by(attacker) -> void:
+	.on_hit_by(attacker)
 	self.hitpoints -= attacker.damage
 
 	if hitpoints == 0:

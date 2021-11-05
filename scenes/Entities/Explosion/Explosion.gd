@@ -6,11 +6,13 @@ var exploded := false
 
 func _ready():
 	$AnimatedSprite.play("explode")
+	$Light2D.enabled = true
 	EventBus.emit_signal("play_sound_full", SoundExplode, global_position, rand_range(.9,1.1), 1.0, 500.0)
 
 func _process(delta):
 	if exploded:
-		set_process(false)
+		$Light2D.energy *= .96
+#		set_process(false)
 		return
 	exploded = true
 	var bodies := get_overlapping_bodies()

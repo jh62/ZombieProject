@@ -174,6 +174,7 @@ __meta__ = {
 }
 
 [node name="Statics" type="YSort" parent="TileMap/Entities"]
+sort_enabled = false
 __meta__ = {
 "_edit_lock_": true
 }

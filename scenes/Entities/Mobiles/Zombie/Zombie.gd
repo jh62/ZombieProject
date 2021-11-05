@@ -66,6 +66,7 @@ func kill() -> void:
 	fsm.travel_to(new_state)
 
 func on_hit_by(attacker) -> void:
+	.on_hit_by(attacker)
 	hitpoints -=  attacker.damage
 
 	var new_state : State
