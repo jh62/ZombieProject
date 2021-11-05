@@ -39,6 +39,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Explosion/Explosion.gd"
 }, {
+"base": "BaseWeapon",
+"class": "Firearm",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Weapon/Firearms/Firearm.gd"
+}, {
 "base": "RigidBody2D",
 "class": "FuelCan",
 "language": "GDScript",
@@ -191,6 +196,7 @@ _global_script_class_icons={
 "Bike": "",
 "DieState": "",
 "Explosion": "",
+"Firearm": "",
 "FuelCan": "",
 "Globals": "",
 "HitState": "",

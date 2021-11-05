@@ -13,13 +13,13 @@ func _ready() -> void:
 	n_Camera.limit_right = n_Tilemap.get_node("Background").get_rect().size.x
 	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
 
-#	if OS.get_name().is_subsequence_ofi("html5"):
-#		$TileMap/WorldEnvironment.queue_free()
-#	else:
-#		$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
-#		$TileMap/CanvasModulate.visible = true
+	if OS.get_name().is_subsequence_ofi("Android"):
+		$TileMap/WorldEnvironment.queue_free()
+		$TileMap/CanvasModulate.queue_free()
+	else:
+		$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+		$TileMap/CanvasModulate.visible = true
 
-	$TileMap/CanvasModulate.visible = true
 	$UI/ScreenMessage.visible = false
 
 	$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
@@ -27,12 +27,13 @@ func _ready() -> void:
 	$UI/ScreenMessage.visible = true
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
-	$Tween.interpolate_property($TileMap/WorldEnvironment.environment, "adjustment_saturation", 0.0, 1.0, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.1)
-	$Tween.interpolate_property($UI/ScreenMessage/Label, "percent_visible", 0, 1, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.5)
-	$Tween.interpolate_property($UI/ScreenMessage, "visible", true, false, 0.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 5.0)
-	$Tween.start()
-	yield($Tween,"tween_all_completed")
-	EventBus.emit_signal("map_ready")
+#	$Tween.interpolate_property($TileMap/WorldEnvironment.environment, "adjustment_saturation", 0.0, 1.0, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.1)
+#	$Tween.interpolate_property($UI/ScreenMessage/Label, "percent_visible", 0, 1, 2.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 0.5)
+#	$Tween.interpolate_property($UI/ScreenMessage, "visible", true, false, 0.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 5.0)
+#	$Tween.interpolate_property($TileMap/Entities/Mobs/Player/Camera, "zoom", Vector2(.25,.25),Vector2(1,1),5.0,Tween.TRANS_LINEAR,Tween.EASE_OUT,1.0)
+#	$Tween.start()
+#	yield($Tween,"tween_all_completed")
+#	EventBus.emit_signal("map_ready")
 
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()
@@ -72,7 +73,7 @@ func _on_Player_on_death():
 	screen_message_label.percent_visible = 0
 	screen_message_label.text = "YOU ARE DEAD"
 
-	music_player.stream = load("res://assets/music/losing.ogg")
+	music_player.stream = load("res://assets/music/losing.mp3")
 	music_player.play()
 
 	tween.interpolate_property(enviroment, "adjustment_saturation", 1.0, 0.0, 3.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 1.0)

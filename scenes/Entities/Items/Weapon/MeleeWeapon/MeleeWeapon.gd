@@ -27,16 +27,6 @@ export var melee_type := MeleeType.EDGED
 
 onready var raycast := $RayCast
 
-# virtual methods
-#func get_idle_animations() -> Resource:
-#	return null
-#func get_run_animations() -> Resource:
-#	return null
-#func get_swing_animations() -> Resource:
-#	return null
-#func get_hit_animations() -> Resource:
-#	return null
-
 func _ready() -> void:
 	pass
 

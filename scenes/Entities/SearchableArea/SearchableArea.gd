@@ -102,7 +102,6 @@ func _on_ProgressWheel_on_progress_complete():
 	for i in amount:
 		var _item = lootpack.get(randi() % lootpack.values().size())
 		EventBus.emit_signal("on_object_spawn", _item, global_position)
-#		EventBus.emit_signal("on_object_spawn", loot, global_position)
 
 	emit_signal("on_search_successful")
 	EventBus.emit_signal("play_sound", audio_search_end, global_position)

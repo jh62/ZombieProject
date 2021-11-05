@@ -17,7 +17,7 @@ func _ready() -> void:
 	EventBus.connect("map_ready", self, "_on_map_ready")
 
 func _on_map_ready() -> void:
-#	$MusicPlayer.play()
+	$MusicPlayer.play()
 	pass
 
 func get_audio_player() -> AudioStreamPlayer2D:
@@ -28,14 +28,14 @@ func get_audio_player() -> AudioStreamPlayer2D:
 		audio_p = audio_streams.get_child(idx)
 	return audio_p
 
-func _rplay_sound(stream_pool, position := Vector2.ZERO, pitch := rand_range(.95,1.05), db := 1.0, max_distance := 240.0) -> void:
+func _rplay_sound(stream_pool, position := Vector2.ZERO, pitch := rand_range(.95,1.05), db := -13.0, max_distance := 240.0) -> void:
 	if stream_pool == null || stream_pool.size() == 0:
 		print_debug("warning: no sound to play!")
 		return
 	var stream = stream_pool[randi()%stream_pool.size()]
 	_play_sound(stream, position, pitch, db, max_distance)
 
-func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_range(.95,1.05), db := 1.0, max_distance := 240.0) -> void:
+func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_range(.95,1.05), db := -13.0, max_distance := 240.0) -> void:
 	if stream == null:
 		return
 

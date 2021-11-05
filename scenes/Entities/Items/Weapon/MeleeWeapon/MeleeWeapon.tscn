@@ -634,7 +634,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=18]
-length = 0.666667
+length = 0.500001
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -667,14 +667,14 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1, 2 ]
 }
 
 [sub_resource type="Animation" id=19]
-length = 0.666667
+length = 0.500001
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -707,14 +707,14 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [ 4, 5, 6 ]
 }
 
 [sub_resource type="Animation" id=20]
-length = 0.666667
+length = 0.500001
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -747,14 +747,14 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 15 ]
+"values": [ 12, 13, 14 ]
 }
 
 [sub_resource type="Animation" id=21]
-length = 0.666667
+length = 0.500001
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -787,14 +787,14 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11 ]
+"values": [ 8, 9, 10 ]
 }
 
 [sub_resource type="Animation" id=22]
-length = 0.666667
+length = 0.500001
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -827,10 +827,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.333333 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 16, 17, 18, 19 ]
+"values": [ 16, 17, 18 ]
 }
 
 [node name="MeleeWeapon" instance=ExtResource( 2 )]
@@ -867,7 +867,7 @@ anims/shoot_se = SubResource( 22 )
 rotation = -0.785398
 
 [node name="RayCast2D" type="RayCast2D" parent="RayCast" index="0"]
-cast_to = Vector2( 2, -8 )
+cast_to = Vector2( 4, -12 )
 collision_mask = 4
 
 [node name="RayCast2D2" type="RayCast2D" parent="RayCast" index="1"]
@@ -875,5 +875,5 @@ cast_to = Vector2( 8, -8 )
 collision_mask = 4
 
 [node name="RayCast2D3" type="RayCast2D" parent="RayCast" index="2"]
-cast_to = Vector2( 8, -2 )
+cast_to = Vector2( 12, -4 )
 collision_mask = 4

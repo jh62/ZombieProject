@@ -21,5 +21,6 @@ func update(delta) -> void:
 
 func _on_animation_finished(anim : String) -> void:
 	yield(owner.get_tree().create_timer(.5),"timeout")
-	var new_state = owner.States.eat.new(owner, corpse)
-	owner.fsm.travel_to(new_state)
+	if is_instance_valid(owner):
+		var new_state = owner.States.eat.new(owner, corpse)
+		owner.fsm.travel_to(new_state)
