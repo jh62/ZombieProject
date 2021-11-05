@@ -62,10 +62,9 @@ frame = 3
 script = ExtResource( 3 )
 damage = 9.0
 knockback = 2.0
-bullets = 9999999
-mag_size = 9999999
 fire_rate = 1.77
 melee_type = 1
 
 [node name="AnimationPlayer" parent="." index="0"]
+autoplay = "idle_e"
 anims/RESET = SubResource( 1 )

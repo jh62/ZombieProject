@@ -1092,9 +1092,9 @@ region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 7 )
 damage = 3.0
 knockback = 1.15
+fire_rate = 7.0
 bullets = 90
 mag_size = 30
-fire_rate = 7.0
 
 [node name="AnimationPlayer" parent="." index="0"]
 autoplay = "idle_e"

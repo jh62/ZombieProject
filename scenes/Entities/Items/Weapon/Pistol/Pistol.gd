@@ -1,4 +1,4 @@
-extends BaseWeapon
+extends Firearm
 
 const SOUNDS := {
 	"shoot": [

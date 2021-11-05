@@ -6,7 +6,7 @@ enum ActionEvent{
 }
 
 # Main signals
-signal map_ready
+signal intro_finished
 
 # Player signals
 signal action_pressed(action_name, facing)

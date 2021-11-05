@@ -24,3 +24,4 @@ glow_hdr_threshold = 1.42
 glow_hdr_scale = 1.87
 glow_bicubic_upscale = true
 adjustment_enabled = true
+adjustment_saturation = 0.01

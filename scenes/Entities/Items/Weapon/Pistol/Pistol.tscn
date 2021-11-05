@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://assets/res/weapon/arms/pistol/shoot_handgun.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/fx/muzzle.tres" type="Texture" id=2]
@@ -561,6 +561,9 @@ tracks/3/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
+[sub_resource type="Animation" id=23]
+resource_name = "pete"
+
 [sub_resource type="Animation" id=12]
 length = 0.666667
 loop = true
@@ -1108,9 +1111,9 @@ region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 6 )
 damage = 3.0
 knockback = 1.0
+fire_rate = 2.0
 bullets = 45
 mag_size = 15
-fire_rate = 2.0
 
 [node name="Muzzle" type="Sprite" parent="." index="0"]
 position = Vector2( 9, -7 )
@@ -1131,6 +1134,7 @@ anims/idle_n = SubResource( 8 )
 anims/idle_ne = SubResource( 9 )
 anims/idle_s = SubResource( 10 )
 anims/idle_se = SubResource( 11 )
+anims/pete = SubResource( 23 )
 anims/run_e = SubResource( 12 )
 anims/run_n = SubResource( 13 )
 anims/run_ne = SubResource( 14 )

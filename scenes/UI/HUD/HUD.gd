@@ -11,7 +11,7 @@ onready var n_LabelLootCount := $CharStats/HBoxContainer/VBoxContainer/LootBag/H
 onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/ProgressBar
 onready var n_GasTankLabel := $GasTank/Label
-onready var n_GunIcon := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/TextureRect
+onready var n_WeaponIcon := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
 onready var n_Tween := $Tween
 
@@ -48,12 +48,14 @@ func update_weapon_status() -> void:
 		if!weapon.is_connected("on_use", self, "_on_equipment_use"):
 			weapon.connect("on_use", self, "_on_equipment_use")
 
-	n_GunIcon.texture = weapon.get_icon()
-	n_AmmoLabel.visible = weapon.bullets + weapon.magazine > 0
+	n_WeaponIcon.texture = weapon.get_icon()
+
+#	n_AmmoLabel.visible = weapon.bullets + weapon.smagazine > 0
+	n_AmmoLabel.visible = weapon is Firearm
 
 	if n_AmmoLabel.visible:
 		var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
-		n_AmmoLabel.text = "x{0}".format({0:mag_left})
+		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = n_bike.fuel_amount

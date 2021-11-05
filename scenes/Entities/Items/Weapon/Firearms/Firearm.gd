@@ -1,3 +1,58 @@
 class_name Firearm extends BaseWeapon
 
+export var bullets := 0 setget set_bullets
+export var mag_size := 0
 
+var magazine := 0 setget set_magazine
+
+# Virtual methods
+func get_sound_dry():
+	pass
+func get_reload_sound():
+	pass
+
+func _ready():
+	pass
+
+func set_bullets(val : int) -> void:
+	bullets = max(val, 0)
+
+func set_magazine(val : int):
+	magazine = clamp(val, 0, mag_size)
+
+func _on_action_pressed(action_type, facing) -> void:
+	match action_type:
+		EventBus.ActionEvent.USE:
+			if magazine == 0:
+				var snd = get_sound_dry()
+				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+				return
+			in_use = true
+		EventBus.ActionEvent.RELOAD:
+			emit_signal("on_use")
+			if bullets / mag_size == 0:
+				return
+			self.bullets -= mag_size
+			self.magazine = mag_size
+			var snd = get_reload_sound()
+			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+
+func _on_action_animation_started(anim_name, facing) -> void:
+	match anim_name:
+		"shoot":
+			if magazine == 0:
+				var snd = get_sound_dry()
+				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+				in_use = false
+				return
+
+			self.magazine -= 1
+			self.bullets -= 1
+
+			equipper.vel += -equipper.facing * damage * 10
+
+			var snd = get_sound_shoot()
+			emit_signal("on_use")
+
+			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+			EventBus.emit_signal("on_bullet_spawn", equipper.global_position, damage, knockback)
