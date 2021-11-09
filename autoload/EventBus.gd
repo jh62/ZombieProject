@@ -20,6 +20,7 @@ signal on_loot_pickedup(items)
 signal on_bullet_spawn(position, direction, damage)
 signal on_mob_spawn(position)
 signal on_object_spawn(instance, position)
+signal on_fuelcan_explode
 
 # SoundManager
 signal play_sound_full(sound, position, pitch, db, max_distance)

@@ -2788,7 +2788,7 @@ tracks/5/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=38]
-radius = 60.0
+radius = 80.0
 
 [sub_resource type="CircleShape2D" id=39]
 radius = 2.0
@@ -2797,7 +2797,6 @@ radius = 2.0
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 3 )
-max_speed = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 visible = false
@@ -2854,7 +2853,6 @@ anims/walk_s = SubResource( 36 )
 anims/walk_se = SubResource( 37 )
 
 [node name="AreaPerception" type="Area2D" parent="." index="3"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

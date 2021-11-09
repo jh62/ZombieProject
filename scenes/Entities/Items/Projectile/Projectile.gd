@@ -31,13 +31,14 @@ func _ready() -> void:
 func _on_Projectile_body_entered(body: Node) -> void:
 	if body.is_in_group(Globals.GROUP_ZOMBIE):
 		body.call_deferred("on_hit_by", self)
-	queue_free()
+	call_deferred("queue_free")
 
 func _on_Projectile_body_shape_entered(body_id, body, body_shape, local_shape):
 	EventBus.emit_signal("play_sound_random_full", SOUNDS.ricochet, global_position)
-	queue_free()
+	call_deferred("queue_free")
 
 func _on_VisibilityNotifier2D_viewport_exited(viewport):
-	yield(get_tree().create_timer(1.0),"timeout")
-	if is_instance_valid(self):
-		call_deferred("queue_free")
+	$VisibilityTimer.start(1.0)
+
+func _on_VisibilityTimer_timeout():
+	call_deferred("queue_free")

@@ -19,6 +19,8 @@ func enter_state() -> void:
 func update(delta) -> void:
 	if owner.target == null:
 		return
+	if !owner.is_visible_in_viewport():
+		return
 
 	if elapsed >= 2.0:
 		if owner.target is Vector2 || owner.area_perception.overlaps_body(owner.target):

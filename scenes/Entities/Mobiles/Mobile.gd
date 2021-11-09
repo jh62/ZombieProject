@@ -8,6 +8,7 @@ export var max_speed := 20.0
 export var max_hitpoints := 10.0
 
 onready var sprite := $Sprite
+onready var n_Visibility := $VisibilityNotifier2D
 
 onready var hitpoints := max_hitpoints setget set_hitpoints
 onready var speed := max_speed
@@ -22,7 +23,9 @@ var _visible_viewport := true
 func kill() -> void:
 	pass
 func on_hit_by(_attacker : Node2D) -> void:
-	EventBus.emit_signal("on_object_spawn", Blood, global_position)
+	var angle := PI * rand_range(0.0, 2.0)
+	var radius := 10.0
+	EventBus.emit_signal("on_object_spawn", Blood, global_position + Vector2(cos(angle),sin(angle)) * radius)
 
 func _process_animations() -> void:
 	pass
@@ -35,7 +38,7 @@ func is_alive() -> bool:
 	return hitpoints > 0
 
 func _process(delta: float) -> void:
-	if _visible_viewport:
+	if is_visible_in_viewport():
 		_process_animations()
 	fsm.update(delta)
 
@@ -49,7 +52,6 @@ func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
 
 func on_footstep_keyframe():
-#	if _visible_viewport:
 	emit_signal("on_footstep", self)
 
 static func get_facing_as_string(_facing : Vector2) -> String:
@@ -68,8 +70,5 @@ static func get_facing_as_string(_facing : Vector2) -> String:
 
 	return f
 
-func _on_screen_entered():
-	_visible_viewport = true
-
-func _on_screen_exited():
-	_visible_viewport = false
+func is_visible_in_viewport() -> bool:
+	return n_Visibility.is_on_screen()

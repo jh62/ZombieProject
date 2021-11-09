@@ -5,7 +5,7 @@ var last_growl := 0.0
 
 var wp_idx := 0
 var last_update := 0
-var update_delay := 650
+var update_delay := 650 #650
 var knows_about := 0.0
 
 func _init(owner).(owner):
@@ -34,7 +34,7 @@ func update(delta) -> void:
 			owner.fsm.travel_to(new_state)
 			return
 
-	if owner._visible_viewport:
+	if owner.is_visible_in_viewport():
 		last_growl += delta
 
 		if OS.get_ticks_msec() - last_growl > growl_delay:
@@ -75,7 +75,7 @@ func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel)
 	owner.vel = owner.vel.clamped(owner.speed)
 
-	if owner._visible_viewport:
+	if owner.is_visible_in_viewport():
 		if owner.get_slide_count() > 0:
 			var collision = owner.get_slide_collision(0)
 			var collider = collision.collider

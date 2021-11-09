@@ -23,7 +23,7 @@ func update(delta) -> void:
 		owner.fsm.travel_to(new_state)
 		return
 
-	if !owner._visible_viewport:
+	if !owner.is_visible_in_viewport():
 		return
 
 	owner.vel = lerp(owner.vel, Vector2.ZERO, .5)

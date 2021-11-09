@@ -20,7 +20,7 @@ const Sounds  := [
 	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav"),
 ]
 
-export var sight_radius := 60.0
+export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 3
@@ -54,13 +54,6 @@ func _process_animations() -> void:
 #
 	sprite.flip_h = facing.x < 0
 
-func _process(delta: float) -> void:
-	._process(delta)
-
-#	if target != null:
-#		if target is Mobile && !target.is_alive():
-#			target = null
-
 func kill() -> void:
 	var new_state = States.headshot.new(self)
 	fsm.travel_to(new_state)
@@ -85,6 +78,16 @@ func _on_AreaHead_body_entered(body : Node2D):
 	kill()
 	body.call_deferred("queue_free")
 
+func _on_fuelcan_explode(_position):
+	if target != null && !(target is Vector2):
+		return
+
+	if global_position.distance_to(_position) > hearing_distance * 2.0:
+		return
+
+	var target_pos = get_area_point(_position, 80.0)
+	target = nav.get_closest_point(target_pos)
+
 func _on_bullet_spawn(_position, _damage, _direction = null) -> void:
 	if target != null && !(target is Vector2):
 		return
@@ -92,12 +95,16 @@ func _on_bullet_spawn(_position, _damage, _direction = null) -> void:
 	if global_position.distance_to(_position) > hearing_distance:
 		return
 
+	var target_pos = get_area_point(_position)
+	target = nav.get_closest_point(target_pos)
+
+func get_area_point(_position, _radius := 50.0) -> Vector2:
 	var angle := rand_range(0.0, 2.0) * PI
 	var dir := Vector2(sin(angle),cos(angle))
-	var radius := 50.0
+	var radius := _radius
 	var target_pos = _position + dir * radius
 
-	target = nav.get_closest_point(target_pos)
+	return target_pos
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile

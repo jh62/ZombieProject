@@ -1,5 +1,7 @@
 class_name FuelCan extends RigidBody2D
 
+signal on_explode(position)
+
 const SoundPickUp := preload("res://assets/sfx/misc/fuelcan_pickup.wav")
 
 export var chance := 1.0
@@ -24,6 +26,9 @@ func _process(delta):
 			global_position = player.global_position
 
 func explode() -> void:
+	if $VisibilityNotifier2D.is_on_screen():
+		EventBus.emit_signal("on_fuelcan_explode", global_position)
+
 	var explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
 	EventBus.emit_signal("on_object_spawn", explosion, global_position)
 	call_deferred("queue_free")

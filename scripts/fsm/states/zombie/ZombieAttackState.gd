@@ -40,7 +40,7 @@ func _on_animation_finished(anim : String) -> void:
 
 		var dist := owner.global_position.distance_to(target_pos)
 
-		if dist <= 32: # prevents zombies making sounds that are left too far away after initiated the attack
+		if owner.is_visible_in_viewport():
 			EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 		if dist <= ATTACK_DISTANCE:
