@@ -124,7 +124,40 @@ func _update_navigation_polygon() -> void:
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.connect("on_footstep", self, "_on_mob_footstep")
 
+var step_sounds := 0
+var yielding := false
+
 func _on_mob_footstep(mob : Mobile) -> void:
+	var grp
+
+	if mob.is_in_group(Global.GROUP_PLAYER):
+		grp = Global.GROUP_PLAYER
+	else:
+		grp = Global.GROUP_ZOMBIE
+
+#	var snd
+#
+#	if mob in $AreaMaterials/AreaCement.get_overlapping_bodies():
+#		snd = sound_color_codes[ColorCodes.CEMENT].sound.get(grp)
+#	elif mob in $AreaMaterials/AreaGrass.get_overlapping_bodies():
+#		snd = sound_color_codes[ColorCodes.GRASS].sound.get(grp)
+#	elif mob in $AreaMaterials/AreaMetal.get_overlapping_bodies():
+#		snd = sound_color_codes[ColorCodes.METAL].sound.get(grp)
+#	else:
+#		return
+
+	if grp == Globals.GROUP_ZOMBIE:
+		step_sounds += 1
+
+		if step_sounds > 1:
+			if yielding:
+				return
+			yielding = true
+			yield(get_tree().create_timer(.3),"timeout")
+			yielding = false
+			step_sounds = 0
+			return
+
 	var pix := texture.get_pixel(mob.global_position.x, mob.global_position.y + 720).to_html().substr(2)
 	var code
 
@@ -137,12 +170,12 @@ func _on_mob_footstep(mob : Mobile) -> void:
 	else:
 		return
 
-	var grp
-
-	if mob.is_in_group(Global.GROUP_PLAYER):
-		grp = Global.GROUP_PLAYER
-	else:
-		grp = Global.GROUP_ZOMBIE
+#	var grp
+#
+#	if mob.is_in_group(Global.GROUP_PLAYER):
+#		grp = Global.GROUP_PLAYER
+#	else:
+#		grp = Global.GROUP_ZOMBIE
 
 	var snd = sound_color_codes[code].sound.get(grp)
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position)

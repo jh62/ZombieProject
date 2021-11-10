@@ -1124,10 +1124,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 11, -1 ) ]
+"values": [ Vector2( 11, -1 ), Vector2( 11, -4 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("GunMuzzle:frame")
@@ -1226,10 +1226,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.333334 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -3, -11 ) ]
+"values": [ Vector2( -3, -11 ), Vector2( -3, -10 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1328,10 +1328,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 10, -8 ) ]
+"values": [ Vector2( 10, -8 ), Vector2( 10, -9 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1430,10 +1430,10 @@ tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -1, 9 ) ]
+"values": [ Vector2( 0, 9 ), Vector2( 0, 8 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1520,10 +1520,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 8, 4 ) ]
+"values": [ Vector2( 8, 4 ), Vector2( 8, 3 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("GunMuzzle:rotation_degrees")

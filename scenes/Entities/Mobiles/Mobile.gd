@@ -52,6 +52,8 @@ func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
 
 func on_footstep_keyframe():
+	if !is_visible_in_viewport():
+		return
 	emit_signal("on_footstep", self)
 
 static func get_facing_as_string(_facing : Vector2) -> String:
