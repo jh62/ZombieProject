@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=76 format=2]
 
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=2]
@@ -777,9 +777,6 @@ points = PoolVector2Array( 8, 0, 8, 8, 16, 8, 16, 16, 0, 16, 0, 0, 0, 0 )
 32/shapes = [  ]
 32/z_index = 0
 
-[sub_resource type="RectangleShape2D" id=34]
-extents = Vector2( 13, 360 )
-
 [sub_resource type="CircleShape2D" id=29]
 radius = 25.0
 
@@ -815,61 +812,6 @@ texture = ExtResource( 3 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
-
-[node name="AreaMaterials" type="Node2D" parent="."]
-visible = false
-
-[node name="AreaCement" type="Area2D" parent="AreaMaterials"]
-collision_layer = 64
-collision_mask = 6
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaMaterials/AreaCement"]
-polygon = PoolVector2Array( 296, 95.2, 296.8, 96, 398, 96, 401, 93.9, 401, 0, 1009, 0, 1009, 126.2, 1010.8, 128, 1280, 128, 1280, 338, 1189, 340, 1189, 477, 1280, 479, 1280, 512, 784, 512, 784, 355, 624, 353, 624, 194, 400, 192, 400, 128.8, 399.2, 128, 298, 128, 296, 265, 301, 272, 421.3, 272, 442.3, 279, 443.2, 279, 445.5, 276.6, 448, 277.7, 448, 278.5, 459, 281.5, 459, 282.9, 490, 301.9, 490, 303.3, 518, 334.2, 518, 338.6, 529, 362.6, 529, 367.6, 533, 387.8, 533, 392, 532, 578, 532.6, 578, 533.7, 583, 538.8, 588, 1280, 588, 1280, 652, 539.8, 652, 534, 657.8, 534, 720, 471, 720, 471, 397, 463.5, 371, 462.9, 371, 455.9, 360, 455.2, 360, 436.3, 343, 435.7, 343, 418.6, 337, 131, 337, 131.25, 272, 226.2, 272, 232, 266.2, 232, 0, 296, 0 )
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="AreaMaterials/AreaCement"]
-polygon = PoolVector2Array( 422, 431, 421, 431, 419, 511, 228, 511, 228, 394, 422, 394 )
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="AreaMaterials/AreaCement"]
-polygon = PoolVector2Array( 105, 272, 0, 272, 0, 337, 105, 337 )
-
-[node name="AreaGrass" type="Area2D" parent="AreaMaterials"]
-collision_layer = 64
-collision_mask = 6
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 105, 272, 0, 272, 0, 0, 105, 0 )
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 232, 269, 231, 269, 231, 271, 230, 271, 230, 272, 131, 272, 131, 0, 232, 0 )
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 401, 94, 398, 94, 296, 96, 296, 0, 401, 0 )
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 1280, 128, 1009, 128, 1009, 0, 1280, 0 )
-
-[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 400, 191.2, 400.8, 192, 624, 192, 624, 350.3, 626, 353, 784, 353, 784, 509.3, 786, 512, 1280, 512, 1280, 588, 536.9, 588, 532, 580.6, 532, 579, 533, 382, 532.4, 382, 528.3, 362, 527.7, 362, 513.7, 330, 513.1, 330, 488.1, 301, 485.3, 301, 471.3, 289, 468.5, 289, 445.7, 277.1, 443.5, 279.4, 441, 278.3, 441, 277.4, 424.7, 272, 298, 272, 298, 269.8, 296, 267.8, 296, 128, 400, 128 )
-
-[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 105, 720, 0, 720, 0, 337, 105, 337 )
-
-[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 421, 338.3, 432, 340.3, 432, 341.9, 454, 356.9, 454, 359.3, 464, 371.3, 464, 373, 464.8, 381, 471, 394.6, 471, 720, 131, 720, 131, 337, 421, 337 )
-
-[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 1280, 479, 1189, 479, 1189, 338, 1280, 338 )
-
-[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="AreaMaterials/AreaGrass"]
-polygon = PoolVector2Array( 1280, 720, 534, 720, 534, 655, 535, 655, 535, 653, 537, 653, 537, 652, 1280, 652 )
-
-[node name="AreaMetal" type="Area2D" parent="AreaMaterials"]
-collision_layer = 64
-collision_mask = 6
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaMaterials/AreaMetal"]
-position = Vector2( 118, 360 )
-shape = SubResource( 34 )
 
 [node name="AreaSpawns" type="Area2D" parent="."]
 visible = false

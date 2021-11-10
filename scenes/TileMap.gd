@@ -135,17 +135,6 @@ func _on_mob_footstep(mob : Mobile) -> void:
 	else:
 		grp = Global.GROUP_ZOMBIE
 
-#	var snd
-#
-#	if mob in $AreaMaterials/AreaCement.get_overlapping_bodies():
-#		snd = sound_color_codes[ColorCodes.CEMENT].sound.get(grp)
-#	elif mob in $AreaMaterials/AreaGrass.get_overlapping_bodies():
-#		snd = sound_color_codes[ColorCodes.GRASS].sound.get(grp)
-#	elif mob in $AreaMaterials/AreaMetal.get_overlapping_bodies():
-#		snd = sound_color_codes[ColorCodes.METAL].sound.get(grp)
-#	else:
-#		return
-
 	if grp == Globals.GROUP_ZOMBIE:
 		step_sounds += 1
 
