@@ -23,7 +23,7 @@ enum MeleeType {
 	BLUNT
 }
 
-export var melee_type := MeleeType.EDGED
+export(MeleeType) var melee_type := MeleeType.EDGED
 
 onready var raycast := $RayCast
 

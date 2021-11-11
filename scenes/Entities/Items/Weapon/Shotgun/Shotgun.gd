@@ -1,4 +1,4 @@
-extends BaseWeapon
+extends Firearm
 
 const sounds := {
 	"shoot": [
@@ -21,13 +21,13 @@ func get_item_name():
 	return "shotgun"
 
 func get_icon() -> Texture:
-	return preload("res://assets/res/weapon/icons/icon_shotgun_full.tres")
+	return preload("res://assets/res/weapon/icons/shotgun_icon.tres")
 
 func get_sound_dry():
-	return sounds.dry[randi()%sounds.dry.size()]
+	return sounds.dry
 
 func get_sound_shoot():
-	return sounds.shoot[randi()%sounds.shoot.size()]
+	return sounds.shoot
 
 func get_reload_sound():
-	return sounds.reload[randi()%sounds.reload.size()]
+	return sounds.reload

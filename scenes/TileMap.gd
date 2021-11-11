@@ -159,12 +159,5 @@ func _on_mob_footstep(mob : Mobile) -> void:
 	else:
 		return
 
-#	var grp
-#
-#	if mob.is_in_group(Global.GROUP_PLAYER):
-#		grp = Global.GROUP_PLAYER
-#	else:
-#		grp = Global.GROUP_ZOMBIE
-
 	var snd = sound_color_codes[code].sound.get(grp)
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position)
