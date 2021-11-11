@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/res/items/corpses.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends StaticObject
@@ -25,6 +26,9 @@ vframes = 5
 region_enabled = false
 
 [node name="SearchableArea" parent="." index="3" instance=ExtResource( 3 )]
-lootpack = [ ExtResource( 4 ) ]
+lootpack = {
+0.1: ExtResource( 4 ),
+0.9: ExtResource( 5 )
+}
 max_amount = 3
 fill_time = 2.3

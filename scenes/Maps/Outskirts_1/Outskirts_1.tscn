@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=2]
@@ -31,7 +31,6 @@
 [ext_resource path="res://scenes/Entities/Items/StaticObject/CarC.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Trashbags01.tscn" type="PackedScene" id=30]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Trashcan.tscn" type="PackedScene" id=31]
-[ext_resource path="res://scenes/Entities/Items/StaticObject/CarD.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Debris02.tscn" type="PackedScene" id=33]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/SmallBoxOpen01.tscn" type="PackedScene" id=34]
 [ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Lot.tscn" type="PackedScene" id=35]
@@ -40,7 +39,10 @@
 [ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building08.tscn" type="PackedScene" id=38]
 [ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building09.tscn" type="PackedScene" id=39]
 [ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=40]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=41]
 [ext_resource path="res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn" type="PackedScene" id=42]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/CarE.tscn" type="PackedScene" id=43]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/CarF.tscn" type="PackedScene" id=44]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -907,7 +909,7 @@ position = Vector2( 867, 630 )
 position = Vector2( 838, 601 )
 
 [node name="Corpse4" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 791, 631 )
+position = Vector2( 785, 627 )
 
 [node name="Corpse5" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 901, 613 )
@@ -1165,24 +1167,38 @@ collision_mask = 6
 [node name="Car" parent="MapObjects/Objects" instance=ExtResource( 29 )]
 position = Vector2( 856, 600 )
 
-[node name="SearchableArea" parent="MapObjects/Objects/Car" instance=ExtResource( 22 )]
-position = Vector2( 13, 0 )
-lootpack = [ ExtResource( 42 ) ]
+[node name="SearchableArea3" parent="MapObjects/Objects/Car" instance=ExtResource( 22 )]
+position = Vector2( 14, -1 )
+scale = Vector2( 1, 1 )
+lootpack = {
+0.1: ExtResource( 42 ),
+0.47: ExtResource( 41 ),
+0.77: ExtResource( 40 )
+}
 radius = 7
 max_amount = 3
+fill_time = 5.0
 
-[node name="Car2" parent="MapObjects/Objects" instance=ExtResource( 32 )]
-position = Vector2( 846, 625 )
+[node name="Car2" parent="MapObjects/Objects" instance=ExtResource( 29 )]
+position = Vector2( 539, 618 )
+rotation = -0.0872665
 
 [node name="Car3" parent="MapObjects/Objects" instance=ExtResource( 18 )]
 position = Vector2( 776, 643 )
 rotation = -3.05433
 collision_layer = 1
 
-[node name="SearchableArea" parent="MapObjects/Objects/Car3" instance=ExtResource( 22 )]
-position = Vector2( 10, 0 )
-lootpack = [ ExtResource( 42 ) ]
+[node name="SearchableArea2" parent="MapObjects/Objects/Car3" instance=ExtResource( 22 )]
+position = Vector2( 11.9543, -1.0459 )
+rotation = 3.05433
+scale = Vector2( 1, 1 )
+lootpack = {
+0.1: ExtResource( 42 ),
+0.47: ExtResource( 41 ),
+0.77: ExtResource( 40 )
+}
 radius = 7
+max_amount = 3
 fill_time = 5.0
 
 [node name="Car4" parent="MapObjects/Objects" instance=ExtResource( 16 )]
@@ -1191,7 +1207,11 @@ collision_layer = 1
 
 [node name="SearchableArea" parent="MapObjects/Objects/Car4" instance=ExtResource( 22 )]
 position = Vector2( 11, 0 )
-lootpack = [ ExtResource( 42 ) ]
+lootpack = {
+0.1: ExtResource( 42 ),
+0.47: ExtResource( 41 ),
+0.77: ExtResource( 40 )
+}
 radius = 7
 max_amount = 3
 fill_time = 5.0
@@ -1200,19 +1220,42 @@ fill_time = 5.0
 position = Vector2( 752, 609 )
 scale = Vector2( -1, 1 )
 
+[node name="Car11" parent="MapObjects/Objects" instance=ExtResource( 18 )]
+position = Vector2( 647, 613 )
+scale = Vector2( -1, 1 )
+
 [node name="Car6" parent="MapObjects/Objects" instance=ExtResource( 16 )]
 position = Vector2( 792, 608 )
+
+[node name="Car10" parent="MapObjects/Objects" instance=ExtResource( 16 )]
+position = Vector2( 573, 635 )
+scale = Vector2( -1, 1 )
+
+[node name="Car7" parent="MapObjects/Objects" instance=ExtResource( 43 )]
+position = Vector2( 723, 648 )
+
+[node name="Car9" parent="MapObjects/Objects" instance=ExtResource( 43 )]
+position = Vector2( 557, 593 )
+scale = Vector2( -1, -1 )
+
+[node name="Car8" parent="MapObjects/Objects" instance=ExtResource( 44 )]
+position = Vector2( 666, 601 )
+rotation = 3.14159
+scale = Vector2( -1, 1 )
 
 [node name="TruckA" parent="MapObjects/Objects" instance=ExtResource( 17 )]
 position = Vector2( 810, 641 )
 collision_layer = 1
 
-[node name="SearchableArea" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
-position = Vector2( 0, -14 )
-lootpack = [ ExtResource( 42 ) ]
+[node name="SearchableArea2" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
+position = Vector2( -2, -15 )
+lootpack = {
+0.1: ExtResource( 42 ),
+0.47: ExtResource( 41 ),
+0.77: ExtResource( 40 )
+}
 radius = 7
-min_amount = 3
-max_amount = 5
+max_amount = 3
 fill_time = 5.0
 
 [node name="GasPump1" parent="MapObjects/Objects" instance=ExtResource( 19 )]
@@ -1220,7 +1263,9 @@ position = Vector2( 626, 21 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/GasPump1" instance=ExtResource( 22 )]
 position = Vector2( -1, 0 )
-lootpack = [ ExtResource( 42 ) ]
+lootpack = {
+0.0: ExtResource( 40 )
+}
 radius = 12
 fill_time = 5.0
 
@@ -1238,7 +1283,6 @@ position = Vector2( 562, 90 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Boxes" instance=ExtResource( 22 )]
 position = Vector2( 2, 5 )
-lootpack = [ ExtResource( 42 ) ]
 min_amount = 3
 max_amount = 5
 fill_time = 5.0
@@ -1248,7 +1292,6 @@ position = Vector2( 798, 370 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Boxes2" instance=ExtResource( 22 )]
 position = Vector2( 0, -6 )
-lootpack = [ ExtResource( 42 ) ]
 min_amount = 2
 max_amount = 5
 fill_time = 5.0
@@ -1257,7 +1300,6 @@ fill_time = 5.0
 position = Vector2( 557, 3 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Box" instance=ExtResource( 22 )]
-lootpack = [ ExtResource( 42 ) ]
 max_amount = 4
 fill_time = 5.0
 
@@ -1269,6 +1311,14 @@ position = Vector2( 533, 86 )
 
 [node name="Trashbags2" parent="MapObjects/Objects" instance=ExtResource( 30 )]
 position = Vector2( 397, 183 )
+
+[node name="SearchableArea2" parent="MapObjects/Objects/Trashbags2" instance=ExtResource( 22 )]
+position = Vector2( 10, 0 )
+lootpack = {
+0.1: ExtResource( 42 )
+}
+max_amount = 5
+fill_time = 5.0
 
 [node name="SmallBox" parent="MapObjects/Objects" instance=ExtResource( 34 )]
 position = Vector2( 417, 187 )

@@ -90,6 +90,18 @@ func _ready():
 
 	_update_navigation_polygon()
 
+	# generate random loot
+	for x in range(0, $Background.region_rect.size.x, 16):
+		for y in range(0, $Background.region_rect.size.y, 16):
+			var pos := Vector2(x, y)
+			var chance := randf()
+			if .027 >= chance:
+				EventBus.emit_signal("on_object_spawn", preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn"), pos)
+			elif .016 >= chance:
+				var weapon := preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn").instance()
+				weapon.random_drop = true
+				EventBus.emit_signal("on_object_spawn", weapon, pos)
+
 	for c in $MapObjects.get_children():
 		c.visible = true
 

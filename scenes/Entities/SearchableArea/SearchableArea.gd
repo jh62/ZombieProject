@@ -1,13 +1,13 @@
-tool
 class_name SearchableArea extends Area2D
 
 signal on_search_successful
 
 const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
-export var lootpack := [
-	preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
-]
+export var lootpack := {
+	.1: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
+}
+
 export var radius := 10 setget set_radius
 export var min_amount := 1
 export var max_amount := 1
@@ -101,8 +101,12 @@ func _on_ProgressWheel_on_progress_complete():
 	var amount := int(rand_range(min_amount, max_amount))
 
 	for i in amount:
-		var _item = lootpack[(randi() % lootpack.size())]
-		EventBus.emit_signal("on_object_spawn", _item, global_position)
+		var chance := randf()
+		for val in lootpack.keys():
+			if chance < val:
+				continue
+			var _item = lootpack[val]
+			EventBus.emit_signal("on_object_spawn", _item, global_position)
 
 	emit_signal("on_search_successful")
 	EventBus.emit_signal("play_sound", audio_search_end, global_position)

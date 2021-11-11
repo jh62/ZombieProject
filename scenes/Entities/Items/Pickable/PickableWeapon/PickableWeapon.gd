@@ -32,9 +32,12 @@ enum WeaponName {
 	MACHETE
 }
 
+export var random_drop := false
 export(WeaponName) var weapon_name := WeaponName.PISTOL
 
 func _ready():
+	if random_drop:
+		weapon_name = WeaponName.values()[randi()%WeaponName.size()]
 	$Sprite.texture = weapons.get(weapon_name).icon
 
 func on_picked_up_by(body) -> void:
