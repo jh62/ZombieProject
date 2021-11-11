@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Animation" id=1]
@@ -183,14 +182,10 @@ fuel_amount = 12.0
 [node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 165, 326 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 11 )]
-position = Vector2( 1012, 621 )
-weapon_name = 1
-
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 970, 633 )
+position = Vector2( 16, 320 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -218,7 +213,7 @@ current = true
 [node name="CanvasModulate" type="CanvasModulate" parent="TileMap"]
 visible = false
 z_index = 200
-color = Color( 0.156863, 0.156863, 0.156863, 1 )
+color = Color( 0.235294, 0.235294, 0.235294, 1 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
