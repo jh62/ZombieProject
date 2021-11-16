@@ -6,13 +6,15 @@ export var p_bike : NodePath
 onready var n_player : Player = get_node(p_player)
 onready var n_bike : Bike = get_node(p_bike)
 onready var n_Stats := $CharStats
-onready var n_HealthBar := $CharStats/HBoxContainer/CenterContainer/Healthbar
-onready var n_LabelLootCount := $CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/Label
+#onready var n_HealthBar := $CharStats/HBoxContainer/CenterContainer/Healthbar
+onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
+onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
+onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/ProgressBar
 onready var n_GasTankLabel := $GasTank/Label
-onready var n_WeaponIcon := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/TextureRect
-onready var n_AmmoLabel := $CharStats/HBoxContainer/VBoxContainer/Gun/VBoxContainer/HBoxContainer/Label
+onready var n_WeaponIcon := $Gun/VBoxContainer/HBoxContainer/TextureRect
+onready var n_AmmoLabel := $Gun/VBoxContainer/HBoxContainer/Label
 onready var n_Tween := $Tween
 
 func _ready():
@@ -22,7 +24,6 @@ func _ready():
 	n_player.connect("on_footstep", self, "_on_player_footstep")
 	n_bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
 
-	n_HealthBar.modulate = Color.white
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 
 	update_healthbar()
@@ -32,8 +33,7 @@ func _ready():
 
 func update_healthbar() -> void:
 	var health_percentage := n_player.hitpoints / n_player.max_hitpoints
-	n_HealthBar.modulate.g = 1.0 * health_percentage
-	n_HealthBar.modulate.b = 1.0 * health_percentage
+	n_HealthBar.value = health_percentage
 
 func _on_player_hit() -> void:
 	update_healthbar()
@@ -79,10 +79,11 @@ func _on_player_loot() -> void:
 	update_loot_count()
 
 	if !n_Tween.is_active():
-		n_Tween.interpolate_property($CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect,"rect_scale",Vector2(1,1),Vector2(1.1,1.1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
+		n_Tween.interpolate_property(n_LootbagTexture,"rect_scale",Vector2(1,1),Vector2(1.1,1.1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
 		n_Tween.start()
 		yield(n_Tween,"tween_completed")
-		$CharStats/HBoxContainer/VBoxContainer/LootBag/HBoxContainer/TextureRect.rect_scale = Vector2(1,1)
+		n_Tween.interpolate_property(n_LootbagTexture,"rect_scale",n_LootbagTexture.rect_scale,Vector2(1,1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
+		n_Tween.start()
 
 func _on_equipment_use() -> void:
 	update_weapon_status()

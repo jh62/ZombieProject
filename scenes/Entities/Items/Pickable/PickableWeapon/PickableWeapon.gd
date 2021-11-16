@@ -17,6 +17,10 @@ var weapons := {
 		"icon": preload("res://assets/res/weapon/icons/leadpipe.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn")
 	},
+	WeaponName.RIFLE:{
+		"icon": preload("res://assets/res/weapon/icons/assault_icon.tres"),
+		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn")
+	},
 	WeaponName.MACHETE:{
 		"icon": preload("res://assets/res/weapon/icons/machete.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn")
@@ -27,7 +31,7 @@ enum WeaponName {
 	PISTOL = 0,
 	SHOTGUN,
 	SMG,
-#	RIFLE,
+	RIFLE,
 	LEADPIPE,
 	MACHETE
 }

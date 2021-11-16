@@ -2,10 +2,10 @@ extends Firearm
 
 const SOUNDS := {
 	"shoot": [
-		preload("res://assets/sfx/weapons/shoot_smg_1.wav"),
-		preload("res://assets/sfx/weapons/shoot_smg_2.wav"),
-		preload("res://assets/sfx/weapons/shoot_smg_3.wav"),
-		preload("res://assets/sfx/weapons/shoot_smg_4.wav")
+		preload("res://assets/sfx/weapons/shoot_assault_1.wav"),
+		preload("res://assets/sfx/weapons/shoot_assault_2.wav"),
+		preload("res://assets/sfx/weapons/shoot_assault_3.wav"),
+		preload("res://assets/sfx/weapons/shoot_assault_4.wav")
 	],
 	"dry": [
 		preload("res://assets/sfx/weapons/dry_pistol_1.wav"),

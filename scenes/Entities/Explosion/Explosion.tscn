@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/fx/ligthsource_01.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 31.0644
+radius = 16.0
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
