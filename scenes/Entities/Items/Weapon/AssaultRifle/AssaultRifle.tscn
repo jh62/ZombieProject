@@ -2,14 +2,14 @@
 
 [ext_resource path="res://assets/res/weapon/arms/idle/idle_disarmed.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/weapon/arms/pistol/run_handgun_n.tres" type="Texture" id=2]
-[ext_resource path="res://assets/res/weapon/arms/idle/run_disarmed.tres" type="Texture" id=3]
+[ext_resource path="res://assets/res/weapon/arms/assault/run_assault.tres" type="Texture" id=3]
 [ext_resource path="res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.gd" type="Script" id=4]
 [ext_resource path="res://assets/res/weapon/arms/pistol/idle_handgun_n.tres" type="Texture" id=5]
 [ext_resource path="res://assets/res/weapon/arms/assault/shoot_assault.tres" type="Texture" id=6]
 [ext_resource path="res://scenes/Entities/FX/GunMuzzle/GunMuzzle.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/Entities/Items/BaseItem.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/res/weapon/arms/assault/idle_assault.tres" type="Texture" id=8]
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=32]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("GunMuzzle:position")
@@ -83,8 +83,32 @@ tracks/5/keys = {
 "update": 0,
 "values": [ Vector2( 2, -10 ) ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath(".:offset")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, -1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath(".:hframes")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2 ]
+}
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=33]
 length = 0.166667
 step = 0.166667
 tracks/0/type = "value"
@@ -97,7 +121,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -136,7 +160,7 @@ tracks/3/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=34]
 length = 0.166667
 step = 0.166667
 tracks/0/type = "value"
@@ -149,7 +173,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -188,7 +212,7 @@ tracks/3/keys = {
 "values": [ 5 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=35]
 length = 0.166667
 step = 0.166667
 tracks/0/type = "value"
@@ -201,7 +225,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -240,7 +264,7 @@ tracks/3/keys = {
 "values": [ 12 ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=36]
 length = 0.166667
 step = 0.166667
 tracks/0/type = "value"
@@ -253,7 +277,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -292,7 +316,7 @@ tracks/3/keys = {
 "values": [ 11 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=37]
 length = 0.166667
 step = 0.166667
 tracks/0/type = "value"
@@ -305,7 +329,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 3 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -344,8 +368,8 @@ tracks/3/keys = {
 "values": [ 16 ]
 }
 
-[sub_resource type="Animation" id=7]
-length = 0.666668
+[sub_resource type="Animation" id=38]
+length = 0.333334
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -358,7 +382,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -370,7 +394,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -391,10 +415,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath(".:normal_map")
@@ -408,9 +432,21 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 5 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath(".:offset")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
-[sub_resource type="Animation" id=8]
-length = 0.666668
+[sub_resource type="Animation" id=39]
+length = 0.333334
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -423,7 +459,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -435,7 +471,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -456,14 +492,14 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [ 2, 3 ]
 }
 
-[sub_resource type="Animation" id=9]
-length = 0.666667
+[sub_resource type="Animation" id=40]
+length = 0.333334
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -473,10 +509,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.666668 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ), ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -485,10 +521,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.666668 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2, 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -509,14 +545,14 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 15 ]
+"values": [ 6, 7 ]
 }
 
-[sub_resource type="Animation" id=10]
-length = 0.666667
+[sub_resource type="Animation" id=41]
+length = 0.333334
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -529,7 +565,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -541,7 +577,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -562,14 +598,14 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11 ]
+"values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=11]
-length = 0.666667
+[sub_resource type="Animation" id=42]
+length = 0.333334
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -582,7 +618,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 1 ) ]
+"values": [ ExtResource( 8 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:hframes")
@@ -594,7 +630,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -615,13 +651,13 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 16, 17, 18, 19 ]
+"values": [ 8, 9 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=43]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -686,7 +722,7 @@ tracks/4/keys = {
 "values": [ ExtResource( 2 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=44]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -739,7 +775,7 @@ tracks/3/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=45]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -792,7 +828,7 @@ tracks/3/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=46]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -845,7 +881,7 @@ tracks/3/keys = {
 "values": [ 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=47]
 length = 0.666667
 loop = true
 step = 0.166667
@@ -898,7 +934,7 @@ tracks/3/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=48]
 length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
@@ -923,7 +959,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -959,7 +995,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Vector2( 11, -1 ), Vector2( 11, -3 ) ]
+"values": [ Vector2( 14, -1 ), Vector2( 14, -3 ) ]
 }
 tracks/5/type = "value"
 tracks/5/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1012,7 +1048,7 @@ tracks/8/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=49]
 length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
@@ -1037,7 +1073,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -1061,7 +1097,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 5 ]
+"values": [ 2, 3 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("GunMuzzle:frame")
@@ -1084,7 +1120,7 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/6/type = "method"
@@ -1110,11 +1146,11 @@ tracks/7/enabled = true
 tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, -10 ) ]
+"update": 1,
+"values": [ Vector2( -2, -14 ) ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=50]
 length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
@@ -1139,7 +1175,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -1163,7 +1199,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 12, 13 ]
+"values": [ 6, 7 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("GunMuzzle:frame")
@@ -1186,8 +1222,8 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 8, -6 ) ]
+"update": 1,
+"values": [ Vector2( 15, -12 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1198,7 +1234,7 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/7/type = "method"
@@ -1216,7 +1252,7 @@ tracks/7/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=51]
 length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
@@ -1241,7 +1277,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -1265,7 +1301,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8, 9 ]
+"values": [ 4, 5 ]
 }
 tracks/4/type = "method"
 tracks/4/path = NodePath("GunMuzzle")
@@ -1302,8 +1338,8 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, 11 ) ]
+"update": 1,
+"values": [ Vector2( 0, 14 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1314,11 +1350,11 @@ tracks/7/enabled = true
 tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=21]
+[sub_resource type="Animation" id=52]
 length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
@@ -1343,7 +1379,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:vframes")
@@ -1367,7 +1403,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 16, 17 ]
+"values": [ 8, 9 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("GunMuzzle:frame")
@@ -1390,8 +1426,8 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 8, 5 ) ]
+"update": 1,
+"values": [ Vector2( 12, 7 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("GunMuzzle:rotation_degrees")
@@ -1402,7 +1438,7 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/7/type = "method"
@@ -1420,42 +1456,47 @@ tracks/7/keys = {
 } ]
 }
 
-[node name="AssaultRifle" instance=ExtResource( 8 )]
+[node name="AssaultRifle" type="Sprite"]
+light_mask = 3
 texture = ExtResource( 1 )
-normal_map = ExtResource( 2 )
-hframes = 4
+normal_map = ExtResource( 5 )
+offset = Vector2( 3, -1 )
+hframes = 2
 vframes = 5
 region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 4 )
 damage = 5.0
 knockback = 1.4
 fire_rate = 4.0
-bullets = 90
+bullets = 900
 mag_size = 30
 
-[node name="GunMuzzle" parent="." index="0" instance=ExtResource( 7 )]
+[node name="GunMuzzle" parent="." instance=ExtResource( 7 )]
 offset = Vector2( 2, -10 )
 
-[node name="AnimationPlayer" parent="." index="1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle_e"
-anims/RESET = SubResource( 22 )
-anims/hit_e = SubResource( 2 )
-anims/hit_n = SubResource( 3 )
-anims/hit_ne = SubResource( 4 )
-anims/hit_s = SubResource( 5 )
-anims/hit_se = SubResource( 6 )
-anims/idle_e = SubResource( 7 )
-anims/idle_n = SubResource( 8 )
-anims/idle_ne = SubResource( 9 )
-anims/idle_s = SubResource( 10 )
-anims/idle_se = SubResource( 11 )
-anims/run_e = SubResource( 12 )
-anims/run_n = SubResource( 13 )
-anims/run_ne = SubResource( 14 )
-anims/run_s = SubResource( 15 )
-anims/run_se = SubResource( 16 )
-anims/shoot_e = SubResource( 17 )
-anims/shoot_n = SubResource( 18 )
-anims/shoot_ne = SubResource( 19 )
-anims/shoot_s = SubResource( 20 )
-anims/shoot_se = SubResource( 21 )
+anims/RESET = SubResource( 32 )
+anims/hit_e = SubResource( 33 )
+anims/hit_n = SubResource( 34 )
+anims/hit_ne = SubResource( 35 )
+anims/hit_s = SubResource( 36 )
+anims/hit_se = SubResource( 37 )
+anims/idle_e = SubResource( 38 )
+anims/idle_n = SubResource( 39 )
+anims/idle_ne = SubResource( 40 )
+anims/idle_s = SubResource( 41 )
+anims/idle_se = SubResource( 42 )
+anims/run_e = SubResource( 43 )
+anims/run_n = SubResource( 44 )
+anims/run_ne = SubResource( 45 )
+anims/run_s = SubResource( 46 )
+anims/run_se = SubResource( 47 )
+anims/shoot_e = SubResource( 48 )
+anims/shoot_n = SubResource( 49 )
+anims/shoot_ne = SubResource( 50 )
+anims/shoot_s = SubResource( 51 )
+anims/shoot_se = SubResource( 52 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_finished"]
+[connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_started"]

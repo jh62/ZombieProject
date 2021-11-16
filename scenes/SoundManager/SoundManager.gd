@@ -15,7 +15,8 @@ func _ready() -> void:
 	EventBus.connect("intro_finished", self, "_on_intro_finished")
 
 func _on_intro_finished() -> void:
-	$MusicPlayer.play()
+#	$MusicPlayer.play()
+	pass
 
 func get_audio_player() -> AudioStreamPlayer2D:
 	var audio_p : AudioStreamPlayer2D
