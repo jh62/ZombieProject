@@ -6,6 +6,7 @@
 polygon = PoolVector2Array( -4, -4, -4, 4, 4, 4, 4, -4 )
 
 [node name="Box" instance=ExtResource( 1 )]
+material_type = 1
 
 [node name="Sprite" parent="." index="0"]
 region_rect = Rect2( 601, 273, 10, 10 )

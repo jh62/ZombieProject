@@ -39,6 +39,10 @@ func _ready() -> void:
 	fsm.current_state = States.idle.new(self)
 	area_collision.shape.radius = sight_radius
 
+	if Globals.GameOptions.gameplay.difficulty == Globals.Difficulty.HARD:
+		max_hitpoints = 40
+		hitpoints = max_hitpoints
+
 func _process_animations() -> void:
 	var epsilon := .25
 
@@ -68,7 +72,10 @@ func on_hit_by(attacker) -> void:
 		if attacker is MeleeWeapon:
 			new_state = States.melee.new(self, attacker.melee_type)
 		else:
-			new_state = States.die.new(self)
+			if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
+				new_state = States.die.new(self)
+			else:
+				new_state = States.headshot.new(self)
 	else:
 		new_state = States.hit.new(self, attacker)
 

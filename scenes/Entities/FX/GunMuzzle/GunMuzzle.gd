@@ -1,5 +1,7 @@
 extends Sprite
 
+export var duration := 0.167
+
 func _ready():
 	visible = false
 	set_process(false)
@@ -8,7 +10,7 @@ func _ready():
 func show() -> void:
 	visible = true
 	$Light2D.enabled = true
-	$Timer.start()
+	$Timer.start(duration)
 
 func _on_Timer_timeout():
 	visible = false

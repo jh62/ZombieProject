@@ -12,7 +12,9 @@ func _ready():
 	$Area2D/CollisionShape2D.shape = $CollisionShape2D.shape
 
 func set_fuel_amount(new_amount) -> void:
-	fuel_amount = clamp(fuel_amount + new_amount, 0.0, Globals.MAX_FUEL_LITERS)
+#	fuel_amount = clamp(fuel_amount + new_amount, 0.0, Globals.MAX_FUEL_LITERS)
+	fuel_amount = min(new_amount, Globals.MAX_FUEL_LITERS)
+	print_debug(new_amount)
 
 	if fuel_amount >= Globals.MAX_FUEL_LITERS:
 		emit_signal("on_full_tank")

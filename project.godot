@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Bike/Bike.gd"
 }, {
+"base": "StaticObject",
+"class": "Building",
+"language": "GDScript",
+"path": "res://scenes/Maps/Outskirts_1/Statics/Building.gd"
+}, {
 "base": "State",
 "class": "DieState",
 "language": "GDScript",
@@ -79,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Mobile.gd"
 }, {
-"base": "Area2D",
+"base": "RigidBody2D",
 "class": "Pickable",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/Pickable.gd"
@@ -133,6 +138,11 @@ _global_script_classes=[ {
 "class": "StaticObject",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/StaticObject/StaticObject.gd"
+}, {
+"base": "Particles2D",
+"class": "TrailSmoke",
+"language": "GDScript",
+"path": "res://scenes/Entities/FX/TrailSmoke/TrailSmoke.gd"
 }, {
 "base": "State",
 "class": "ZombieAttackState",
@@ -199,6 +209,7 @@ _global_script_class_icons={
 "BaseItem": "",
 "BaseWeapon": "",
 "Bike": "",
+"Building": "",
 "DieState": "",
 "Explosion": "",
 "Firearm": "",
@@ -220,6 +231,7 @@ _global_script_class_icons={
 "State": "",
 "StateMachine": "",
 "StaticObject": "",
+"TrailSmoke": "",
 "ZombieAttackState": "",
 "ZombieDieState": "",
 "ZombieEatState": "",
@@ -236,8 +248,10 @@ _global_script_class_icons={
 
 [application]
 
-config/name="HardCharlie2"
-run/main_scene="res://scenes/Main.tscn"
+config/name="Dead Against Us"
+run/main_scene="res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn"
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
@@ -251,8 +265,8 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 
 window/size/width=320
 window/size/height=180
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=800
+window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
@@ -330,8 +344,13 @@ reload={
 }
 action_alt={
 "deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777240,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+aim={
+"deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
@@ -347,8 +366,11 @@ action_alt={
 
 [physics]
 
+common/physics_fps=30
 common/enable_pause_aware_picking=true
 2d/cell_size=32
+2d/default_gravity=0
+2d/default_gravity_vector=Vector2( 0, 0 )
 
 [rendering]
 

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/blade_hit_1.wav-065a75fd41c39a0b3dae02f0683a9837.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/melee/blade_hit_1.wav"
+dest_files=[ "res://.import/blade_hit_1.wav-065a75fd41c39a0b3dae02f0683a9837.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

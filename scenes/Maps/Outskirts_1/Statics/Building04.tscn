@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building.gd" type="Script" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -22, 72, 24, 72, 24, 58, 55, 58, 55, -62, -55, -62, -55, 58, -22, 58 )
 
 [node name="Building04" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
 region_rect = Rect2( 496, 10, 112, 150 )

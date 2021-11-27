@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://assets/maps/boundries.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/TileMap.gd" type="Script" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://scenes/Entities/Items/StaticObject/CarC.tscn" type="PackedScene" id=29]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Trashbags01.tscn" type="PackedScene" id=30]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Trashcan.tscn" type="PackedScene" id=31]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Truck.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Debris02.tscn" type="PackedScene" id=33]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/SmallBoxOpen01.tscn" type="PackedScene" id=34]
 [ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Lot.tscn" type="PackedScene" id=35]
@@ -43,6 +44,8 @@
 [ext_resource path="res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn" type="PackedScene" id=42]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/CarE.tscn" type="PackedScene" id=43]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/CarF.tscn" type="PackedScene" id=44]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/SUV.tscn" type="PackedScene" id=45]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Bus.tscn" type="PackedScene" id=46]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 16, 0, 16, 0, 0, 16, 0 )
@@ -912,7 +915,7 @@ position = Vector2( 838, 601 )
 position = Vector2( 785, 627 )
 
 [node name="Corpse5" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 901, 613 )
+position = Vector2( 901, 621 )
 
 [node name="Corpse6" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
 position = Vector2( 879, 418 )
@@ -1032,7 +1035,7 @@ position = Vector2( 344, 617 )
 position = Vector2( 584, 643 )
 
 [node name="Corpse45" parent="MapObjects/BackgroundObjects" instance=ExtResource( 28 )]
-position = Vector2( 215, 296 )
+position = Vector2( 177, 324 )
 
 [node name="Debris" parent="MapObjects/BackgroundObjects" instance=ExtResource( 27 )]
 position = Vector2( 734, 332 )
@@ -1050,7 +1053,6 @@ position = Vector2( 838, 648 )
 position = Vector2( 325, 451 )
 
 [node name="StreetLamps" type="YSort" parent="MapObjects"]
-visible = false
 
 [node name="StreetLamp1" parent="MapObjects/StreetLamps" instance=ExtResource( 7 )]
 position = Vector2( 608, 192 )
@@ -1169,7 +1171,6 @@ position = Vector2( 856, 600 )
 
 [node name="SearchableArea3" parent="MapObjects/Objects/Car" instance=ExtResource( 22 )]
 position = Vector2( 14, -1 )
-scale = Vector2( 1, 1 )
 lootpack = {
 0.1: ExtResource( 42 ),
 0.47: ExtResource( 41 ),
@@ -1191,7 +1192,6 @@ collision_layer = 1
 [node name="SearchableArea2" parent="MapObjects/Objects/Car3" instance=ExtResource( 22 )]
 position = Vector2( 11.9543, -1.0459 )
 rotation = 3.05433
-scale = Vector2( 1, 1 )
 lootpack = {
 0.1: ExtResource( 42 ),
 0.47: ExtResource( 41 ),
@@ -1347,6 +1347,21 @@ chance = 0.34
 [node name="FuelCan4" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 1250, 308 )
 chance = 0.21
+
+[node name="Suv" parent="MapObjects/Objects" instance=ExtResource( 45 )]
+position = Vector2( 205, 305 )
+
+[node name="Truck" parent="MapObjects/Objects" instance=ExtResource( 32 )]
+position = Vector2( 274, 215 )
+
+[node name="Bus" parent="MapObjects/Objects" instance=ExtResource( 46 )]
+position = Vector2( 389, 320 )
+
+[node name="Car12" parent="MapObjects/Objects" instance=ExtResource( 29 )]
+position = Vector2( 315, 287 )
+
+[node name="Car13" parent="MapObjects/Objects" instance=ExtResource( 18 )]
+position = Vector2( 300, 335 )
 
 [node name="Buildings" type="YSort" parent="MapObjects"]
 

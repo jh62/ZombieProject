@@ -22,7 +22,7 @@ func get_item_name():
 	return "smg"
 
 func get_icon() -> Texture:
-	return preload("res://assets/res/weapon/icons/smg_icon.tres")
+	return preload("res://assets/res/weapon/icons/assault_icon.tres")
 
 func get_sound_dry():
 	return SOUNDS.dry

@@ -66,6 +66,7 @@ stretch_margin_bottom = 1
 anchor_left = 0.828125
 anchor_right = 1.0
 anchor_bottom = 0.161111
+grow_horizontal = 0
 mouse_filter = 2
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -101,24 +102,27 @@ align = 1
 valign = 2
 
 [node name="Gun" type="MarginContainer" parent="."]
-anchor_left = 0.834375
+anchor_left = 0.846875
 anchor_top = 0.894444
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
 mouse_filter = 2
 size_flags_horizontal = 3
+custom_constants/margin_right = 2
 custom_constants/margin_bottom = 2
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Gun"]
-margin_right = 53.0
+margin_right = 47.0
 margin_bottom = 17.0
 mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Gun/VBoxContainer"]
-margin_right = 53.0
+margin_right = 47.0
 margin_bottom = 17.0
 
 [node name="TextureRect" type="TextureRect" parent="Gun/VBoxContainer/HBoxContainer"]
@@ -130,7 +134,7 @@ stretch_mode = 4
 
 [node name="Label" type="Label" parent="Gun/VBoxContainer/HBoxContainer"]
 margin_left = 28.0
-margin_right = 53.0
+margin_right = 47.0
 margin_bottom = 17.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -145,24 +149,26 @@ __meta__ = {
 anchor_top = 0.872222
 anchor_right = 0.165625
 anchor_bottom = 1.0
+grow_vertical = 0
 mouse_filter = 2
+custom_constants/margin_bottom = 2
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="LootBag"]
 margin_right = 53.0
-margin_bottom = 23.0
+margin_bottom = 21.0
 custom_constants/margin_bottom = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LootBag/MarginContainer"]
 margin_right = 53.0
-margin_bottom = 21.0
+margin_bottom = 19.0
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="LootBag/MarginContainer/HBoxContainer"]
 margin_right = 16.0
-margin_bottom = 21.0
+margin_bottom = 19.0
 rect_pivot_offset = Vector2( 8, 10 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -175,7 +181,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="LootBag/MarginContainer/HBoxContainer"]
 margin_left = 20.0
 margin_right = 53.0
-margin_bottom = 21.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "x 200"

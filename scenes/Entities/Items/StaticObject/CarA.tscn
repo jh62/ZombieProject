@@ -1,17 +1,36 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/res/items/car_a.tres" type="Texture" id=2]
 [ext_resource path="res://assets/normals/redcar_n.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=4]
+[ext_resource path="res://assets/res/material/CarBlinkShader.tres" type="Material" id=5]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( 14, -5, -14, -5, -14, 4, 14, 4 )
 
 [node name="Car" instance=ExtResource( 1 )]
 light_mask = 2
+script = ExtResource( 4 )
+max_hitpoints = 500.0
+material_type = 0
 
 [node name="Sprite" parent="." index="0"]
+material = ExtResource( 5 )
 texture = ExtResource( 2 )
 normal_map = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 31, 17 )
 
-[node name="CollisionShape" parent="." index="1"]
+[node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
-polygon = PoolVector2Array( 14, -5, -14, -5, -16, -4, -16, 5, -14, 6, 14, 6, 15, 5, 15, -4 )
+occluder = SubResource( 1 )
+
+[node name="CollisionShape" parent="." index="1"]
+position = Vector2( 0, -3 )
+polygon = PoolVector2Array( -15, -1, -15, 7, 14, 7, 14, -2, 10, -2, 7, -5, -4, -5, -7, -2 )
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -16, -6, -16, 6, 15, 6, 15, -5, 10, -6, 7, -9, -4, -9, -7, -6 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+visible = false

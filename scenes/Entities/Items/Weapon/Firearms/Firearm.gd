@@ -44,8 +44,10 @@ func _on_action_pressed(action_type, facing) -> void:
 			var snd = get_reload_sound()
 			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 
-func _on_action_animation_started(anim_name, facing) -> void:
-	match anim_name:
+func _on_action_animation_started(_anim_name, _facing) -> void:
+	._on_action_animation_started(_anim_name, _facing)
+
+	match _anim_name:
 		"shoot":
 			if magazine == 0:
 				var snd = get_sound_dry()
@@ -57,9 +59,4 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			self.bullets -= 1
 
 			equipper.vel += -equipper.facing * damage * 10
-
-			var snd = get_sound_shoot()
-			emit_signal("on_use")
-
-			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback)

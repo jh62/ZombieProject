@@ -26,11 +26,21 @@ func _process(delta):
 			global_position = player.global_position
 
 func explode() -> void:
+	if exploded:
+		return
 	if $VisibilityNotifier2D.is_on_screen():
 		EventBus.emit_signal("on_fuelcan_explode", global_position)
 
-	var explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
-	EventBus.emit_signal("on_object_spawn", explosion, global_position)
+	var explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn").instance() as Explosion
+	add_child(explosion)
+	explosion.create_big_explosion()
+	explosion.connect("explosion_complete", self, "on_explosion_complete")
+	$Area2D/CollisionShape2D.disabled = true
+	set_collision_mask_bit(5, false)
+	exploded = true
+	$Sprite.visible = false
+
+func on_explosion_complete() -> void:
 	call_deferred("queue_free")
 
 func on_player_death() -> void:
@@ -77,7 +87,3 @@ func on_action_pickup(mob) -> void:
 	$Area2D.monitorable = false
 
 	EventBus.emit_signal("play_sound", SoundPickUp, player.global_position)
-
-func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name.begins_with("explode"):
-		queue_free()

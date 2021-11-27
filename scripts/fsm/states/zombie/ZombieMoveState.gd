@@ -29,7 +29,7 @@ func update(delta) -> void:
 	var target = owner.target
 
 	if owner.dir.length() != 0: # is going somewhere
-		if target == null && owner.waypoints.empty():
+		if (target == null && owner.waypoints.empty()) || ( (target is Mobile) && target.is_eaten):
 			var new_state = owner.States.idle.new(owner)
 			owner.fsm.travel_to(new_state)
 			return

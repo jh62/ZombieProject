@@ -21,8 +21,8 @@ visible = false
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
-collision_layer = 6
-collision_mask = 0
+collision_layer = 0
+collision_mask = 6
 
 [node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
 

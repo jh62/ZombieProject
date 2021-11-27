@@ -2791,7 +2791,7 @@ tracks/5/keys = {
 radius = 80.0
 
 [sub_resource type="CircleShape2D" id=39]
-radius = 2.0
+radius = 3.0
 
 [node name="Zombie" instance=ExtResource( 1 )]
 collision_layer = 4

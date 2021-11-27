@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bullet_wood_1.wav-66b2043cc192e0ae45f000efcc0fcb3d.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/bullet_wood_1.wav"
+dest_files=[ "res://.import/bullet_wood_1.wav-66b2043cc192e0ae45f000efcc0fcb3d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

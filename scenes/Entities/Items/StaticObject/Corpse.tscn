@@ -18,12 +18,19 @@ func _ready():
 
 [node name="Corpse" instance=ExtResource( 2 )]
 script = SubResource( 1 )
+material_type = 4
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
 region_enabled = false
+
+[node name="Area2D" parent="." index="2"]
+visible = true
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -3, -2, -3, 3, 2, 3, 2, -2 )
 
 [node name="SearchableArea" parent="." index="3" instance=ExtResource( 3 )]
 lootpack = {

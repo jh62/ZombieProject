@@ -2,15 +2,14 @@ class_name ZombieMeleeState extends State
 
 const SOUNDS := {
 	"edged":[
-		preload("res://assets/sfx/impact/melee/blade_hit_01.wav"),
-		preload("res://assets/sfx/impact/melee/blade_hit_02.wav"),
-		preload("res://assets/sfx/impact/melee/blade_hit_03.wav"),
-		preload("res://assets/sfx/impact/melee/blade_hit_04.wav"),
+		preload("res://assets/sfx/impact/melee/blade_hit_1.wav"),
+		preload("res://assets/sfx/impact/melee/blade_hit_2.wav"),
+		preload("res://assets/sfx/impact/melee/blade_hit_3.wav"),
 	],
 	"blunt":[
-		preload("res://assets/sfx/impact/melee/blunt_hit_01.wav"),
-		preload("res://assets/sfx/impact/melee/blunt_hit_02.wav"),
-		preload("res://assets/sfx/impact/melee/blunt_hit_03.wav"),
+		preload("res://assets/sfx/impact/melee/blunt_hit_1.wav"),
+		preload("res://assets/sfx/impact/melee/blunt_hit_2.wav"),
+		preload("res://assets/sfx/impact/melee/blunt_hit_3.wav"),
 	],
 	"impact_flesh":[
 		preload("res://assets/sfx/impact/flesh_impact_01.wav"),

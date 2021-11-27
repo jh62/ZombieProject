@@ -7,7 +7,10 @@ const SOUNDS := [
 	preload("res://assets/sfx/mobs/zombie/die/zombie_die_3.wav"),
 ]
 
-const SoundZombieDown := preload("res://assets/sfx/mobs/zombie/misc/zombie_down.wav")
+const SoundZombieDown := [
+	preload("res://assets/sfx/mobs/zombie/misc/zombie_down_1.wav"),
+	preload("res://assets/sfx/mobs/zombie/misc/zombie_down_2.wav")
+]
 
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
@@ -42,4 +45,4 @@ func update(delta) -> void:
 	elapsed += delta
 
 func _on_animation_started(anim : String) -> void:
-	EventBus.emit_signal("play_sound", SoundZombieDown, owner.global_position)
+	EventBus.emit_signal("play_sound_random", SoundZombieDown, owner.global_position)

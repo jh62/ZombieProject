@@ -61,7 +61,7 @@ func update_weapon_status() -> void:
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = n_bike.fuel_amount
-	n_GasTankLabel.text = "{0}%".format({0:(n_GasTankProgressBar.value / n_GasTankProgressBar.max_value) * 100})
+	n_GasTankLabel.text = "{0}%".format({0:str(n_GasTankProgressBar.value / n_GasTankProgressBar.max_value * 100).pad_decimals(0)})
 
 var alpha_when_behind := .05
 

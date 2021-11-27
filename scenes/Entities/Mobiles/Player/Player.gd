@@ -95,6 +95,9 @@ func stop_search() -> void:
 	fsm.travel_to(States.idle.new(self))
 
 func kill() -> void:
+	if fsm.current_state.get_name().begins_with("die"):
+		return
+
 	fsm.travel_to(States.die.new(self))
 	emit_signal("on_death")
 

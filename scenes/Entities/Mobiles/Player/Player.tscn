@@ -1700,9 +1700,9 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 light_mask = 3
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 normal_map = ExtResource( 10 )
-frame = 12
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"
@@ -1738,6 +1738,7 @@ anims/shoot_s = SubResource( 30 )
 anims/shoot_se = SubResource( 31 )
 
 [node name="Equipment" type="Node2D" parent="." index="3"]
+visible = false
 script = ExtResource( 2 )
 item = ExtResource( 4 )
 

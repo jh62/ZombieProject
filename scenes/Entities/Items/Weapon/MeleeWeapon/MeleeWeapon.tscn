@@ -634,7 +634,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=18]
-length = 0.666667
+length = 0.666668
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:hframes")
@@ -667,7 +667,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
+"times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
@@ -830,13 +830,12 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 15, 16, 17, 18 ]
+"values": [ 16, 17, 18, 19 ]
 }
 
 [node name="MeleeWeapon" instance=ExtResource( 2 )]
-hframes = 4
+hframes = 3
 vframes = 5
-frame = 16
 region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 1 )
 

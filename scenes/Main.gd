@@ -5,6 +5,7 @@ onready var n_Player := $TileMap/Entities/Mobs/Player
 
 func _ready() -> void:
 	randomize()
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 
 	var n_Camera := n_Player.get_node("Camera")
@@ -14,16 +15,16 @@ func _ready() -> void:
 	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
 
 	if OS.get_name().is_subsequence_ofi("Android"):
-		$TileMap/WorldEnvironment.queue_free()
-		$TileMap/CanvasModulate.queue_free()
+		$WorldEnvironment.queue_free()
+		$CanvasModulate.queue_free()
 	else:
-		$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
-		$TileMap/CanvasModulate.visible = true
+		$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+		$CanvasModulate.visible = true
 
 	$UI/ScreenMessage.visible = false
 
-	$TileMap/WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
-	$TileMap/WorldEnvironment.environment.adjustment_saturation = 0.0
+	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+	$WorldEnvironment.environment.adjustment_saturation = 0.0
 	$UI/ScreenMessage.visible = true
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
@@ -38,7 +39,7 @@ func _on_Button_button_up():
 	get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
-	var enviroment : Environment = $TileMap/WorldEnvironment.environment
+	var enviroment : Environment = $WorldEnvironment.environment
 	var screen_message := $UI/ScreenMessage
 	var screen_message_label := $UI/ScreenMessage/Label
 	var tween := $Tween
@@ -54,7 +55,7 @@ func _on_Bike_on_full_tank():
 	tween.start()
 
 func _on_Player_on_death():
-	var enviroment : Environment = $TileMap/WorldEnvironment.environment
+	var enviroment : Environment = $WorldEnvironment.environment
 	var screen_message := $UI/ScreenMessage
 	var screen_message_label := $UI/ScreenMessage/Label
 	var music_player := $TileMap/Entities/Mobs/Player/Camera/SoundManager.get_node("MusicPlayer")

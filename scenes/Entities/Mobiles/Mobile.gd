@@ -25,7 +25,9 @@ func kill() -> void:
 func on_hit_by(_attacker : Node2D) -> void:
 	var angle := PI * rand_range(0.0, 2.0)
 	var radius := 10.0
-	EventBus.emit_signal("on_object_spawn", Blood, global_position + Vector2(cos(angle),sin(angle)) * radius)
+
+	if Global.GameOptions.graphics.render_blood:
+		EventBus.emit_signal("on_object_spawn", Blood, global_position + Vector2(cos(angle),sin(angle)) * radius)
 
 func _process_animations() -> void:
 	pass
