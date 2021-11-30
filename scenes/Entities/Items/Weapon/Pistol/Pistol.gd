@@ -24,6 +24,9 @@ func get_item_name():
 func get_icon() -> Texture:
 	return preload("res://assets/res/weapon/icons/pistol_icon.tres")
 
+func get_mag_icon():
+	return preload("res://assets/res/weapon/icons/bullet_icon.tres")
+
 func get_sound_dry():
 	return SOUNDS.dry
 

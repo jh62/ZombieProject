@@ -1080,7 +1080,7 @@ collision_layer = 1
 collision_mask = 6
 
 [node name="StreetLamp6" parent="MapObjects/StreetLamps" instance=ExtResource( 7 )]
-position = Vector2( 221, 187 )
+position = Vector2( 213, 242 )
 collision_layer = 1
 collision_mask = 6
 

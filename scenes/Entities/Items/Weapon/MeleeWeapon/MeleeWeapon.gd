@@ -1,15 +1,28 @@
 class_name MeleeWeapon extends BaseWeapon
 
-const SOUNDS := {
-	"swing": [
-		preload("res://assets/sfx/weapons/melee_swing_01.wav"),
-		preload("res://assets/sfx/weapons/melee_swing_02.wav"),
-	],
-	"hit": [
-		preload("res://assets/sfx/impact/bullet_metal_01.wav"),
-		preload("res://assets/sfx/impact/bullet_metal_02.wav"),
-		preload("res://assets/sfx/impact/bullet_metal_03.wav"),
-	]
+var Sounds := {
+	MeleeType.EDGED:{
+		"swing" : [
+			preload("res://assets/sfx/weapons/melee_swing_01.wav"),
+			preload("res://assets/sfx/weapons/melee_swing_02.wav"),
+		],
+		"hit": [
+			preload("res://assets/sfx/impact/melee/blade_hit_1.wav"),
+			preload("res://assets/sfx/impact/melee/blade_hit_2.wav"),
+			preload("res://assets/sfx/impact/melee/blade_hit_3.wav")
+		]
+	},
+	MeleeType.BLUNT:{
+		"swing" : [
+			preload("res://assets/sfx/weapons/melee_swing_01.wav"),
+			preload("res://assets/sfx/weapons/melee_swing_02.wav"),
+		],
+		"hit": [
+			preload("res://assets/sfx/impact/melee/blunt_hit_1.wav"),
+			preload("res://assets/sfx/impact/melee/blunt_hit_2.wav"),
+			preload("res://assets/sfx/impact/melee/blunt_hit_3.wav")
+		]
+	},
 }
 
 const ANIMATIONS := {
@@ -27,16 +40,14 @@ export(MeleeType) var melee_type := MeleeType.EDGED
 
 onready var raycast := $RayCast
 
-func _ready() -> void:
-	pass
-
-func get_sound_dry():
-	pass
+# Virtual methods
+func get_swing_sound():
+	return Sounds.get(melee_type).swing
 
 func get_sound_shoot():
-	pass
+	return Sounds.get(melee_type).hit
 
-func get_reload_sound():
+func _ready() -> void:
 	pass
 
 func _on_action_pressed(action_type, facing) -> void:
@@ -115,7 +126,7 @@ func _on_action_animation_started(anim_name, facing) -> void:
 					raycast.rotation_degrees = 135
 
 
-			var snd = SOUNDS.swing
+			var snd = get_swing_sound()
 			emit_signal("on_use")
 
 			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
@@ -128,7 +139,7 @@ func _on_action_animation_started(anim_name, facing) -> void:
 					if ray.is_colliding():
 						var collider = ray.get_collider()
 						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
-							EventBus.emit_signal("play_sound_random",SOUNDS.hit, collider.global_position)
+							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
 							collider.on_hit_by(self)
 						break
 

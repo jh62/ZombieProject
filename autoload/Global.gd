@@ -15,9 +15,9 @@ const MAX_FUEL_LITERS := 120.5
 
 const GameOptions := {
 	"gameplay": {
-		"difficulty": Difficulty.HARD,
+		"difficulty": Difficulty.NORMAL,
 		"discard_bullets": 1,
-		"auto_pickup": 0
+		"auto_pickup": 1
 	},
 	"graphics": {
 		"render_bullets": 1,

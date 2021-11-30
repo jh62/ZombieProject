@@ -11,6 +11,5 @@ script = ExtResource( 2 )
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 3 )
 normal_map = ExtResource( 4 )
-hframes = 34
+hframes = 13
 vframes = 2
-region_rect = Rect2( 0, 0, 56, 16 )

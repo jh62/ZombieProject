@@ -1912,6 +1912,7 @@ position = Vector2( 9, -7 )
 texture = ExtResource( 11 )
 hframes = 2
 vframes = 5
+duration = 0.1
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "idle_e"

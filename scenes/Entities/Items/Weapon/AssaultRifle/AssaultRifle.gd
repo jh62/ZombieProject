@@ -19,10 +19,13 @@ func _ready() -> void:
 	magazine = clamp(bullets, 0, mag_size)
 
 func get_item_name():
-	return "smg"
+	return "assault_rifle"
 
 func get_icon() -> Texture:
 	return preload("res://assets/res/weapon/icons/assault_icon.tres")
+
+func get_mag_icon():
+	return preload("res://assets/res/weapon/icons/riflemag_icon.tres")
 
 func get_sound_dry():
 	return SOUNDS.dry

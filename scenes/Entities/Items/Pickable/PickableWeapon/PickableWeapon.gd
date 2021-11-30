@@ -6,7 +6,8 @@ enum WeaponName {
 	SMG,
 	RIFLE,
 	LEADPIPE,
-	MACHETE
+	MACHETE,
+	SWORD
 }
 
 export var random_drop := false
@@ -31,12 +32,16 @@ var weapons := {
 		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn")
 	},
 	WeaponName.RIFLE:{
-		"icon": preload("res://assets/res/weapon/icons/assault_icon.tres"),
+		"icon": preload("res://assets/res/weapon/icons/rifle.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn")
 	},
-	WeaponName.MACHETE:{
-		"icon": preload("res://assets/res/weapon/icons/machete.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn")
+#	WeaponName.MACHETE:{
+#		"icon": preload("res://assets/res/weapon/icons/machete_icon.tres"),
+#		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn")
+#	},
+	WeaponName.SWORD:{
+		"icon": preload("res://assets/res/weapon/icons/sword_icon.tres"),
+		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn")
 	}
 }
 

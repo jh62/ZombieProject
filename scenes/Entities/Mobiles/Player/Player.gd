@@ -1,7 +1,10 @@
 class_name Player extends Mobile
 
-signal on_search_start(mob)
-signal on_search_end(mob)
+signal on_search_start(this)
+signal on_search_end(this)
+signal on_aiming_start(this)
+signal on_aiming_stop(this)
+signal on_reload(weapon_name)
 
 signal on_death
 signal on_hit
@@ -20,6 +23,7 @@ onready var equipment := $Equipment
 
 var can_move := true
 var loot_count := 0
+var aiming = false
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
@@ -37,14 +41,32 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("action"):
 		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
+		yield(get_tree().create_timer(.015),"timeout")
+		emit_signal("on_aiming_stop", self)
 		return
 	elif event.is_action_released("action"):
 		EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
 		return
 
 	if event.is_action_pressed("reload"):
-		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
+		var equipped = get_equipped()
+		if equipped && equipped is Firearm:
+			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
+			emit_signal("on_reload", get_equipped().get_item_name())
 		return
+
+	if event.is_action("aim"):
+		var weapon = get_equipped()
+
+		if weapon == null || !(weapon is Firearm):
+			return
+
+		if  event.is_action_pressed("aim") && !(Input.is_action_pressed("action")):
+			emit_signal("on_aiming_start", self)
+			return
+		elif event.is_action_released("aim"):
+			emit_signal("on_aiming_stop", self)
+			return
 
 	if event.is_action_pressed("action_alt"):
 		emit_signal("on_search_start", self)
@@ -130,3 +152,9 @@ func _on_loot_pickedup(loot) -> void:
 func _on_ProgressWheel_on_progress_complete():
 	$ProgressWheel.stop()
 	emit_signal("on_search_end")
+
+func _on_Player_on_aiming_start(this):
+	aiming = true
+
+func _on_Player_on_aiming_stop(this):
+	aiming = false

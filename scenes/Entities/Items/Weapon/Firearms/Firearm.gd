@@ -12,6 +12,8 @@ func get_sound_dry():
 	pass
 func get_reload_sound():
 	pass
+func get_mag_icon():
+	pass
 
 func _ready():
 	pass
@@ -58,5 +60,6 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			self.magazine -= 1
 			self.bullets -= 1
 
-			equipper.vel += -equipper.facing * damage * 10
+			equipper.vel += -equipper.facing * knockback
+
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback)

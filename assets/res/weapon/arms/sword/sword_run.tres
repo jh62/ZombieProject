@@ -3,5 +3,6 @@
 [ext_resource path="res://assets/spritesheet.png" type="Texture" id=1]
 
 [resource]
+resource_local_to_scene = true
 atlas = ExtResource( 1 )
-region = Rect2( 352, 1280, 104, 16 )
+region = Rect2( 704, 544, 128, 160 )

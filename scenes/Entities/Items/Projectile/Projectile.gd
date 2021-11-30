@@ -14,8 +14,7 @@ var damage := 0.0
 var knockback := 0.0
 
 func _ready() -> void:
-	if Input.is_action_pressed("aim"): # only headshots
-		set_collision_mask_bit(2, false)
+	pass
 
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):

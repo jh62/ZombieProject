@@ -5,6 +5,7 @@ signal on_mob_spawned(mob)
 const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
+const Magazine := preload("res://scenes/Entities/Items/Magazine/Magazine.tscn")
 
 onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
@@ -24,6 +25,10 @@ func _spawn_bullet(position, damage, knockback := 0.0, direction = null ) -> voi
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
 	bullet.damage = damage
 	bullet.knockback = knockback
+
+	if n_Mobs.get_node("Player").aiming:
+		print_debug("aminig")
+		bullet.set_collision_mask_bit(2, false)
 
 	bullet.global_position = position
 	bullet.look_at(position + (direction * 500))
@@ -45,3 +50,9 @@ func _spawn_object(scene, position : Vector2) -> void:
 		scene = scene.instance()
 	n_Statics.add_child(scene)
 	scene.global_position = position
+
+func _on_Player_on_reload(weapon_name):
+	var mag := Magazine.instance() as RigidBody2D
+	mag.set_type(weapon_name)
+	n_Statics.add_child(mag)
+	mag.global_position = n_Mobs.get_node("Player").global_position

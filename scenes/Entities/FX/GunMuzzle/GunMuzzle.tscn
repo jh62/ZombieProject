@@ -15,10 +15,11 @@ enabled = false
 texture = ExtResource( 2 )
 texture_scale = 0.75
 energy = 0.75
+range_height = 324.0
 range_item_cull_mask = 3
 shadow_enabled = true
 shadow_buffer_size = 256
-shadow_filter_smooth = 50.0
+shadow_filter_smooth = 20.0
 shadow_item_cull_mask = 3
 
 [node name="Timer" type="Timer" parent="."]
