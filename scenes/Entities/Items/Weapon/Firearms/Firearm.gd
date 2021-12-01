@@ -48,7 +48,7 @@ func _on_action_pressed(action_type, facing) -> void:
 			self.bullets -= mag_size
 			self.magazine = mag_size
 			var snd = get_reload_sound()
-			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+			EventBus.emit_signal("play_sound_random", snd, global_position)
 
 func _on_action_animation_started(_anim_name, _facing) -> void:
 	._on_action_animation_started(_anim_name, _facing)
@@ -57,7 +57,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 		"shoot":
 			if magazine == 0:
 				var snd = get_sound_dry()
-				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+				EventBus.emit_signal("play_sound_random", snd, global_position)
 				in_use = false
 				return
 

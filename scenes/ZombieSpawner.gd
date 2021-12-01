@@ -57,4 +57,3 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 
 		if spawn_count >= mob_max:
 			return
-	print_debug(spawn_count)

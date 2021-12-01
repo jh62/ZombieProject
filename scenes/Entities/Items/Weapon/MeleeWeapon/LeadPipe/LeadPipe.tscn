@@ -60,7 +60,7 @@ texture = ExtResource( 2 )
 frame = 3
 script = ExtResource( 3 )
 damage = 9.0
-knockback = 3.0
+knockback = 6.0
 fire_rate = 1.77
 melee_type = 1
 

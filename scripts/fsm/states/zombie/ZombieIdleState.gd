@@ -26,5 +26,12 @@ func update(delta) -> void:
 	if !owner.is_visible_in_viewport():
 		return
 
+	if owner.get_slide_count() > 0:
+		var collision := owner.get_slide_collision(0)
+		var dir = collision.collider.global_position.direction_to(owner.global_position)
+		owner.call_deferred("queue_free")
+		print_debug("zombie deleted")
+		return
+
 	owner.vel = lerp(owner.vel, Vector2.ZERO, .5)
 	owner.vel = owner.move_and_slide(owner.vel)

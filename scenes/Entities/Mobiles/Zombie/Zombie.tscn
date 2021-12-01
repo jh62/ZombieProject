@@ -2853,6 +2853,7 @@ anims/walk_s = SubResource( 36 )
 anims/walk_se = SubResource( 37 )
 
 [node name="AreaPerception" type="Area2D" parent="." index="3"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -2860,6 +2861,7 @@ collision_mask = 2
 shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="." index="4"]
+visible = false
 collision_layer = 0
 collision_mask = 32
 

@@ -129,7 +129,7 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			var snd = get_swing_sound()
 			emit_signal("on_use")
 
-			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+			EventBus.emit_signal("play_sound_random", snd, global_position)
 
 			raycast_enable(true)
 			yield(get_tree().create_timer(.025),"timeout")
@@ -141,7 +141,8 @@ func _on_action_animation_started(anim_name, facing) -> void:
 						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
 							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
 							collider.on_hit_by(self)
-						break
+							print_debug(collider.name)
+#						break
 
 func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:

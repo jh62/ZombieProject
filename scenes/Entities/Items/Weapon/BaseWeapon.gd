@@ -52,4 +52,4 @@ func _on_action_animation_started(anim_name, facing) -> void:
 		"shoot":
 			var snd = get_sound_shoot()
 			emit_signal("on_use")
-			EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+			EventBus.emit_signal("play_sound_random", snd, global_position)
