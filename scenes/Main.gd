@@ -25,6 +25,7 @@ func _ready() -> void:
 
 	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 	$WorldEnvironment.environment.adjustment_saturation = 0.0
+
 	$UI/ScreenMessage.visible = true
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
@@ -42,40 +43,16 @@ func _on_Button_button_up():
 	get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
-	var enviroment : Environment = $WorldEnvironment.environment
-	var screen_message := $UI/ScreenMessage
-	var screen_message_label := $UI/ScreenMessage/Label
-	var tween := $Tween
-
 	n_Player.can_move = false
-	n_Player.set_process_unhandled_input(false)
-	screen_message.visible = true
-	screen_message_label.percent_visible = 0
-	screen_message_label.text = "YOU SURVIVED"
+	n_Player.set_process_unhandled_key_input(false)
 
-	tween.interpolate_property(enviroment, "adjustment_saturation", 1.0, 0.0, 3.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 1.0)
-	tween.interpolate_property(screen_message_label, "percent_visible", 0, 1, 1.25, Tween.TRANS_LINEAR, Tween.EASE_IN, 2.0)
-	tween.start()
+	$AnimationPlayer.play("win")
 
 func _on_Player_on_death():
-	var enviroment : Environment = $WorldEnvironment.environment
-	var screen_message := $UI/ScreenMessage
-	var screen_message_label := $UI/ScreenMessage/Label
-	var music_player := $TileMap/Entities/Mobs/Player/Camera/SoundManager.get_node("MusicPlayer")
-	var tween := $Tween
-
-	var start_color := Color(1.0,0.0,0.0,0.0)
-	var end_color := Color(1.0,0.0,0.0,0.8)
-
 	n_Player.can_move = false
-	n_Player.set_process_unhandled_input(false)
-	screen_message.visible = true
-	screen_message_label.percent_visible = 0
-	screen_message_label.text = "YOU ARE DEAD"
+	n_Player.set_process_unhandled_key_input(false)
 
-	music_player.stream = load("res://assets/music/losing.mp3")
-	music_player.play()
+	var lose := preload("res://assets/music/losing.mp3")
+	EventBus.emit_signal("play_sound", lose)
 
-	tween.interpolate_property(enviroment, "adjustment_saturation", 1.0, 0.0, 3.0, Tween.TRANS_LINEAR, Tween.EASE_IN, 1.0)
-	tween.interpolate_property(screen_message_label, "percent_visible", 0, 1, 1.5, Tween.TRANS_LINEAR, Tween.EASE_IN, 1.0)
-	tween.start()
+	$AnimationPlayer.play("death")

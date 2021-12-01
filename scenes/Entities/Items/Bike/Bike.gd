@@ -16,6 +16,7 @@ func set_fuel_amount(new_amount) -> void:
 	fuel_amount = min(new_amount, Globals.MAX_FUEL_LITERS)
 
 	if fuel_amount >= Globals.MAX_FUEL_LITERS:
+		stop()
 		emit_signal("on_full_tank")
 		return
 
@@ -23,21 +24,11 @@ func on_player_action_start(_player : Node2D) -> void:
 	if fuelcan == null:
 		return
 
-	weapon = _player.equipment.get_child(0)
-	_player.equipment.remove_child(weapon)
-
-	var disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
-	_player.equipment.equip(disarmed)
-
 	start()
 
 func on_player_action_end(_player : Node2D) -> void:
 	if fuelcan == null:
 		return
-
-	_player.equipment.clear()
-	_player.equipment.add_child(weapon)
-
 	stop()
 
 func _on_Timer_timeout():
@@ -83,6 +74,12 @@ func start() -> void:
 	if !$Timer.is_stopped():
 		return
 
+	weapon = player.equipment.get_child(0)
+	player.equipment.remove_child(weapon)
+
+	var disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
+	player.equipment.equip(disarmed)
+
 	player.can_move = false
 	fuelcan.on_use()
 	$Timer.start()
@@ -90,6 +87,9 @@ func start() -> void:
 func stop() -> void:
 	if $Timer.is_stopped():
 		return
+
+	player.equipment.clear()
+	player.equipment.add_child(weapon)
 
 	player.can_move = true
 	fuelcan.on_use_stop()

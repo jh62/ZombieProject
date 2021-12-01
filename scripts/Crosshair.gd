@@ -13,7 +13,7 @@ func _process(delta):
 	global_position = get_global_mouse_position()
 
 func _on_Player_on_death():
-	visible = false
+	visible = true
 
 func _on_item_pickedup(item):
 	if item is MeleeWeapon:

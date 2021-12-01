@@ -11,7 +11,7 @@ const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 const GROUP_PLAYER := "player"
 const GROUP_ZOMBIE := "zombie"
 
-const MAX_FUEL_LITERS := 120.5
+const MAX_FUEL_LITERS := 5.5 # 120.5
 
 const GameOptions := {
 	"gameplay": {
