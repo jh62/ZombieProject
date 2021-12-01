@@ -23,6 +23,10 @@ func update_animations() -> void:
 	n_Muzzle.flip_h = flip_h
 	n_Muzzle.offset.x = -n_Muzzle.position.x * 2 if flip_h else 0
 
+	if equipper.aiming:
+		var f := Mobile.get_facing_as_string(equipper.facing)
+		$AnimationPlayer.play("aim_" + f)
+
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
 

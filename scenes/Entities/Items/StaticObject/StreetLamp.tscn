@@ -43,11 +43,10 @@ light_mask = 3
 position = Vector2( -3, -9 )
 enabled = false
 color = Color( 0.678431, 0.678431, 0.678431, 1 )
-range_height = 324.0
+range_height = 300.0
 range_item_cull_mask = 3
 shadow_enabled = true
 shadow_gradient_length = 28.0
-shadow_filter_smooth = 20.0
 
 [node name="VisibilityNotifier2D" parent="." index="4"]
 visible = false

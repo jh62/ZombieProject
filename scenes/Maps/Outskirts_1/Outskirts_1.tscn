@@ -1334,19 +1334,15 @@ position = Vector2( 798, 493 )
 
 [node name="FuelCan" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 522, 91 )
-chance = 0.23
 
 [node name="FuelCan2" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 344, 413 )
-chance = 0.27
 
 [node name="FuelCan3" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 818, 618 )
-chance = 0.34
 
 [node name="FuelCan4" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 1250, 308 )
-chance = 0.21
 
 [node name="Suv" parent="MapObjects/Objects" instance=ExtResource( 45 )]
 position = Vector2( 205, 305 )

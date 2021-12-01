@@ -39,34 +39,37 @@ func _process(delta: float) -> void:
 		_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("action"):
-		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
-		yield(get_tree().create_timer(.015),"timeout")
-		emit_signal("on_aiming_stop", self)
-		return
-	elif event.is_action_released("action"):
-		EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
-		return
-
-	if event.is_action_pressed("reload"):
-		var equipped = get_equipped()
-		if equipped && equipped is Firearm:
-			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
-			emit_signal("on_reload", get_equipped().get_item_name())
-		return
-
-	if event.is_action("aim"):
-		var weapon = get_equipped()
-
-		if weapon == null || !(weapon is Firearm):
-			return
-
-		if  event.is_action_pressed("aim") && !(Input.is_action_pressed("action")):
-			emit_signal("on_aiming_start", self)
-			return
-		elif event.is_action_released("aim"):
+	if can_move:
+		if event.is_action_pressed("action"):
+			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
+			yield(get_tree().create_timer(.015),"timeout")
 			emit_signal("on_aiming_stop", self)
 			return
+		elif event.is_action_released("action"):
+			EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
+			return
+
+		if event.is_action_pressed("reload"):
+			var equipped = get_equipped()
+			if equipped && equipped is Firearm:
+				EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
+				emit_signal("on_reload", get_equipped().get_item_name())
+			return
+
+		if event.is_action("aim"):
+			dir = Vector2.ZERO
+
+			var weapon = get_equipped()
+
+			if weapon == null || !(weapon is Firearm):
+				return
+
+			if  event.is_action_pressed("aim") && !(Input.is_action_pressed("action")):
+				emit_signal("on_aiming_start", self)
+				return
+			elif event.is_action_released("aim"):
+				emit_signal("on_aiming_stop", self)
+				return
 
 	if event.is_action_pressed("action_alt"):
 		emit_signal("on_search_start", self)
@@ -78,12 +81,13 @@ func _unhandled_input(event: InputEvent) -> void:
 const look_at_dir := Vector2()
 
 func _process_input() -> void:
+#	if !aiming:
 	dir.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 	dir.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 
 	var equipped := get_equipped() as BaseItem
 
-	if equipped.in_use:
+	if equipped.in_use || aiming:
 		var m_pos := global_position.direction_to(get_global_mouse_position())
 		look_at_dir.x = m_pos.x
 		look_at_dir.y = m_pos.y
@@ -91,7 +95,7 @@ func _process_input() -> void:
 		look_at_dir.x = dir.x
 		look_at_dir.y = dir.y
 
-	if look_at_dir.dot(dir) < 0:
+	if look_at_dir.dot(dir) < 0 || aiming:
 		speed = max_speed * .25
 	else:
 		speed = max_speed

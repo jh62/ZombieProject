@@ -29,6 +29,9 @@ func _ready() -> void:
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
 
+	var weapon := preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn").instance()
+	n_Player.equipment.equip(weapon)
+
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()
 

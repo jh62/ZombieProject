@@ -59,6 +59,9 @@ func _ready():
 		$Area2D/CollisionShapeArea.set_polygon(poly)
 		$Area2D.position += Vector2.UP * 4
 
+func _process(delta):
+	pass
+
 func on_hit_by(attacker) -> void:
 	if attacker is Projectile:
 		self.hitpoints -= attacker.damage

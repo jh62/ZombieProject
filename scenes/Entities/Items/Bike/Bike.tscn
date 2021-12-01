@@ -5,15 +5,15 @@
 [ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 8.5
-height = 14.0001
+radius = 7.99997
+height = 17.0
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 352, 1216, 32, 15 )
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 12.0416
+[sub_resource type="CircleShape2D" id=4]
+radius = 18.2483
 
 [node name="Bike" type="KinematicBody2D"]
 collision_mask = 0
@@ -28,16 +28,16 @@ texture = ExtResource( 1 )
 normal_map = SubResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+rotation = 1.5708
+shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

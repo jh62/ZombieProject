@@ -7,20 +7,57 @@ export var fuel_amount := 0.0 setget set_fuel_amount
 
 var player
 var fuelcan
+var weapon
 
 func _ready():
-	$Area2D/CollisionShape2D.shape = $CollisionShape2D.shape
+	pass
 
 func set_fuel_amount(new_amount) -> void:
-#	fuel_amount = clamp(fuel_amount + new_amount, 0.0, Globals.MAX_FUEL_LITERS)
 	fuel_amount = min(new_amount, Globals.MAX_FUEL_LITERS)
-	print_debug(new_amount)
 
 	if fuel_amount >= Globals.MAX_FUEL_LITERS:
 		emit_signal("on_full_tank")
 		return
 
-func _on_body_entered(body):
+func on_player_action_start(_player : Node2D) -> void:
+	if fuelcan == null:
+		return
+
+	weapon = _player.equipment.get_child(0)
+	_player.equipment.remove_child(weapon)
+
+	var disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
+	_player.equipment.equip(disarmed)
+
+	start()
+
+func on_player_action_end(_player : Node2D) -> void:
+	if fuelcan == null:
+		return
+
+	_player.equipment.clear()
+	_player.equipment.add_child(weapon)
+
+	stop()
+
+func _on_Timer_timeout():
+	if player == null || !player.is_alive() || fuelcan == null || fuel_amount >= Globals.MAX_FUEL_LITERS:
+		$Timer.stop()
+		return
+
+	player.can_move = false
+
+	self.fuel_amount += .15
+	fuelcan.fuel_amount -= .15
+
+	if fuelcan.fuel_amount == 0.0:
+		stop()
+		fuelcan.call_deferred("queue_free")
+		fuelcan = null
+
+	emit_signal("on_fuel_changed", fuel_amount)
+
+func _on_Area2D_body_entered(body):
 	var _player = body as Player
 	var _fuelcan = _player.find_node("FuelCan*",false, false)
 
@@ -40,23 +77,20 @@ func _on_Area2D_body_exited(body):
 	player.disconnect("on_search_start", self, "on_player_action_start")
 	player.disconnect("on_search_end", self, "on_player_action_end")
 
-func on_player_action_start(_player) -> void:
-	$Timer.start()
+	stop()
 
-func on_player_action_end(_player) -> void:
-	$Timer.stop()
-
-func _on_Timer_timeout():
-	if player == null || !player.is_alive() || fuelcan == null || fuelcan.fuel_amount == 0.0 || fuel_amount >= Globals.MAX_FUEL_LITERS:
-		$Timer.stop()
+func start() -> void:
+	if !$Timer.is_stopped():
 		return
 
-	self.fuel_amount += .15
-	fuelcan.fuel_amount -= .15
+	player.can_move = false
+	fuelcan.on_use()
+	$Timer.start()
 
-	if fuelcan.fuel_amount == 0.0:
-		fuelcan.queue_free()
-		fuelcan = null
-		$Timer.stop()
+func stop() -> void:
+	if $Timer.is_stopped():
+		return
 
-	emit_signal("on_fuel_changed", fuel_amount)
+	player.can_move = true
+	fuelcan.on_use_stop()
+	$Timer.stop()

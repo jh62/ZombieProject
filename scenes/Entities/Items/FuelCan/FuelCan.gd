@@ -3,20 +3,18 @@ class_name FuelCan extends RigidBody2D
 signal on_explode(position)
 
 const SoundPickUp := preload("res://assets/sfx/misc/fuelcan_pickup.wav")
+const SoundFlow := preload("res://assets/sfx/misc/fuelcan_flow.wav")
+const SoundFlowStop := preload("res://assets/sfx/misc/fuelcan_end.wav")
 
-export var chance := 1.0
 export var fuel_amount := 0.0 setget set_fuelamount
 
 var player
 var exploded := false
 
 func _ready():
-	if chance < randf():
-		call_deferred("queue_free")
-		return
-
 	if !fuel_amount:
-		fuel_amount = rand_range(1.5, Global.MAX_FUEL_LITERS * .33)
+		fuel_amount = rand_range(1.5, Global.MAX_FUEL_LITERS * .1)
+	print_debug(fuel_amount)
 
 func _process(delta):
 	if player != null:
@@ -87,3 +85,15 @@ func on_action_pickup(mob) -> void:
 	$Area2D.monitorable = false
 
 	EventBus.emit_signal("play_sound", SoundPickUp, player.global_position)
+
+func on_use(mob := null) -> void:
+	$AudioStreamPlayer.stream = SoundFlow
+	$AudioStreamPlayer.play()
+
+func on_use_stop(mob := null) -> void:
+	$AudioStreamPlayer.stream = SoundFlowStop
+	$AudioStreamPlayer.play()
+
+func queue_free() -> void:
+	yield($AudioStreamPlayer,"finished")
+	.queue_free()
