@@ -1253,7 +1253,7 @@ position = Vector2( 557, 593 )
 scale = Vector2( -1, -1 )
 
 [node name="Car8" parent="MapObjects/Objects" instance=ExtResource( 44 )]
-position = Vector2( 666, 601 )
+position = Vector2( 667, 596 )
 rotation = 3.14159
 scale = Vector2( -1, 1 )
 

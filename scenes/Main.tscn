@@ -29,14 +29,14 @@ animations = [ {
 "name": "crosshair_1",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "crosshair_2",
-"speed": 1.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": false,
 "name": "crosshair_3",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "crosshair_2",
 "speed": 1.0
 } ]
 

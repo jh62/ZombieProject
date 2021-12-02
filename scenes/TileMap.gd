@@ -125,6 +125,7 @@ func _update_navigation_polygon() -> void:
 	var objects := $MapObjects/Objects.get_children()
 	var streetlamps := $MapObjects/StreetLamps.get_children()
 
+	make_outlines([$MapObjects/BackgroundObjects/Lot])
 	make_outlines(buildings)
 	make_outlines(objects)
 	make_outlines(streetlamps)
