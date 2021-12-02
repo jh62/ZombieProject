@@ -34,8 +34,19 @@ func _spawn_bullet(position, damage, knockback := 0.0, direction = null ) -> voi
 	bullet.look_at(position + (direction * 500))
 
 func _spawn_mob(position) -> void:
+
 	var zombie : Mobile = Zombie.instance()
 	n_Mobs.add_child(zombie)
+
+	# Check if spot is valid
+	zombie.move_and_slide(Vector2.ZERO)
+
+	if zombie.get_slide_count() > 0:
+		var collision := zombie.get_slide_collision(0)
+		if collision.collider is StaticObject:
+			zombie.queue_free()
+			return
+
 	zombie.nav = get_parent().get_node("Navigation2D")
 	zombie.global_position = position
 	zombie.speed = rand_range(10,20)

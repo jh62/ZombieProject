@@ -11,13 +11,13 @@ const sound_color_codes := {
 	ColorCodes.GRASS: {
 		"hex": "",
 		"sound": {
-			Global.GROUP_PLAYER: [
+			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_grass_1.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_grass_2.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_grass_3.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_grass_4.wav")
 			],
-			Global.GROUP_ZOMBIE: [
+			Globals.GROUP_ZOMBIE: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_3.wav"),
@@ -28,13 +28,13 @@ const sound_color_codes := {
 	ColorCodes.CEMENT:{
 		"hex": "",
 		"sound": {
-			Global.GROUP_PLAYER: [
+			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_cement_1.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_cement_2.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_cement_3.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_cement_4.wav"),
 			],
-			Global.GROUP_ZOMBIE: [
+			Globals.GROUP_ZOMBIE: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_3.wav"),
@@ -45,19 +45,19 @@ const sound_color_codes := {
 	ColorCodes.DIRT:{
 		"hex": "",
 		"sound": {
-			Global.GROUP_PLAYER: [],
-			Global.GROUP_ZOMBIE: []
+			Globals.GROUP_PLAYER: [],
+			Globals.GROUP_ZOMBIE: []
 		}
 	},
 	ColorCodes.METAL:{
 		"hex": "",
 		"sound": {
-			Global.GROUP_PLAYER: [
+			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_metal_1.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_metal_2.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_metal_3.wav"),
 			],
-			Global.GROUP_ZOMBIE: [
+			Globals.GROUP_ZOMBIE: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_3.wav"),
