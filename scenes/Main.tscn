@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -14,8 +14,6 @@
 [ext_resource path="res://assets/res/ui/crosshair/crosshair_square.tres" type="Texture" id=13]
 [ext_resource path="res://assets/res/ui/crosshair/crosshair_circle_small.tres" type="Texture" id=14]
 [ext_resource path="res://scripts/Crosshair.gd" type="Script" id=15]
-
-[sub_resource type="CircleShape2D" id=9]
 
 [sub_resource type="CanvasItemMaterial" id=6]
 light_mode = 1
@@ -364,7 +362,11 @@ position = Vector2( 72, 312 )
 
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 103, 253 )
-weapon_name = 3
+weapon_name = 6
+
+[node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
+position = Vector2( 62, 228 )
+weapon_name = 4
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -388,14 +390,6 @@ editor_draw_drag_margin = true
 
 [node name="Listener2D" type="Listener2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
-
-[node name="Area2D" type="Area2D" parent="TileMap/Entities"]
-collision_layer = 0
-collision_mask = 9
-input_pickable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Entities/Area2D"]
-shape = SubResource( 9 )
 
 [node name="Crosshair" type="AnimatedSprite" parent="."]
 light_mask = 0

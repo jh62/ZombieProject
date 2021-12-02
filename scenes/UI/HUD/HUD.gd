@@ -14,6 +14,7 @@ onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/ProgressBar
 onready var n_GasTankLabel := $GasTank/Label
 onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
+onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/HBoxContainer
 onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
 onready var n_Tween := $Tween
@@ -54,9 +55,9 @@ func update_weapon_status() -> void:
 	n_WeaponIcon.texture = weapon.get_icon()
 
 #	n_AmmoLabel.visible = weapon.bullets + weapon.smagazine > 0
-	n_AmmoLabel.visible = weapon is Firearm
+	n_AmmoRoot.visible = weapon is Firearm
 
-	if n_AmmoLabel.visible:
+	if n_AmmoRoot.visible:
 		var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})

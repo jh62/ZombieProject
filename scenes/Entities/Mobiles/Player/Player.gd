@@ -24,6 +24,7 @@ onready var equipment := $Equipment
 var can_move := true
 var loot_count := 0
 var aiming = false
+var busy_time := 0.0
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
@@ -35,8 +36,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	if is_alive() && can_move:
-		_process_input()
+	busy_time = clamp(busy_time - delta, 0.0, .21)
+
+	if is_alive():
+		if can_move && busy_time == 0.0:
+			_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if can_move:

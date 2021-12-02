@@ -130,8 +130,6 @@ margin_bottom = 34.0
 margin_right = 47.0
 margin_bottom = 17.0
 mouse_filter = 2
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.0
 texture = ExtResource( 1 )
 stretch_mode = 4
 

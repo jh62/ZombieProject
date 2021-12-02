@@ -16,31 +16,31 @@ export var bullets := 0
 
 var weapons := {
 	WeaponName.PISTOL:{
-		"icon": preload("res://assets/res/weapon/icons/pistol.tres"),
+		"texture": preload("res://assets/res/weapon/icons/pistol.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn")
 	},
 	WeaponName.SHOTGUN:{
-		"icon": preload("res://assets/res/weapon/icons/shotgun.tres"),
+		"texture": preload("res://assets/res/weapon/icons/shotgun.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn")
 	},
 	WeaponName.SMG:{
-		"icon": preload("res://assets/res/weapon/icons/smg.tres"),
+		"texture": preload("res://assets/res/weapon/icons/smg.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn")
 	},
 	WeaponName.LEADPIPE:{
-		"icon": preload("res://assets/res/weapon/icons/leadpipe.tres"),
+		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn")
 	},
 	WeaponName.RIFLE:{
-		"icon": preload("res://assets/res/weapon/icons/rifle.tres"),
+		"texture": preload("res://assets/res/weapon/icons/rifle.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn")
 	},
 #	WeaponName.MACHETE:{
-#		"icon": preload("res://assets/res/weapon/icons/machete_icon.tres"),
+#		"texture": preload("res://assets/res/weapon/icons/machete_icon.tres"),
 #		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn")
 #	},
 	WeaponName.SWORD:{
-		"icon": preload("res://assets/res/weapon/icons/sword_icon.tres"),
+		"texture": preload("res://assets/res/weapon/icons/sword.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn")
 	}
 }
@@ -50,7 +50,7 @@ var picked_sound
 func _ready():
 	if random_drop:
 		weapon_name = WeaponName.values()[randi()%WeaponName.size()]
-	$Sprite.texture = weapons.get(weapon_name).icon
+	$Sprite.texture = weapons.get(weapon_name).texture
 
 func get_picked_sound() ->  AudioStream:
 	return picked_sound

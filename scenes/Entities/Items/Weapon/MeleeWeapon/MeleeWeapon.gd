@@ -148,5 +148,6 @@ func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:
 		"shoot":
 			equipper.can_move = true
+			equipper.busy_time += .15
 			in_use = false
 			raycast_enable(false)
