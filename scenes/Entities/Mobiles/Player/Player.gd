@@ -36,7 +36,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	busy_time = clamp(busy_time - delta, 0.0, .21)
+	busy_time = clamp(busy_time - delta, 0.0, .77)
 
 	if is_alive():
 		if can_move && busy_time == 0.0:

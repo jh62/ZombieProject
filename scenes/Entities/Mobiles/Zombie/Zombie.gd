@@ -5,7 +5,7 @@ const States := {
 	"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState.gd"),
 	"attack": preload("res://scripts/fsm/states/zombie/ZombieAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/zombie/ZombieDieState.gd"),
-	"melee": preload("res://scripts/fsm/states/zombie/ZombieMeleeState.gd"),
+	"melee": preload("res://scripts/fsm/states/zombie/ZombieMeleeDeathState.gd"),
 	"rest": preload("res://scripts/fsm/states/zombie/ZombieRestState.gd"),
 	"standup": preload("res://scripts/fsm/states/zombie/ZombieStandupState.gd"),
 	"headshot": preload("res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"),

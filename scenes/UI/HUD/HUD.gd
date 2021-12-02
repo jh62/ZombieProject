@@ -33,6 +33,10 @@ func _ready():
 	update_fuel_status()
 	update_loot_count()
 
+func _process(delta):
+	if n_player != null:
+		$CharStats/HBoxContainer/StaminaTextureProgress.value = n_player.busy_time
+
 func update_healthbar() -> void:
 	var health_percentage := n_player.hitpoints / n_player.max_hitpoints
 	n_HealthBar.value = health_percentage

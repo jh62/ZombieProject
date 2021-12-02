@@ -1,21 +1,11 @@
-class_name ZombieMeleeState extends State
+class_name ZombieMeleeDeathState extends State
 
-const SOUNDS := {
-	"edged":[
-		preload("res://assets/sfx/impact/melee/blade_hit_1.wav"),
-		preload("res://assets/sfx/impact/melee/blade_hit_2.wav"),
-		preload("res://assets/sfx/impact/melee/blade_hit_3.wav"),
-	],
-	"blunt":[
-		preload("res://assets/sfx/impact/melee/blunt_hit_1.wav"),
-		preload("res://assets/sfx/impact/melee/blunt_hit_2.wav"),
-		preload("res://assets/sfx/impact/melee/blunt_hit_3.wav"),
-	],
-	"impact_flesh":[
+const SoundImpactFlesh := [
 		preload("res://assets/sfx/impact/flesh_impact_01.wav"),
 		preload("res://assets/sfx/impact/flesh_impact_02.wav"),
 	]
-}
+
+const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
 var melee_type
 
@@ -27,15 +17,12 @@ func get_name():
 
 func enter_state() -> void:
 	var anim_name : String
-	var sounds
 
 	match melee_type:
 		MeleeWeapon.MeleeType.EDGED:
 			anim_name = "die_sliced"
-			sounds = SOUNDS.edged
 		_:
 			anim_name = "headshot"
-			sounds = SOUNDS.blunt
 
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
@@ -44,7 +31,11 @@ func enter_state() -> void:
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
-	EventBus.emit_signal("play_sound_random", sounds, owner.global_position)
+
+	EventBus.emit_signal("play_sound_random", SoundImpactFlesh, owner.global_position)
+
+	var guts := Guts.instance()
+	EventBus.emit_signal("on_object_spawn", guts, owner.global_position)
 
 func update(delta) -> void:
 	pass

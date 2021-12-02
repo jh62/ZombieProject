@@ -366,7 +366,7 @@ weapon_name = 6
 
 [node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 62, 228 )
-weapon_name = 4
+weapon_name = 1
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 

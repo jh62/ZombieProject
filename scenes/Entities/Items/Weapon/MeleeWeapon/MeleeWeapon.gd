@@ -141,13 +141,11 @@ func _on_action_animation_started(anim_name, facing) -> void:
 						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
 							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
 							collider.on_hit_by(self)
-							print_debug(collider.name)
-#						break
 
 func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:
 		"shoot":
 			equipper.can_move = true
-			equipper.busy_time += .15
+			equipper.busy_time += .35
 			in_use = false
 			raycast_enable(false)

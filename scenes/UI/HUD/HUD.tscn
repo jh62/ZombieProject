@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/res/weapon/icons/pistol_icon.tres" type="Texture" id=1]
-[ext_resource path="res://assets/res/ui/healthbar/healthbar_v_under.tres" type="Texture" id=2]
+[ext_resource path="res://assets/res/ui/healthbar/stamina_v_progress.tres" type="Texture" id=2]
 [ext_resource path="res://assets/res/ui/fueltank/fueltank_background.tres" type="Texture" id=3]
 [ext_resource path="res://assets/res/ui/lootbag/lootbag_icon.tres" type="Texture" id=4]
 [ext_resource path="res://assets/res/ui/healthbar/healthbar_v_progress.tres" type="Texture" id=5]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/res/ui/fueltank/fueltank_fill.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/ui/healthbar/portrait.tres" type="Texture" id=8]
 [ext_resource path="res://assets/res/weapon/icons/riflemag_icon.tres" type="Texture" id=9]
+[ext_resource path="res://assets/res/ui/healthbar/staminabar_v_under.tres" type="Texture" id=10]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -34,9 +35,9 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CharStats"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 40.0
+margin_right = 48.0
 margin_bottom = 28.0
-custom_constants/separation = 0
+custom_constants/separation = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="CharStats/HBoxContainer"]
 margin_right = 32.0
@@ -50,8 +51,8 @@ texture = ExtResource( 8 )
 stretch_mode = 6
 
 [node name="HealthTextureProgress" type="TextureProgress" parent="CharStats/HBoxContainer"]
-margin_left = 32.0
-margin_right = 36.0
+margin_left = 34.0
+margin_right = 38.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 4, 0 )
 max_value = 1.0
@@ -59,6 +60,20 @@ step = 0.1
 value = 1.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 5 )
+fill_mode = 3
+nine_patch_stretch = true
+stretch_margin_bottom = 1
+
+[node name="StaminaTextureProgress" type="TextureProgress" parent="CharStats/HBoxContainer"]
+margin_left = 40.0
+margin_right = 44.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 4, 0 )
+max_value = 0.35
+step = 0.1
+value = 0.35
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 2 )
 fill_mode = 3
 nine_patch_stretch = true
 stretch_margin_bottom = 1
