@@ -1,11 +1,17 @@
 class_name ZombieHitState extends State
 
 const SOUNDS := {
-	"body_impact":[
+	"bullet_impact":[
 		preload("res://assets/sfx/impact/bullet_body_01.wav"),
 		preload("res://assets/sfx/impact/bullet_body_02.wav"),
 		preload("res://assets/sfx/impact/bullet_body_03.wav"),
 		preload("res://assets/sfx/impact/bullet_body_04.wav"),
+	],
+	"body_impact":[
+		preload("res://assets/sfx/impact/body_hit_1.wav"),
+		preload("res://assets/sfx/impact/body_hit_2.wav"),
+		preload("res://assets/sfx/impact/body_hit_3.wav"),
+		preload("res://assets/sfx/impact/body_hit_4.wav"),
 	],
 	"hurt":[
 		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_01.wav"),
@@ -29,8 +35,15 @@ func enter_state() -> void:
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
-	owner.vel *= -(attacker.knockback)
-	EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
+
+	if "knockback" in attacker:
+		owner.vel *= -(attacker.knockback)
+
+	if attacker is Projectile:
+		EventBus.emit_signal("play_sound_random", SOUNDS.bullet_impact, owner.global_position)
+	else:
+		EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
+
 	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
 
 func update(delta) -> void:

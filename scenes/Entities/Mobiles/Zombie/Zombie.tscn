@@ -2869,5 +2869,8 @@ collision_mask = 32
 position = Vector2( 0, -5 )
 shape = SubResource( 39 )
 
+[node name="VisibilityNotifier2D" parent="." index="5"]
+visible = false
+
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]

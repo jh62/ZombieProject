@@ -12,6 +12,7 @@ enum Type {
 }
 
 const SoundExplode := preload("res://assets/sfx/impact/fuelcan_explode.wav")
+const SmallFlames := preload("res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn")
 
 const ExplosionTypes := {
 	Type.BIG_1: "explode_1",
@@ -47,6 +48,12 @@ func explode(explosion_type, _radius := 16) -> void:
 
 	yield(get_tree().create_timer(.1),"timeout")
 	check_explosion()
+
+	for i in range(14):
+		var flames := SmallFlames.instance()
+		flames.dir = Vector2(rand_range(-1,1),rand_range(-1,1))
+		flames.speed = randf() * 5.0 + 3.0
+		EventBus.emit_signal("on_object_spawn", flames, global_position)
 
 func check_explosion() -> void:
 	var bodies := get_overlapping_bodies()

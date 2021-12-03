@@ -27,14 +27,12 @@ func _spawn_bullet(position, damage, knockback := 0.0, direction = null ) -> voi
 	bullet.knockback = knockback
 
 	if n_Mobs.get_node("Player").aiming:
-		print_debug("aminig")
 		bullet.set_collision_mask_bit(2, false)
 
 	bullet.global_position = position
 	bullet.look_at(position + (direction * 500))
 
 func _spawn_mob(position) -> void:
-
 	var zombie : Mobile = Zombie.instance()
 	n_Mobs.add_child(zombie)
 

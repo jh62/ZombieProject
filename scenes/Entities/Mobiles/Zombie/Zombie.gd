@@ -32,6 +32,7 @@ onready var damage := attack_damage
 var target
 var nav : Navigation2D
 var waypoints : PoolVector2Array
+var down_times := 0
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
@@ -72,8 +73,9 @@ func on_hit_by(attacker) -> void:
 		if attacker is MeleeWeapon:
 			new_state = States.melee.new(self, attacker.melee_type)
 		else:
-			if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
+			if down_times < 3 && Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
 				new_state = States.die.new(self)
+				down_times += 1
 			else:
 				new_state = States.headshot.new(self)
 	else:

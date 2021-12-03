@@ -51,8 +51,6 @@ func _on_action_pressed(action_type, facing) -> void:
 			EventBus.emit_signal("play_sound_random", snd, global_position)
 
 func _on_action_animation_started(_anim_name, _facing) -> void:
-	._on_action_animation_started(_anim_name, _facing)
-
 	match _anim_name:
 		"shoot":
 			if magazine == 0:
@@ -67,3 +65,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			equipper.vel += -equipper.facing * knockback
 
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback)
+
+			var snd = get_sound_shoot()
+			emit_signal("on_use")
+			EventBus.emit_signal("play_sound_random", snd, global_position)

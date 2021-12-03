@@ -1,13 +1,20 @@
 class_name HitState extends State
 
-const SOUNDS := [
-	preload("res://assets/sfx/impact/bullet_body_01.wav"),
-	preload("res://assets/sfx/impact/bullet_body_02.wav"),
-	preload("res://assets/sfx/impact/bullet_body_03.wav"),
-	preload("res://assets/sfx/impact/bullet_body_04.wav"),
+const HitSounds := [
+	preload("res://assets/sfx/impact/body_hit_1.wav"),
+	preload("res://assets/sfx/impact/body_hit_2.wav"),
+	preload("res://assets/sfx/impact/body_hit_3.wav"),
+	preload("res://assets/sfx/impact/body_hit_4.wav"),
 ]
 
-var attacker : Mobile
+const HurtSounds := [
+	preload("res://assets/sfx/mobs/player/hurt/player_hurt_0.wav"),
+	preload("res://assets/sfx/mobs/player/hurt/player_hurt_1.wav"),
+	preload("res://assets/sfx/mobs/player/hurt/player_hurt_2.wav"),
+	preload("res://assets/sfx/mobs/player/hurt/player_hurt_3.wav"),
+]
+
+var attacker : Node2D
 
 func _init(owner, _attacker).(owner):
 	attacker = _attacker
@@ -25,7 +32,10 @@ func enter_state() -> void:
 	anim_p.play(current_anim)
 
 	owner.vel += attacker.dir * 2.2
-	EventBus.emit_signal("play_sound_random",SOUNDS, owner.global_position)
+	EventBus.emit_signal("play_sound_random", HitSounds, owner.global_position)
+
+	if .45 > randf():
+		EventBus.emit_signal("play_sound_random", HurtSounds, owner.global_position)
 
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel)

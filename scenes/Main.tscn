@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -9,22 +9,35 @@
 [ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/res/ui/crosshair/crosshair_ne.tres" type="Texture" id=10]
 [ext_resource path="res://assets/res/ui/crosshair/crosshair_circle.tres" type="Texture" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/res/ui/crosshair/crosshair_square.tres" type="Texture" id=13]
 [ext_resource path="res://assets/res/ui/crosshair/crosshair_circle_small.tres" type="Texture" id=14]
 [ext_resource path="res://scripts/Crosshair.gd" type="Script" id=15]
+[ext_resource path="res://assets/res/ui/crosshair/crosshair_e.tres" type="Texture" id=16]
 
 [sub_resource type="CanvasItemMaterial" id=6]
 light_mode = 1
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 11 )
-region = Rect2( 106, 1234, 13, 13 )
-
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ SubResource( 3 ) ],
+"frames": [ ExtResource( 14 ) ],
+"loop": false,
+"name": "crosshair_2",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": false,
+"name": "crosshair_ne",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": false,
+"name": "crosshair_e",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 11 ) ],
 "loop": false,
 "name": "crosshair_1",
 "speed": 1.0
@@ -32,11 +45,6 @@ animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": false,
 "name": "crosshair_3",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": false,
-"name": "crosshair_2",
 "speed": 1.0
 } ]
 
@@ -360,10 +368,6 @@ __meta__ = {
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
-position = Vector2( 103, 253 )
-weapon_name = 6
-
 [node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 62, 228 )
 weapon_name = 1
@@ -394,10 +398,10 @@ current = true
 [node name="Crosshair" type="AnimatedSprite" parent="."]
 light_mask = 0
 material = SubResource( 6 )
-position = Vector2( 56, 93 )
+position = Vector2( 85, 143 )
 z_index = 1000
 frames = SubResource( 4 )
-animation = "crosshair_3"
+animation = "crosshair_e"
 script = ExtResource( 15 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

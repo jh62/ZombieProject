@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	busy_time = clamp(busy_time - delta, 0.0, .77)
 
 	if is_alive():
-		if can_move && busy_time == 0.0:
+		if can_move:
 			_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -85,9 +85,9 @@ func _unhandled_input(event: InputEvent) -> void:
 const look_at_dir := Vector2()
 
 func _process_input() -> void:
-#	if !aiming:
-	dir.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-	dir.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
+	if busy_time == 0.0:
+		dir.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+		dir.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 
 	var equipped := get_equipped() as BaseItem
 

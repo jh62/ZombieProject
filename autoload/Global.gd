@@ -10,12 +10,13 @@ const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 
 const GROUP_PLAYER := "player"
 const GROUP_ZOMBIE := "zombie"
+const GROUP_FIRE := "fire"
 
 const MAX_FUEL_LITERS := 5.5 # 120.5
 
 const GameOptions := {
 	"gameplay": {
-		"difficulty": Difficulty.NORMAL,
+		"difficulty": Difficulty.HARD,
 		"discard_bullets": 1,
 		"auto_pickup": 1
 	},
