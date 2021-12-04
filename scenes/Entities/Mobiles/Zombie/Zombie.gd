@@ -84,6 +84,7 @@ func on_hit_by(attacker) -> void:
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
+	print_debug("headshot")
 	kill()
 	body.call_deferred("queue_free")
 
@@ -97,7 +98,7 @@ func _on_fuelcan_explode(_position):
 	var target_pos = get_area_point(_position, 80.0)
 	target = nav.get_closest_point(target_pos)
 
-func _on_bullet_spawn(_position, _damage, _direction = null) -> void:
+func _on_bullet_spawn(_position, _damage, _direction = null, aimed := false) -> void:
 	if target != null && !(target is Vector2):
 		return
 
@@ -140,3 +141,9 @@ func _on_screen_exited():
 		return
 
 	target = target.global_position # go to last known location
+
+func _on_AreaHead_area_entered(area):
+	$Sprite.modulate = Color.red
+
+func _on_AreaHead_area_exited(area):
+	$Sprite.modulate = Color.white

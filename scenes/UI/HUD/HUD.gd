@@ -8,6 +8,7 @@ onready var n_bike : Bike = get_node(p_bike)
 onready var n_Stats := $CharStats
 #onready var n_HealthBar := $CharStats/HBoxContainer/CenterContainer/Healthbar
 onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
+onready var n_StaminaBar := $CharStats/HBoxContainer/StaminaTextureProgress
 onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
 onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
@@ -27,6 +28,8 @@ func _ready():
 	n_bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
+	n_HealthBar.max_value = n_player.max_hitpoints
+	n_StaminaBar.max_value = PlayerStatus.max_busy_time
 
 	update_healthbar()
 	update_weapon_status()
@@ -35,11 +38,12 @@ func _ready():
 
 func _process(delta):
 	if n_player != null:
-		$CharStats/HBoxContainer/StaminaTextureProgress.value = n_player.busy_time
+		n_StaminaBar.value = n_player.busy_time
 
 func update_healthbar() -> void:
-	var health_percentage := n_player.hitpoints / n_player.max_hitpoints
-	n_HealthBar.value = health_percentage
+#	var health_percentage := n_player.hitpoints / n_player.max_hitpoints
+#	n_HealthBar.value = n_player.max_hitpoints *  health_percentage
+	n_HealthBar.value = n_player.hitpoints
 
 func _on_player_hit() -> void:
 	update_healthbar()

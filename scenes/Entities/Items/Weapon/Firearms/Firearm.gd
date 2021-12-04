@@ -2,6 +2,7 @@ class_name Firearm extends BaseWeapon
 
 export var bullets := 0 setget set_bullets
 export var mag_size := 0
+export var reload_time := 2.0
 
 onready var n_Muzzle : Sprite = get_node("GunMuzzle")
 
@@ -23,9 +24,10 @@ func update_animations() -> void:
 	n_Muzzle.flip_h = flip_h
 	n_Muzzle.offset.x = -n_Muzzle.position.x * 2 if flip_h else 0
 
-	if equipper.aiming:
-		var f := Mobile.get_facing_as_string(equipper.facing)
-		$AnimationPlayer.play("aim_" + f)
+	if !$AnimationPlayer.current_animation.begins_with("shoot"):
+		if equipper.aiming:
+			var f := Mobile.get_facing_as_string(equipper.facing)
+			$AnimationPlayer.play("aim_" + f)
 
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
@@ -38,7 +40,7 @@ func _on_action_pressed(action_type, facing) -> void:
 		EventBus.ActionEvent.USE:
 			if magazine == 0:
 				var snd = get_sound_dry()
-				EventBus.emit_signal("play_sound_random", snd, Vector2.ZERO)
+				EventBus.emit_signal("play_sound_random", snd, global_position)
 				return
 			in_use = true
 		EventBus.ActionEvent.RELOAD:
@@ -47,6 +49,12 @@ func _on_action_pressed(action_type, facing) -> void:
 				return
 			self.bullets -= mag_size
 			self.magazine = mag_size
+
+			equipper.dir = Vector2.ZERO
+			equipper.busy_time += reload_time
+
+			EventBus.emit_signal("on_weapon_reloaded", get_item_name())
+
 			var snd = get_reload_sound()
 			EventBus.emit_signal("play_sound_random", snd, global_position)
 
@@ -61,10 +69,9 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 			self.magazine -= 1
 			self.bullets -= 1
-
 			equipper.vel += -equipper.facing * knockback
 
-			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback)
+			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
 
 			var snd = get_sound_shoot()
 			emit_signal("on_use")

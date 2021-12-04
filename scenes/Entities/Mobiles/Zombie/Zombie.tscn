@@ -2805,7 +2805,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 10 )
-normal_map = ExtResource( 14 )
+normal_map = ExtResource( 16 )
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"
@@ -2861,9 +2862,8 @@ collision_mask = 2
 shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="." index="4"]
-visible = false
 collision_layer = 0
-collision_mask = 32
+collision_mask = 160
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHead" index="0"]
 position = Vector2( 0, -5 )
@@ -2873,4 +2873,6 @@ shape = SubResource( 39 )
 visible = false
 
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
+[connection signal="area_entered" from="AreaHead" to="." method="_on_AreaHead_area_entered"]
+[connection signal="area_exited" from="AreaHead" to="." method="_on_AreaHead_area_exited"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]

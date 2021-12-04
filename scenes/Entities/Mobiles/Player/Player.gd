@@ -4,7 +4,6 @@ signal on_search_start(this)
 signal on_search_end(this)
 signal on_aiming_start(this)
 signal on_aiming_stop(this)
-signal on_reload(weapon_name)
 
 signal on_death
 signal on_hit
@@ -33,21 +32,26 @@ func _ready() -> void:
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 
+	self.max_hitpoints = PlayerStatus.max_hitpoints
+	self.hitpoints = max_hitpoints
+
 func _process(delta: float) -> void:
 	._process(delta)
 
-	busy_time = clamp(busy_time - delta, 0.0, .77)
+	busy_time = clamp(busy_time - delta, 0.0, PlayerStatus.max_busy_time)
 
 	if is_alive():
 		if can_move:
 			_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if busy_time > 0:
+		return
+
 	if can_move:
 		if event.is_action_pressed("action"):
 			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
-			yield(get_tree().create_timer(.015),"timeout")
-			emit_signal("on_aiming_stop", self)
+#			emit_signal("on_aiming_stop", self)
 			return
 		elif event.is_action_released("action"):
 			EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
@@ -57,7 +61,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			var equipped = get_equipped()
 			if equipped && equipped is Firearm:
 				EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)
-				emit_signal("on_reload", get_equipped().get_item_name())
 			return
 
 		if event.is_action("aim"):

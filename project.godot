@@ -99,11 +99,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Player/Player.gd"
 }, {
-"base": "Node",
-"class": "PlayerStats",
-"language": "GDScript",
-"path": "res://autoload/PlayerStatus.gd"
-}, {
 "base": "RigidBody2D",
 "class": "Projectile",
 "language": "GDScript",
@@ -218,7 +213,6 @@ _global_script_class_icons={
 "Pickable": "",
 "PickableWeapon": "",
 "Player": "",
-"PlayerStats": "",
 "Projectile": "",
 "RunState": "",
 "SearchState": "",
@@ -357,6 +351,7 @@ aim={
 2d_physics/layer_5="pickable"
 2d_physics/layer_6="bullets"
 2d_physics/layer_7="areas"
+2d_physics/layer_8="crosshair"
 
 [physics]
 

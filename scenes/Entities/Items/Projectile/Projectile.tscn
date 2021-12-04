@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/Entities/Items/Projectile/Projectile.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 1.41398
-height = 3.26242
+radius = 1.94307
+height = 4.08912
 
 [node name="Projectile" type="RigidBody2D"]
 show_behind_parent = true
@@ -23,15 +23,15 @@ rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-rotation = 1.5708
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
-region_rect = Rect2( 3, 327, 2, 7 )
+region_rect = Rect2( 0, 0, 3, 1 )
 __meta__ = {
 "_editor_description_": "	"
 }
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
 
 [node name="VisibilityTimer" type="Timer" parent="."]
 one_shot = true
