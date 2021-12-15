@@ -6,9 +6,7 @@ export var p_bike : NodePath
 onready var n_player : Player = get_node(p_player)
 onready var n_bike : Bike = get_node(p_bike)
 onready var n_Stats := $CharStats
-#onready var n_HealthBar := $CharStats/HBoxContainer/CenterContainer/Healthbar
 onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
-onready var n_StaminaBar := $CharStats/HBoxContainer/StaminaTextureProgress
 onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
 onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
@@ -29,20 +27,13 @@ func _ready():
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 	n_HealthBar.max_value = n_player.max_hitpoints
-	n_StaminaBar.max_value = PlayerStatus.max_busy_time
 
 	update_healthbar()
 	update_weapon_status()
 	update_fuel_status()
 	update_loot_count()
 
-func _process(delta):
-	if n_player != null:
-		n_StaminaBar.value = n_player.busy_time
-
 func update_healthbar() -> void:
-#	var health_percentage := n_player.hitpoints / n_player.max_hitpoints
-#	n_HealthBar.value = n_player.max_hitpoints *  health_percentage
 	n_HealthBar.value = n_player.hitpoints
 
 func _on_player_hit() -> void:
@@ -62,7 +53,6 @@ func update_weapon_status() -> void:
 
 	n_WeaponIcon.texture = weapon.get_icon()
 
-#	n_AmmoLabel.visible = weapon.bullets + weapon.smagazine > 0
 	n_AmmoRoot.visible = weapon is Firearm
 
 	if n_AmmoRoot.visible:

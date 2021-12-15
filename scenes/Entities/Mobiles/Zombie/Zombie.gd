@@ -40,9 +40,24 @@ func _ready() -> void:
 	fsm.current_state = States.idle.new(self)
 	area_collision.shape.radius = sight_radius
 
-	if Globals.GameOptions.gameplay.difficulty == Globals.Difficulty.HARD:
-		max_hitpoints = 40
-		hitpoints = max_hitpoints
+	match Globals.GameOptions.gameplay.difficulty:
+		Globals.Difficulty.HARD:
+			max_hitpoints = 40
+			max_speed = 22
+			sight_radius = 90
+			hearing_distance = 350
+			awareness_timer = 15
+			attack_damage = 4
+			hitpoints = max_hitpoints
+		Globals.Difficulty.NORMAL:
+			max_hitpoints = 24
+			max_speed = 20
+			sight_radius = 90
+			hearing_distance = 325
+			awareness_timer = 15
+			attack_damage = 3.25
+		_:
+			pass
 
 func _process_animations() -> void:
 	var epsilon := .25
@@ -84,7 +99,6 @@ func on_hit_by(attacker) -> void:
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
-	print_debug("headshot")
 	kill()
 	body.call_deferred("queue_free")
 

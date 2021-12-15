@@ -59,8 +59,8 @@ tracks/3/keys = {
 texture = ExtResource( 2 )
 frame = 3
 script = ExtResource( 3 )
-damage = 9.0
-knockback = 6.0
+damage = 30.0
+knockback = 4.0
 fire_rate = 1.77
 melee_type = 1
 

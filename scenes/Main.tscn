@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -13,6 +13,8 @@
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/ui/smoke.png" type="Texture" id=13]
+[ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
+[ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -340,6 +342,7 @@ weapon_name = 1
 
 [node name="PickableWeapon3" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 97, 229 )
+weapon_name = 6
 
 [node name="PickableWeapon4" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
 position = Vector2( 133, 228 )
@@ -395,6 +398,29 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="NoiseLayer" type="CanvasLayer" parent="."]
+layer = 51
+
+[node name="TextureRect" type="ColorRect" parent="NoiseLayer"]
+material = ExtResource( 15 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VignetteLayer" type="CanvasLayer" parent="."]
+layer = 52
+
+[node name="ColorRect" type="ColorRect" parent="VignetteLayer"]
+material = ExtResource( 14 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 100
 
@@ -447,7 +473,13 @@ anims/win = SubResource( 7 )
 
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_start"]
+[connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_stop"]
+[connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_stop"]
+[connection signal="on_busy_time_added" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_busy_time_added"]
 [connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="." method="_on_Player_on_death"]
+[connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_death"]
 [connection signal="on_hit" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Camera/ScreenShake" method="_on_Player_on_hit"]
+[connection signal="on_search_end" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_end"]
+[connection signal="on_search_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_start"]
 [connection signal="button_up" from="UI/Button" to="." method="_on_Button_button_up"]

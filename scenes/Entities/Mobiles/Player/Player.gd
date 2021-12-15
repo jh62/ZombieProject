@@ -4,6 +4,7 @@ signal on_search_start(this)
 signal on_search_end(this)
 signal on_aiming_start(this)
 signal on_aiming_stop(this)
+signal on_busy_time_added(time)
 
 signal on_death
 signal on_hit
@@ -23,7 +24,7 @@ onready var equipment := $Equipment
 var can_move := true
 var loot_count := 0
 var aiming = false
-var busy_time := 0.0
+var busy_time := 0.0 setget set_busy_time
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
@@ -38,7 +39,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	busy_time = clamp(busy_time - delta, 0.0, PlayerStatus.max_busy_time)
+	busy_time = max(busy_time - delta, 0.0)
 
 	if is_alive():
 		if can_move:
@@ -170,3 +171,7 @@ func _on_Player_on_aiming_start(this):
 
 func _on_Player_on_aiming_stop(this):
 	aiming = false
+
+func set_busy_time(amount) -> void:
+	busy_time = max(amount, 0.0)
+	emit_signal("on_busy_time_added", busy_time)

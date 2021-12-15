@@ -37,6 +37,7 @@ enum MeleeType {
 }
 
 export(MeleeType) var melee_type := MeleeType.EDGED
+export var swing_time := 0.25
 
 onready var raycast := $RayCast
 
@@ -146,6 +147,6 @@ func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:
 		"shoot":
 			equipper.can_move = true
-			equipper.busy_time += .35
+			equipper.busy_time += swing_time
 			in_use = false
 			raycast_enable(false)

@@ -12,11 +12,11 @@ const GROUP_PLAYER := "player"
 const GROUP_ZOMBIE := "zombie"
 const GROUP_FIRE := "fire"
 
-const MAX_FUEL_LITERS := 5.5 # 120.5
+const MAX_FUEL_LITERS := 120.5 # 120.5
 
 const GameOptions := {
 	"gameplay": {
-		"difficulty": Difficulty.HARD,
+		"difficulty": Difficulty.EASY,
 		"discard_bullets": 1,
 		"auto_pickup": 1
 	},
@@ -24,5 +24,7 @@ const GameOptions := {
 		"render_bullets": 1,
 		"render_mags": 1,
 		"render_blood": 1,
+		"render_mist": 1,
+		"render_vignette": 1,
 	}
 }
