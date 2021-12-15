@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+
+[ext_resource path="res://assets/ui/smoke.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform sampler2D mask: hint_albedo;
+
+void fragment() {
+    vec4 color = texture(TEXTURE,UV).rgba;
+    vec4 shader = texture(mask, UV).rgba;
+    COLOR.rgb = color.rgb;
+    COLOR.a = shader.r;
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/mask = ExtResource( 1 )

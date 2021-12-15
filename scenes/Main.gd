@@ -6,7 +6,7 @@ onready var n_Crosshair := $Crosshair
 
 func _ready() -> void:
 	randomize()
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 	n_Player.connect("on_aiming_start", n_Crosshair, "_on_Player_on_aiming_start")
 	n_Player.connect("on_aiming_stop", n_Crosshair, "_on_Player_on_aiming_stop")

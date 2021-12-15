@@ -1,5 +1,6 @@
 extends Control
 
+export var parallax_speed := 200.0
 var loader : ResourceInteractiveLoader
 
 func _ready():
@@ -32,6 +33,5 @@ func set_new_scene(scene_resource):
 func _on_ButtonNew_button_up():
 	$Progress.visible = true
 	$Progress.value = 0.0
-	$MarginContainer2.visible = false
 	$ActiveMenu/MarginContainer.visible = false
 	loader = ResourceLoader.load_interactive("res://scenes/Main.tscn")

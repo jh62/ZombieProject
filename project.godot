@@ -237,7 +237,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Dead Against Us"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn"
+boot_splash/image="res://assets/splash.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
@@ -255,11 +256,13 @@ window/size/width=320
 window/size/height=180
 window/size/test_width=800
 window/size/test_height=600
+mouse_cursor/custom_image="res://mouse_pointer.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
 [gui]
 
+theme/custom="res://assets/ui/ui_theme.tres"
 theme/custom_font="res://assets/ui/fonts/default_font.tres"
 
 [importer_defaults]

@@ -30,6 +30,7 @@ animations = [ {
 radius = 4.0
 
 [node name="Crosshair" type="AnimatedSprite"]
+visible = false
 light_mask = 0
 material = SubResource( 6 )
 position = Vector2( 85, 143 )
