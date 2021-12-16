@@ -14,7 +14,7 @@ export var max_amount := 1
 export var fill_time := 3.5
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
-onready var icon := $TextureRect
+onready var icon := $CanvasLayer/TextureRect
 
 var searched_by : Node2D
 var searching := false setget, is_searching
@@ -24,7 +24,7 @@ func _ready():
 	connect("on_search_successful", get_parent(), "on_search_successful")
 	$CollisionShape2D.shape.radius = radius
 	$CanvasLayer/ProgressWheel.fill_time = fill_time
-	$TextureRect.visible = false
+	icon.visible = false
 
 func is_looted() -> bool:
 	return looted
@@ -46,6 +46,7 @@ func _on_SearchableArea_body_entered(body : Node2D):
 	body.connect("on_search_start", self, "_on_search_start")
 	body.connect("on_search_end", self, "_on_search_end")
 	icon.visible = true
+	icon.rect_position = global_position
 
 func _on_SearchableArea_body_exited(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
@@ -77,9 +78,13 @@ func _on_search_start(mob) -> void:
 
 	searched_by = mob
 	searching = true
-	progress_wheel.rect_position = mob.get_global_transform_with_canvas().get_origin()
+	progress_wheel.rect_position = mob.global_position
 	progress_wheel.rect_position.x -= progress_wheel.rect_size.x * .5
 	progress_wheel.rect_position.y -= mob.get_node("Sprite").region_rect.size.y * 1.5
+
+	if progress_wheel.rect_position.y < 0:
+		progress_wheel.rect_position.y += 32
+
 	progress_wheel.start()
 
 func _on_search_end(mob) -> void:
