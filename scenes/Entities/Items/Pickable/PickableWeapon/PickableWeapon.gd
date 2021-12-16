@@ -55,13 +55,23 @@ func _ready():
 func get_picked_sound() ->  AudioStream:
 	return picked_sound
 
+func _on_Area2D_body_entered(body):
+	if Globals.GameOptions.gameplay.auto_pickup:
+		on_picked_up_by(body)
+	else:
+		label.visible = true
+		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text(),1:WeaponName.keys()[weapon_name]})
+
 func on_picked_up_by(body) -> void:
+	EventBus.emit_signal("on_object_spawn", self.duplicate(), global_position)
+
 	var item = weapons.get(weapon_name).scene.instance()
 
 	if item is Firearm:
 		item = item as Firearm
 		item.bullets = bullets if (bullets > 0) else item.bullets
 		picked_sound = item.get_reload_sound().front()
+
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)

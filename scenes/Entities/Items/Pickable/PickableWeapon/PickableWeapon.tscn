@@ -5,3 +5,11 @@
 
 [node name="PickableWeapon" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="CanvasLayer" parent="." index="3"]
+layer = 2
+
+[node name="RichTextLabel" parent="CanvasLayer" index="0"]
+anchor_left = 0.30625
+anchor_right = 0.69375
+fit_content_height = true

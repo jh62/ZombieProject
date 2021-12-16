@@ -12,7 +12,6 @@ export var radius := 10 setget set_radius
 export var min_amount := 1
 export var max_amount := 1
 export var fill_time := 3.5
-export var spawn_at_mob := false
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
 onready var icon := $TextureRect

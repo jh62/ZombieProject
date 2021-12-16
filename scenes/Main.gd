@@ -32,10 +32,22 @@ func _ready() -> void:
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
 
+	# FX
+
 	if !Globals.GameOptions.graphics.render_mist:
 		$MistLayer.queue_free()
+	else:
+		$MistLayer/TextureRectMist.visible = true
+
+	if !Globals.GameOptions.graphics.render_noise:
+		$NoiseLayer.queue_free()
+	else:
+		$NoiseLayer/TextureRect.visible = true
+
 	if !Globals.GameOptions.graphics.render_vignette:
 		$VignetteLayer.queue_free()
+	else:
+		$VignetteLayer/ColorRect.visible = true
 
 	var weapon := preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn").instance()
 	n_Player.equipment.equip(weapon)

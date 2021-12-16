@@ -18,13 +18,14 @@ const GameOptions := {
 	"gameplay": {
 		"difficulty": Difficulty.EASY,
 		"discard_bullets": 1,
-		"auto_pickup": 1
+		"auto_pickup": 0
 	},
 	"graphics": {
 		"render_bullets": 1,
 		"render_mags": 1,
 		"render_blood": 1,
 		"render_mist": 1,
+		"render_noise": 1,
 		"render_vignette": 1,
 	}
 }
