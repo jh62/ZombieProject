@@ -6,5 +6,8 @@ func _ready():
 	ANIMATIONS.shoot = preload("res://assets/res/weapon/arms/sword/sword_swing.tres")
 	ANIMATIONS.hit = ANIMATIONS.run
 
+func get_weapon_type():
+	return Globals.WeaponNames.SWORD
+
 func get_icon() -> Texture:
 	return preload("res://assets/res/weapon/icons/sword_icon.tres")

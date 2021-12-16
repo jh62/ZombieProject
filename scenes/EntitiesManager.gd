@@ -75,8 +75,8 @@ func _spawn_object(scene, position : Vector2) -> void:
 	n_Statics.add_child(scene)
 	scene.global_position = position
 
-func _on_weapon_reloaded(weapon_name):
+func _on_weapon_reloaded(weapon_type):
 	var mag := Magazine.instance() as RigidBody2D
-	mag.set_type(weapon_name)
+	mag.set_type(weapon_type)
 	n_Statics.add_child(mag)
 	mag.global_position = n_Mobs.get_node("Player").global_position

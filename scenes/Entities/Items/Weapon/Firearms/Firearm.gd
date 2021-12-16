@@ -53,7 +53,7 @@ func _on_action_pressed(action_type, facing) -> void:
 			equipper.dir = Vector2.ZERO
 			equipper.busy_time += reload_time
 
-			EventBus.emit_signal("on_weapon_reloaded", get_item_name())
+			EventBus.emit_signal("on_weapon_reloaded", get_weapon_type())
 
 			var snd = get_reload_sound()
 			EventBus.emit_signal("play_sound_random", snd, global_position)

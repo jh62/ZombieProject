@@ -8,8 +8,6 @@ var equipper : Mobile
 var in_use := false
 
 # virtual methods
-func get_item_name() -> String:
-	return ""
 func get_icon() -> Texture:
 	return null
 

@@ -6,6 +6,16 @@ enum Difficulty {
 	HARD
 }
 
+enum WeaponNames {
+	PISTOL = 0,
+	SHOTGUN,
+	SMG,
+	RIFLE,
+	LEADPIPE,
+	MACHETE,
+	SWORD
+}
+
 const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 
 const GROUP_PLAYER := "player"

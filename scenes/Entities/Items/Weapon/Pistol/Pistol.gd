@@ -18,8 +18,8 @@ const SOUNDS := {
 func _ready() -> void:
 	magazine = clamp(bullets, 0, mag_size)
 
-func get_item_name():
-	return "pistol"
+func get_weapon_type():
+	return Globals.WeaponNames.PISTOL
 
 func get_icon() -> Texture:
 	return preload("res://assets/res/weapon/icons/pistol_icon.tres")

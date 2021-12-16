@@ -3,13 +3,13 @@ extends RigidBody2D
 func _ready():
 	apply_impulse(Vector2.ZERO, Vector2(rand_range(-25,25), rand_range(-15,-17)))
 
-func set_type(weapon_name) -> void:
-	match weapon_name:
-		"pistol", "smg":
+func set_type(weapon_type) -> void:
+	match weapon_type:
+		Globals.WeaponNames.PISTOL, Globals.WeaponNames.SMG:
 			$Sprite.texture = preload("res://assets/res/weapon/icons/magazine.tres")
-		"shotgun":
+		Globals.WeaponNames.SHOTGUN:
 			$Sprite.texture = preload("res://assets/res/weapon/icons/slug.tres")
-		"assault_rifle":
+		Globals.WeaponNames.RIFLE:
 			$Sprite.texture = preload("res://assets/res/weapon/icons/rifle_mag.tres")
 
 

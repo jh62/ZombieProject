@@ -5,6 +5,8 @@ export var knockback := 0.0
 export var fire_rate := 0.0
 
 # Virtual methods
+func get_weapon_type():
+	pass
 func get_sound_shoot():
 	pass
 
