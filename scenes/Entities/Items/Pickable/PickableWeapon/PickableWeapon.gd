@@ -7,31 +7,38 @@ export var bullets := 0
 var weapons := {
 	Globals.WeaponNames.PISTOL:{
 		"texture": preload("res://assets/res/weapon/icons/pistol.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn")
+		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+		"bullets": 30
 	},
 	Globals.WeaponNames.SHOTGUN:{
 		"texture": preload("res://assets/res/weapon/icons/shotgun.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn")
+		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn"),
+		"bullets": 50
 	},
 	Globals.WeaponNames.SMG:{
 		"texture": preload("res://assets/res/weapon/icons/smg.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn")
-	},
-	Globals.WeaponNames.LEADPIPE:{
-		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn")
+		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn"),
+		"bullets": 120
 	},
 	Globals.WeaponNames.RIFLE:{
 		"texture": preload("res://assets/res/weapon/icons/rifle.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn")
+		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn"),
+		"bullets": 120
+	},
+	Globals.WeaponNames.LEADPIPE:{
+		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
+		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn"),
+		"bullets": 0
 	},
 #	Globals.WeaponNames.MACHETE:{
 #		"texture": preload("res://assets/res/weapon/icons/machete_icon.tres"),
-#		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn")
+#		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Machete/Machete.tscn"),
+#		"bullets": 0
 #	},
 	Globals.WeaponNames.SWORD:{
 		"texture": preload("res://assets/res/weapon/icons/sword.tres"),
-		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn")
+		"scene": preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
+		"bullets": 0
 	}
 }
 
@@ -40,6 +47,10 @@ var picked_sound
 func _ready():
 	if random_drop:
 		weapon_name = Globals.WeaponNames.values()[randi()%Globals.WeaponNames.size()]
+
+	if bullets == 0:
+		bullets =  weapons.get(weapon_name).bullets
+
 	$Sprite.texture = weapons.get(weapon_name).texture
 
 func get_picked_sound() ->  AudioStream:
@@ -56,20 +67,26 @@ func _on_Area2D_body_entered(body):
 		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text(),1:Globals.WeaponNames.keys()[weapon_name]})
 
 func on_picked_up_by(body) -> void:
-	_create_drop(body)
 	var item = weapons.get(weapon_name).scene.instance()
 
 	if item is Firearm:
-		item = item as Firearm
-		item.bullets = bullets if (bullets > 0) else item.bullets
+		item.bullets = bullets
 		picked_sound = item.get_reload_sound().front()
 
+	if item.get_weapon_type() != body.get_equipped().get_weapon_type():
+		_create_drop(body)
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
 
 func _create_drop(body) -> void:
-	var weapon_current = body.get_equipped().get_weapon_type()
+	var weapon_current = body.get_equipped()
+
 	var drop := self.duplicate()
-	drop.weapon_name = weapon_current
+	drop.weapon_name = weapon_current.get_weapon_type()
+
+	if "bullets" in weapon_current:
+		drop.bullets = weapon_current.bullets
+
 	EventBus.emit_signal("on_object_spawn", drop, body.global_position)
+	print_debug(Globals.WeaponNames.keys()[drop.weapon_name])

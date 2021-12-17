@@ -1222,13 +1222,11 @@ collision_layer = 1
 [node name="SearchableArea" parent="MapObjects/Objects/Car4" instance=ExtResource( 22 )]
 position = Vector2( 11, 0 )
 lootpack = {
-0.1: ExtResource( 42 ),
-0.47: ExtResource( 41 ),
-0.77: ExtResource( 40 )
+0.18: ExtResource( 41 ),
+0.75: ExtResource( 42 )
 }
 radius = 7
-max_amount = 3
-fill_time = 5.0
+max_amount = 4
 
 [node name="Car5" parent="MapObjects/Objects" instance=ExtResource( 18 )]
 position = Vector2( 752, 609 )
@@ -1264,30 +1262,29 @@ collision_layer = 1
 [node name="SearchableArea2" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
 position = Vector2( -2, -15 )
 lootpack = {
-0.1: ExtResource( 42 ),
 0.47: ExtResource( 41 ),
 0.77: ExtResource( 40 )
 }
 radius = 7
-max_amount = 3
+min_amount = 3
+max_amount = 20
 fill_time = 5.0
 
 [node name="GasPump1" parent="MapObjects/Objects" instance=ExtResource( 19 )]
 position = Vector2( 626, 21 )
-
-[node name="SearchableArea" parent="MapObjects/Objects/GasPump1" instance=ExtResource( 22 )]
-position = Vector2( -1, 0 )
-lootpack = {
-0.0: ExtResource( 40 )
-}
-radius = 12
-fill_time = 5.0
 
 [node name="GasPump2" parent="MapObjects/Objects" instance=ExtResource( 19 )]
 position = Vector2( 677, 21 )
 
 [node name="GasPump3" parent="MapObjects/Objects" instance=ExtResource( 19 )]
 position = Vector2( 626, 58 )
+
+[node name="SearchableArea" parent="MapObjects/Objects/GasPump3" instance=ExtResource( 22 )]
+lootpack = {
+0.0: ExtResource( 40 )
+}
+radius = 12
+fill_time = 5.0
 
 [node name="GasPump4" parent="MapObjects/Objects" instance=ExtResource( 19 )]
 position = Vector2( 677, 58 )
@@ -1297,6 +1294,9 @@ position = Vector2( 562, 90 )
 
 [node name="SearchableArea" parent="MapObjects/Objects/Boxes" instance=ExtResource( 22 )]
 position = Vector2( 2, 5 )
+lootpack = {
+0.25: ExtResource( 41 )
+}
 min_amount = 3
 max_amount = 5
 fill_time = 5.0
@@ -1308,7 +1308,7 @@ position = Vector2( 798, 370 )
 position = Vector2( 0, -6 )
 min_amount = 2
 max_amount = 5
-fill_time = 5.0
+fill_time = 4.0
 
 [node name="Box" parent="MapObjects/Objects" instance=ExtResource( 23 )]
 position = Vector2( 557, 3 )
@@ -1342,6 +1342,9 @@ position = Vector2( 407, 183 )
 
 [node name="Boxes3" parent="MapObjects/Objects" instance=ExtResource( 21 )]
 position = Vector2( 1074, 358 )
+
+[node name="SearchableArea" parent="MapObjects/Objects/Boxes3" instance=ExtResource( 22 )]
+radius = 12
 
 [node name="Box2" parent="MapObjects/Objects" instance=ExtResource( 25 )]
 position = Vector2( 798, 493 )

@@ -10,8 +10,10 @@ func _ready() -> void:
 func equip(_item : BaseItem) -> void:
 	if has_item_equipped():
 		var old_item := get_item()
-		if old_item is Firearm && _item is Firearm:
-			_item.bullets += old_item.bullets
+		if old_item is Firearm:
+			if _item.get_weapon_type() == old_item.get_weapon_type():
+				_item.bullets += old_item.bullets
+				print_debug(old_item.bullets)
 		clear()
 
 	_item.equipper = self.owner

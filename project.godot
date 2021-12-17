@@ -254,8 +254,8 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 
 window/size/width=320
 window/size/height=180
-window/size/test_width=800
-window/size/test_height=600
+window/size/test_width=1280
+window/size/test_height=720
 mouse_cursor/custom_image="res://mouse_pointer.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"

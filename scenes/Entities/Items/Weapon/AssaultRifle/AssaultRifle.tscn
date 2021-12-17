@@ -2181,7 +2181,7 @@ knockback = 1.0
 fire_rate = 2.8
 bullets = 90
 mag_size = 30
-reload_time = 1.7
+reload_time = 0.74
 
 [node name="GunMuzzle" parent="." index="0" instance=ExtResource( 7 )]
 visible = false

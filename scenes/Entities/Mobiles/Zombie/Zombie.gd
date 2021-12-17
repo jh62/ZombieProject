@@ -40,7 +40,7 @@ func _ready() -> void:
 	fsm.current_state = States.idle.new(self)
 	area_collision.shape.radius = sight_radius
 
-	match Globals.GameOptions.gameplay.difficulty:
+	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
 			max_hitpoints = 40
 			max_speed = 22

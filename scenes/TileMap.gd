@@ -173,4 +173,5 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		return
 
 	var snd = sound_color_codes[code].sound.get(grp)
-	EventBus.emit_signal("play_sound_random", snd, mob.global_position)
+	var volume_db = Global.GameOptions.audio.zombie_footsteps if (grp == Globals.GROUP_ZOMBIE) else Global.GameOptions.audio.player_footsteps
+	EventBus.emit_signal("play_sound_random", snd, mob.global_position, rand_range(.95,1.05), volume_db)

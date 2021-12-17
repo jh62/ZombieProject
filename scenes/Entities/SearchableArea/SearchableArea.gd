@@ -5,7 +5,7 @@ signal on_search_successful
 const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
 export var lootpack := {
-	.1: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
+	.75: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
 }
 
 export var radius := 10 setget set_radius
@@ -101,19 +101,23 @@ func _on_search_end(mob) -> void:
 func _on_ProgressWheel_on_progress_complete():
 	looted = true
 	progress_wheel.stop()
-
-	var amount := int(rand_range(min_amount, max_amount))
-
-	for i in amount:
-		var chance := randf()
-		for val in lootpack.keys():
-			if chance < val:
-				continue
-			var _item = lootpack[val]
-			EventBus.emit_signal("on_object_spawn", _item, global_position)
+	spawn_loot()
 
 	emit_signal("on_search_successful")
 	EventBus.emit_signal("play_sound", audio_search_end, global_position)
+
+func spawn_loot() -> void:
+	for val in lootpack.keys():
+		var chance := randf()
+
+		if val < chance:
+			continue
+
+		var _item = lootpack[val]
+		var amount := int(rand_range(min_amount, max_amount)) if (_item.instance() is LootItem) else 1
+
+		for i in amount:
+			EventBus.emit_signal("on_object_spawn", _item, global_position)
 
 func set_radius(new_radius) -> void:
 	radius = new_radius

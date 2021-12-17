@@ -40,11 +40,11 @@ func _on_player_hit() -> void:
 	update_healthbar()
 
 func update_loot_count() -> void:
-	yield(get_tree(),"idle_frame") # so it updates properly
+	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	n_LabelLootCount.text = "x {0}".format({0:n_player.loot_count})
 
 func update_weapon_status() -> void:
-	yield(get_tree(),"idle_frame") # so it updates properly
+	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	var weapon = n_player.equipment.get_item()
 
 	if weapon != null:

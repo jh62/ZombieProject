@@ -58,8 +58,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
 			return
 
-		if event.is_action_pressed("reload"):
+		if event.is_action_pressed("reload") && !Input.is_action_pressed("action"):
 			var equipped = get_equipped()
+
 			if equipped && equipped is Firearm:
 				aiming = false
 				EventBus.emit_signal("action_pressed", EventBus.ActionEvent.RELOAD, facing)

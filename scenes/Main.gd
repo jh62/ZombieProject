@@ -34,23 +34,48 @@ func _ready() -> void:
 
 	# FX
 
-	if !Globals.GameOptions.graphics.render_mist:
+	if !Global.GameOptions.graphics.render_mist:
 		$MistLayer.queue_free()
 	else:
-		$MistLayer/TextureRectMist.visible = true
+		$MistLayer/ColorRect.visible = true
 
-	if !Globals.GameOptions.graphics.render_noise:
+	if !Global.GameOptions.graphics.render_noise:
 		$NoiseLayer.queue_free()
 	else:
-		$NoiseLayer/TextureRect.visible = true
+		$NoiseLayer/ColorRect.visible = true
 
-	if !Globals.GameOptions.graphics.render_vignette:
+	if !Global.GameOptions.graphics.render_vignette:
 		$VignetteLayer.queue_free()
 	else:
 		$VignetteLayer/ColorRect.visible = true
 
-	var weapon := preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn").instance()
-	n_Player.equipment.equip(weapon)
+	var n_ZombieSpawner := $TileMap/ZombieSpawner
+	var weapon
+
+	match Global.GameOptions.gameplay.difficulty:
+		Globals.Difficulty.EASY:
+			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
+			weapon.bullets = 90
+
+			n_ZombieSpawner.mob_max = 100
+			n_ZombieSpawner.mob_group_max = 4
+			n_ZombieSpawner.spawn_delay_sec = 0.5
+			n_ZombieSpawner.restart_delay = 15
+		Globals.Difficulty.NORMAL:
+			weapon = preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn").instance()
+
+			n_ZombieSpawner.mob_max = 200
+			n_ZombieSpawner.mob_group_max = 8
+			n_ZombieSpawner.spawn_delay_sec = 0.35
+			n_ZombieSpawner.restart_delay = 12
+		Globals.Difficulty.HARD:
+			n_ZombieSpawner.mob_max = 250
+			n_ZombieSpawner.mob_group_max = 10
+			n_ZombieSpawner.spawn_delay_sec = 0.25
+			n_ZombieSpawner.restart_delay = 10
+
+	if weapon != null:
+		n_Player.equipment.equip(weapon)
 
 func _process(delta):
 	$UI/Button.visible = !n_Player.is_alive()

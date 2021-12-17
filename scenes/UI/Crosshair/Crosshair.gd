@@ -9,6 +9,7 @@ onready var n_ProgressWheel := $CanvasLayer/TextureProgress
 
 func _ready():
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
+	_on_item_pickedup(mobile.get_equipped())
 
 func _process(delta):
 	if mobile.busy_time > 0.0 && mobile.get_equipped() is Firearm:

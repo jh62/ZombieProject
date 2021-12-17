@@ -24,7 +24,10 @@ func explode() -> void:
 	var search_area := find_node("SearchableArea*")
 
 	if search_area:
-		search_area.queue_free()
+		search_area.spawn_loot()
+		print_debug("spawned")
+#		search_area.call_deferred("queue_free")
+#		search_area.queue_free()
 
 	for c in get_children():
 		if c.name.begins_with("TrailSmoke"):

@@ -22,13 +22,14 @@ const GROUP_PLAYER := "player"
 const GROUP_ZOMBIE := "zombie"
 const GROUP_FIRE := "fire"
 
-const MAX_FUEL_LITERS := 120.5 # 120.5
+const MAX_FUEL_LITERS := 12.5 # 120.5
 
-const GameOptions := {
+var GameOptions := {
 	"gameplay": {
-		"difficulty": Difficulty.EASY,
+		"difficulty": Difficulty.NORMAL,
 		"discard_bullets": 1,
-		"auto_pickup": 0
+		"auto_pickup": 0,
+		"death_wish": 0,
 	},
 	"graphics": {
 		"render_bullets": 1,
@@ -37,5 +38,12 @@ const GameOptions := {
 		"render_mist": 1,
 		"render_noise": 1,
 		"render_vignette": 1,
+		"corpses_decay": 0
+	},
+	"audio": {
+		"music_db": 0.0,
+		"sound_db": 0.0,
+		"player_footsteps": 0.0,
+		"zombie_footsteps": 0.0
 	}
 }

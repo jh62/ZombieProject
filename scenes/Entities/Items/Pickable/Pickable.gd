@@ -5,10 +5,8 @@ export var pick_delay := .45
 onready var area_shape := $Area2D/CollisionShape2D
 onready var label := $CanvasLayer/RichTextLabel
 
-var dir_vel := Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * rand_range(40.0,60.0)
-
 func _ready():
-	linear_velocity = dir_vel
+	linear_velocity = Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * rand_range(40.0,60.0)
 	yield(get_tree().create_timer(pick_delay),"timeout")
 	area_shape.disabled = false
 
