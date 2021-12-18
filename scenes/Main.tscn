@@ -117,6 +117,18 @@ tracks/5/keys = {
 "update": 0,
 "values": [ "You survived for today" ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "death"
@@ -180,6 +192,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 12.3 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -246,6 +270,18 @@ tracks/4/keys = {
 "args": [  ],
 "method": "on_intro_ready"
 } ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -322,6 +358,18 @@ tracks/5/keys = {
 "transitions": PoolRealArray(  ),
 "values": [  ]
 }
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 10 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -359,6 +407,7 @@ fuel_amount = 500.0
 
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
 position = Vector2( 101, 287 )
+weapon_name = 1
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -466,6 +515,7 @@ __meta__ = {
 }
 
 [node name="ButtonRestart" type="Button" parent="UI/ScreenMessage"]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -482,6 +532,7 @@ __meta__ = {
 
 [node name="PauseMessage" type="Control" parent="UI"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = SubResource( 9 )

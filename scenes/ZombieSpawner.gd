@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 export var active := true
 export var mob_max := 100
@@ -45,8 +45,9 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 	for area in areas.get_children():
 		var area_pos = area.global_position
 		n_visible.global_position = area_pos
-		yield(get_tree().create_timer(.025),"timeout")
+		yield(get_tree().create_timer(0.18),"timeout")
 		if n_visible.is_on_screen(): # don't spawn zombies in player's view, it's not nice
+			print_debug("zombie visible")
 			continue
 		for i in count:
 			var angle := rand_range(0.0, 2.0) * PI

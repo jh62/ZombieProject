@@ -23,8 +23,6 @@ func _ready() -> void:
 		$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 		$CanvasModulate.visible = true
 
-	$UI/ScreenMessage.visible = false
-
 	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 	$WorldEnvironment.environment.adjustment_saturation = 0.0
 

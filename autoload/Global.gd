@@ -7,14 +7,14 @@ enum Difficulty {
 }
 
 enum WeaponNames {
-	DISARMED = -1,
-	PISTOL,
+	PISTOL = 0,
 	SHOTGUN,
 	SMG,
 	RIFLE,
 	LEADPIPE,
 	MACHETE,
-	SWORD
+	SWORD,
+	DISARMED
 }
 
 const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
