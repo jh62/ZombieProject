@@ -13,7 +13,7 @@ var exploded := false
 
 func _ready():
 	if !fuel_amount:
-		fuel_amount = rand_range(1.5, Global.MAX_FUEL_LITERS * .1)
+		fuel_amount = rand_range(1.5, Global.MAX_FUEL_LITERS * .25)
 
 func _process(delta):
 	if player != null:

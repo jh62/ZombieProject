@@ -10,6 +10,9 @@ func _ready() -> void:
 	n_Player.connect("on_aiming_start", n_Crosshair, "_on_Player_on_aiming_start")
 	n_Player.connect("on_aiming_stop", n_Crosshair, "_on_Player_on_aiming_stop")
 
+	n_Player.can_move = false
+	n_Player.set_process_unhandled_key_input(false)
+
 	var n_Camera := n_Player.get_node("Camera")
 	n_Camera.limit_top = 0
 	n_Camera.limit_left = 0
@@ -26,7 +29,6 @@ func _ready() -> void:
 	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 	$WorldEnvironment.environment.adjustment_saturation = 0.0
 
-	$UI/ScreenMessage.visible = true
 	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
 
@@ -76,6 +78,8 @@ func _ready() -> void:
 		n_Player.equipment.equip(weapon)
 
 func on_intro_ready() -> void:
+	n_Player.can_move = true
+	n_Player.set_process_unhandled_key_input(true)
 	EventBus.emit_signal("intro_finished")
 
 func _on_Button_button_up():

@@ -76,7 +76,7 @@ func on_picked_up_by(body) -> void:
 	var current_wep = body.get_equipped()
 
 	if current_wep.get_weapon_type() != Global.WeaponNames.DISARMED:
-		if item.get_weapon_type() != current_wep.get_weapon_type():
+		if item.get_weapon_type() != current_wep.get_weapon_type() && current_wep.bullets > 0:
 			_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_item_pickedup", item)
@@ -84,10 +84,10 @@ func on_picked_up_by(body) -> void:
 
 func _create_drop(body, old_weapon) -> void:
 	var drop := self.duplicate()
+	drop.random_drop = false
 	drop.weapon_name = old_weapon.get_weapon_type()
 
 	if "bullets" in old_weapon:
 		drop.bullets = old_weapon.bullets
 
 	EventBus.emit_signal("on_object_spawn", drop, body.global_position)
-	print_debug(Globals.WeaponNames.keys()[drop.weapon_name])

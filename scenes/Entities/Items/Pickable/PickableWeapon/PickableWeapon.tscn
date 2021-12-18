@@ -5,6 +5,7 @@
 
 [node name="PickableWeapon" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+random_drop = true
 
 [node name="CanvasLayer" parent="." index="3"]
 layer = 2

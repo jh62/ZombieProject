@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -8,13 +8,20 @@
 [ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
 [ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
+[ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
+[ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends CenterContainer
+
+func _on_ControlRestart_visibility_changed():
+	$ButtonRestart.visible = visible
+"
 
 [sub_resource type="GDScript" id=9]
 script/source = "extends Control
@@ -118,12 +125,24 @@ tracks/5/keys = {
 "values": [ "You survived for today" ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/6/path = NodePath("UI/ControlRestart/ButtonRestart:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/ControlRestart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -193,17 +212,48 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/5/type = "method"
+tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 12.3 ),
+"times": PoolRealArray( 1.5, 3.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("AnimationPlayer/AudioTypewriterStop")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 3.8 ),
 "transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/ControlRestart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false, true ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -252,7 +302,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7, 5.6, 8.1 ),
+"times": PoolRealArray( 0, 1.5, 3.7, 5.1, 8.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -264,20 +314,51 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 5.6 ),
+"times": PoolRealArray( 5.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
 "method": "on_intro_ready"
 } ]
 }
-tracks/5/type = "value"
-tracks/5/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/5/type = "method"
+tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
+"times": PoolRealArray( 1.7, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("AnimationPlayer/AudioTypewriterStop")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 3.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/ControlRestart:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -358,17 +439,48 @@ tracks/5/keys = {
 "transitions": PoolRealArray(  ),
 "values": [  ]
 }
-tracks/6/type = "value"
-tracks/6/path = NodePath("UI/ScreenMessage/ButtonRestart:visible")
+tracks/6/type = "method"
+tracks/6/path = NodePath("AnimationPlayer/AudioStreamPlayer")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 10 ),
+"times": PoolRealArray( 1.5, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("AnimationPlayer/AudioTypewriterStop")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 3.7 ),
 "transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/ControlRestart:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true ]
+"values": [ false, true ]
 }
 
 [node name="Main" type="Node2D"]
@@ -400,14 +512,6 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
-
-[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 9 )]
-position = Vector2( 53, 287 )
-fuel_amount = 500.0
-
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
-position = Vector2( 101, 287 )
-weapon_name = 1
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -514,16 +618,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonRestart" type="Button" parent="UI/ScreenMessage"]
+[node name="ControlRestart" type="CenterContainer" parent="UI"]
 visible = false
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchor_left = 0.4
+anchor_top = 0.777778
+anchor_right = 0.6
 anchor_bottom = 1.0
-margin_left = -27.0
-margin_top = -25.0
-margin_right = 27.0
-margin_bottom = -6.0
+script = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonRestart" type="Button" parent="UI/ControlRestart"]
+visible = false
+margin_left = 11.0
+margin_top = 13.0
+margin_right = 53.0
+margin_bottom = 26.0
 text = "Restart"
 __meta__ = {
 "_edit_lock_": true,
@@ -573,6 +684,12 @@ anims/death = SubResource( 8 )
 anims/intro = SubResource( 2 )
 anims/win = SubResource( 7 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 16 )
+
+[node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 17 )
+
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_start"]
@@ -585,4 +702,5 @@ anims/win = SubResource( 7 )
 [connection signal="on_hit" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Camera/ScreenShake" method="_on_Player_on_hit"]
 [connection signal="on_search_end" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_end"]
 [connection signal="on_search_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_start"]
-[connection signal="button_up" from="UI/ScreenMessage/ButtonRestart" to="." method="_on_Button_button_up"]
+[connection signal="visibility_changed" from="UI/ControlRestart" to="UI/ControlRestart" method="_on_ControlRestart_visibility_changed"]
+[connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_Button_button_up"]
