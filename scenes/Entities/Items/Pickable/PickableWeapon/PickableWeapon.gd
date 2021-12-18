@@ -60,7 +60,7 @@ func _on_Area2D_body_entered(body):
 	if !body.is_alive():
 		return
 
-	if Globals.GameOptions.gameplay.auto_pickup:
+	if Global.GameOptions.gameplay.auto_pickup:
 		on_picked_up_by(body)
 	else:
 		label.visible = true
@@ -73,20 +73,21 @@ func on_picked_up_by(body) -> void:
 		item.bullets = bullets
 		picked_sound = item.get_reload_sound().front()
 
-	if item.get_weapon_type() != body.get_equipped().get_weapon_type():
-		_create_drop(body)
+	var current_wep = body.get_equipped().get_weapon_type()
+
+	if current_wep != Global.WeaponNames.DISARMED:
+		if item.get_weapon_type() != current_wep:
+			_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
 
-func _create_drop(body) -> void:
-	var weapon_current = body.get_equipped()
-
+func _create_drop(body, old_weapon) -> void:
 	var drop := self.duplicate()
-	drop.weapon_name = weapon_current.get_weapon_type()
+	drop.weapon_name = old_weapon.get_weapon_type()
 
-	if "bullets" in weapon_current:
-		drop.bullets = weapon_current.bullets
+	if "bullets" in old_weapon:
+		drop.bullets = old_weapon.bullets
 
 	EventBus.emit_signal("on_object_spawn", drop, body.global_position)
 	print_debug(Globals.WeaponNames.keys()[drop.weapon_name])

@@ -7,7 +7,8 @@ enum Difficulty {
 }
 
 enum WeaponNames {
-	PISTOL = 0,
+	DISARMED = -1,
+	PISTOL,
 	SHOTGUN,
 	SMG,
 	RIFLE,

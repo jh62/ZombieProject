@@ -35,6 +35,7 @@ var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
 
 func _ready():
+#	$ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/LabelDifficulty.hint_tooltip =
 	pass
 
 func _process(time):

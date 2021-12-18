@@ -46,6 +46,9 @@ func _process(delta: float) -> void:
 			_process_input()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if get_tree().paused:
+		return
+
 	if busy_time > 0:
 		return
 

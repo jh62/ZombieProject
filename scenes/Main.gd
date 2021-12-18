@@ -77,9 +77,6 @@ func _ready() -> void:
 	if weapon != null:
 		n_Player.equipment.equip(weapon)
 
-func _process(delta):
-	$UI/Button.visible = !n_Player.is_alive()
-
 func on_intro_ready() -> void:
 	EventBus.emit_signal("intro_finished")
 

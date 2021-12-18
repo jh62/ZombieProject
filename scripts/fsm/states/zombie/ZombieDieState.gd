@@ -14,6 +14,7 @@ const SoundZombieDown := [
 
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
+var can_raise := false
 var elapsed := 0.0
 var dead_time := rand_range(5.0,18.0)
 
@@ -28,6 +29,7 @@ func enter_state() -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 
 	anim_p.connect("animation_started", self, "_on_animation_started")
+	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
@@ -37,6 +39,9 @@ func enter_state() -> void:
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 func update(delta) -> void:
+	if !can_raise:
+		return
+
 	if elapsed >= dead_time:
 		var new_state = owner.States.standup.new(owner)
 		owner.fsm.travel_to(new_state)
@@ -46,3 +51,14 @@ func update(delta) -> void:
 
 func _on_animation_started(anim : String) -> void:
 	EventBus.emit_signal("play_sound_random", SoundZombieDown, owner.global_position)
+
+func _on_animation_finished(anim : String) -> void:
+	if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
+			if owner.down_times >= 3:
+				owner.set_process(false)
+				owner.set_physics_process(false)
+			else:
+				can_raise = true
+	else:
+		owner.set_process(false)
+		owner.set_physics_process(false)

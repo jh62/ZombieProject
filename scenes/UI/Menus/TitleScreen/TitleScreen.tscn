@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
@@ -10,6 +10,18 @@
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
 [ext_resource path="res://assets/music/track_03.mp3" type="AudioStream" id=9]
 
+[sub_resource type="GDScript" id=3]
+script/source = "extends Label
+
+func _ready():
+	hint_tooltip = \"Affects the number of zombies,\"
+	hint_tooltip += \"\\n\"
+	hint_tooltip += \"your max health and the\"
+	hint_tooltip += \"\\n\"
+	hint_tooltip += \"recurrence of some guns and items.\"
+
+"
+
 [sub_resource type="GDScript" id=2]
 script/source = "extends OptionButton
 
@@ -17,6 +29,29 @@ func _ready():
 	add_item(\"Easy\")
 	add_item(\"Normal\")
 	add_item(\"Hard\")
+"
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Label
+
+func _ready():
+	hint_tooltip = \"Discards the bullets left\\non the magazine when you reload.\"
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Label
+
+func _ready():
+	hint_tooltip = \"Pick up weapons when you step on them.\"
+
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Label
+
+func _ready():
+	hint_tooltip = \"You only get one life. If you die, game's over.\"
+
 "
 
 [node name="TitleScreen" type="Control"]
@@ -59,13 +94,13 @@ __meta__ = {
 
 [node name="CenterContainer" type="CenterContainer" parent="ActiveMenu/MainMenu"]
 margin_right = 64.0
-margin_bottom = 60.0
+margin_bottom = 61.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ActiveMenu/MainMenu/CenterContainer"]
 margin_left = 5.0
-margin_top = 4.0
+margin_top = 5.0
 margin_right = 59.0
-margin_bottom = 55.0
+margin_bottom = 56.0
 size_flags_horizontal = 3
 custom_constants/separation = 6
 alignment = 1
@@ -126,13 +161,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="LabelDifficulty" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_right = 126.0
 margin_bottom = 13.0
-hint_tooltip = "Affects number of zombies, your health and the recurrence of some guns and items."
 mouse_filter = 0
 size_flags_horizontal = 3
 text = "Difficulty"
+script = SubResource( 3 )
 
 [node name="OptionsDifficulty" type="OptionButton" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_left = 130.0
@@ -142,13 +177,13 @@ size_flags_horizontal = 3
 align = 1
 script = SubResource( 2 )
 
-[node name="Label2" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="LabelRealMags" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_top = 18.0
 margin_right = 126.0
 margin_bottom = 31.0
-hint_tooltip = "Discards the bullets left on the magazine when you reload."
 mouse_filter = 0
 text = "Real mags"
+script = SubResource( 4 )
 
 [node name="CheckBoxRealMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_left = 185.0
@@ -157,13 +192,13 @@ margin_right = 201.0
 margin_bottom = 33.0
 size_flags_horizontal = 4
 
-[node name="Label3" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="LabelAutoPickup" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_top = 38.0
 margin_right = 126.0
 margin_bottom = 51.0
-hint_tooltip = "Pick weapons when you step on them."
 mouse_filter = 0
 text = "Auto pick weapons"
+script = SubResource( 5 )
 
 [node name="CheckBoxAutoPickup" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_left = 185.0
@@ -172,13 +207,13 @@ margin_right = 201.0
 margin_bottom = 53.0
 size_flags_horizontal = 4
 
-[node name="Label4" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="LabelDeathWish" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_top = 58.0
 margin_right = 126.0
 margin_bottom = 71.0
-hint_tooltip = "You only get one life. If you die, you're done. "
 mouse_filter = 0
 text = "Death wish"
+script = SubResource( 6 )
 
 [node name="CheckBoxDeathWish" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_left = 185.0
@@ -218,9 +253,11 @@ margin_right = 245.0
 margin_bottom = 16.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option1"]
+[node name="LabelRenderBullets" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option1"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Show or hide bullets."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render bullets"
@@ -237,9 +274,11 @@ margin_right = 245.0
 margin_bottom = 36.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option2"]
+[node name="LabelRenderMags" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option2"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Show or hide magazines after reloading."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render mags"
@@ -258,10 +297,12 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option3"]
+[node name="LabelRenderBlood" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option3"]
 margin_top = 1.0
 margin_right = 120.0
 margin_bottom = 14.0
+hint_tooltip = "Show or hide blood effects."
+mouse_filter = 0
 size_flags_horizontal = 3
 text = "Render blood"
 
@@ -277,9 +318,11 @@ margin_right = 245.0
 margin_bottom = 76.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option4"]
+[node name="LabelCorpseDecay" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option4"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Make corpses gradually disappear."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Corpses decay"
@@ -296,9 +339,11 @@ margin_right = 245.0
 margin_bottom = 96.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option5"]
+[node name="LabelRenderMist" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option5"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Show or hide the mist effect on some levels."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render mist"
@@ -315,9 +360,11 @@ margin_right = 245.0
 margin_bottom = 116.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option6"]
+[node name="LabelRenderVignette" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option6"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Show or hide darker edges around the screen."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render vignette"
@@ -334,9 +381,11 @@ margin_right = 245.0
 margin_bottom = 136.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option7"]
+[node name="LabelRenderNoise" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option7"]
 margin_right = 120.0
 margin_bottom = 16.0
+hint_tooltip = "Show or hide the grainy effect."
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render Noise"
@@ -370,10 +419,11 @@ margin_right = 257.0
 margin_bottom = 30.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option1"]
+[node name="LabelMusic" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option1"]
 margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
+hint_tooltip = "Controls the music's volume."
 size_flags_horizontal = 3
 text = "Music volume"
 
@@ -393,10 +443,11 @@ margin_right = 257.0
 margin_bottom = 50.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4"]
+[node name="LabelSound" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4"]
 margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
+hint_tooltip = "Controls the overall sound of the game."
 size_flags_horizontal = 3
 text = "Sound volume"
 
@@ -416,10 +467,11 @@ margin_right = 257.0
 margin_bottom = 70.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option2"]
+[node name="LabelPlayerFootsteps" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option2"]
 margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
+hint_tooltip = "Controls the volume of the footsteps of the player."
 size_flags_horizontal = 3
 text = "Player footsteps"
 
@@ -439,10 +491,11 @@ margin_right = 257.0
 margin_bottom = 90.0
 columns = 2
 
-[node name="Label" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option3"]
+[node name="LabelZombieFootsteps" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option3"]
 margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
+hint_tooltip = "Controls the volume of the footsteps of the zombies."
 size_flags_horizontal = 3
 text = "Zombie footsteps"
 

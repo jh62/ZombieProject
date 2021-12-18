@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=2]
+[gd_resource type="Theme" load_steps=13 format=2]
 
 [ext_resource path="res://assets/ui/fonts/default_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui/banner32x32.png" type="Texture" id=2]
@@ -28,6 +28,23 @@ expand_margin_bottom = 4.0
 [sub_resource type="StyleBoxFlat" id=10]
 bg_color = Color( 0.172549, 0.164706, 0.196078, 1 )
 
+[sub_resource type="StyleBoxFlat" id=11]
+content_margin_left = 8.0
+content_margin_right = 8.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+bg_color = Color( 0.109804, 0.109804, 0.12549, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_bottom = 2.0
+
 [resource]
 Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
 Button/constants/hseparation = 1
@@ -49,3 +66,4 @@ Label/fonts/font = ExtResource( 1 )
 Label/styles/normal = null
 OptionButton/styles/hover = SubResource( 9 )
 OptionButton/styles/normal = SubResource( 10 )
+TooltipPanel/styles/panel = SubResource( 11 )

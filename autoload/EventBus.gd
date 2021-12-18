@@ -7,6 +7,8 @@ enum ActionEvent{
 
 # Main signals
 signal intro_finished
+signal on_pause
+signal on_unpause
 
 # Player signals
 signal action_pressed(action_name, facing)
