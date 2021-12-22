@@ -17,7 +17,8 @@ func get_mag_icon():
 	pass
 
 func _ready():
-	pass
+	yield(get_tree().create_timer(.1),"timeout") # leave it or bullets don't compute properly
+	reload()
 
 func update_animations() -> void:
 	.update_animations()
@@ -45,18 +46,13 @@ func _on_action_pressed(action_type, facing) -> void:
 			in_use = true
 		EventBus.ActionEvent.RELOAD:
 			emit_signal("on_use")
-			if ceil(bullets / mag_size) == 0:
+
+			if !reload():
 				return
-			self.bullets -= mag_size
-			self.magazine = mag_size
 
 			equipper.dir = Vector2.ZERO
 			equipper.busy_time += reload_time
-
 			EventBus.emit_signal("on_weapon_reloaded", get_weapon_type())
-
-			var snd = get_reload_sound()
-			EventBus.emit_signal("play_sound_random", snd, global_position)
 
 func _on_action_animation_started(_anim_name, _facing) -> void:
 	match _anim_name:
@@ -68,7 +64,8 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				return
 
 			self.magazine -= 1
-#			self.bullets -= 1
+			self.bullets -= 1
+
 			equipper.vel += -equipper.facing * knockback
 
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
@@ -76,3 +73,17 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			var snd = get_sound_shoot()
 			emit_signal("on_use")
 			EventBus.emit_signal("play_sound_random", snd, global_position)
+
+func reload() -> bool:
+	if bullets == 0:
+		return false
+
+	var to_reload := min(bullets, mag_size)
+
+	self.bullets -= to_reload
+	self.magazine = to_reload
+
+	var snd = get_reload_sound()
+	EventBus.emit_signal("play_sound_random", snd, global_position)
+
+	return true

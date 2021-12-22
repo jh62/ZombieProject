@@ -1865,7 +1865,7 @@ damage = 3.0
 knockback = 1.0
 fire_rate = 2.0
 bullets = 60
-mag_size = 15
+mag_size = 10
 reload_time = 0.5
 
 [node name="GunMuzzle" parent="." index="0" instance=ExtResource( 2 )]

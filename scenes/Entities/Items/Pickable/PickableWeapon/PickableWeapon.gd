@@ -72,16 +72,12 @@ func on_picked_up_by(body) -> void:
 
 	if item is Firearm:
 		item.bullets = bullets
-		picked_sound = item.get_reload_sound().front()
+#		picked_sound = item.get_reload_sound().front()
 
 	var current_wep = body.get_equipped()
 
 	if (current_wep is MeleeWeapon || (bullets in current_wep && current_wep.bullets > 0)) && item.get_weapon_type() != current_wep.get_weapon_type():
 		_create_drop(body, current_wep)
-
-#	if current_wep.get_weapon_type() != Global.WeaponNames.DISARMED:
-#		if item.get_weapon_type() != current_wep.get_weapon_type() && current_wep.bullets > 0:
-#			_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
