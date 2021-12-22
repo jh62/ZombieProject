@@ -13,10 +13,18 @@ func _ready() -> void:
 	EventBus.connect("play_sound_full", self, "_play_sound")
 	EventBus.connect("play_sound", self, "_play_sound")
 	EventBus.connect("intro_finished", self, "_on_intro_finished")
+	EventBus.connect("play_music", self, "_play_music")
 
 func _on_intro_finished() -> void:
 	$MusicPlayer.volume_db = Global.GameOptions.audio.music_db
 	$MusicPlayer.play()
+
+func _play_music(music) -> void:
+	music_player.stop()
+	music_player.stream = music
+	music_player.volume_db = 0.0
+	music_player.pitch_scale = 1.0
+	music_player.play()
 
 func get_audio_player() -> AudioStreamPlayer2D:
 	var audio_p : AudioStreamPlayer2D

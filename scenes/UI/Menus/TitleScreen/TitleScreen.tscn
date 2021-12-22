@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
@@ -54,6 +54,122 @@ func _ready():
 
 "
 
+[sub_resource type="GDScript" id=7]
+script/source = "extends AudioStreamPlayer
+
+const ui_sound_click := preload(\"res://assets/sfx/ui/ui_click.wav\")
+const ui_sound_cancel := preload(\"res://assets/sfx/ui/ui_cancel.wav\")
+const ui_sound_confirm := preload(\"res://assets/sfx/ui/ui_confirm.wav\")
+const ui_sound_over := preload(\"res://assets/sfx/ui/ui_over.wav\")
+const ui_sound_slide := preload(\"res://assets/sfx/ui/ui_slide.wav\")
+
+const ui_player_footsteps := preload(\"res://assets/sfx/footsteps/player/footstep_cement_1.wav\")
+
+const ui_zombie_footsteps := preload(\"res://assets/sfx/footsteps/zombie/footstep_grass_z_1.wav\")
+
+onready var music_p : AudioStreamPlayer = get_tree().current_scene.get_node(\"MusicMenu\")
+onready var audio_p : AudioStreamPlayer = get_tree().current_scene.get_node(\"SoundUI\")
+onready var audio_sliders_p : AudioStreamPlayer = get_tree().current_scene.get_node(\"SoundSliders\")
+
+func _ready():
+	for n in get_tree().get_nodes_in_group(\"ui_mouse_entered\"):
+		var button := n as Button
+		button.connect(\"mouse_entered\", self, \"_ui_mouse_entered\")
+
+	for n in get_tree().get_nodes_in_group(\"ui_button\"):
+		var button := n as Button
+		button.connect(\"button_up\", self, \"_on_ui_button_up\")
+
+	for n in get_tree().get_nodes_in_group(\"ui_checkbox\"):
+		var button := n as CheckBox
+		button.connect(\"button_up\", self, \"_on_ui_button_up\")
+
+#	for n in get_tree().get_nodes_in_group(\"ui_slider\"):
+#		var button := n as Slider
+#		button.connect(\"value_changed\", self, \"_on_slider_value_changed\")
+
+func _ui_mouse_entered() -> void:
+	audio_p.stream = ui_sound_over
+	audio_p.play()
+
+func _on_ui_button_up() -> void:
+	audio_p.stream = ui_sound_click
+	audio_p.play()
+
+func _on_ButtonSave_button_up():
+	audio_p.stream = ui_sound_confirm
+	audio_p.play()
+
+func _on_ButtonCancel_button_up():
+	audio_p.stream = ui_sound_cancel
+	audio_p.play()
+
+func _on_TabContainer_tab_changed(tab):
+	_on_ui_button_up()
+
+var slide_delay := 0.0
+
+func _on_slider_value_changed(value):
+	var now := OS.get_ticks_msec()
+
+	if now - slide_delay < 50:
+		return
+
+	slide_delay = now
+	audio_p.stream = ui_sound_slide
+	audio_p.play()
+
+func _on_OptionsDifficulty_item_selected(index):
+	_on_ui_button_up()
+
+func _on_SliderMusic_value_changed(value):
+	music_p.volume_db = value
+
+	if !slider_delay():
+		return
+
+	audio_sliders_p.volume_db = audio_p.volume_db
+	audio_sliders_p.stream = ui_sound_slide
+	audio_sliders_p.play()
+
+func _on_SliderSound_value_changed(value):
+	audio_p.volume_db = value
+
+	if !slider_delay():
+		return
+
+	audio_sliders_p.volume_db = value + audio_p.volume_db
+	audio_sliders_p.stream = ui_sound_slide
+	audio_sliders_p.play()
+
+func _on_SliderPlayerFootsteps_value_changed(value):
+	audio_sliders_p.volume_db = value + audio_p.volume_db
+
+	if !slider_delay():
+		return
+
+	audio_sliders_p.stream = ui_player_footsteps
+	audio_sliders_p.play()
+
+func _on_SliderZombieFootsteps_value_changed(value):
+	audio_sliders_p.volume_db = value + audio_p.volume_db
+
+	if !slider_delay(150):
+		return
+
+	audio_sliders_p.stream = ui_zombie_footsteps
+	audio_sliders_p.play()
+
+func slider_delay(delay := 50) -> bool:
+	var now := OS.get_ticks_msec()
+
+	if now - slide_delay < delay:
+		return false
+
+	slide_delay = now
+	return true
+"
+
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -105,19 +221,19 @@ size_flags_horizontal = 3
 custom_constants/separation = 6
 alignment = 1
 
-[node name="ButtonNew" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer"]
+[node name="ButtonNew" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer" groups=["ui_button", "ui_mouse_entered"]]
 margin_right = 54.0
 margin_bottom = 13.0
 grow_horizontal = 2
 text = "NEW GAME"
 
-[node name="ButtonOptions" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer"]
+[node name="ButtonOptions" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer" groups=["ui_button", "ui_mouse_entered"]]
 margin_top = 19.0
 margin_right = 54.0
 margin_bottom = 32.0
 text = "OPTIONS"
 
-[node name="ButtonExit" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer"]
+[node name="ButtonExit" type="Button" parent="ActiveMenu/MainMenu/CenterContainer/VBoxContainer" groups=["ui_button", "ui_mouse_entered"]]
 margin_top = 38.0
 margin_right = 54.0
 margin_bottom = 51.0
@@ -143,7 +259,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Gameplay" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer"]
+[node name="Gameplay" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -185,7 +301,7 @@ mouse_filter = 0
 text = "Real mags"
 script = SubResource( 4 )
 
-[node name="CheckBoxRealMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="CheckBoxRealMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid" groups=["ui_checkbox"]]
 margin_left = 185.0
 margin_top = 17.0
 margin_right = 201.0
@@ -200,7 +316,7 @@ mouse_filter = 0
 text = "Auto pick weapons"
 script = SubResource( 5 )
 
-[node name="CheckBoxAutoPickup" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="CheckBoxAutoPickup" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid" groups=["ui_checkbox"]]
 margin_left = 185.0
 margin_top = 37.0
 margin_right = 201.0
@@ -215,14 +331,14 @@ mouse_filter = 0
 text = "Death wish"
 script = SubResource( 6 )
 
-[node name="CheckBoxDeathWish" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+[node name="CheckBoxDeathWish" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid" groups=["ui_checkbox"]]
 margin_left = 185.0
 margin_top = 57.0
 margin_right = 201.0
 margin_bottom = 73.0
 size_flags_horizontal = 4
 
-[node name="Graphics" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer"]
+[node name="Graphics" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -262,7 +378,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render bullets"
 
-[node name="CheckBoxRenderBullets" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option1"]
+[node name="CheckBoxRenderBullets" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option1" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -283,7 +399,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render mags"
 
-[node name="CheckBoxRenderMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option2"]
+[node name="CheckBoxRenderMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option2" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -306,7 +422,7 @@ mouse_filter = 0
 size_flags_horizontal = 3
 text = "Render blood"
 
-[node name="CheckBoxRenderBlood" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option3"]
+[node name="CheckBoxRenderBlood" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option3" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -327,7 +443,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Corpses decay"
 
-[node name="CheckBoxCorpseDecay" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option4"]
+[node name="CheckBoxCorpseDecay" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option4" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -348,7 +464,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render mist"
 
-[node name="CheckBoxRenderMist" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option5"]
+[node name="CheckBoxRenderMist" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option5" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -369,7 +485,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render vignette"
 
-[node name="CheckBoxRenderVignette" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option6"]
+[node name="CheckBoxRenderVignette" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option6" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
@@ -390,13 +506,13 @@ size_flags_horizontal = 3
 size_flags_vertical = 5
 text = "Render Noise"
 
-[node name="CheckBoxRenderNoise" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option7"]
+[node name="CheckBoxRenderNoise" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option7" groups=["ui_checkbox"]]
 margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
 size_flags_horizontal = 6
 
-[node name="Audio" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer"]
+[node name="Audio" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -424,6 +540,7 @@ margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
 hint_tooltip = "Controls the music's volume."
+mouse_filter = 0
 size_flags_horizontal = 3
 text = "Music volume"
 
@@ -448,6 +565,7 @@ margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
 hint_tooltip = "Controls the overall sound of the game."
+mouse_filter = 0
 size_flags_horizontal = 3
 text = "Sound volume"
 
@@ -472,6 +590,7 @@ margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
 hint_tooltip = "Controls the volume of the footsteps of the player."
+mouse_filter = 0
 size_flags_horizontal = 3
 text = "Player footsteps"
 
@@ -496,6 +615,7 @@ margin_top = 1.0
 margin_right = 126.0
 margin_bottom = 14.0
 hint_tooltip = "Controls the volume of the footsteps of the zombies."
+mouse_filter = 0
 size_flags_horizontal = 3
 text = "Zombie footsteps"
 
@@ -519,7 +639,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ButtonSave" type="Button" parent="ActiveMenu/OptionsMenu/HBoxContainer"]
+[node name="ButtonSave" type="Button" parent="ActiveMenu/OptionsMenu/HBoxContainer" groups=["ui_mouse_entered"]]
 margin_right = 28.0
 margin_bottom = 19.0
 text = "Save"
@@ -527,7 +647,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ButtonCancel" type="Button" parent="ActiveMenu/OptionsMenu/HBoxContainer"]
+[node name="ButtonCancel" type="Button" parent="ActiveMenu/OptionsMenu/HBoxContainer" groups=["ui_mouse_entered"]]
 margin_left = 42.0
 margin_right = 80.0
 margin_bottom = 19.0
@@ -536,9 +656,14 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 autoplay = true
+
+[node name="SoundUI" type="AudioStreamPlayer" parent="."]
+script = SubResource( 7 )
+
+[node name="SoundSliders" type="AudioStreamPlayer" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
@@ -550,6 +675,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Graphics"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": true
+}
+
 [node name="Background" type="TextureRect" parent="CanvasLayer/Graphics"]
 show_behind_parent = true
 light_mask = 0
@@ -559,6 +694,7 @@ mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -575,6 +711,7 @@ texture = ExtResource( 5 )
 expand = true
 stretch_mode = 4
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": true
 }
 
@@ -590,6 +727,7 @@ patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": true
 }
 
@@ -615,11 +753,20 @@ mouse_filter = 2
 texture = ExtResource( 4 )
 expand = true
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonNew" to="." method="_on_ButtonNew_button_up"]
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonOptions" to="." method="_on_ButtonOptions_button_up"]
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonExit" to="." method="_on_ButtonExit_button_up"]
+[connection signal="tab_changed" from="ActiveMenu/OptionsMenu/TabContainer" to="SoundUI" method="_on_TabContainer_tab_changed"]
+[connection signal="item_selected" from="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/OptionsDifficulty" to="SoundUI" method="_on_OptionsDifficulty_item_selected"]
+[connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option1/SliderMusic" to="SoundUI" method="_on_SliderMusic_value_changed"]
+[connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4/SliderSound" to="SoundUI" method="_on_SliderSound_value_changed"]
+[connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option2/SliderPlayerFootsteps" to="SoundUI" method="_on_SliderPlayerFootsteps_value_changed"]
+[connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option3/SliderZombieFootsteps" to="SoundUI" method="_on_SliderZombieFootsteps_value_changed"]
 [connection signal="button_up" from="ActiveMenu/OptionsMenu/HBoxContainer/ButtonSave" to="." method="_on_ButtonSave_button_up"]
+[connection signal="button_up" from="ActiveMenu/OptionsMenu/HBoxContainer/ButtonSave" to="SoundUI" method="_on_ButtonSave_button_up"]
 [connection signal="button_up" from="ActiveMenu/OptionsMenu/HBoxContainer/ButtonCancel" to="." method="_on_ButtonCancel_button_up"]
+[connection signal="button_up" from="ActiveMenu/OptionsMenu/HBoxContainer/ButtonCancel" to="SoundUI" method="_on_ButtonCancel_button_up"]

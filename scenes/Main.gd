@@ -91,11 +91,14 @@ func _on_Bike_on_full_tank():
 
 	$AnimationPlayer.play("win")
 
+	var music := preload("res://assets/music/winning.mp3")
+	EventBus.emit_signal("play_music", music)
+
 func _on_Player_on_death():
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
 	var lose := preload("res://assets/music/losing.mp3")
-	EventBus.emit_signal("play_sound", lose)
+	EventBus.emit_signal("play_music", lose)
 
 	$AnimationPlayer.play("death")

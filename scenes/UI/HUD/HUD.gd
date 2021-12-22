@@ -56,7 +56,7 @@ func update_weapon_status() -> void:
 	n_AmmoRoot.visible = weapon is Firearm
 
 	if n_AmmoRoot.visible:
-		var mag_left := max(weapon.bullets / weapon.mag_size - 1, 0)
+		var mag_left := max(weapon.bullets / weapon.mag_size, 0)
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 

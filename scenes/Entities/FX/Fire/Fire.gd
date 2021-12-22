@@ -10,6 +10,7 @@ func _ready():
 
 func _process(delta):
 	elapsed += delta
+	$AudioStreamPlayer2D.volume_db -= elapsed * 3.0
 
 	if elapsed >= lifetime:
 		scale.y -= 0.025

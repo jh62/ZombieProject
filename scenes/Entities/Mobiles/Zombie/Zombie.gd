@@ -14,11 +14,13 @@ const States := {
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
 }
 
-const Sounds  := [
-	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav"),
-]
+const Sounds  := {
+	"growl":[
+		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
+		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
+		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav")
+	]
+}
 
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
@@ -145,7 +147,7 @@ func _on_AreaPerception_body_entered(body):
 	target = mob
 
 func play_random_sound() -> void:
-	EventBus.emit_signal("play_sound_random",Sounds, global_position)
+	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)
 
 func _on_screen_exited():
 	._on_screen_exited()

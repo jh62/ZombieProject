@@ -45,7 +45,7 @@ func _on_action_pressed(action_type, facing) -> void:
 			in_use = true
 		EventBus.ActionEvent.RELOAD:
 			emit_signal("on_use")
-			if bullets / mag_size == 0:
+			if ceil(bullets / mag_size) == 0:
 				return
 			self.bullets -= mag_size
 			self.magazine = mag_size
@@ -62,13 +62,13 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 	match _anim_name:
 		"shoot":
 			if magazine == 0:
+				in_use = false
 				var snd = get_sound_dry()
 				EventBus.emit_signal("play_sound_random", snd, global_position)
-				in_use = false
 				return
 
 			self.magazine -= 1
-			self.bullets -= 1
+#			self.bullets -= 1
 			equipper.vel += -equipper.facing * knockback
 
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)

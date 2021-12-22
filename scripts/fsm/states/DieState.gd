@@ -1,7 +1,9 @@
 class_name DieState extends State
 
 const SOUNDS := [
-	preload("res://assets/sfx/mobs/player/die/player_die_01.wav")
+	preload("res://assets/sfx/mobs/player/die/player_die_1.wav"),
+	preload("res://assets/sfx/mobs/player/die/player_die_2.wav"),
+	preload("res://assets/sfx/mobs/player/die/player_die_3.wav"),
 ]
 
 func _init(owner).(owner):

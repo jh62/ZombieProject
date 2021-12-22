@@ -46,10 +46,11 @@ var picked_sound
 
 func _ready():
 	if random_drop:
-		weapon_name = Globals.WeaponNames.values()[randi()%Globals.WeaponNames.size()]
+		var random_weapon := randi() % weapons.size()
+		weapon_name = Globals.WeaponNames.values()[random_weapon]
 
 	if bullets == 0:
-		bullets =  weapons.get(weapon_name).bullets
+		bullets = weapons.get(weapon_name).bullets
 
 	$Sprite.texture = weapons.get(weapon_name).texture
 
@@ -75,9 +76,12 @@ func on_picked_up_by(body) -> void:
 
 	var current_wep = body.get_equipped()
 
-	if current_wep.get_weapon_type() != Global.WeaponNames.DISARMED:
-		if item.get_weapon_type() != current_wep.get_weapon_type() && current_wep.bullets > 0:
-			_create_drop(body, current_wep)
+	if (current_wep is MeleeWeapon || (bullets in current_wep && current_wep.bullets > 0)) && item.get_weapon_type() != current_wep.get_weapon_type():
+		_create_drop(body, current_wep)
+
+#	if current_wep.get_weapon_type() != Global.WeaponNames.DISARMED:
+#		if item.get_weapon_type() != current_wep.get_weapon_type() && current_wep.bullets > 0:
+#			_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
