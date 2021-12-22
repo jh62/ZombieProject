@@ -38,7 +38,12 @@ func _ready():
 #	$ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/LabelDifficulty.hint_tooltip =
 	pass
 
+onready var horde := $CanvasLayer/Graphics/Horde
+
 func _process(time):
+	horde.modulate = horde.modulate.lightened(time * 0.1)
+	horde.modulate.a += time * 0.25
+
 	if loader == null:
 		return
 

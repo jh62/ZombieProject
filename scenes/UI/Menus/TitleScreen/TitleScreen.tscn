@@ -1,14 +1,14 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/horde.png" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui/banner_16x16.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/smoke.png" type="Texture" id=4]
 [ext_resource path="res://assets/ui/logo08.png" type="Texture" id=5]
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
 [ext_resource path="res://assets/music/track_03.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/ui/titlescreen_solo.png" type="Texture" id=10]
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Label
@@ -169,6 +169,21 @@ func slider_delay(delay := 50) -> bool:
 	slide_delay = now
 	return true
 "
+
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0.054902, 0.054902, 0.054902, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+anti_aliasing = false
+anti_aliasing_size = 0.75
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -691,10 +706,26 @@ light_mask = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 1 )
+texture = ExtResource( 10 )
 expand = true
 __meta__ = {
 "_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Horde" type="TextureRect" parent="CanvasLayer/Graphics"]
+modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
+light_mask = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 7
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -715,26 +746,19 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Banner" type="NinePatchRect" parent="CanvasLayer/Graphics"]
-self_modulate = Color( 0.156863, 0.156863, 0.156863, 0.470588 )
+[node name="Banner" type="Panel" parent="CanvasLayer/Graphics"]
 anchor_left = 0.3375
-anchor_top = 0.438889
+anchor_top = 0.444444
 anchor_right = 0.6625
-anchor_bottom = 0.561111
-texture = ExtResource( 3 )
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
+anchor_bottom = 0.533333
+custom_styles/panel = SubResource( 8 )
 __meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Graphics/Banner"]
-anchor_top = 0.159091
 anchor_right = 1.0
-anchor_bottom = 0.840909
+anchor_bottom = 1.0
 custom_fonts/normal_font = ExtResource( 7 )
 bbcode_enabled = true
 bbcode_text = "[center]ALL HOPE IS [color=red]DEATH[/color][/center]"
