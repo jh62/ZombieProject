@@ -14,6 +14,7 @@ script = ExtResource( 3 )
 texture = ExtResource( 2 )
 texture_scale = 0.75
 energy = 0.75
+mode = 2
 range_height = 324.0
 range_item_cull_mask = 3
 shadow_enabled = true

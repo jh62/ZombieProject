@@ -48,17 +48,12 @@ func update_weapon_status(weapon_type := -1) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	var weapon = n_player.equipment.get_item()
 
-#	if weapon != null:
-#		if!weapon.is_connected("on_use", self, "_on_equipment_use"):
-#			weapon.connect("on_use", self, "_on_equipment_use")
-
 	n_WeaponIcon.texture = weapon.get_icon()
 
 	n_AmmoRoot.visible = weapon is Firearm
 
 	if n_AmmoRoot.visible:
 		var mag_left := ceil(float(weapon.bullets) / float(weapon.mag_size))
-#		var mag_left = weapon.bullets / weapon.mag_size
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 
@@ -87,9 +82,6 @@ func _on_player_loot() -> void:
 		yield(n_Tween,"tween_completed")
 		n_Tween.interpolate_property(n_LootbagTexture,"rect_scale",n_LootbagTexture.rect_scale,Vector2(1,1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
 		n_Tween.start()
-
-#func _on_equipment_use() -> void:
-#	update_weapon_status()
 
 func _on_bike_fuel_changed(amount):
 	update_fuel_status()

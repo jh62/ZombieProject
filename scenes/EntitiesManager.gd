@@ -30,6 +30,7 @@ func _spawn_bullet(position, damage, knockback := 0.0, aimed := false) -> void:
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
 	bullet.damage = damage
 	bullet.knockback = knockback
+	bullet.visible = Global.GameOptions.graphics.render_bullets
 
 	bullet.global_position = position
 

@@ -43,6 +43,7 @@ light_mask = 3
 position = Vector2( -3, -9 )
 enabled = false
 color = Color( 0.588235, 0.588235, 0.588235, 1 )
+mode = 2
 range_height = 300.0
 range_item_cull_mask = 3
 shadow_enabled = true
