@@ -64,7 +64,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				return
 
 			self.magazine -= 1
-			self.bullets -= 1
+#			self.bullets -= 1
 
 			equipper.vel += -equipper.facing * knockback
 
@@ -82,6 +82,8 @@ func reload() -> bool:
 
 	self.bullets -= to_reload
 	self.magazine = to_reload
+
+	print_debug(bullets)
 
 	var snd = get_reload_sound()
 	EventBus.emit_signal("play_sound_random", snd, global_position)
