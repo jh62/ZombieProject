@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-[ext_resource path="res://assets/ui/cursors/crosshair_1.png" type="Texture" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
@@ -43,27 +42,28 @@ func _on_intro_finished() -> void:
 	can_pause = true
 
 func _unhandled_key_input(event):
-	if !can_pause:
-		return
-
 	if Input.is_key_pressed(KEY_ESCAPE):
-		var paused := !get_tree().paused
-		get_tree().paused = paused
-		visible = paused
-		get_parent().get_node(\"HUD\").visible = !paused
-		get_parent().get_node(\"ScreenMessage\").visible = !paused
-		get_tree().set_input_as_handled()
-
-		if paused:
-			EventBus.emit_signal(\"on_pause\")
-			$AudioStreamPlayer.play()
-		else:
-			EventBus.emit_signal(\"on_unpause\")
-
-		return
+		pause()
 
 func _on_Player_on_death():
 	can_pause = false
+
+func pause() -> void:
+	if !can_pause:
+		return
+
+	var paused := !get_tree().paused
+	get_tree().paused = paused
+	visible = paused
+	get_parent().get_node(\"HUD\").visible = !paused
+	get_parent().get_node(\"ScreenMessage\").visible = !paused
+	get_tree().set_input_as_handled()
+
+	if paused:
+			EventBus.emit_signal(\"on_pause\")
+			$AudioStreamPlayer.play()
+	else:
+		EventBus.emit_signal(\"on_unpause\")
 "
 
 [sub_resource type="Animation" id=1]
@@ -748,9 +748,10 @@ __meta__ = {
 position = Vector2( 72, 312 )
 
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 19 )]
-position = Vector2( 120, 292 )
+position = Vector2( 112, 282 )
 random_drop = false
-weapon_name = 1
+weapon_name = 3
+bullets = 1000
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -775,21 +776,8 @@ editor_draw_drag_margin = true
 [node name="Listener2D" type="Listener2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
 
-[node name="Crosshair" parent="." instance=ExtResource( 10 )]
+[node name="Crosshair" parent="TileMap/Entities/Mobs/Player" instance=ExtResource( 10 )]
 pause_mode = 2
-position = Vector2( 112, 70 )
-
-[node name="CanvasLayer2" type="CanvasLayer" parent="Crosshair"]
-layer = 50
-
-[node name="TextureRect" type="TextureRect" parent="Crosshair/CanvasLayer2"]
-anchor_right = 0.2
-anchor_bottom = 0.355556
-texture = ExtResource( 13 )
-stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -988,17 +976,17 @@ stream = ExtResource( 17 )
 
 [connection signal="on_fuel_stopped" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
-[connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="Crosshair" method="_on_Bike_on_full_tank"]
+[connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Bike_on_full_tank"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_start"]
-[connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_start"]
+[connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_stop"]
-[connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_stop"]
-[connection signal="on_busy_time_added" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_busy_time_added"]
+[connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_aiming_stop"]
+[connection signal="on_busy_time_added" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_busy_time_added"]
 [connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="." method="_on_Player_on_death"]
-[connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_death"]
+[connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_death"]
 [connection signal="on_death" from="TileMap/Entities/Mobs/Player" to="UI/PauseMessage" method="_on_Player_on_death"]
 [connection signal="on_hit" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Camera/ScreenShake" method="_on_Player_on_hit"]
-[connection signal="on_search_end" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_end"]
-[connection signal="on_search_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_search_start"]
+[connection signal="on_search_end" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_search_end"]
+[connection signal="on_search_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Player_on_search_start"]
 [connection signal="visibility_changed" from="UI/ControlRestart" to="UI/ControlRestart" method="_on_ControlRestart_visibility_changed"]
 [connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_Button_button_up"]

@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.gd" type="Script" id=1]
 [ext_resource path="res://assets/ui/cursors/progress_wheel_fill.png" type="Texture" id=2]
 [ext_resource path="res://assets/ui/cursors/progress_wheel_under.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/cursors/crosshair_1.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=7]
 radius = 4.0
 
-[node name="Area2D" type="Area2D"]
+[node name="Crosshair" type="Area2D"]
 collision_layer = 128
 collision_mask = 0
 monitoring = false
@@ -36,4 +37,23 @@ texture_progress = ExtResource( 2 )
 fill_mode = 4
 __meta__ = {
 "_edit_use_anchors_": true
+}
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="TextureCrosshair" type="TextureRect" parent="CanvasLayer2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -180.0
+margin_top = -110.0
+margin_right = -140.0
+margin_bottom = -70.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
 }

@@ -18,7 +18,7 @@ func _ready():
 	tween.start()
 
 
-func _unhandled_key_input(event):
+func _unhandled_input(event):
 	if event.is_action_pressed("action_alt"):
 		for body in $Area2D.get_overlapping_bodies():
 			on_picked_up_by(body)

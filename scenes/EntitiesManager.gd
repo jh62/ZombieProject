@@ -18,14 +18,25 @@ func _ready() -> void:
 
 func _spawn_bullet(position, damage, knockback := 0.0, aimed := false) -> void:
 	var bullet : Projectile = Bullet.instance()
+	var target_pos : Vector2
 
-	var target_pos := get_global_mouse_position()
+	if Global.GameOptions.gameplay.joypad:
+		var crosshair := n_Mobs.get_node("Player").get_node("Crosshair")
+		target_pos = crosshair.position
+	else:
+		target_pos = get_global_mouse_position()
 
 	if !aimed:
 		var precision_margin := PlayerStatus.precision_margin_error
 		target_pos += Vector2(rand_range(-precision_margin,precision_margin),rand_range(-precision_margin,precision_margin))
 
-	var direction = position.direction_to(target_pos)
+	var direction : Vector2
+
+	if Global.GameOptions.gameplay.joypad:
+		var player : Node2D = n_Mobs.get_node("Player")
+		direction = player.get_global_transform_with_canvas().origin.direction_to(target_pos)
+	else:
+		direction = position.direction_to(target_pos)
 
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
 	bullet.damage = damage

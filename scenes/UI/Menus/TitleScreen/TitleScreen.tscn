@@ -330,6 +330,21 @@ margin_right = 201.0
 margin_bottom = 73.0
 size_flags_horizontal = 4
 
+[node name="LabelJoypad" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
+margin_top = 78.0
+margin_right = 126.0
+margin_bottom = 91.0
+mouse_filter = 0
+text = "Joystick"
+script = SubResource( 6 )
+
+[node name="CheckBoxJoypad" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid" groups=["ui_checkbox"]]
+margin_left = 185.0
+margin_top = 77.0
+margin_right = 201.0
+margin_bottom = 93.0
+size_flags_horizontal = 4
+
 [node name="Graphics" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
 visible = false
 anchor_right = 1.0

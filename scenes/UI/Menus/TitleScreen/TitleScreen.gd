@@ -26,6 +26,8 @@ onready var n_CheckBoxCorpseDecay := $ActiveMenu/OptionsMenu/TabContainer/Graphi
 onready var n_CheckBoxRenderMist := $ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option5/CheckBoxRenderMist
 onready var n_CheckBoxRenderVignette := $ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option6/CheckBoxRenderVignette
 onready var n_CheckBoxRenderNoise := $ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer/Option7/CheckBoxRenderNoise
+onready var n_CheckBoxJoypad := $ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/CheckBoxJoypad
+
 # Audio controls
 onready var n_SliderMusic := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option1/SliderMusic
 onready var n_SliderSound := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4/SliderSound
@@ -108,6 +110,7 @@ func save() -> void:
 	Global.GameOptions.gameplay.discard_bullets = n_CheckBoxRealMags.pressed
 	Global.GameOptions.gameplay.death_wish = n_CheckBoxDeathWish.pressed
 	Global.GameOptions.gameplay.auto_pickup = n_CheckBoxAutopick.pressed
+	Global.GameOptions.gameplay.joypad = n_CheckBoxJoypad.pressed
 	# Graphics
 	Global.GameOptions.graphics.render_blood = n_CheckBoxRenderBlood.pressed
 	Global.GameOptions.graphics.render_bullets = n_CheckBoxRenderBullets.pressed

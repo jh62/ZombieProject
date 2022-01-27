@@ -75,6 +75,10 @@ func _on_unpaused() -> void:
 	EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if Global.GameOptions.gameplay.joypad:
+		if event is InputEventMouse:
+			return
+
 	if get_tree().paused:
 		return
 
@@ -129,8 +133,13 @@ func _process_input() -> void:
 	var equipped := get_equipped() as BaseItem
 
 	if equipped.in_use || aiming:
-#		var joy = Vector2(Input.get_joy_axis(0, JOY_AXIS_2), Input.get_joy_axis(0 ,JOY_AXIS_3))
-		var m_pos := global_position.direction_to(get_global_mouse_position())
+		var m_pos : Vector2
+
+		if Global.GameOptions.gameplay.joypad:
+			m_pos = get_global_transform_with_canvas().origin.direction_to($Crosshair.position)
+		else:
+			m_pos = global_position.direction_to(get_global_mouse_position())
+#
 		look_at_dir.x = m_pos.x
 		look_at_dir.y = m_pos.y
 	else:
