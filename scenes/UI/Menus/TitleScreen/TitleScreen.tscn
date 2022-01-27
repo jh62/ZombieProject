@@ -1,14 +1,14 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://assets/ui/horde.png" type="Texture" id=1]
+[ext_resource path="res://scenes/UI/SplashScreen/SplashScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
+[ext_resource path="res://assets/ui/titlescreen_2.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/smoke.png" type="Texture" id=4]
 [ext_resource path="res://assets/ui/logo08.png" type="Texture" id=5]
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
 [ext_resource path="res://assets/music/track_03.mp3" type="AudioStream" id=9]
-[ext_resource path="res://assets/ui/titlescreen_solo.png" type="Texture" id=10]
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Label
@@ -26,9 +26,9 @@ func _ready():
 script/source = "extends OptionButton
 
 func _ready():
-	add_item(\"Easy\")
-	add_item(\"Normal\")
-	add_item(\"Hard\")
+	add_item(\"Easy\") #0
+	add_item(\"Normal\") #1
+	add_item(\"Hard\") #2
 "
 
 [sub_resource type="GDScript" id=4]
@@ -170,20 +170,7 @@ func slider_delay(delay := 50) -> bool:
 	return true
 "
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0.054902, 0.054902, 0.054902, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-anti_aliasing = false
-anti_aliasing_size = 0.75
+[sub_resource type="StyleBoxEmpty" id=8]
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -195,17 +182,6 @@ __meta__ = {
 }
 parallax_speed = 150.0
 
-[node name="Progress" type="ProgressBar" parent="."]
-visible = false
-anchor_left = 0.228125
-anchor_top = 0.705556
-anchor_right = 0.74375
-anchor_bottom = 0.777778
-max_value = 1.0
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="ActiveMenu" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -215,6 +191,7 @@ __meta__ = {
 }
 
 [node name="MainMenu" type="MarginContainer" parent="ActiveMenu"]
+visible = false
 anchor_left = 0.4
 anchor_top = 0.577778
 anchor_right = 0.6
@@ -255,7 +232,6 @@ margin_bottom = 51.0
 text = "QUIT"
 
 [node name="OptionsMenu" type="Control" parent="ActiveMenu"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -297,6 +273,7 @@ margin_right = 126.0
 margin_bottom = 13.0
 mouse_filter = 0
 size_flags_horizontal = 3
+size_flags_vertical = 5
 text = "Difficulty"
 script = SubResource( 3 )
 
@@ -398,6 +375,7 @@ margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
 size_flags_horizontal = 6
+pressed = true
 
 [node name="Option2" type="GridContainer" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer"]
 margin_top = 20.0
@@ -419,6 +397,7 @@ margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
 size_flags_horizontal = 6
+pressed = true
 
 [node name="Option3" type="GridContainer" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer"]
 margin_top = 40.0
@@ -442,6 +421,7 @@ margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
 size_flags_horizontal = 6
+pressed = true
 
 [node name="Option4" type="GridContainer" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer"]
 margin_top = 60.0
@@ -484,6 +464,7 @@ margin_left = 176.0
 margin_right = 192.0
 margin_bottom = 16.0
 size_flags_horizontal = 6
+pressed = true
 
 [node name="Option6" type="GridContainer" parent="ActiveMenu/OptionsMenu/TabContainer/Graphics/ScrollContainer/VBoxContainer"]
 margin_top = 100.0
@@ -706,26 +687,10 @@ light_mask = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 3 )
 expand = true
 __meta__ = {
 "_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Horde" type="TextureRect" parent="CanvasLayer/Graphics"]
-modulate = Color( 0.117647, 0.117647, 0.117647, 1 )
-light_mask = 0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -58.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource( 1 )
-expand = true
-stretch_mode = 7
-__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -781,10 +746,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CanvasLayer_SplashScreen" type="CanvasLayer" parent="."]
+
+[node name="SplashScreen" parent="CanvasLayer_SplashScreen" instance=ExtResource( 1 )]
+visible = false
+
+[node name="Progress" type="ProgressBar" parent="CanvasLayer_SplashScreen"]
+visible = false
+anchor_left = 0.278125
+anchor_top = 0.661111
+anchor_right = 0.71875
+anchor_bottom = 0.733333
+margin_top = -20.0
+margin_bottom = -20.0
+max_value = 1.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonNew" to="." method="_on_ButtonNew_button_up"]
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonOptions" to="." method="_on_ButtonOptions_button_up"]
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonExit" to="." method="_on_ButtonExit_button_up"]
 [connection signal="tab_changed" from="ActiveMenu/OptionsMenu/TabContainer" to="SoundUI" method="_on_TabContainer_tab_changed"]
+[connection signal="item_selected" from="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/OptionsDifficulty" to="." method="_on_OptionsDifficulty_item_selected"]
 [connection signal="item_selected" from="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/OptionsDifficulty" to="SoundUI" method="_on_OptionsDifficulty_item_selected"]
 [connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option1/SliderMusic" to="SoundUI" method="_on_SliderMusic_value_changed"]
 [connection signal="value_changed" from="ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4/SliderSound" to="SoundUI" method="_on_SliderSound_value_changed"]

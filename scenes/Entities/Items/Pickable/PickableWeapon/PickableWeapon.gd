@@ -45,8 +45,10 @@ var weapons := {
 var picked_sound
 
 func _ready():
+	$Sprite.material.set("shader_param/hit_color", Color.yellow)
 	if random_drop:
-		var random_weapon := randi() % weapons.size()
+		var keys := weapons.keys()
+		var random_weapon : int = keys[randi()%keys.size()]
 		weapon_name = Globals.WeaponNames.values()[random_weapon]
 
 	if bullets == 0:

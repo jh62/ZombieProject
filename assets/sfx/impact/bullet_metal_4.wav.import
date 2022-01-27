@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/bullet_metal_4.wav-fdd90078827e9414eaac689e2f614e67.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/bullet_metal_4.wav"
+dest_files=[ "res://.import/bullet_metal_4.wav-fdd90078827e9414eaac689e2f614e67.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

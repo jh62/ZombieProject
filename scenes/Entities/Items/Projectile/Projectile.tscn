@@ -4,8 +4,8 @@
 [ext_resource path="res://scenes/Entities/Items/Projectile/Projectile.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 1.94307
-height = 4.08912
+radius = 1.60625
+height = 2.33152
 
 [node name="Projectile" type="RigidBody2D"]
 show_behind_parent = true
@@ -13,7 +13,7 @@ collision_layer = 32
 collision_mask = 13
 mode = 2
 gravity_scale = 0.0
-continuous_cd = 1
+continuous_cd = 2
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )

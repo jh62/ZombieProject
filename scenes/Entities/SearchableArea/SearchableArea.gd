@@ -15,6 +15,7 @@ export var fill_time := 3.5
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
 onready var icon := $CanvasLayer/TextureRect
+onready var label := $CanvasLayer_Label/RichTextLabel
 
 var searched_by : Node2D
 var searching := false setget, is_searching
@@ -25,6 +26,7 @@ func _ready():
 	$CollisionShape2D.shape.radius = radius
 	$CanvasLayer/ProgressWheel.fill_time = fill_time
 	icon.visible = false
+	show_label(false)
 
 func is_looted() -> bool:
 	return looted
@@ -47,6 +49,7 @@ func _on_SearchableArea_body_entered(body : Node2D):
 	body.connect("on_search_end", self, "_on_search_end")
 	icon.visible = true
 	icon.rect_position = global_position
+	show_label(true)
 
 func _on_SearchableArea_body_exited(body : Node2D):
 	if !body.is_in_group(Global.GROUP_PLAYER):
@@ -56,6 +59,7 @@ func _on_SearchableArea_body_exited(body : Node2D):
 	body.disconnect("on_search_start", self, "_on_search_start")
 	body.disconnect("on_search_end", self, "_on_search_end")
 	icon.visible = false
+	show_label(false)
 
 	if searched_by == body:
 		searched_by = null
@@ -75,6 +79,7 @@ func _on_search_start(mob) -> void:
 	mob.begin_search()
 
 	icon.visible = false
+	show_label(false)
 
 	searched_by = mob
 	searching = true
@@ -96,6 +101,7 @@ func _on_search_end(mob) -> void:
 	searched_by = null
 	searching = false
 	icon.visible = !looted
+	show_label(!looted)
 	progress_wheel.stop()
 
 func _on_ProgressWheel_on_progress_complete():
@@ -122,3 +128,14 @@ func spawn_loot() -> void:
 func set_radius(new_radius) -> void:
 	radius = new_radius
 	$CollisionShape2D.shape.radius = new_radius
+
+func show_label(_visible) -> void:
+	if _visible:
+		var parent := get_parent()
+		var item_name := ""
+
+		if parent != null && parent.has_method("get_item_name"):
+			item_name = parent.get_item_name()
+
+		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to search [color=#fffc00]{1}[/color][/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text(),1:item_name.to_upper()})
+	label.visible = _visible

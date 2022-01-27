@@ -2,6 +2,9 @@ extends StaticObject
 
 var exploded := false
 
+func get_item_name():
+	return "fuel pump"
+
 func on_hit_by(attacker) -> void:
 	if exploded:
 		return

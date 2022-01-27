@@ -2,10 +2,10 @@ class_name ZombieHitState extends State
 
 const SOUNDS := {
 	"bullet_impact":[
-		preload("res://assets/sfx/impact/bullet_body_01.wav"),
-		preload("res://assets/sfx/impact/bullet_body_02.wav"),
-		preload("res://assets/sfx/impact/bullet_body_03.wav"),
-		preload("res://assets/sfx/impact/bullet_body_04.wav"),
+		preload("res://assets/sfx/impact/bullet_body_1.wav"),
+		preload("res://assets/sfx/impact/bullet_body_2.wav"),
+		preload("res://assets/sfx/impact/bullet_body_3.wav"),
+		preload("res://assets/sfx/impact/bullet_body_4.wav"),
 	],
 	"body_impact":[
 		preload("res://assets/sfx/impact/body_hit_1.wav"),
@@ -14,10 +14,10 @@ const SOUNDS := {
 		preload("res://assets/sfx/impact/body_hit_4.wav"),
 	],
 	"hurt":[
-		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_01.wav"),
-		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_02.wav"),
-		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_03.wav"),
-		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_04.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_1.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_2.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_3.wav"),
+		preload("res://assets/sfx/mobs/zombie/hurt/zombie_hurt_4.wav"),
 	]
 }
 

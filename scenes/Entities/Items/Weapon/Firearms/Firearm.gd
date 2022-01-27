@@ -83,8 +83,6 @@ func reload() -> bool:
 	self.bullets -= to_reload
 	self.magazine = to_reload
 
-	print_debug(bullets)
-
 	var snd = get_reload_sound()
 	EventBus.emit_signal("play_sound_random", snd, global_position)
 

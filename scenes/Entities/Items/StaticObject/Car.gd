@@ -7,6 +7,9 @@ var exploded = false
 func _ready():
 	$Area2D.set_collision_mask_bit(5, true) # Bullets
 
+func get_item_name():
+	return "vehicle"
+
 func explode() -> void:
 	if exploded:
 		return

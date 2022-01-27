@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/flesh_impact_1.wav-b6012d69f3ce6c4608e2f058b02d9afb.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/flesh_impact_1.wav"
+dest_files=[ "res://.import/flesh_impact_1.wav-b6012d69f3ce6c4608e2f058b02d9afb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

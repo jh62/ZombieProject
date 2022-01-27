@@ -11,6 +11,8 @@ const sounds := {
 	],
 	"reload":[
 		preload("res://assets/sfx/weapons/reload_shotgun_1.wav"),
+		preload("res://assets/sfx/weapons/reload_shotgun_2.wav"),
+		preload("res://assets/sfx/weapons/reload_shotgun_3.wav"),
 	]
 }
 

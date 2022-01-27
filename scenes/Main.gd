@@ -6,6 +6,9 @@ onready var n_Crosshair := $Crosshair
 
 func _ready() -> void:
 	randomize()
+
+	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
+
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 	n_Player.connect("on_aiming_start", n_Crosshair, "_on_Player_on_aiming_start")
 	n_Player.connect("on_aiming_stop", n_Crosshair, "_on_Player_on_aiming_stop")
@@ -75,7 +78,8 @@ func _ready() -> void:
 			n_ZombieSpawner.restart_delay = 10
 
 	if weapon != null:
-		n_Player.equipment.equip(weapon)
+		yield(get_tree().create_timer(.25),"timeout")
+		n_Player.equip_item(weapon)
 
 func on_intro_ready() -> void:
 	n_Player.can_move = true
@@ -83,7 +87,11 @@ func on_intro_ready() -> void:
 	EventBus.emit_signal("intro_finished")
 
 func _on_Button_button_up():
-	get_tree().reload_current_scene()
+	if Global.GameOptions.gameplay.death_wish:
+		var new_scene := preload("res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn")
+		get_tree().change_scene_to(new_scene)
+	else:
+		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
 	n_Player.can_move = false
@@ -102,3 +110,27 @@ func _on_Player_on_death():
 	EventBus.emit_signal("play_music", lose)
 
 	$AnimationPlayer.play("death")
+
+var fuel_pickedup_first := false
+
+func _on_fuel_pickedup() -> void:
+	if fuel_pickedup_first:
+		return
+
+	fuel_pickedup_first = true
+	$AnimationPlayer.play("fuel_hint")
+
+const messages := [
+		"That was not enough. I need more.",
+		"I need a few more.",
+		"I need some more.",
+		"Damn, I need to find another one."
+	]
+
+func _on_Bike_on_fuel_stopped(amount):
+	if amount >= Globals.MAX_FUEL_LITERS:
+		return
+
+	messages.shuffle()
+	$UI/DialogPopup/MarginContainer/Label.text = messages.front()
+	$AnimationPlayer.call_deferred("play","fuel_changed")

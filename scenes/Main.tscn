@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,17 +12,21 @@
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/ui/cursors/crosshair_1.png" type="Texture" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
-[ext_resource path="res://scenes/Entities/FX/Fire/Fire.tscn" type="PackedScene" id=19]
+[ext_resource path="res://assets/ui/window.png" type="Texture" id=18]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=19]
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
 
 func _on_ControlRestart_visibility_changed():
+	if Global.GameOptions.gameplay.death_wish:
+		$ButtonRestart.text = \"EXIT\"
+
 	$ButtonRestart.visible = visible
 "
 
@@ -159,6 +163,54 @@ tracks/7/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/DialogPopup:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/DialogPopup:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "Bike's outta fuel. " ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -298,9 +350,101 @@ tracks/1/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=12]
+resource_name = "fuel_changed"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/DialogPopup:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/DialogPopup:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 3.4, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 3, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "fuel_hint"
+length = 20.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/DialogPopup:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/DialogPopup:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 3.4, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1.5, 3, 3.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Got it. Now I must get it to my bike." ]
+}
+
 [sub_resource type="Animation" id=2]
 resource_name = "intro"
-length = 10.0
+length = 20.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
 tracks/0/interp = 1
@@ -405,6 +549,54 @@ tracks/7/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/DialogPopup:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 8.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/DialogPopup:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 8.4, 8.9, 13.7, 14.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 8.9, 10, 11, 11.2, 12, 13.5, 13.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 8.4, 11.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "Bike's outta fuel. ", "I need to find some, so I can get outta here." ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -555,11 +747,10 @@ __meta__ = {
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
-position = Vector2( 112, 262 )
+[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 19 )]
+position = Vector2( 120, 292 )
 random_drop = false
-weapon_name = 3
-bullets = 50
+weapon_name = 1
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -584,12 +775,21 @@ editor_draw_drag_margin = true
 [node name="Listener2D" type="Listener2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
 
-[node name="Fire" parent="TileMap/Entities/Mobs" instance=ExtResource( 19 )]
-position = Vector2( 46, 256 )
-lifetime = 10.0
-
 [node name="Crosshair" parent="." instance=ExtResource( 10 )]
 pause_mode = 2
+position = Vector2( 112, 70 )
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="Crosshair"]
+layer = 50
+
+[node name="TextureRect" type="TextureRect" parent="Crosshair/CanvasLayer2"]
+anchor_right = 0.2
+anchor_bottom = 0.355556
+texture = ExtResource( 13 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -675,6 +875,7 @@ anchor_left = 0.4
 anchor_top = 0.777778
 anchor_right = 0.6
 anchor_bottom = 1.0
+mouse_filter = 1
 script = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -688,7 +889,6 @@ margin_right = 53.0
 margin_bottom = 26.0
 text = "Restart"
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -730,13 +930,53 @@ __meta__ = {
 pause_mode = 2
 stream = ExtResource( 9 )
 
+[node name="DialogPopup" type="NinePatchRect" parent="UI"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.21875
+anchor_top = 0.777778
+anchor_right = 0.78125
+anchor_bottom = 1.0
+texture = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/DialogPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 4.57764e-05
+mouse_filter = 2
+custom_constants/margin_right = 12
+custom_constants/margin_top = 4
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/DialogPopup/MarginContainer"]
+margin_left = 12.0
+margin_top = 4.0
+margin_right = 168.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+size_flags_vertical = 7
+text = "Bike's outta fuel. "
+autowrap = true
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "debug"
+autoplay = "intro"
 anims/RESET = SubResource( 1 )
 anims/death = SubResource( 8 )
 anims/debug = SubResource( 11 )
+anims/fuel_changed = SubResource( 12 )
+anims/fuel_hint = SubResource( 13 )
 anims/intro = SubResource( 2 )
 anims/win = SubResource( 7 )
 
@@ -746,7 +986,9 @@ stream = ExtResource( 16 )
 [node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 17 )
 
+[connection signal="on_fuel_stopped" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
+[connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="Crosshair" method="_on_Bike_on_full_tank"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_start" from="TileMap/Entities/Mobs/Player" to="Crosshair" method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_stop" from="TileMap/Entities/Mobs/Player" to="TileMap/Entities/Mobs/Player" method="_on_Player_on_aiming_stop"]

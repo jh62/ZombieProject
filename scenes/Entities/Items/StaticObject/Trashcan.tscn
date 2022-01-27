@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/res/items/trashcan.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends StaticObject
+
+func get_item_name() -> String:
+	return \"trash can\"
+
+"
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -2, -5, -2, 4, 3, 4, 3, -5 )
 
 [node name="Trashcan" instance=ExtResource( 2 )]
-material_type = 0
+script = SubResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )

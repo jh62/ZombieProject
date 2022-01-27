@@ -1,9 +1,12 @@
 class_name Bike extends KinematicBody2D
 
 signal on_full_tank
+signal on_fuel_stopped(amount)
 signal on_fuel_changed(amount)
 
 export var fuel_amount := 0.0 setget set_fuel_amount
+
+onready var label := $CanvasLayer/Label
 
 var player
 var fuelcan
@@ -45,6 +48,7 @@ func _on_Timer_timeout():
 		stop()
 		fuelcan.call_deferred("queue_free")
 		fuelcan = null
+		emit_signal("on_fuel_stopped", fuel_amount)
 
 	emit_signal("on_fuel_changed", fuel_amount)
 
@@ -60,6 +64,9 @@ func _on_Area2D_body_entered(body):
 	player = _player
 	player.connect("on_search_start", self, "on_player_action_start")
 	player.connect("on_search_end", self, "on_player_action_end")
+
+	label.visible = true
+	label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to fill the tank[/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text()})
 
 func _on_Area2D_body_exited(body):
 	var _player = body as Player
@@ -78,7 +85,8 @@ func start() -> void:
 	player.equipment.remove_child(weapon)
 
 	var disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
-	player.equipment.equip(disarmed)
+	player.call_deferred("equip_item", disarmed)
+#	player.equip_item(disarmed)
 
 	player.can_move = false
 	fuelcan.on_use()
@@ -88,8 +96,11 @@ func stop() -> void:
 	if $Timer.is_stopped():
 		return
 
+	label.visible = false
+
 	player.equipment.clear()
-	player.equipment.add_child(weapon)
+	player.call_deferred("equip_item", weapon)
+#	player.equip_item(weapon)
 
 	player.can_move = true
 	fuelcan.on_use_stop()

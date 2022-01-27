@@ -32,9 +32,33 @@ func _ready() -> void:
 	fsm.current_state = current_state
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
+	EventBus.connect("on_unpause", self, "_on_unpaused")
 
 	self.max_hitpoints = PlayerStatus.max_hitpoints
 	self.hitpoints = max_hitpoints
+
+func _process_animations() -> void:
+	._process_animations()
+
+	match facing.round():
+		Vector2(0,-1):
+			$Flashlight.rotation_degrees = -90
+		Vector2(0,1):
+			$Flashlight.rotation_degrees = 90
+		Vector2(1,0):
+			$Flashlight.rotation_degrees = 0
+		Vector2(1,1):
+			$Flashlight.rotation_degrees = 45
+		Vector2(1,-1):
+			$Flashlight.rotation_degrees = -45
+		Vector2(-1,0):
+			$Flashlight.rotation_degrees = 180
+		Vector2(-1,-1):
+			$Flashlight.rotation_degrees = -135
+		Vector2(-1,1):
+			$Flashlight.rotation_degrees = 135
+		_:
+			$Flashlight.rotation_degrees = 0
 
 func _process(delta: float) -> void:
 	._process(delta)
@@ -44,6 +68,11 @@ func _process(delta: float) -> void:
 	if is_alive():
 		if can_move:
 			_process_input()
+
+func _on_unpaused() -> void:
+	emit_signal("on_aiming_stop", self)
+	emit_signal("on_search_end", self)
+	EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if get_tree().paused:
@@ -55,7 +84,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if can_move:
 		if event.is_action_pressed("action"):
 			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
-#			emit_signal("on_aiming_stop", self)
 			return
 		elif event.is_action_released("action"):
 			EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
@@ -101,6 +129,7 @@ func _process_input() -> void:
 	var equipped := get_equipped() as BaseItem
 
 	if equipped.in_use || aiming:
+#		var joy = Vector2(Input.get_joy_axis(0, JOY_AXIS_2), Input.get_joy_axis(0 ,JOY_AXIS_3))
 		var m_pos := global_position.direction_to(get_global_mouse_position())
 		look_at_dir.x = m_pos.x
 		look_at_dir.y = m_pos.y
@@ -158,9 +187,12 @@ func has_fuelcan() -> bool:
 func get_equipped():
 	return equipment.get_child(0)
 
-func _on_item_pickedup(item) -> void:
+func equip_item(item) -> void:
 	equipment.equip(item)
 	emit_signal("on_item_pickedup")
+
+func _on_item_pickedup(item) -> void:
+	equip_item(item)
 
 func _on_loot_pickedup(loot) -> void:
 	loot_count += 1

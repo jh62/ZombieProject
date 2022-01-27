@@ -83,6 +83,7 @@ func on_action_pickup(mob) -> void:
 	$Area2D.monitoring = false
 	$Area2D.monitorable = false
 
+	EventBus.emit_signal("fuel_pickedup")
 	EventBus.emit_signal("play_sound", SoundPickUp, player.global_position)
 
 func on_use(mob := null) -> void:

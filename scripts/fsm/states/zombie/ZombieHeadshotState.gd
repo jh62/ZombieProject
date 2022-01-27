@@ -2,7 +2,6 @@ class_name ZombieHeadshotState extends State
 
 const SOUNDS := [
 	preload("res://assets/sfx/impact/headshot_1.wav"),
-	preload("res://assets/sfx/impact/headshot_2.wav"),
 ]
 
 func _init(owner).(owner):

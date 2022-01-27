@@ -31,54 +31,76 @@ onready var n_SliderMusic := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxCont
 onready var n_SliderSound := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option4/SliderSound
 onready var n_SliderPlayerFootsteps := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option2/SliderPlayerFootsteps
 onready var n_SliderZombieFootsteps := $ActiveMenu/OptionsMenu/TabContainer/Audio/VBoxContainer/Option3/SliderZombieFootsteps
+onready var canvas_graphics := $CanvasLayer/Graphics
+onready var splash_screen := $CanvasLayer_SplashScreen/SplashScreen
+onready var progress_bar := $CanvasLayer_SplashScreen/Progress
+
 var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
+var load_finished := false
+var resource
 
 func _ready():
-#	$ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid/LabelDifficulty.hint_tooltip =
-	pass
+	set_menu_screen(MenuScreen.MAIN)
 
-onready var horde := $CanvasLayer/Graphics/Horde
+var last_poll := 0.0
 
 func _process(time):
-	horde.modulate = horde.modulate.lightened(time * 0.1)
-	horde.modulate.a += time * 0.25
-
 	if loader == null:
 		return
 
+	var now := OS.get_ticks_msec()
+
+	if now - last_poll < randi() % 50 + 25:
+		return
+
+	last_poll = now
 	var err = loader.poll()
 
 	if err == ERR_FILE_EOF: # Finished loading.
-		var resource = loader.get_resource()
+		resource = loader.get_resource()
 		loader = null
-		set_new_scene(resource)
+		progress_bar.visible = false
+		splash_screen.on_finished_loading()
+		load_finished = true
+#		set_new_scene(resource)
 	elif err == OK:
 		update_progress()
 	else: # Error during loading.
 		print_debug("ERROR")
 		loader = null
 
+func _unhandled_key_input(event):
+	if !load_finished:
+		return
+
+	set_new_scene(resource)
+
 func update_progress():
 	var progress = float(loader.get_stage()) / loader.get_stage_count()
-	$Progress.value = progress
+	progress_bar.value = progress
+	splash_screen.set_logo_visibility(progress)
 
 func set_new_scene(scene_resource):
 	get_tree().change_scene_to(scene_resource)
 	set_process(false)
 
 func _on_ButtonNew_button_up():
-	$Progress.visible = true
-	$Progress.value = 0.0
+	progress_bar.visible = true
+	progress_bar.value = 0.0
+	splash_screen.visible = true
 	set_menu_screen(MenuScreen.EMPTY)
 	loader = ResourceLoader.load_interactive("res://scenes/Main.tscn")
 
 func _on_ButtonOptions_button_up():
 	set_menu_screen(MenuScreen.OPTIONS)
-	$CanvasLayer/Graphics.modulate.a = .25
+	canvas_graphics.modulate.a = .25
 
 func _on_ButtonExit_button_up():
 	get_tree().quit()
+
+func load() -> void:
+	pass
 
 func save() -> void:
 	# Gameplay
@@ -93,6 +115,7 @@ func save() -> void:
 	Global.GameOptions.graphics.render_mist = n_CheckBoxRenderMist.pressed
 	Global.GameOptions.graphics.render_noise = n_CheckBoxRenderNoise.pressed
 	Global.GameOptions.graphics.render_vignette = n_CheckBoxRenderVignette.pressed
+	Global.GameOptions.graphics.corpses_decay = n_CheckBoxCorpseDecay.pressed
 	# Audio
 	Global.GameOptions.audio.music_db = n_SliderMusic.value
 	Global.GameOptions.audio.sound_db = n_SliderSound.value
@@ -109,8 +132,23 @@ func set_menu_screen(new_value) -> void:
 func _on_ButtonSave_button_up():
 	save()
 	set_menu_screen(MenuScreen.MAIN)
-	$CanvasLayer/Graphics.modulate.a = 1.0
+	canvas_graphics.modulate.a = 1.0
 
 func _on_ButtonCancel_button_up():
 	set_menu_screen(MenuScreen.MAIN)
-	$CanvasLayer/Graphics.modulate.a = 1.0
+	canvas_graphics.modulate.a = 1.0
+
+func _on_OptionsDifficulty_item_selected(index):
+	match index:
+		Global.Difficulty.EASY:
+			n_CheckBoxAutopick.pressed = true
+			n_CheckBoxDeathWish.pressed = false
+			n_CheckBoxRealMags.pressed = false
+		Global.Difficulty.NORMAL:
+			n_CheckBoxAutopick.pressed = true
+			n_CheckBoxDeathWish.pressed = false
+			n_CheckBoxRealMags.pressed = true
+		Global.Difficulty.HARD:
+			n_CheckBoxAutopick.pressed = false
+			n_CheckBoxDeathWish.pressed = true
+			n_CheckBoxRealMags.pressed = true

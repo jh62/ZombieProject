@@ -9,6 +9,7 @@ enum ActionEvent{
 signal intro_finished
 signal on_pause
 signal on_unpause
+signal fuel_pickedup
 
 # Player signals
 signal action_pressed(action_name, facing)

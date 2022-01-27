@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/spritesheet.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 544, 872, 16, 8 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 1310, 4, 10 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 1352, 16, 16 )
+
+[node name="ScoreUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 83.0
+margin_top = 50.0
+margin_right = 236.0
+margin_bottom = 130.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 153.0
+margin_bottom = 24.0
+grow_horizontal = 0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture = SubResource( 1 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 28.0
+margin_right = 153.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 125, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "300 zombies dead"
+valign = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 28.0
+margin_right = 153.0
+margin_bottom = 52.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture = SubResource( 2 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 28.0
+margin_right = 153.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 125, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+text = "8 bullets fired"
+valign = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 56.0
+margin_right = 153.0
+margin_bottom = 80.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+texture = SubResource( 3 )
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 28.0
+margin_right = 153.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 125, 24 )
+text = "300 loot collected"
+valign = 1

@@ -1,5 +1,9 @@
 class_name Globals extends Node
 
+const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
+const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")
+const POINTER_64 := preload("res://assets/ui/cursors/pointer64.png")
+
 enum Difficulty {
 	EASY = 0,
 	NORMAL,

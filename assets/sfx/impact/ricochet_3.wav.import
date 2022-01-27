@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ricochet_3.wav-d0e7b7f4481ecd7dec3b3b3d3a2cce0c.sample"
+
+[deps]
+
+source_file="res://assets/sfx/impact/ricochet_3.wav"
+dest_files=[ "res://.import/ricochet_3.wav-d0e7b7f4481ecd7dec3b3b3d3a2cce0c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

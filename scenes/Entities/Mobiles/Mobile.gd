@@ -22,6 +22,7 @@ var _visible_viewport := true
 # virtual methods
 func kill() -> void:
 	pass
+
 func on_hit_by(_attacker : Node2D) -> void:
 	var angle := PI * rand_range(0.0, 2.0)
 	var radius := 10.0

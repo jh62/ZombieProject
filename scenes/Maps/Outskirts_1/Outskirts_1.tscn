@@ -1256,7 +1256,7 @@ rotation = 3.14159
 scale = Vector2( -1, 1 )
 
 [node name="TruckA" parent="MapObjects/Objects" instance=ExtResource( 17 )]
-position = Vector2( 810, 641 )
+position = Vector2( 817, 648 )
 collision_layer = 1
 
 [node name="SearchableArea2" parent="MapObjects/Objects/TruckA" instance=ExtResource( 22 )]
@@ -1351,15 +1351,19 @@ position = Vector2( 798, 493 )
 
 [node name="FuelCan" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 522, 91 )
+fuel_amount = 3.15
 
 [node name="FuelCan2" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 344, 413 )
+fuel_amount = 3.15
 
 [node name="FuelCan3" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 818, 618 )
+fuel_amount = 3.15
 
 [node name="FuelCan4" parent="MapObjects/Objects" instance=ExtResource( 40 )]
 position = Vector2( 1250, 308 )
+fuel_amount = 3.15
 
 [node name="Suv" parent="MapObjects/Objects" instance=ExtResource( 45 )]
 position = Vector2( 205, 305 )

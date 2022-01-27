@@ -8,10 +8,10 @@ const HitSounds := [
 ]
 
 const HurtSounds := [
-	preload("res://assets/sfx/mobs/player/hurt/player_hurt_0.wav"),
 	preload("res://assets/sfx/mobs/player/hurt/player_hurt_1.wav"),
 	preload("res://assets/sfx/mobs/player/hurt/player_hurt_2.wav"),
 	preload("res://assets/sfx/mobs/player/hurt/player_hurt_3.wav"),
+	preload("res://assets/sfx/mobs/player/hurt/player_hurt_4.wav"),
 ]
 
 var attacker : Node2D

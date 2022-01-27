@@ -1,9 +1,9 @@
 class_name Projectile extends RigidBody2D
 
 const HITSOUNDS := [
-		preload("res://assets/sfx/impact/ricochet_01.wav"),
-		preload("res://assets/sfx/impact/ricochet_02.wav"),
-		preload("res://assets/sfx/impact/ricochet_03.wav")
+		preload("res://assets/sfx/impact/ricochet_1.wav"),
+		preload("res://assets/sfx/impact/ricochet_2.wav"),
+		preload("res://assets/sfx/impact/ricochet_3.wav")
 ]
 
 const Decal := preload("res://scenes/Entities/FX/Decals/Decals.tscn")
@@ -21,6 +21,8 @@ func _on_impact(body) -> void:
 		body.call_deferred("on_hit_by", self)
 
 	var decal := Decal.instance()
+#	body.add_child(decal)
+#	decal.position = body.to_local(global_position)
 	EventBus.emit_signal("on_object_spawn", decal, global_position)
 
 	if !(body is Mobile):

@@ -30,6 +30,7 @@ initial_velocity = 100.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 20.0
+linear_accel_random = 0.5
 radial_accel = 30.0
 radial_accel_random = 0.2
 tangential_accel = 50.0
@@ -42,9 +43,11 @@ color_ramp = SubResource( 2 )
 
 [node name="Smoke" type="Particles2D"]
 z_index = 20
+fixed_fps = 30
 process_material = SubResource( 5 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+lifetime_secs = 15
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 

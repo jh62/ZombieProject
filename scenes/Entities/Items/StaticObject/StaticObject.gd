@@ -12,14 +12,16 @@ export var max_hitpoints := 100.0
 
 const hit_sounds := {
 	MaterialType.METAL: [
-		preload("res://assets/sfx/impact/bullet_metal_01.wav"),
-		preload("res://assets/sfx/impact/bullet_metal_02.wav"),
-		preload("res://assets/sfx/impact/bullet_metal_03.wav"),
+		preload("res://assets/sfx/impact/bullet_metal_1.wav"),
+		preload("res://assets/sfx/impact/bullet_metal_2.wav"),
+		preload("res://assets/sfx/impact/bullet_metal_3.wav"),
+		preload("res://assets/sfx/impact/bullet_metal_4.wav"),
 	],
 	MaterialType.GLASS: [
-		preload("res://assets/sfx/impact/bullet_glass_01.wav"),
-		preload("res://assets/sfx/impact/bullet_glass_02.wav"),
-		preload("res://assets/sfx/impact/bullet_glass_03.wav"),
+		preload("res://assets/sfx/impact/bullet_glass_1.wav"),
+		preload("res://assets/sfx/impact/bullet_glass_2.wav"),
+		preload("res://assets/sfx/impact/bullet_glass_3.wav"),
+		preload("res://assets/sfx/impact/bullet_glass_4.wav"),
 	],
 	MaterialType.WOOD: [
 		preload("res://assets/sfx/impact/bullet_wood_1.wav"),
@@ -34,8 +36,8 @@ const hit_sounds := {
 		preload("res://assets/sfx/impact/bullet_concrete_4.wav"),
 	],
 	MaterialType.FLESH: [
-		preload("res://assets/sfx/impact/flesh_impact_01.wav"),
-		preload("res://assets/sfx/impact/flesh_impact_02.wav"),
+		preload("res://assets/sfx/impact/flesh_impact_1.wav"),
+		preload("res://assets/sfx/impact/flesh_impact_2.wav"),
 	]
 }
 
@@ -66,7 +68,7 @@ func on_hit_by(attacker) -> void:
 	if attacker is Projectile:
 		self.hitpoints -= attacker.damage
 		var snd = hit_sounds.get(material_type)
-		EventBus.emit_signal("play_sound_random", snd, global_position, rand_range(.95, 1.06), 10)
+		EventBus.emit_signal("play_sound_random", snd, global_position, rand_range(.95, 1.06), 0.0)
 
 func _on_body_entered(body : Node2D):
 	n_sprite.self_modulate.a = .7

@@ -40,6 +40,10 @@ func enter_state() -> void:
 
 func update(delta) -> void:
 	if !can_raise:
+		if Global.GameOptions.graphics.corpses_decay:
+			owner.modulate.a -= 0.05 * delta
+			if owner.modulate.a <= .1:
+				owner.call_deferred("queue_free")
 		return
 
 	if elapsed >= dead_time:
@@ -54,11 +58,15 @@ func _on_animation_started(anim : String) -> void:
 
 func _on_animation_finished(anim : String) -> void:
 	if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
-			if owner.down_times >= 3:
-				owner.set_process(false)
-				owner.set_physics_process(false)
-			else:
-				can_raise = true
-	else:
+		if owner.down_times >= 3:
+			owner.set_process(false)
+			owner.set_physics_process(false)
+		else:
+			can_raise = true
+
+		return
+
+	if !Global.GameOptions.graphics.corpses_decay:
 		owner.set_process(false)
-		owner.set_physics_process(false)
+
+	owner.set_physics_process(false)

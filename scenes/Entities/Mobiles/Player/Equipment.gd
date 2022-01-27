@@ -21,6 +21,7 @@ func equip(_item : BaseItem) -> void:
 	visible = true
 	add_child(_item)
 
+
 func clear() -> void:
 	for child in get_children():
 		child.call_deferred("queue_free")

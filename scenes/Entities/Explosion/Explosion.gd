@@ -44,7 +44,7 @@ func explode(explosion_type, _radius := 16) -> void:
 	$Light2D.enabled = true
 	$AnimatedSprite.play(ExplosionTypes.get(explosion_type))
 	$CollisionShape2D.shape.radius = _radius
-	EventBus.emit_signal("play_sound_full", SoundExplode, global_position, rand_range(.9,1.1), 1.0, 500.0)
+	EventBus.emit_signal("play_sound_full", SoundExplode, global_position, rand_range(.9,1.1), 0.0, 500.0)
 
 	yield(get_tree().create_timer(.1),"timeout")
 	check_explosion()

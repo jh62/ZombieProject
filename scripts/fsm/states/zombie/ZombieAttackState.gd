@@ -1,16 +1,9 @@
 class_name ZombieAttackState extends State
 
-#const SOUNDS := [
-#	preload("res://assets/sfx/impact/body_hit_1.wav"),
-#	preload("res://assets/sfx/impact/body_hit_2.wav"),
-#	preload("res://assets/sfx/impact/body_hit_3.wav"),
-#	preload("res://assets/sfx/impact/body_hit_4.wav")
-#]
-
 const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attck_3.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_1.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_2.wav"),
+	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_3.wav"),
 ]
 
 const ATTACK_DISTANCE := 16
