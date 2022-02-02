@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -321,35 +321,17 @@ tracks/7/keys = {
 "update": 1,
 "values": [ false, true ]
 }
-
-[sub_resource type="Animation" id=11]
-resource_name = "debug"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.01, 0.01, 1.0 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/DialogPopup:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "on_intro_ready"
-} ]
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -718,6 +700,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/DialogPopup:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -968,7 +962,6 @@ __meta__ = {
 autoplay = "intro"
 anims/RESET = SubResource( 1 )
 anims/death = SubResource( 8 )
-anims/debug = SubResource( 11 )
 anims/fuel_changed = SubResource( 12 )
 anims/fuel_hint = SubResource( 13 )
 anims/intro = SubResource( 2 )
