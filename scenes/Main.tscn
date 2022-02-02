@@ -723,6 +723,7 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
+active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5

@@ -1701,10 +1701,8 @@ shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
 light_mask = 3
-texture = ExtResource( 5 )
+texture = ExtResource( 7 )
 normal_map = ExtResource( 10 )
-hframes = 3
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"

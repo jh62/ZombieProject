@@ -78,13 +78,18 @@ func on_picked_up_by(body) -> void:
 
 	var current_wep = body.get_equipped()
 
-	if (current_wep is MeleeWeapon || (bullets in current_wep && current_wep.bullets > 0)) && item.get_weapon_type() != current_wep.get_weapon_type():
+	var is_melee := current_wep is MeleeWeapon
+	var is_firearm : bool = current_wep is Firearm && current_wep.bullets > 0
+	var not_same_weapon : bool = item.get_weapon_type() != current_wep.get_weapon_type()
+
+	if (is_melee || is_firearm) && not_same_weapon:
 		_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
 
 func _create_drop(body, old_weapon) -> void:
+
 	var drop := self.duplicate()
 	drop.random_drop = false
 	drop.weapon_name = old_weapon.get_weapon_type()

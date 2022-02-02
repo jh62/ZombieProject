@@ -72,7 +72,7 @@ func _process(time):
 		print_debug("ERROR")
 		loader = null
 
-func _unhandled_key_input(event):
+func _unhandled_input(event):
 	if !load_finished:
 		return
 
@@ -142,6 +142,22 @@ func _on_ButtonCancel_button_up():
 	canvas_graphics.modulate.a = 1.0
 
 func _on_OptionsDifficulty_item_selected(index):
+	match index:
+		Global.Difficulty.EASY:
+			n_CheckBoxAutopick.pressed = true
+			n_CheckBoxDeathWish.pressed = false
+			n_CheckBoxRealMags.pressed = false
+		Global.Difficulty.NORMAL:
+			n_CheckBoxAutopick.pressed = true
+			n_CheckBoxDeathWish.pressed = false
+			n_CheckBoxRealMags.pressed = true
+		Global.Difficulty.HARD:
+			n_CheckBoxAutopick.pressed = false
+			n_CheckBoxDeathWish.pressed = true
+			n_CheckBoxRealMags.pressed = true
+
+
+func _on_OptionsDifficulty_item_focused(index):
 	match index:
 		Global.Difficulty.EASY:
 			n_CheckBoxAutopick.pressed = true
