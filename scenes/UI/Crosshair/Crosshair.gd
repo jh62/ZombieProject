@@ -4,6 +4,9 @@ const CROSSHAIR_CIRCLE_NORMAL := preload("res://assets/ui/cursors/crosshair_1.pn
 const CROSSHAIR_CIRCLE_SMALL := preload("res://assets/ui/cursors/crosshair_2.png")
 const CROSSHAIR_SQUARE := preload("res://assets/ui/cursors/crosshair_3.png")
 
+const MOUSE_SENSITIVITY := 2.5
+const JOYPAD_SENSITIVITY = 5.0
+
 #onready var mobile := get_tree().current_scene.get_node("TileMap/Entities/Mobs/Player")
 onready var mobile := get_parent()
 onready var n_ProgressWheel := $CanvasLayer/TextureProgress
@@ -55,8 +58,10 @@ func _on_item_pickedup(item):
 	if item is MeleeWeapon:
 		if Global.GameOptions.gameplay.joypad:
 			n_CrosshairTexture.texture = CROSSHAIR_SQUARE
+			sensitivity = JOYPAD_SENSITIVITY
 		else:
 			Input.set_custom_mouse_cursor(CROSSHAIR_SQUARE, Input.CURSOR_ARROW, Vector2(32,32))
+			sensitivity = MOUSE_SENSITIVITY
 	else:
 		if Global.GameOptions.gameplay.joypad:
 			n_CrosshairTexture.texture = CROSSHAIR_CIRCLE_NORMAL
