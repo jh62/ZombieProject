@@ -16,6 +16,9 @@ func enter_state() -> void:
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", false)
 
 func update(delta) -> void:
+	if !owner.can_move:
+		return
+
 	var target = owner.target
 
 	if target != null || !owner.waypoints.empty(): #|| owner.dir.length() > 0

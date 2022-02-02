@@ -34,6 +34,8 @@ func _process(delta):
 		position.x = clamp(position.x, -(n_CrosshairTexture.rect_size.x / 2), 320 - (n_CrosshairTexture.rect_size.x / 2))
 		position.y = clamp(position.y, -(n_CrosshairTexture.rect_size.y / 2), 180 - (n_CrosshairTexture.rect_size.x / 2))
 		n_CrosshairTexture.rect_position = position
+	else:
+		global_position = get_global_mouse_position()
 
 	if mobile.busy_time > 0.0 && mobile.get_equipped() is Firearm:
 		n_ProgressWheel.rect_global_position = get_global_mouse_position()

@@ -21,7 +21,6 @@ const States := {
 
 onready var equipment := $Equipment
 
-var can_move := true
 var loot_count := 0
 var aiming = false
 var busy_time := 0.0 setget set_busy_time
@@ -102,12 +101,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 		if event.is_action("aim"):
-			dir = Vector2.ZERO
-
 			var weapon = get_equipped()
 
 			if weapon == null || !(weapon is Firearm):
 				return
+
+			dir = Vector2.ZERO
 
 			if  event.is_action_pressed("aim") && !(Input.is_action_pressed("action")):
 				emit_signal("on_aiming_start", self)
@@ -139,7 +138,7 @@ func _process_input() -> void:
 			m_pos = get_global_transform_with_canvas().origin.direction_to($Crosshair.position)
 		else:
 			m_pos = global_position.direction_to(get_global_mouse_position())
-#
+
 		look_at_dir.x = m_pos.x
 		look_at_dir.y = m_pos.y
 	else:

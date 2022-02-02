@@ -157,8 +157,8 @@ func _on_screen_exited():
 
 	target = target.global_position # go to last known location
 
-func _on_AreaHead_area_entered(area):
-	$Sprite.modulate = Color.red
-
-func _on_AreaHead_area_exited(area):
-	$Sprite.modulate = Color.white
+func set_can_move(_can_move) -> void:
+	can_move = _can_move
+	if !can_move:
+		var state = States.idle.new(self)
+		fsm.travel_to(state)

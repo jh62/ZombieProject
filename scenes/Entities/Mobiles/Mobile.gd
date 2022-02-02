@@ -18,6 +18,7 @@ var facing := Vector2.ZERO
 var is_eaten := false
 var fsm : StateMachine
 var _visible_viewport := true
+var can_move := true setget set_can_move
 
 # virtual methods
 func kill() -> void:
@@ -77,3 +78,6 @@ static func get_facing_as_string(_facing : Vector2) -> String:
 
 func is_visible_in_viewport() -> bool:
 	return n_Visibility.is_on_screen()
+
+func set_can_move(_can_move) -> void:
+	can_move = _can_move

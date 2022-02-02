@@ -81,6 +81,12 @@ func _ready() -> void:
 		yield(get_tree().create_timer(.25),"timeout")
 		n_Player.equip_item(weapon)
 
+func _unhandled_key_input(event):
+	if Input.is_key_pressed(KEY_F11):
+		OS.window_fullscreen = !(OS.window_fullscreen)
+		if !OS.window_fullscreen:
+			OS.window_size = Vector2(640,480)
+
 func on_intro_ready() -> void:
 	n_Player.can_move = true
 	n_Player.set_process_unhandled_key_input(true)
@@ -94,6 +100,11 @@ func _on_Button_button_up():
 		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
+	for mob in $TileMap/Entities/Mobs.get_children():
+		if !(mob is Mobile):
+			continue
+		mob.can_move = false
+
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
