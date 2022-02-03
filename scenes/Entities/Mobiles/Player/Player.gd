@@ -34,7 +34,7 @@ func _ready() -> void:
 	EventBus.connect("on_unpause", self, "_on_unpaused")
 
 	self.max_hitpoints = PlayerStatus.max_hitpoints
-	self.hitpoints = max_hitpoints
+	self.hitpoints = 1
 
 func _process_animations() -> void:
 	._process_animations()

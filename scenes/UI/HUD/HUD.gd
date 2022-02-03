@@ -24,7 +24,9 @@ func _ready():
 	n_player.connect("on_loot_pickedup", self, "_on_player_loot")
 	n_player.connect("on_footstep", self, "_on_player_footstep")
 	n_bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
+
 	EventBus.connect("on_weapon_reloaded", self, "update_weapon_status")
+	EventBus.connect("on_request_update_health", self, "update_healthbar")
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 	n_HealthBar.max_value = n_player.max_hitpoints

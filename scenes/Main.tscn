@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Entities/Items/Pickable/Medkit/Medkit.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
@@ -740,6 +741,9 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
+
+[node name="Medkit" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 124, 278 )
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 

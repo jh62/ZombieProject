@@ -11,6 +11,9 @@ signal on_pause
 signal on_unpause
 signal fuel_pickedup
 
+# HUD signals
+signal on_request_update_health
+
 # Player signals
 signal action_pressed(action_name, facing)
 signal action_released(action_name, facing)
