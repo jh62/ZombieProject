@@ -744,7 +744,7 @@ position = Vector2( 72, 312 )
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 72, 290 )
+position = Vector2( 72, 289 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
