@@ -740,7 +740,6 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
-fuel_amount = 12.0
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
