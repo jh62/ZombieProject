@@ -153,21 +153,9 @@ func _on_OptionsDifficulty_item_selected(index):
 			n_CheckBoxRealMags.pressed = true
 		Global.Difficulty.HARD:
 			n_CheckBoxAutopick.pressed = false
-			n_CheckBoxDeathWish.pressed = true
+			n_CheckBoxDeathWish.pressed = false
 			n_CheckBoxRealMags.pressed = true
 
 
 func _on_OptionsDifficulty_item_focused(index):
-	match index:
-		Global.Difficulty.EASY:
-			n_CheckBoxAutopick.pressed = true
-			n_CheckBoxDeathWish.pressed = false
-			n_CheckBoxRealMags.pressed = false
-		Global.Difficulty.NORMAL:
-			n_CheckBoxAutopick.pressed = true
-			n_CheckBoxDeathWish.pressed = false
-			n_CheckBoxRealMags.pressed = true
-		Global.Difficulty.HARD:
-			n_CheckBoxAutopick.pressed = false
-			n_CheckBoxDeathWish.pressed = true
-			n_CheckBoxRealMags.pressed = true
+	_on_OptionsDifficulty_item_selected(index)
