@@ -58,20 +58,24 @@ func _ready() -> void:
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 90
+			weapon.bullets = 125
 
 			n_ZombieSpawner.mob_max = 100
 			n_ZombieSpawner.mob_group_max = 4
 			n_ZombieSpawner.spawn_delay_sec = 0.5
 			n_ZombieSpawner.restart_delay = 15
 		Globals.Difficulty.NORMAL:
-			weapon = preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn").instance()
+			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
+			weapon.bullets = 90
 
 			n_ZombieSpawner.mob_max = 200
 			n_ZombieSpawner.mob_group_max = 8
 			n_ZombieSpawner.spawn_delay_sec = 0.35
 			n_ZombieSpawner.restart_delay = 12
 		Globals.Difficulty.HARD:
+			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
+			weapon.bullets = 45
+
 			n_ZombieSpawner.mob_max = 250
 			n_ZombieSpawner.mob_group_max = 10
 			n_ZombieSpawner.spawn_delay_sec = 0.25

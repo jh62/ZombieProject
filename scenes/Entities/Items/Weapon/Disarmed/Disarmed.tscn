@@ -812,7 +812,6 @@ vframes = 5
 frame = 19
 script = ExtResource( 2 )
 knockback = 2.45
-mag_size = 1
 fire_rate = 1.5
 
 [node name="AnimationPlayer" parent="." index="0"]
