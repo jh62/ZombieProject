@@ -1,8 +1,8 @@
 class_name ZombieMeleeDeathState extends State
 
 const SoundImpactFlesh := [
-		preload("res://assets/sfx/impact/flesh_impact_01.wav"),
-		preload("res://assets/sfx/impact/flesh_impact_02.wav"),
+		preload("res://assets/sfx/impact/flesh_impact_1.wav"),
+		preload("res://assets/sfx/impact/flesh_impact_2.wav"),
 	]
 
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")

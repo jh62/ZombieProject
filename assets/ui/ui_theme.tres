@@ -1,9 +1,11 @@
-[gd_resource type="Theme" load_steps=11 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://assets/ui/fonts/default_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/ui/banner32x32.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=15]
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 2 )
@@ -15,9 +17,9 @@ expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id=4]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="StyleBoxFlat" id=8]
+[sub_resource type="StyleBoxEmpty" id=13]
 
 [sub_resource type="StyleBoxFlat" id=9]
 
@@ -42,17 +44,15 @@ corner_radius_bottom_left = 1
 expand_margin_bottom = 2.0
 
 [resource]
-Button/colors/font_color_focus = Color( 0, 0, 0, 1 )
-Button/colors/font_color_hover = Color( 0.458824, 0.435294, 0.435294, 1 )
-Button/colors/font_color_pressed = Color( 0.458824, 0.435294, 0.435294, 1 )
+Button/colors/font_color_hover = Color( 0, 0, 0, 1 )
+Button/colors/font_color_pressed = Color( 0.54902, 0.545098, 0.545098, 1 )
 Button/constants/hseparation = 1
 Button/styles/disabled = SubResource( 1 )
-Button/styles/focus = SubResource( 6 )
+Button/styles/focus = SubResource( 15 )
 Button/styles/hover = SubResource( 6 )
 Button/styles/normal = SubResource( 4 )
-Button/styles/pressed = SubResource( 5 )
-CheckBox/styles/focus = SubResource( 8 )
-CheckBox/styles/hover = SubResource( 8 )
+Button/styles/pressed = SubResource( 14 )
+CheckBox/styles/hover = SubResource( 13 )
 Label/colors/font_color = Color( 1, 1, 1, 1 )
 Label/colors/font_color_shadow = Color( 0, 0, 0, 0 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )

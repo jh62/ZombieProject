@@ -578,7 +578,7 @@ tracks/11/keys = {
 "times": PoolRealArray( 8.4, 11.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ "Bike's outta fuel. ", "I need to find some, so I can get outta here." ]
+"values": [ "Damn! My bike is out of fuel.", "There must be some gas around all this mess." ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -717,6 +717,7 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
+active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5

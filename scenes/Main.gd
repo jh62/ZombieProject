@@ -60,7 +60,7 @@ func _ready() -> void:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 125
 
-			n_ZombieSpawner.mob_max = 100
+			n_ZombieSpawner.mob_max = 150
 			n_ZombieSpawner.mob_group_max = 4
 			n_ZombieSpawner.spawn_delay_sec = 0.5
 			n_ZombieSpawner.restart_delay = 15

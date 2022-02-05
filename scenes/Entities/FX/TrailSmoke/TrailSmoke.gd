@@ -1,9 +1,14 @@
 class_name TrailSmoke extends Particles2D
 
-var p : StaticObject
+var p : Node2D
 
 func _ready():
-	p = get_parent()
+	var _parent := get_parent()
+
+	if !(_parent is StaticObject):
+		return
+
+	p = _parent
 #	var k := p.max_hitpoints * .8
 #	amount = clamp(k / p.hitpoints, 1, 8)
 	if p.hitpoints <= (p.max_hitpoints * .1):

@@ -1,8 +1,6 @@
 extends CanvasLayer
 
-const materials := [
-	preload("res://assets/res/material/BulletTrail.tres")
-]
+const materials := []
 
 func _ready():
 	for material in materials:

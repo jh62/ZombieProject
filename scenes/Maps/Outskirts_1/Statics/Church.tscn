@@ -12,6 +12,7 @@ offset = Vector2( 0, -16 )
 region_rect = Rect2( 221, 14, 127, 186 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
 position = Vector2( 0, -16 )
 occluder = SubResource( 1 )
 

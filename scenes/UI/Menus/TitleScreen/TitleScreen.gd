@@ -36,6 +36,7 @@ onready var n_SliderZombieFootsteps := $ActiveMenu/OptionsMenu/TabContainer/Audi
 onready var canvas_graphics := $CanvasLayer/Graphics
 onready var splash_screen := $CanvasLayer_SplashScreen/SplashScreen
 onready var progress_bar := $CanvasLayer_SplashScreen/Progress
+onready var tween := $Tween
 
 var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
@@ -43,7 +44,10 @@ var load_finished := false
 var resource
 
 func _ready():
+	Menus[MenuScreen.MAIN].modulate = Color(1.0,1.0,1.0,0.0)
 	set_menu_screen(MenuScreen.MAIN)
+	tween.interpolate_property(Menus[MenuScreen.MAIN],"modulate",Color(1.0,1.0,1.0,0.0),Color(1.0,1.0,1.0,1.0),5.0,Tween.TRANS_LINEAR,Tween.EASE_IN,1.25)
+	tween.start()
 
 var last_poll := 0.0
 

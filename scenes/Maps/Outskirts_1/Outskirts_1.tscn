@@ -825,7 +825,6 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 1280, 720 )
 
 [node name="AreaSpawns" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -905,7 +904,7 @@ position = Vector2( 1040, 422 )
 shape = SubResource( 29 )
 
 [node name="SpawnArea19" type="CollisionShape2D" parent="AreaSpawns"]
-position = Vector2( 328, 514 )
+position = Vector2( 284, 582 )
 shape = SubResource( 34 )
 
 [node name="SpawnArea20" type="CollisionShape2D" parent="AreaSpawns"]
