@@ -43,11 +43,19 @@ var current_menu = MenuScreen.MAIN setget set_menu_screen
 var load_finished := false
 var resource
 
+var intro_done := false
+
 func _ready():
 	Menus[MenuScreen.MAIN].modulate = Color(1.0,1.0,1.0,0.0)
 	set_menu_screen(MenuScreen.MAIN)
-	tween.interpolate_property(Menus[MenuScreen.MAIN],"modulate",Color(1.0,1.0,1.0,0.0),Color(1.0,1.0,1.0,1.0),5.0,Tween.TRANS_LINEAR,Tween.EASE_IN,1.25)
+	tween.interpolate_property(Menus[MenuScreen.MAIN],"modulate",Color(1.0,1.0,1.0,0.0),Color(1.0,1.0,1.0,1.0),1.15,Tween.TRANS_LINEAR,Tween.EASE_IN,1.0)
 	tween.start()
+	yield(tween,"tween_completed")
+	intro_done = true
+
+func _input(event):
+	if !intro_done:
+		accept_event()
 
 var last_poll := 0.0
 

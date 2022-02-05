@@ -137,5 +137,10 @@ func show_label(_visible) -> void:
 		if parent != null && parent.has_method("get_item_name"):
 			item_name = parent.get_item_name()
 
-		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to search [color=#fffc00]{1}[/color][/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text(),1:item_name.to_upper()})
+		var button = InputMap.get_action_list("action_alt")[0].as_text()
+
+		if Global.GameOptions.gameplay.joypad:
+			button = "action"
+
+		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to search [color=#fffc00]{1}[/color][/center]".format({0:button,1:item_name.to_upper()})
 	label.visible = _visible

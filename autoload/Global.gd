@@ -35,7 +35,7 @@ var GameOptions := {
 		"discard_bullets": 1,
 		"auto_pickup": 0,
 		"death_wish": 0,
-		"joypad": 0,
+		"joypad": 1,
 	},
 	"graphics": {
 		"render_bullets": 1,

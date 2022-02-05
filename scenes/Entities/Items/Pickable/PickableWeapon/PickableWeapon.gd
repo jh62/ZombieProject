@@ -66,8 +66,14 @@ func _on_Area2D_body_entered(body):
 	if Global.GameOptions.gameplay.auto_pickup:
 		on_picked_up_by(body)
 	else:
+		var weapon_name = Global.WeaponNames.keys()[weapon_name]
+		var button = InputMap.get_action_list("action_alt")[0].as_text()
+
+		if Global.GameOptions.gameplay.joypad:
+			button = "action"
+
 		label.visible = true
-		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text(),1:Global.WeaponNames.keys()[weapon_name]})
+		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:button,1:weapon_name})
 
 func on_picked_up_by(body) -> void:
 	var item = weapons.get(weapon_name).scene.instance()
