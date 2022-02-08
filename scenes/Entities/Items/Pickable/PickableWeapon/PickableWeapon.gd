@@ -8,22 +8,22 @@ var weapons := {
 	Globals.WeaponNames.PISTOL:{
 		"texture": preload("res://assets/res/weapon/icons/pistol.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-		"bullets": 30
+		"bullets": 120
 	},
 	Globals.WeaponNames.SHOTGUN:{
 		"texture": preload("res://assets/res/weapon/icons/shotgun.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn"),
-		"bullets": 50
+		"bullets": 120
 	},
 	Globals.WeaponNames.SMG:{
 		"texture": preload("res://assets/res/weapon/icons/smg.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn"),
-		"bullets": 120
+		"bullets": 390
 	},
 	Globals.WeaponNames.RIFLE:{
 		"texture": preload("res://assets/res/weapon/icons/rifle.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn"),
-		"bullets": 120
+		"bullets": 300
 	},
 	Globals.WeaponNames.LEADPIPE:{
 		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
@@ -53,6 +53,8 @@ func _ready():
 
 	if bullets == 0:
 		bullets = weapons.get(weapon_name).bullets
+		if Global.GameOptions.gameplay.difficulty == Global.Difficulty.HARD:
+			bullets /= 2
 
 	$Sprite.texture = weapons.get(weapon_name).texture
 
