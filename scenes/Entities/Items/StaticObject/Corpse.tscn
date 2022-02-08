@@ -37,8 +37,8 @@ polygon = PoolVector2Array( -3, -2, -3, 3, 2, 3, 2, -2 )
 
 [node name="SearchableArea" parent="." index="3" instance=ExtResource( 3 )]
 lootpack = {
-0.25: ExtResource( 5 ),
-0.4: ExtResource( 4 )
+0.4: ExtResource( 5 ),
+0.5: ExtResource( 4 )
 }
 max_amount = 3
 fill_time = 2.3

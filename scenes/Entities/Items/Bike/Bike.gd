@@ -72,8 +72,12 @@ func _on_Area2D_body_exited(body):
 	var _player = body as Player
 
 	player = _player
-	player.disconnect("on_search_start", self, "on_player_action_start")
-	player.disconnect("on_search_end", self, "on_player_action_end")
+
+	if player.is_connected("on_search_start", self, "on_player_action_start"):
+		player.disconnect("on_search_start", self, "on_player_action_start")
+
+	if player.is_connected("on_search_end", self, "on_player_action_end"):
+		player.disconnect("on_search_end", self, "on_player_action_end")
 
 	stop()
 

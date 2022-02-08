@@ -34,7 +34,6 @@ __meta__ = {
 visible = false
 
 [node name="VisibilityTimer" type="Timer" parent="."]
-one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_Projectile_body_entered"]
 [connection signal="body_shape_entered" from="." to="." method="_on_Projectile_body_shape_entered"]

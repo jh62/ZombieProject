@@ -68,13 +68,13 @@ func _spawn_mob(position) -> void:
 		var collision := zombie.get_slide_collision(0)
 		if collision.collider is StaticObject:
 			bad_spawns.append(zombie)
-			print_debug("bad spot")
 			return
 
 
 	zombie.nav = get_parent().get_node("Navigation2D")
 	zombie.global_position = position
-	zombie.speed = rand_range(10,20)
+	zombie.speed *= rand_range(1.0,1.5)
+	print_debug(zombie.speed)
 
 	if .07 > randf():
 		zombie.fsm.travel_to(ZombieRestState.new(zombie))

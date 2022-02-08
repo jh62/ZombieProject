@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Pickable",
+"class": "Ammo",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Pickable/Ammo/Ammo.gd"
+}, {
 "base": "Area2D",
 "class": "AreaSound",
 "language": "GDScript",
@@ -195,6 +200,7 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieStandupState.gd"
 } ]
 _global_script_class_icons={
+"Ammo": "",
 "AreaSound": "",
 "BaseItem": "",
 "BaseWeapon": "",
@@ -255,7 +261,6 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 window/size/width=320
 window/size/height=180
 window/size/resizable=false
-window/size/fullscreen=true
 window/size/test_width=640
 window/size/test_height=480
 mouse_cursor/custom_image="res://assets/ui/cursors/pointer64.png"

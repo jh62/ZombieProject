@@ -2,7 +2,7 @@ extends Node2D
 
 onready var n_Tilemap := $TileMap
 onready var n_Player := $TileMap/Entities/Mobs/Player
-onready var n_Crosshair := $Crosshair
+onready var n_Crosshair := $TileMap/Entities/Mobs/Player/Crosshair
 onready var n_PauseDialog := $UI/DialogPopup
 
 func _ready() -> void:
@@ -11,8 +11,6 @@ func _ready() -> void:
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
-	n_Player.connect("on_aiming_start", n_Crosshair, "_on_Player_on_aiming_start")
-	n_Player.connect("on_aiming_stop", n_Crosshair, "_on_Player_on_aiming_stop")
 
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
@@ -64,7 +62,7 @@ func _ready() -> void:
 			n_ZombieSpawner.mob_max = 150
 			n_ZombieSpawner.mob_group_max = 4
 			n_ZombieSpawner.spawn_delay_sec = 0.5
-			n_ZombieSpawner.restart_delay = 15
+			n_ZombieSpawner.restart_delay = 12
 		Globals.Difficulty.NORMAL:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 200
@@ -72,7 +70,7 @@ func _ready() -> void:
 			n_ZombieSpawner.mob_max = 200
 			n_ZombieSpawner.mob_group_max = 8
 			n_ZombieSpawner.spawn_delay_sec = 0.35
-			n_ZombieSpawner.restart_delay = 12
+			n_ZombieSpawner.restart_delay = 10
 		Globals.Difficulty.HARD:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 180
@@ -80,7 +78,7 @@ func _ready() -> void:
 			n_ZombieSpawner.mob_max = 250
 			n_ZombieSpawner.mob_group_max = 10
 			n_ZombieSpawner.spawn_delay_sec = 0.25
-			n_ZombieSpawner.restart_delay = 10
+			n_ZombieSpawner.restart_delay = 8
 
 	if weapon != null:
 		yield(get_tree().create_timer(.25),"timeout")

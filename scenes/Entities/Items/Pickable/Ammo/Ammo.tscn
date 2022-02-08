@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/Pickable/Pickable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://scenes/Entities/Items/Pickable/Ammo/Ammo.gd" type="Script" id=3]
+
+[node name="Ammo" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 208, 1328, 9.17368, 8.90759 )

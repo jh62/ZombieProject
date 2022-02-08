@@ -723,6 +723,7 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
+active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5
@@ -750,7 +751,7 @@ position = Vector2( 72, 312 )
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 72, 289 )
+position = Vector2( 310, 483 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
