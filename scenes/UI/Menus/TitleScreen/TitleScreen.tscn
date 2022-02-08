@@ -294,7 +294,6 @@ __meta__ = {
 }
 
 [node name="Gameplay" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -586,6 +585,7 @@ size_flags_horizontal = 6
 pressed = true
 
 [node name="Audio" type="Tabs" parent="ActiveMenu/OptionsMenu/TabContainer" groups=["ui_tab"]]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0

@@ -92,6 +92,7 @@ func set_new_scene(scene_resource):
 	set_process(false)
 
 func _on_ButtonNew_button_up():
+	$MusicMenu.stop()
 	progress_bar.visible = true
 	progress_bar.value = 0.0
 	splash_screen.visible = true

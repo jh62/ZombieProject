@@ -63,6 +63,7 @@ damage = 30.0
 knockback = 4.0
 fire_rate = 1.57
 melee_type = 1
+swing_time = 0.27
 
 [node name="AnimationPlayer" parent="." index="0"]
 autoplay = "idle_e"
