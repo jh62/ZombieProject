@@ -3,6 +3,7 @@ extends Node2D
 onready var n_Tilemap := $TileMap
 onready var n_Player := $TileMap/Entities/Mobs/Player
 onready var n_Crosshair := $Crosshair
+onready var n_PauseDialog := $UI/DialogPopup
 
 func _ready() -> void:
 	randomize()
@@ -149,3 +150,6 @@ func _on_Bike_on_fuel_stopped(amount):
 	messages.shuffle()
 	$UI/DialogPopup/MarginContainer/Label.text = messages.front()
 	$AnimationPlayer.call_deferred("play","fuel_changed")
+
+func _on_PauseMessage_on_pause():
+	n_PauseDialog.visible = !n_PauseDialog.visible
