@@ -1,4 +1,4 @@
-extends TileMap
+extends YSort
 
 enum ColorCodes {
 	GRASS,
@@ -68,14 +68,12 @@ const sound_color_codes := {
 
 export var map_name := ""
 
-onready var n_navigation := $Navigation2D
+onready var n_navigation := $TileMap/Navigation2D
 
 var json : JSONParseResult
 var texture : Image
 
 func _ready():
-	$Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
-
 	var file := File.new()
 	file.open("res://assets/maps/map_test.json",File.READ)
 	json = JSON.parse(file.get_as_text())
@@ -85,14 +83,14 @@ func _ready():
 	sound_color_codes[ColorCodes.DIRT].hex = json.result["dirt"]
 	sound_color_codes[ColorCodes.METAL].hex = json.result["metal"]
 
-	texture = $Background.texture.get_data()
+	texture = $TileMap/Background.texture.get_data()
 	texture.lock()
 
 	_update_navigation_polygon()
 
 	# generate random loot
-	for x in range(0, $Background.region_rect.size.x, 16):
-		for y in range(0, $Background.region_rect.size.y, 16):
+	for x in range(0, $TileMap/Background.region_rect.size.x, 16):
+		for y in range(0, $TileMap/Background.region_rect.size.y, 16):
 			var pos := Vector2(x, y)
 			var chance := randf()
 			if .027 >= chance:
@@ -102,7 +100,7 @@ func _ready():
 				weapon.random_drop = true
 				EventBus.emit_signal("on_object_spawn", weapon, pos)
 
-	for c in $MapObjects.get_children():
+	for c in $TileMap/MapObjects.get_children():
 		c.visible = true
 
 func make_outlines(objects) -> void:
@@ -117,22 +115,29 @@ func make_outlines(objects) -> void:
 		for p in shape.get_polygon():
 			outlines.append(obj.global_position + shape.position + p)
 
-		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().add_outline(outlines)
-		$Navigation2D/NavigationPolygonInstance.get_navigation_polygon().make_polygons_from_outlines()
+		var n_PolyInstance := $TileMap/Navigation2D/NavigationPolygonInstance
+
+		n_PolyInstance.get_navigation_polygon().add_outline(outlines)
+		n_PolyInstance.get_navigation_polygon().make_polygons_from_outlines()
 
 func _update_navigation_polygon() -> void:
-	var buildings := $MapObjects/Buildings.get_children()
-	var objects := $MapObjects/Objects.get_children()
-	var streetlamps := $MapObjects/StreetLamps.get_children()
+	var n_MapObjects := $TileMap/MapObjects
 
-	make_outlines([$MapObjects/BackgroundObjects/Lot])
+	var buildings := n_MapObjects.get_node("Buildings").get_children()
+	var objects := n_MapObjects.get_node("Objects").get_children()
+	var streetlamps := n_MapObjects.get_node("StreetLamps").get_children()
+	var lot := n_MapObjects.get_node("BackgroundObjects/Lot")
+
+	make_outlines([lot])
 	make_outlines(buildings)
 	make_outlines(objects)
 	make_outlines(streetlamps)
 
-	$Navigation2D/NavigationPolygonInstance.enabled = false
+	var n_PolyInstance := $TileMap/Navigation2D/NavigationPolygonInstance
+
+	n_PolyInstance.enabled = false
 	yield(get_tree(),"idle_frame")
-	$Navigation2D/NavigationPolygonInstance.enabled = true
+	n_PolyInstance.enabled = true
 
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.connect("on_footstep", self, "_on_mob_footstep")

@@ -70,8 +70,9 @@ func _spawn_mob(position) -> void:
 			bad_spawns.append(zombie)
 			return
 
+	var map_nav := get_parent().get_node("TileMap/Navigation2D")
 
-	zombie.nav = get_parent().get_node("Navigation2D")
+	zombie.nav = map_nav
 	zombie.global_position = position
 	zombie.speed *= rand_range(1.0,1.5)
 	print_debug(zombie.speed)

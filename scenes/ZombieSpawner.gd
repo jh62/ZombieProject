@@ -15,7 +15,7 @@ var elapsed := 0.0
 var spawn_count := 0
 
 func _ready() -> void:
-	tilemap = get_parent()
+	tilemap = get_parent().get_node("TileMap")
 	if active:
 		yield(get_tree().create_timer(1.0),"timeout")
 		_spawn_mob()

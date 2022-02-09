@@ -18,8 +18,8 @@ func _ready() -> void:
 	var n_Camera := n_Player.get_node("Camera")
 	n_Camera.limit_top = 0
 	n_Camera.limit_left = 0
-	n_Camera.limit_right = n_Tilemap.get_node("Background").get_rect().size.x
-	n_Camera.limit_bottom = n_Tilemap.get_node("Background").get_rect().size.y
+	n_Camera.limit_right = n_Tilemap.get_node("TileMap/Background").get_rect().size.x
+	n_Camera.limit_bottom = n_Tilemap.get_node("TileMap/Background").get_rect().size.y
 
 	if OS.get_name().is_subsequence_ofi("Android"):
 		$WorldEnvironment.queue_free()
@@ -50,6 +50,8 @@ func _ready() -> void:
 		$VignetteLayer.queue_free()
 	else:
 		$VignetteLayer/ColorRect.visible = true
+
+	$TileMap/Entities.connect("on_mob_spawned", n_Tilemap, "_on_mob_spawned")
 
 	var n_ZombieSpawner := $TileMap/ZombieSpawner
 	var weapon
