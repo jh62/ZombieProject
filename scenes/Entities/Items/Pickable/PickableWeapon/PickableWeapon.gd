@@ -97,7 +97,6 @@ func on_picked_up_by(body) -> void:
 	.on_picked_up_by(body)
 
 func _create_drop(body, old_weapon) -> void:
-
 	var drop := self.duplicate()
 	drop.random_drop = false
 	drop.weapon_name = old_weapon.get_weapon_type()

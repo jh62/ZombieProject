@@ -2,7 +2,7 @@ extends Node2D
 
 onready var n_Tilemap := $TileMap
 onready var n_Player := $TileMap/Entities/Mobs/Player
-onready var n_Crosshair := $TileMap/Entities/Mobs/Player/Crosshair
+onready var n_Crosshair := $TileMapTileMap/Entities/Mobs/Player/Crosshair
 onready var n_PauseDialog := $UI/DialogPopup
 
 func _ready() -> void:

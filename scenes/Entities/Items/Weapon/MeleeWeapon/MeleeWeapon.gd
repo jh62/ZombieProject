@@ -49,7 +49,7 @@ func get_sound_shoot():
 	return Sounds.get(melee_type).hit
 
 func _ready() -> void:
-	pass
+	EventBus.emit_signal("play_sound_random", get_sound_shoot(), global_position)
 
 func _on_action_pressed(action_type, facing) -> void:
 	match action_type:

@@ -85,7 +85,7 @@ map_name = "The Outskirts"
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
-cell_tile_origin = 2
+cell_tile_origin = 1
 cell_y_sort = true
 collision_mask = 0
 format = 1
