@@ -5,7 +5,8 @@ var last_poll := 0.0
 var resource
 
 func _ready():
-	pass
+	OS.window_fullscreen = true
+	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(320,180),1)
 
 func _process(time):
 	if loader == null:
