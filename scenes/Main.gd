@@ -11,7 +11,6 @@ func _ready() -> void:
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
-
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 

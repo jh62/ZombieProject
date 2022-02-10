@@ -243,8 +243,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Dead Against Us"
-run/main_scene="res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn"
-boot_splash/image="res://assets/splash.png"
+run/main_scene="res://scenes/UI/Logo/Logo.tscn"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"

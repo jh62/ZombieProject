@@ -75,7 +75,6 @@ func _spawn_mob(position) -> void:
 	zombie.nav = map_nav
 	zombie.global_position = position
 	zombie.speed *= rand_range(1.0,1.5)
-	print_debug(zombie.speed)
 
 	if .07 > randf():
 		zombie.fsm.travel_to(ZombieRestState.new(zombie))

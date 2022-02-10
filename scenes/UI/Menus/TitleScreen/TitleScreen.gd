@@ -40,13 +40,11 @@ onready var progress_bar := $CanvasLayer_SplashScreen/Progress
 var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
 var load_finished := false
+var last_poll := 0.0
 var resource
 
 func _ready():
-	$AnimationPlayer.play("intro")
-#	set_menu_screen(MenuScreen.MAIN)
-
-var last_poll := 0.0
+	pass
 
 func _process(time):
 	if loader == null:
@@ -86,7 +84,7 @@ func update_progress():
 
 func set_new_scene(scene_resource):
 	get_tree().change_scene_to(scene_resource)
-	set_process(false)
+	call_deferred("queue_free")
 
 func _on_ButtonNew_button_up():
 	$MusicMenu.stop()
@@ -98,7 +96,6 @@ func _on_ButtonNew_button_up():
 
 func _on_ButtonOptions_button_up():
 	set_menu_screen(MenuScreen.OPTIONS)
-	canvas_graphics.modulate.a = .25
 
 func _on_ButtonExit_button_up():
 	get_tree().quit()
@@ -143,11 +140,9 @@ func set_menu_screen(new_value) -> void:
 func _on_ButtonSave_button_up():
 	save()
 	set_menu_screen(MenuScreen.MAIN)
-	canvas_graphics.modulate.a = 1.0
 
 func _on_ButtonCancel_button_up():
 	set_menu_screen(MenuScreen.MAIN)
-	canvas_graphics.modulate.a = 1.0
 
 func _on_OptionsDifficulty_item_selected(index):
 	match index:

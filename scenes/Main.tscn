@@ -48,7 +48,8 @@ func _unhandled_key_input(event):
 	if Input.is_action_just_pressed(\"pause\"):
 		pause()
 		emit_signal(\"on_pause\")
-	if Input.is_action_just_pressed(\"quit_confirm\"):
+	if get_tree().paused && Input.is_action_just_pressed(\"quit_confirm\"):
+		get_tree().paused = false
 		var main_menu := preload(\"res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn\")
 		get_tree().change_scene_to(main_menu)
 
