@@ -36,7 +36,6 @@ onready var n_SliderZombieFootsteps := $ActiveMenu/OptionsMenu/TabContainer/Audi
 onready var canvas_graphics := $CanvasLayer/Graphics
 onready var splash_screen := $CanvasLayer_SplashScreen/SplashScreen
 onready var progress_bar := $CanvasLayer_SplashScreen/Progress
-onready var tween := $Tween
 
 var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
@@ -44,10 +43,8 @@ var load_finished := false
 var resource
 
 func _ready():
-	Menus[MenuScreen.MAIN].modulate = Color(1.0,1.0,1.0,0.0)
-	set_menu_screen(MenuScreen.MAIN)
-	tween.interpolate_property(Menus[MenuScreen.MAIN],"modulate",Color(1.0,1.0,1.0,0.0),Color(1.0,1.0,1.0,1.0),1.15,Tween.TRANS_LINEAR,Tween.EASE_IN,1.0)
-	tween.start()
+	$AnimationPlayer.play("intro")
+#	set_menu_screen(MenuScreen.MAIN)
 
 var last_poll := 0.0
 
@@ -133,9 +130,15 @@ func save() -> void:
 func set_menu_screen(new_value) -> void:
 	current_menu = new_value
 
-	for key in Menus:
-		var menu = Menus[key]
-		menu.visible = key == new_value
+	match current_menu:
+		MenuScreen.MAIN:
+			$AnimationPlayer.play("menu_main")
+		MenuScreen.OPTIONS:
+			$AnimationPlayer.play("menu_options")
+
+#	for key in Menus:
+#		var menu = Menus[key]
+#		menu.visible = key == new_value
 
 func _on_ButtonSave_button_up():
 	save()
