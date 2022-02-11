@@ -5,13 +5,14 @@ signal on_search_successful
 const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
 export var lootpack := {
-	0.0: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn"),
-	1.75: preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn")
+	0.75: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn"),
+	0.45: preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn"),
+	0.47: preload("res://scenes/Entities/Items/Pickable/Medkit/Medkit.tscn")
 }
 
 export var radius := 10 setget set_radius
 export var min_amount := 1
-export var max_amount := 1
+export var max_amount := 5
 export var fill_time := 3.5
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
