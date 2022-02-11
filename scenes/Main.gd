@@ -3,7 +3,8 @@ extends Node2D
 onready var n_Tilemap := $TileMap
 onready var n_Player := $TileMap/Entities/Mobs/Player
 onready var n_Crosshair := $TileMapTileMap/Entities/Mobs/Player/Crosshair
-onready var n_PauseDialog := $UI/DialogPopup
+onready var n_ScreenMessage := $UI/ScreenMessage
+onready var n_Dialog := $UI/DialogPopup
 
 func _ready() -> void:
 	randomize()
@@ -90,6 +91,11 @@ func _unhandled_key_input(event):
 		OS.window_fullscreen = !(OS.window_fullscreen)
 		if !OS.window_fullscreen:
 			OS.window_size = Vector2(640,480)
+	if Input.is_action_just_released("quit_confirm"):
+		if n_ScreenMessage.visible || n_Dialog.visible:
+			$AnimationPlayer.playback_speed = 10.0
+			yield($AnimationPlayer,"animation_finished")
+			$AnimationPlayer.playback_speed = 1.0
 
 func on_intro_ready() -> void:
 	n_Player.can_move = true
@@ -128,7 +134,7 @@ func _on_Player_on_death():
 
 var fuel_pickedup_first := false
 
-func _on_fuel_pickedup() -> void:
+func _on_fuel_pickedup(amount) -> void:
 	if fuel_pickedup_first:
 		return
 
@@ -151,4 +157,10 @@ func _on_Bike_on_fuel_stopped(amount):
 	$AnimationPlayer.call_deferred("play","fuel_changed")
 
 func _on_PauseMessage_on_pause():
-	n_PauseDialog.visible = !n_PauseDialog.visible
+	n_Dialog.visible = !n_Dialog.visible
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	match anim_name:
+		"intro":
+			yield(get_tree().create_timer(1.0),"timeout")
+			$AnimationPlayer.play("intro_dialog")

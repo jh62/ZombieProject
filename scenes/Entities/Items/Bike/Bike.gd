@@ -4,6 +4,8 @@ signal on_full_tank
 signal on_fuel_stopped(amount)
 signal on_fuel_changed(amount)
 
+const STEP := 0.1
+
 export var fuel_amount := 0.0 setget set_fuel_amount
 
 onready var label := $CanvasLayer/Label
@@ -41,8 +43,8 @@ func _on_Timer_timeout():
 
 	player.can_move = false
 
-	self.fuel_amount += .15
-	fuelcan.fuel_amount -= .15
+	self.fuel_amount += STEP
+	fuelcan.fuel_amount -= STEP
 
 	if fuelcan.fuel_amount == 0.0:
 		stop()

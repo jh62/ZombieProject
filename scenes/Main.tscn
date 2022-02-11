@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=22]
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
@@ -556,7 +557,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "intro"
-length = 20.0
+length = 8.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
 tracks/0/interp = 1
@@ -576,7 +577,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 8.1 ),
+"times": PoolRealArray( 0, 8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
@@ -600,7 +601,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7, 5.1, 8.1 ),
+"times": PoolRealArray( 0, 1.5, 3.7, 5.1, 8 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -662,50 +663,54 @@ tracks/7/keys = {
 "update": 1,
 "values": [ false ]
 }
-tracks/8/type = "value"
-tracks/8/path = NodePath("UI/DialogPopup:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 8.4 ),
-"transitions": PoolRealArray( 1, 1 ),
+
+[sub_resource type="Animation" id=16]
+resource_name = "intro_dialog"
+length = 6.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/DialogPopup:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ true ]
 }
-tracks/9/type = "value"
-tracks/9/path = NodePath("UI/DialogPopup:modulate")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0, 8.4, 8.9, 13.7, 14.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/DialogPopup:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 5.3, 6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-tracks/10/type = "value"
-tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0, 8.9, 10, 11, 11.2, 12, 13.5, 13.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 1.6, 2.6, 2.8, 3.6, 5.1, 5.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
+"values": [ 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
-"times": PoolRealArray( 8.4, 11.2 ),
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.8 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ "Damn! My bike is out of fuel.", "There must be some gas around all this mess." ]
@@ -845,7 +850,7 @@ tracks/9/keys = {
 script/source = "extends Node2D
 
 func _ready():
-	yield(get_tree().create_timer(0.25),\"timeout\")
+	yield(get_tree().create_timer(0.5),\"timeout\")
 	queue_free()
 "
 
@@ -879,6 +884,18 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
+
+[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 21, 280 )
+
+[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 38, 261 )
+
+[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 62, 257 )
+
+[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 88, 256 )
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -1106,6 +1123,7 @@ anims/death_debug = SubResource( 14 )
 anims/fuel_changed = SubResource( 12 )
 anims/fuel_hint = SubResource( 13 )
 anims/intro = SubResource( 2 )
+anims/intro_dialog = SubResource( 16 )
 anims/win = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
@@ -1146,3 +1164,4 @@ script = SubResource( 15 )
 [connection signal="visibility_changed" from="UI/ControlRestart" to="UI/ControlRestart" method="_on_ControlRestart_visibility_changed"]
 [connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_Button_button_up"]
 [connection signal="on_pause" from="UI/PauseMessage" to="." method="_on_PauseMessage_on_pause"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

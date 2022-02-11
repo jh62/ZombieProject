@@ -16,6 +16,7 @@ onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
 onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/HBoxContainer
 onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
+onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
 
 func _ready():
@@ -27,9 +28,13 @@ func _ready():
 
 	EventBus.connect("on_weapon_reloaded", self, "update_weapon_status")
 	EventBus.connect("on_request_update_health", self, "update_healthbar")
+	EventBus.connect("fuel_pickedup", self, "_on_fuelcan_pickup")
+	EventBus.connect("fuel_changed", self, "_on_fuelcan_changed")
+	EventBus.connect("fuel_emptied", self, "_on_fuel_emptied")
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 	n_HealthBar.max_value = n_player.max_hitpoints
+	n_FuelCan.visible = false
 
 	update_healthbar()
 	update_weapon_status()
@@ -74,6 +79,18 @@ func _on_player_footstep(mob) -> void:
 
 func _on_item_pickedup() -> void:
 	update_weapon_status()
+
+func _on_fuelcan_pickup(amount) -> void:
+	n_FuelCan.max_value = Global.MAX_FUEL_LITERS
+	n_FuelCan.step = Bike.STEP
+	n_FuelCan.value = amount
+	n_FuelCan.visible = true
+
+func _on_fuelcan_changed(amount) -> void:
+	n_FuelCan.value = amount
+
+func _on_fuel_emptied() -> void:
+	n_FuelCan.visible = false
 
 func _on_player_loot() -> void:
 	update_loot_count()

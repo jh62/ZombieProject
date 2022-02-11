@@ -9,7 +9,6 @@ enum ActionEvent{
 signal intro_finished
 signal on_pause
 signal on_unpause
-signal fuel_pickedup
 
 # HUD signals
 signal on_request_update_health
@@ -27,6 +26,11 @@ signal on_bullet_spawn(position, direction, damage, aimed)
 signal on_mob_spawn(position)
 signal on_object_spawn(packed_scene, position)
 signal on_fuelcan_explode
+
+# Fuelcan
+signal fuel_pickedup(amount)
+signal fuel_changed(amount)
+signal fuel_emptied
 
 # Firearm signals
 signal on_weapon_reloaded(weapon_name)

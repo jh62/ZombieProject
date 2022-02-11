@@ -45,8 +45,13 @@ func on_player_death() -> void:
 	set_physics_process(false)
 	linear_velocity = Vector2(rand_range(-10.0,10.0),10.0)
 
-func set_fuelamount(new_amount):
+func set_fuelamount(new_amount : float):
 	fuel_amount = max(0.0, new_amount)
+
+	if fuel_amount > 0.0:
+		EventBus.emit_signal("fuel_changed", fuel_amount)
+	else:
+		EventBus.emit_signal("fuel_emptied")
 
 func _on_Area2D_body_entered(body):
 	if (body is Projectile):
@@ -83,7 +88,7 @@ func on_action_pickup(mob) -> void:
 	$Area2D.monitoring = false
 	$Area2D.monitorable = false
 
-	EventBus.emit_signal("fuel_pickedup")
+	EventBus.emit_signal("fuel_pickedup", fuel_amount)
 	EventBus.emit_signal("play_sound", SoundPickUp, player.global_position)
 
 func on_use(mob := null) -> void:
