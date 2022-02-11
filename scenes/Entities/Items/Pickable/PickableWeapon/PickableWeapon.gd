@@ -42,6 +42,7 @@ var weapons := {
 	}
 }
 
+var auto_picked := false
 var picked_sound
 
 func _ready():
@@ -65,7 +66,8 @@ func _on_Area2D_body_entered(body):
 	if !body.is_alive():
 		return
 
-	if Global.GameOptions.gameplay.auto_pickup:
+	if !auto_picked && Global.GameOptions.gameplay.auto_pickup:
+		auto_picked = true
 		on_picked_up_by(body)
 	else:
 		var _weapon_name = Global.WeaponNames.keys()[weapon_name]
@@ -100,6 +102,7 @@ func _create_drop(body, old_weapon) -> void:
 	var drop := self.duplicate()
 	drop.random_drop = false
 	drop.weapon_name = old_weapon.get_weapon_type()
+	drop.auto_picked = auto_picked
 
 	if "bullets" in old_weapon:
 		drop.bullets = old_weapon.bullets

@@ -834,8 +834,9 @@ tracks/2/keys = {
 }
 
 [node name="MeleeWeapon" instance=ExtResource( 2 )]
-hframes = 3
+hframes = 4
 vframes = 5
+frame = 17
 region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 1 )
 

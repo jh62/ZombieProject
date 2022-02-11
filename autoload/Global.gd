@@ -33,7 +33,7 @@ var GameOptions := {
 	"gameplay": {
 		"difficulty": Difficulty.NORMAL,
 		"discard_bullets": 1,
-		"auto_pickup": 0,
+		"auto_pickup": 1,
 		"death_wish": 0,
 		"joypad": 0,
 	},

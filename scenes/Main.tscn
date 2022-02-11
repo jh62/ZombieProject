@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,11 +12,13 @@
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Corpse.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
 [ext_resource path="res://assets/ui/window.png" type="Texture" id=18]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=19]
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
@@ -843,6 +845,7 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
+active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5
@@ -866,6 +869,35 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
+
+[node name="Corpse" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 21, 374 )
+
+[node name="Corpse2" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 48, 372 )
+
+[node name="Corpse3" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 73, 371 )
+
+[node name="Corpse4" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 96, 371 )
+
+[node name="Corpse5" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 120, 371 )
+
+[node name="Corpse6" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 144, 371 )
+
+[node name="Corpse7" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 169, 371 )
+
+[node name="Corpse8" parent="TileMap/Entities/Statics" instance=ExtResource( 13 )]
+position = Vector2( 195, 371 )
+
+[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 19 )]
+position = Vector2( 32, 310 )
+random_drop = false
+weapon_name = 6
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 

@@ -107,6 +107,8 @@ func _on_action_animation_started(anim_name, facing) -> void:
 	assert(anim_name in ANIMATIONS)
 	texture = ANIMATIONS.get(anim_name)
 
+	get_parent().set("show_behind_parent", facing == "n")
+
 	match anim_name:
 		"shoot":
 			equipper.can_move = false
@@ -125,7 +127,6 @@ func _on_action_animation_started(anim_name, facing) -> void:
 					raycast.rotation_degrees = 90 if !flip_h else 180
 				"s":
 					raycast.rotation_degrees = 135
-
 
 			var snd = get_swing_sound()
 			emit_signal("on_use")

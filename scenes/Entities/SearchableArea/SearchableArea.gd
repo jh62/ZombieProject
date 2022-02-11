@@ -5,7 +5,8 @@ signal on_search_successful
 const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
 export var lootpack := {
-	.75: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn")
+	0.0: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn"),
+	1.75: preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn")
 }
 
 export var radius := 10 setget set_radius
