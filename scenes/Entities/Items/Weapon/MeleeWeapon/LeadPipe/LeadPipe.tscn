@@ -58,13 +58,14 @@ tracks/3/keys = {
 [node name="LeadPipe" instance=ExtResource( 1 )]
 show_behind_parent = true
 texture = ExtResource( 2 )
+hframes = 3
 frame = 3
 script = ExtResource( 3 )
-damage = 30.0
+damage = 100.0
 knockback = 4.0
 fire_rate = 1.57
 melee_type = 1
-swing_time = 0.27
+swing_time = 0.29
 
 [node name="AnimationPlayer" parent="." index="0"]
 autoplay = "idle_e"
