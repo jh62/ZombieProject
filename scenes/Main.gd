@@ -153,7 +153,7 @@ func _on_Bike_on_fuel_stopped(amount):
 		return
 
 	messages.shuffle()
-	$UI/DialogPopup/MarginContainer/Label.text = messages.front()
+	$UI/DialogPopup/MarginContainer/LabelDialog.text = messages.front()
 	$AnimationPlayer.call_deferred("play","fuel_changed")
 
 func _on_PauseMessage_on_pause():

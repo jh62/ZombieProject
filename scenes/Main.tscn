@@ -21,7 +21,7 @@
 [ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=22]
+[ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
@@ -201,7 +201,7 @@ tracks/9/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -213,7 +213,7 @@ tracks/10/keys = {
 "values": [ 0.0 ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:text")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -491,7 +491,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -531,7 +531,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -543,7 +543,7 @@ tracks/2/keys = {
 "values": [ 0.0, 0.0, 1.0, 1.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -663,6 +663,18 @@ tracks/7/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/DialogPopup:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=16]
 resource_name = "intro_dialog"
@@ -692,7 +704,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/Label:percent_visible")
+tracks/2/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -704,7 +716,7 @@ tracks/2/keys = {
 "values": [ 0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/Label:text")
+tracks/3/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:text")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -860,7 +872,6 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
-active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5
@@ -884,18 +895,6 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
-
-[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 21, 280 )
-
-[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 38, 261 )
-
-[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 62, 257 )
-
-[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 88, 256 )
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -1089,7 +1088,6 @@ __meta__ = {
 [node name="MarginContainer" type="MarginContainer" parent="UI/DialogPopup"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 4.57764e-05
 mouse_filter = 2
 custom_constants/margin_right = 12
 custom_constants/margin_top = 4
@@ -1099,11 +1097,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="UI/DialogPopup/MarginContainer"]
+[node name="LabelDialog" type="Label" parent="UI/DialogPopup/MarginContainer"]
 margin_left = 12.0
 margin_top = 4.0
 margin_right = 168.0
-margin_bottom = 36.0
+margin_bottom = 35.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
 text = "Bike's outta fuel. "
@@ -1112,6 +1110,21 @@ percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": true
 }
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/DialogPopup"]
+anchor_top = -0.325
+anchor_right = 1.0
+custom_constants/margin_left = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LabelSkip" type="Label" parent="UI/DialogPopup/MarginContainer2"]
+margin_left = 6.0
+margin_right = 180.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 23 )
+text = "Press Q to skip"
 
 [node name="Tween" type="Tween" parent="."]
 
