@@ -596,7 +596,6 @@ lootpack = {
 0.5: ExtResource( 47 )
 }
 min_amount = 3
-max_amount = 5
 fill_time = 5.0
 
 [node name="Boxes2" parent="TileMap/MapObjects/Objects" instance=ExtResource( 21 )]
@@ -609,7 +608,6 @@ lootpack = {
 0.75: ExtResource( 42 )
 }
 min_amount = 2
-max_amount = 5
 fill_time = 4.0
 
 [node name="Box" parent="TileMap/MapObjects/Objects" instance=ExtResource( 23 )]
@@ -637,7 +635,6 @@ position = Vector2( 10, 0 )
 lootpack = {
 0.5: ExtResource( 42 )
 }
-max_amount = 5
 fill_time = 5.0
 
 [node name="SmallBox" parent="TileMap/MapObjects/Objects" instance=ExtResource( 34 )]

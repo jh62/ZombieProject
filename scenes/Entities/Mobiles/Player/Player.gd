@@ -145,8 +145,8 @@ func _process_input() -> void:
 		look_at_dir.x = dir.x
 		look_at_dir.y = dir.y
 
-	if look_at_dir.dot(dir) < 0 || aiming:
-		speed = max_speed * .25
+	if look_at_dir.dot(dir) < 0:
+		speed = max_speed * (.18 if aiming else .5)
 	else:
 		speed = max_speed
 

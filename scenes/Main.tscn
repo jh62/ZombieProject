@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -12,12 +12,15 @@
 [ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/Entities/FX/GunMuzzle/GunMuzzle.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
 [ext_resource path="res://assets/ui/window.png" type="Texture" id=18]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
+[ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
+[ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
@@ -838,6 +841,14 @@ tracks/9/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="GDScript" id=15]
+script/source = "extends Node2D
+
+func _ready():
+	yield(get_tree().create_timer(0.25),\"timeout\")
+	queue_free()
+"
+
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -868,11 +879,6 @@ __meta__ = {
 
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
-
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 19 )]
-position = Vector2( 62, 367 )
-random_drop = false
-weapon_name = 6
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -1107,6 +1113,21 @@ stream = ExtResource( 16 )
 
 [node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 17 )
+
+[node name="ModelCache" type="Node2D" parent="."]
+light_mask = 0
+position = Vector2( 72, 293 )
+z_index = -2000
+z_as_relative = false
+script = SubResource( 15 )
+
+[node name="TrailSmoke" parent="ModelCache" instance=ExtResource( 20 )]
+
+[node name="Smoke" parent="ModelCache" instance=ExtResource( 21 )]
+
+[node name="GunMuzzle" parent="ModelCache" instance=ExtResource( 13 )]
+
+[node name="Explosion" parent="ModelCache" instance=ExtResource( 19 )]
 
 [connection signal="on_fuel_stopped" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]

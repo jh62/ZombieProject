@@ -41,7 +41,7 @@ func create_huge_explosion(_radius := 48) -> void:
 
 func explode(explosion_type, _radius := 16) -> void:
 	z_index += 1
-	$Light2D.enabled = true
+#	$Light2D.enabled = true
 	$AnimatedSprite.play(ExplosionTypes.get(explosion_type))
 	$CollisionShape2D.shape.radius = _radius
 	EventBus.emit_signal("play_sound_full", SoundExplode, global_position, rand_range(.9,1.1), 0.0, 500.0)
