@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,7 +21,16 @@
 [ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends Node2D
+
+func _ready():
+	yield(get_tree().create_timer(0.5),\"timeout\")
+	queue_free()
+"
 
 [sub_resource type="GDScript" id=10]
 script/source = "extends CenterContainer
@@ -858,14 +867,6 @@ tracks/9/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="GDScript" id=15]
-script/source = "extends Node2D
-
-func _ready():
-	yield(get_tree().create_timer(0.5),\"timeout\")
-	queue_free()
-"
-
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -896,10 +897,16 @@ __meta__ = {
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
 
+[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 955, 374 )
+mode = 0
+random_drop = false
+weapon_name = 3
+
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 72, 293 )
+position = Vector2( 939, 374 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -921,6 +928,20 @@ current = true
 
 [node name="Crosshair" parent="TileMap/Entities/Mobs/Player" instance=ExtResource( 10 )]
 pause_mode = 2
+
+[node name="ModelCache" type="Node2D" parent="TileMap/Entities/Mobs/Player"]
+light_mask = 0
+z_index = -2000
+z_as_relative = false
+script = SubResource( 15 )
+
+[node name="TrailSmoke" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 20 )]
+
+[node name="Smoke" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 21 )]
+
+[node name="GunMuzzle" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 13 )]
+
+[node name="Explosion" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 19 )]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -1144,21 +1165,6 @@ stream = ExtResource( 16 )
 
 [node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 17 )
-
-[node name="ModelCache" type="Node2D" parent="."]
-light_mask = 0
-position = Vector2( 72, 293 )
-z_index = -2000
-z_as_relative = false
-script = SubResource( 15 )
-
-[node name="TrailSmoke" parent="ModelCache" instance=ExtResource( 20 )]
-
-[node name="Smoke" parent="ModelCache" instance=ExtResource( 21 )]
-
-[node name="GunMuzzle" parent="ModelCache" instance=ExtResource( 13 )]
-
-[node name="Explosion" parent="ModelCache" instance=ExtResource( 19 )]
 
 [connection signal="on_fuel_stopped" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
