@@ -839,6 +839,18 @@ bullets = 9999999999
 position = Vector2( 86, 242 )
 fuel_amount = 12.0
 
+[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
+position = Vector2( 136, 342 )
+fuel_amount = 12.0
+
+[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
+position = Vector2( 165.3, 254 )
+fuel_amount = 12.0
+
+[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
+position = Vector2( 169.3, 212 )
+fuel_amount = 12.0
+
 [node name="Corpse" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
 position = Vector2( 104, 289 )
 

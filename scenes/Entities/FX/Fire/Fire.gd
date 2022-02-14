@@ -6,12 +6,13 @@ onready var light := $Light2D
 export var damage := 9.7
 export var lifetime := 5.0
 
+onready var p_zombie = get_parent()
+
+var burning := false
 var elapsed := 0.0
 
 func _ready():
-	yield(get_tree().create_timer(.1),"timeout")
-	sprite.playing = true
-	$Timer.start()
+	pass
 
 func _process(delta):
 	elapsed += delta
@@ -23,14 +24,11 @@ func _process(delta):
 			call_deferred("queue_free")
 
 func _on_Timer_timeout():
-	return
-	var z := get_parent()
-
-	if z == null || !z.is_alive():
+	if p_zombie == null || !p_zombie.is_alive():
 		$Timer.stop()
 		return
 
-	if !z.fsm.current_state.get_name().begins_with("hit"):
-		z.on_hit_by(self)
-		var sprite := z.get_node("Sprite")
-		sprite.self_modulate = sprite.self_modulate.darkened(.25)
+	if !p_zombie.fsm.current_state.get_name().begins_with("hit"):
+		p_zombie.on_hit_by(self)
+		var sprite = p_zombie.get_node("Sprite")
+		sprite.self_modulate = sprite.self_modulate.darkened(damage / p_zombie.max_hitpoints)

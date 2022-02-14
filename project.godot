@@ -139,6 +139,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/StaticObject/StaticObject.gd"
 }, {
+"base": "BaseWeapon",
+"class": "Throwable",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Weapon/Throwable/Throwable.gd"
+}, {
 "base": "Particles2D",
 "class": "TrailSmoke",
 "language": "GDScript",
@@ -226,6 +231,7 @@ _global_script_class_icons={
 "State": "",
 "StateMachine": "",
 "StaticObject": "",
+"Throwable": "",
 "TrailSmoke": "",
 "ZombieAttackState": "",
 "ZombieDieState": "",
