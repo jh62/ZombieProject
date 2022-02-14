@@ -6,6 +6,7 @@ var exploded = false
 
 func _ready():
 	$Area2D.set_collision_mask_bit(5, true) # Bullets
+	max_hitpoints = 50
 
 func get_item_name():
 	return "vehicle"

@@ -71,6 +71,8 @@ anims/RESET = SubResource( 1 )
 
 [node name="RayCast2D" parent="RayCast" index="0"]
 rotation = -5.93997
+cast_to = Vector2( 4, -12 )
 
 [node name="RayCast2D3" parent="RayCast" index="2"]
 rotation = -0.373181
+cast_to = Vector2( 12, -4 )

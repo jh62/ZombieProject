@@ -33,7 +33,7 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 100
+layer = -100
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
 visible = false

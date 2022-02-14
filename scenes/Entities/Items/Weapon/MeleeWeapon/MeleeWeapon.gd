@@ -113,7 +113,6 @@ func raycast_enable(enable) -> void:
 		ray.force_raycast_update()
 
 func _on_action_animation_started(anim_name, facing) -> void:
-	assert(anim_name in ANIMATIONS)
 	texture = ANIMATIONS.get(anim_name)
 
 	get_parent().set("show_behind_parent", facing == "n")

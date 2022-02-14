@@ -51,7 +51,7 @@ __meta__ = {
 }
 
 [node name="CanvasLayer_Label" type="CanvasLayer" parent="."]
-layer = 2
+layer = -100
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer_Label"]
 anchor_left = 0.30625
