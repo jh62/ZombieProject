@@ -95,6 +95,8 @@ func start() -> void:
 #	player.equip_item(disarmed)
 
 	player.can_move = false
+	player.dir = Vector2.ZERO
+	player.vel = Vector2.ZERO
 	fuelcan.on_use()
 	$Timer.start()
 
@@ -106,7 +108,6 @@ func stop() -> void:
 
 	player.equipment.clear()
 	player.call_deferred("equip_item", weapon)
-#	player.equip_item(weapon)
 
 	player.can_move = true
 	fuelcan.on_use_stop()

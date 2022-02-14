@@ -10,6 +10,9 @@ var Sounds := {
 			preload("res://assets/sfx/impact/melee/blade_hit_1.wav"),
 			preload("res://assets/sfx/impact/melee/blade_hit_2.wav"),
 			preload("res://assets/sfx/impact/melee/blade_hit_3.wav")
+		],
+		"pickup":[
+			preload("res://assets/sfx/weapons/blade_pickup.wav")
 		]
 	},
 	MeleeType.BLUNT:{
@@ -21,6 +24,9 @@ var Sounds := {
 			preload("res://assets/sfx/impact/melee/blunt_hit_1.wav"),
 			preload("res://assets/sfx/impact/melee/blunt_hit_2.wav"),
 			preload("res://assets/sfx/impact/melee/blunt_hit_3.wav")
+		],
+		"pickup":[
+			preload("res://assets/sfx/weapons/blunt_pickup.wav")
 		]
 	},
 }
@@ -48,8 +54,11 @@ func get_swing_sound():
 func get_sound_shoot():
 	return Sounds.get(melee_type).hit
 
+func get_pickup_sound():
+	return Sounds.get(melee_type).pickup
+
 func _ready() -> void:
-	EventBus.emit_signal("play_sound_random", get_sound_shoot(), global_position)
+	EventBus.emit_signal("play_sound_random", get_pickup_sound(), global_position)
 
 func _on_action_pressed(action_type, facing) -> void:
 	match action_type:

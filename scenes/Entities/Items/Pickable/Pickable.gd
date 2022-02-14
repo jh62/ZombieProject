@@ -1,6 +1,6 @@
 class_name Pickable extends RigidBody2D
 
-export var pick_delay := .45
+export var pick_delay := 0.45
 
 onready var area_shape := $Area2D/CollisionShape2D
 onready var label := $CanvasLayer/RichTextLabel
@@ -11,12 +11,19 @@ var _flash_delay := 4.0
 var _flash_secs := 0.1
 
 func _ready():
-	linear_velocity = Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * rand_range(40.0,60.0)
+	area_shape.disabled = true
+	linear_velocity = Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * 1000.0
 	yield(get_tree().create_timer(pick_delay),"timeout")
 	area_shape.disabled = false
 	tween.interpolate_property($Sprite.material,"shader_param/hit_strength", 0.0, 1.0, _flash_secs, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, _flash_delay)
 	tween.start()
 
+func _process(delta):
+	if sleeping:
+		return
+
+	if linear_velocity == Vector2.ZERO:
+		sleeping = true
 
 func _unhandled_input(event):
 	if event.is_action_pressed("action_alt"):
@@ -36,7 +43,7 @@ func on_picked_up_by(body) -> void:
 	call_deferred("queue_free")
 
 func _on_Area2D_body_exited(body):
-	$CanvasLayer/RichTextLabel.visible = false
+	label.visible = false
 
 func _on_Tween_tween_completed(object, key):
 	_flash_bounce = !_flash_bounce

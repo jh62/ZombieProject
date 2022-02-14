@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -23,13 +23,16 @@
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
 [ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
+[ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=25]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Corpse.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
 
 func _ready():
-	yield(get_tree().create_timer(0.5),\"timeout\")
-	queue_free()
+	yield(get_tree().create_timer(1.0),\"timeout\")
+	call_deferred(\"queue_free\")
 "
 
 [sub_resource type="GDScript" id=10]
@@ -233,6 +236,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [ "Bike's outta fuel. " ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("UI/HUD:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "death"
@@ -352,120 +367,13 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false ]
 }
-
-[sub_resource type="Animation" id=14]
-resource_name = "death_debug"
-length = 15.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("UI/ScreenMessage:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/keys = {
-"times": PoolRealArray( 0, 14.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("UI/ScreenMessage/Label:percent_visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("UI/ScreenMessage/Label:text")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = false
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "You are dead" ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("UI/ScreenMessage:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = false
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7, 12.2, 14.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/5/type = "method"
-tracks/5/path = NodePath("AnimationPlayer/AudioStreamPlayer")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = false
-tracks/5/keys = {
-"times": PoolRealArray( 1.5, 3.8 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-}, {
-"args": [  ],
-"method": "stop"
-} ]
-}
-tracks/6/type = "method"
-tracks/6/path = NodePath("AnimationPlayer/AudioTypewriterStop")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = false
-tracks/6/keys = {
-"times": PoolRealArray( 3.8 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
-}
-tracks/7/type = "value"
-tracks/7/path = NodePath("UI/ControlRestart:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 0, 12.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("UI/DialogPopup:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = false
-tracks/8/keys = {
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/HUD:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -684,6 +592,18 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/HUD:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 5.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="Animation" id=16]
 resource_name = "intro_dialog"
@@ -866,6 +786,18 @@ tracks/9/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/HUD:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -898,15 +830,22 @@ __meta__ = {
 position = Vector2( 72, 312 )
 
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 955, 374 )
-mode = 0
+position = Vector2( 36, 242 )
 random_drop = false
-weapon_name = 3
+weapon_name = 6
+bullets = 9999999999
+
+[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
+position = Vector2( 86, 242 )
+fuel_amount = 12.0
+
+[node name="Corpse" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
+position = Vector2( 104, 289 )
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 939, 374 )
+position = Vector2( 72, 293.2 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
@@ -942,6 +881,12 @@ script = SubResource( 15 )
 [node name="GunMuzzle" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 13 )]
 
 [node name="Explosion" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 19 )]
+monitoring = false
+monitorable = false
+
+[node name="SmallFlames" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 24 )]
+monitoring = false
+monitorable = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -1153,7 +1098,6 @@ text = "Press Q to skip"
 autoplay = "intro"
 anims/RESET = SubResource( 1 )
 anims/death = SubResource( 8 )
-anims/death_debug = SubResource( 14 )
 anims/fuel_changed = SubResource( 12 )
 anims/fuel_hint = SubResource( 13 )
 anims/intro = SubResource( 2 )

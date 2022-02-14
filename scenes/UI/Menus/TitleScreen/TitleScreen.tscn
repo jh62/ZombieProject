@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/UI/SplashScreen/SplashScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui/titlescreen_2.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/smoke.png" type="Texture" id=4]
 [ext_resource path="res://assets/ui/logo08.png" type="Texture" id=5]
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
@@ -1074,6 +1074,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
+stretch_mode = 6
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false

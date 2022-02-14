@@ -54,7 +54,7 @@ func explode(explosion_type, _radius := 16) -> void:
 		flames.dir = Vector2(rand_range(-1,1),rand_range(-1,1))
 		flames.speed = randf() * 5.0 + 3.0
 		EventBus.emit_signal("on_object_spawn", flames, global_position)
-		yield(get_tree().create_timer(0.015),"timeout")
+		yield(get_tree(),"idle_frame")
 
 func check_explosion() -> void:
 	var bodies := get_overlapping_bodies()
@@ -63,7 +63,8 @@ func check_explosion() -> void:
 			b.kill()
 		elif b.has_method("explode"):
 			b.explode()
-		yield(get_tree().create_timer(0.015),"timeout")
+#		yield(get_tree(),"idle_frame")
+#		yield(get_tree().create_timer(0.015),"timeout")
 
 func _process(delta):
 	$Light2D.energy *= .96

@@ -16,8 +16,8 @@ var spawn_count := 0
 
 func _ready() -> void:
 	tilemap = get_parent().get_node("TileMap")
+	yield(get_tree().create_timer(1.0),"timeout")
 	if active:
-		yield(get_tree().create_timer(1.0),"timeout")
 		_spawn_mob()
 
 func _process(delta: float) -> void:
@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 	var areas := tilemap.get_node("AreaSpawns")
 	for area in areas.get_children():
-		yield(get_tree().create_timer(0.01),"timeout")
+		yield(get_tree().create_timer(0.05),"timeout")
 		var area_pos = area.global_position
 		n_visible.global_position = area_pos
 

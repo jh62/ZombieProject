@@ -6,8 +6,8 @@ const audio_search_end := preload("res://assets/sfx/misc/search_end.wav")
 
 export var lootpack := {
 	0.75: preload("res://scenes/Entities/Items/Pickable/LootItem/LootItem.tscn"),
-	0.45: preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn"),
-	0.47: preload("res://scenes/Entities/Items/Pickable/Medkit/Medkit.tscn")
+	0.56: preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn"),
+	0.48: preload("res://scenes/Entities/Items/Pickable/Medkit/Medkit.tscn")
 }
 
 export var radius := 10 setget set_radius
@@ -122,10 +122,13 @@ func spawn_loot() -> void:
 			continue
 
 		var _item = lootpack[val]
-		var amount := int(rand_range(min_amount, max_amount)) if (_item.instance() is LootItem) else 1
+		var amount := (randi() % max_amount + min_amount) if (_item.instance() is LootItem) else 1
 
 		for i in amount:
 			EventBus.emit_signal("on_object_spawn", _item, global_position)
+			yield(get_tree().create_timer(0.015),"timeout")
+
+		break
 
 func set_radius(new_radius) -> void:
 	radius = new_radius

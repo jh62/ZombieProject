@@ -47,6 +47,8 @@ var picked_sound
 
 func _ready():
 	$Sprite.material.set("shader_param/hit_color", Color.yellow)
+	label.visible = false
+
 	if random_drop:
 		var keys := weapons.keys()
 		var random_weapon : int = keys[randi()%keys.size()]
@@ -94,6 +96,8 @@ func on_picked_up_by(body) -> void:
 
 	if (is_melee || is_firearm) && not_same_weapon:
 		_create_drop(body, current_wep)
+
+	label.visible = false
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)
