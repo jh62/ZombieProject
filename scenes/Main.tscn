@@ -832,7 +832,7 @@ position = Vector2( 72, 312 )
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
 position = Vector2( 36, 242 )
 random_drop = false
-weapon_name = 6
+weapon_name = 4
 bullets = 9999999999
 
 [node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
