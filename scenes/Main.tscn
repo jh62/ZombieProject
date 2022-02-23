@@ -24,8 +24,6 @@
 [ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=25]
-[ext_resource path="res://scenes/Entities/Items/StaticObject/Corpse.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
@@ -378,6 +376,159 @@ tracks/9/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ false ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "death_debug"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/ControlRestart:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/DialogPopup:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/HUD:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=17]
+resource_name = "debug"
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/ScreenMessage:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/ScreenMessage/Label:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/ScreenMessage:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 3.7, 5.1, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_intro_ready"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/ControlRestart:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/DialogPopup:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/HUD:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -830,42 +981,40 @@ __meta__ = {
 position = Vector2( 72, 312 )
 
 [node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 36, 242 )
+position = Vector2( 660, 431.8 )
 random_drop = false
-weapon_name = 6
-bullets = 9999999999
+weapon_name = 1
+bullets = 9999999999999
 
 [node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 112, 250.5 )
+position = Vector2( 660, 458.9 )
+random_drop = false
+weapon_name = 2
+bullets = 9999999999999
+
+[node name="PickableWeapon3" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 660, 486.2 )
+random_drop = false
+weapon_name = 3
+bullets = 9999999999999
+
+[node name="PickableWeapon4" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 660, 511.7 )
 random_drop = false
 weapon_name = 4
-bullets = 9999999999
 
-[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 86, 242 )
-fuel_amount = 12.0
-
-[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 322.7, 225 )
-fuel_amount = 12.0
-
-[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 548, 176.6 )
-fuel_amount = 12.0
-
-[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 675, 318.8 )
-fuel_amount = 12.0
-
-[node name="Corpse" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 104, 289 )
+[node name="PickableWeapon5" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 684, 527.7 )
+random_drop = false
+weapon_name = 6
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 72, 293.2 )
+position = Vector2( 708, 468.9 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
+position = Vector2( 0, 1 )
 current = true
 limit_left = 0
 limit_top = 0
@@ -959,9 +1108,10 @@ __meta__ = {
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = -100
+layer = 100
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
+visible = false
 p_player = NodePath("../../TileMap/Entities/Mobs/Player")
 p_bike = NodePath("../../TileMap/Entities/Statics/Bike")
 
@@ -1009,6 +1159,7 @@ __meta__ = {
 
 [node name="PauseMessage" type="Control" parent="UI"]
 pause_mode = 2
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1063,6 +1214,7 @@ pause_mode = 2
 stream = ExtResource( 9 )
 
 [node name="DialogPopup" type="NinePatchRect" parent="UI"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.21875
 anchor_top = 0.777778
@@ -1118,9 +1270,11 @@ text = "Press Q to skip"
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "intro"
+autoplay = "debug"
 anims/RESET = SubResource( 1 )
 anims/death = SubResource( 8 )
+anims/death_debug = SubResource( 18 )
+anims/debug = SubResource( 17 )
 anims/fuel_changed = SubResource( 12 )
 anims/fuel_hint = SubResource( 13 )
 anims/intro = SubResource( 2 )

@@ -63,7 +63,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				EventBus.emit_signal("play_sound_random", snd, global_position)
 				return
 
-			self.magazine -= 1
+#			self.magazine -= 1
 #			self.bullets -= 1
 
 			equipper.vel += -equipper.facing * knockback

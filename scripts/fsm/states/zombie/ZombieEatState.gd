@@ -13,6 +13,11 @@ func get_name():
 	return "eat"
 
 func enter_state() -> void:
+	if owner.target is Vector2:
+		var new_state := ZombieIdleState.new(owner)
+		owner.fsm.travel_to(new_state)
+		return
+
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := "s" if owner.facing.y > 0 else "n"
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))

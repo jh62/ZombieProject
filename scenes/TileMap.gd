@@ -89,6 +89,7 @@ func _ready():
 	_update_navigation_polygon()
 
 	# generate random loot
+	return
 	for x in range(0, $TileMap/Background.region_rect.size.x, 16):
 		for y in range(0, $TileMap/Background.region_rect.size.y, 16):
 			var pos := Vector2(x, y)

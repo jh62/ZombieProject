@@ -127,10 +127,11 @@ func _on_Player_on_death():
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-	var lose := preload("res://assets/music/losing.mp3")
-	EventBus.emit_signal("play_music", lose)
+#	var lose := preload("res://assets/music/losing.mp3")
+#	EventBus.emit_signal("play_music", lose)
 
-	$AnimationPlayer.play("death")
+	$AnimationPlayer.play("death_debug")
+#	$AnimationPlayer.play("death")
 
 var fuel_pickedup_first := false
 

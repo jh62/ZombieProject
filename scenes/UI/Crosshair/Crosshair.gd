@@ -38,7 +38,7 @@ func _process(delta):
 		global_position = get_global_mouse_position()
 
 	if mobile.busy_time > 0.0 && !(mobile.get_equipped() is MeleeWeapon):
-		n_ProgressWheel.visible = true
+		n_ProgressWheel.visible = false
 		n_ProgressWheel.rect_global_position = get_global_mouse_position()
 		n_ProgressWheel.value = mobile.busy_time
 	else:

@@ -5,7 +5,7 @@ var last_growl := 0.0
 
 var wp_idx := 0
 var last_update := 0
-var update_delay := 650 #650
+var update_delay := 750 #650
 var knows_about := 0.0
 
 func _init(owner).(owner):

@@ -40,6 +40,7 @@ func is_searchable() -> bool:
 	return !is_searching() && !is_looted()
 
 func _on_SearchableArea_body_entered(body : Node2D):
+	return
 	if !body.is_in_group(Global.GROUP_PLAYER):
 		return
 

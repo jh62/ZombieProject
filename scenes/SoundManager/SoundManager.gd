@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _on_intro_finished() -> void:
 	$MusicPlayer.volume_db = Global.GameOptions.audio.music_db
-	$MusicPlayer.play()
+#	$MusicPlayer.play()
 
 func _play_music(music) -> void:
 	music_player.stop()
