@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,11 +21,8 @@
 [ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
-[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=25]
-[ext_resource path="res://scenes/Entities/Items/StaticObject/Corpse.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
@@ -829,37 +826,6 @@ __meta__ = {
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 36, 242 )
-random_drop = false
-weapon_name = 6
-bullets = 9999999999
-
-[node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 112, 250.5 )
-random_drop = false
-weapon_name = 4
-bullets = 9999999999
-
-[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 86, 242 )
-fuel_amount = 12.0
-
-[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 322.7, 225 )
-fuel_amount = 12.0
-
-[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 548, 176.6 )
-fuel_amount = 12.0
-
-[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 25 )]
-position = Vector2( 675, 318.8 )
-fuel_amount = 12.0
-
-[node name="Corpse" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 104, 289 )
-
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
@@ -959,7 +925,7 @@ __meta__ = {
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = -100
+layer = 100
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
 p_player = NodePath("../../TileMap/Entities/Mobs/Player")

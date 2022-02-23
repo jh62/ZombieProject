@@ -266,6 +266,7 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 window/size/width=320
 window/size/height=180
 window/size/resizable=false
+window/size/fullscreen=true
 window/size/test_width=640
 window/size/test_height=480
 mouse_cursor/custom_image="res://assets/ui/cursors/pointer64.png"
