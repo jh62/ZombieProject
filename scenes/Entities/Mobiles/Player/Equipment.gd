@@ -17,7 +17,7 @@ func equip(_item : BaseItem) -> void:
 		clear()
 
 	_item.equipper = self.owner
-	_item.light_mask = get_parent().light_mask
+	_item.light_mask = get_parent().get_node("Sprite").light_mask
 	visible = true
 	add_child(_item)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -21,8 +21,11 @@
 [ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
 [ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
 [ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
+[ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
+[ext_resource path="res://scenes/Tooltips.gd" type="Script" id=25]
+[ext_resource path="res://scenes/Entities/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
@@ -802,6 +805,8 @@ script = ExtResource( 1 )
 [node name="TileMap" parent="." instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
+visible = false
+active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5
@@ -826,18 +831,45 @@ __meta__ = {
 [node name="Bike" parent="TileMap/Entities/Statics" instance=ExtResource( 7 )]
 position = Vector2( 72, 312 )
 
+[node name="Weapons" type="YSort" parent="TileMap/Entities/Statics"]
+
+[node name="PickableWeapon" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 364, 651 )
+
+[node name="PickableWeapon5" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 816.3, 367 )
+
+[node name="PickableWeapon6" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 1000, 123.2 )
+
+[node name="PickableWeapon7" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 534, 4 )
+
+[node name="PickableWeapon8" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 1074, 380 )
+
+[node name="PickableWeapon9" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 858, 647.5 )
+
+[node name="PickableWeapon2" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 518, 146 )
+
+[node name="PickableWeapon3" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 600, 630.5 )
+
+[node name="PickableWeapon4" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
+position = Vector2( 298.8, 472.5 )
+
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 72, 293.2 )
+position = Vector2( 70, 298 )
 
 [node name="Camera" type="Camera2D" parent="TileMap/Entities/Mobs/Player"]
 current = true
 limit_left = 0
 limit_top = 0
 limit_smoothed = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
 smoothing_enabled = true
 drag_margin_left = 0.1
 drag_margin_right = 0.1
@@ -871,6 +903,21 @@ monitorable = false
 [node name="SmallFlames" parent="TileMap/Entities/Mobs/Player/ModelCache" instance=ExtResource( 24 )]
 monitoring = false
 monitorable = false
+
+[node name="Zombie" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
+position = Vector2( 182.5, 422.5 )
+
+[node name="Zombie2" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
+position = Vector2( 250, 342 )
+
+[node name="Zombie3" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
+position = Vector2( 172.5, 424 )
+
+[node name="Zombie4" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
+position = Vector2( 130, 264 )
+
+[node name="Zombie5" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
+position = Vector2( 244, 218.7 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -930,6 +977,7 @@ layer = 100
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
 p_player = NodePath("../../TileMap/Entities/Mobs/Player")
 p_bike = NodePath("../../TileMap/Entities/Statics/Bike")
+p_tilemap = NodePath("../../TileMap")
 
 [node name="ScreenMessage" type="Control" parent="UI"]
 visible = false
@@ -1080,6 +1128,29 @@ margin_right = 180.0
 margin_bottom = 13.0
 custom_fonts/font = ExtResource( 23 )
 text = "Press Q to skip"
+
+[node name="LabelDemo" type="Label" parent="UI"]
+modulate = Color( 1, 1, 1, 0.0980392 )
+anchor_left = 0.4375
+anchor_top = 0.927778
+anchor_right = 0.5625
+anchor_bottom = 1.0
+text = "DEMO"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Tooltips" type="RichTextLabel" parent="UI"]
+anchor_left = 0.296875
+anchor_right = 0.625
+anchor_bottom = 0.177778
+bbcode_enabled = true
+script = ExtResource( 25 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Tween" type="Tween" parent="."]
 

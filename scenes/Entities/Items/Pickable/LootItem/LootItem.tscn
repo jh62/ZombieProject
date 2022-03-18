@@ -14,6 +14,7 @@ shader_param/hit_strength = 0.0
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="1"]
+light_mask = 8
 material = SubResource( 2 )
 texture = ExtResource( 3 )
 hframes = 17

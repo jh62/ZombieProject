@@ -110,7 +110,7 @@ func make_outlines(objects) -> void:
 #		if !obj.visible:
 #			return
 		var outlines : PoolVector2Array
-		var offset = obj.get_node("Sprite").offset
+#		var offset = obj.get_node("Sprite").offset
 		var shape = obj.get_node("CollisionShape")
 		for p in shape.get_polygon():
 			outlines.append(obj.global_position + shape.position + p)

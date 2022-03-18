@@ -8,8 +8,6 @@ const STEP := 0.1
 
 export var fuel_amount := 0.0 setget set_fuel_amount
 
-onready var label := $CanvasLayer/Label
-
 var player
 var fuelcan
 var weapon
@@ -67,8 +65,9 @@ func _on_Area2D_body_entered(body):
 	player.connect("on_search_start", self, "on_player_action_start")
 	player.connect("on_search_end", self, "on_player_action_end")
 
-	label.visible = true
-	label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to fill the tank[/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text()})
+
+	var _text = "[center]Press [color=#fffc00]{0}[/color] to fill the tank[/center]".format({0:InputMap.get_action_list("action_alt")[0].as_text()})
+	EventBus.emit_signal("on_tooltip", _text)
 
 func _on_Area2D_body_exited(body):
 	var _player = body as Player
@@ -104,7 +103,7 @@ func stop() -> void:
 	if $Timer.is_stopped():
 		return
 
-	label.visible = false
+	EventBus.emit_signal("on_tooltip", "")
 
 	player.equipment.clear()
 	player.call_deferred("equip_item", weapon)

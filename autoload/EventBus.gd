@@ -12,14 +12,16 @@ signal on_unpause
 
 # HUD signals
 signal on_request_update_health
+signal on_tooltip(text)
 
 # Player signals
 signal action_pressed(action_name, facing)
 signal action_released(action_name, facing)
+signal on_player_death(player)
 
 # Pickable signals
 signal on_item_pickedup(item)
-signal on_loot_pickedup(items)
+signal on_loot_pickedup()
 
 # Entity signals
 signal on_bullet_spawn(position, direction, damage, aimed)
@@ -34,6 +36,7 @@ signal fuel_emptied
 
 # Firearm signals
 signal on_weapon_reloaded(weapon_name)
+signal on_weapon_fired
 
 # SoundManager
 signal play_sound_full(sound, position, pitch, db, max_distance)

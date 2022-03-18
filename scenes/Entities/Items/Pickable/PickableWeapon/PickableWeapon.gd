@@ -8,22 +8,22 @@ var weapons := {
 	Globals.WeaponNames.PISTOL:{
 		"texture": preload("res://assets/res/weapon/icons/pistol.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-		"bullets": 120
+		"bullets": 45
 	},
 	Globals.WeaponNames.SHOTGUN:{
 		"texture": preload("res://assets/res/weapon/icons/shotgun.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn"),
-		"bullets": 120
+		"bullets": 20
 	},
 	Globals.WeaponNames.SMG:{
 		"texture": preload("res://assets/res/weapon/icons/smg.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn"),
-		"bullets": 390
+		"bullets": 90
 	},
 	Globals.WeaponNames.RIFLE:{
 		"texture": preload("res://assets/res/weapon/icons/rifle.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn"),
-		"bullets": 300
+		"bullets": 60
 	},
 	Globals.WeaponNames.LEADPIPE:{
 		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
@@ -47,7 +47,6 @@ var picked_sound
 
 func _ready():
 	$Sprite.material.set("shader_param/hit_color", Color.yellow)
-	label.visible = false
 
 	if random_drop:
 		var keys := weapons.keys()
@@ -78,8 +77,9 @@ func _on_Area2D_body_entered(body):
 		if Global.GameOptions.gameplay.joypad:
 			button = "action"
 
-		label.visible = true
-		label.bbcode_text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:button,1:_weapon_name})
+		var _text = "[center]Press [color=#fffc00]{0}[/color] to pick up [color=#de2d22]{1}[/color][/center]".format({0:button,1:_weapon_name})
+
+		EventBus.emit_signal("on_tooltip", _text)
 
 func on_picked_up_by(body) -> void:
 	var item = weapons.get(weapon_name).scene.instance()
@@ -97,7 +97,7 @@ func on_picked_up_by(body) -> void:
 	if (is_melee || is_firearm) && not_same_weapon:
 		_create_drop(body, current_wep)
 
-	label.visible = false
+	EventBus.emit_signal("on_tooltip", "")
 
 	EventBus.emit_signal("on_item_pickedup", item)
 	.on_picked_up_by(body)

@@ -68,12 +68,15 @@ func _on_Area2D_body_entered(body):
 
 	p.connect("on_search_start", self, "on_action_pickup")
 
+	show_label(true)
+
 func _on_Area2D_body_exited(body):
 	if !(body is Player):
 		return
 
 	var p = body as Player
 	p.disconnect("on_search_start", self, "on_action_pickup")
+	show_label(false)
 
 func on_action_pickup(mob) -> void:
 	var parent = get_parent()
@@ -102,3 +105,16 @@ func on_use_stop(mob := null) -> void:
 func queue_free() -> void:
 	yield($AudioStreamPlayer,"finished")
 	.queue_free()
+
+func show_label(_visible) -> void:
+	var _text := ""
+
+	if _visible:
+		var button = InputMap.get_action_list("action_alt")[0].as_text()
+
+		if Global.GameOptions.gameplay.joypad:
+			button = "action"
+
+		_text = "[center]Press [color=#fffc00]{0}[/color] to pickup [color=#fffc00]fuel can[/color][/center]".format({0:button})
+
+	EventBus.emit_signal("on_tooltip", _text)

@@ -1,22 +1,38 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/maps/objects.tres" type="Texture" id=2]
+[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Lot.gd" type="Script" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( -21, 58, 96, 58, 96, -59, -96, -59, -95, 58, -67, 58, -67, 72, -100, 72, -100, -74, 98, -74, 99, 72, -21, 72 )
+polygon = PoolVector2Array( 96, 59, 96, -59, -96, -59, -96, 59, -66, 59, -66, 73, -100, 73, -100, 61, -100, -74, 98, -74, 99, 73, -21, 73, -21, 59, 42, 59 )
 
 [node name="Lot" instance=ExtResource( 1 )]
-material_type = 1
+script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
-region_rect = Rect2( 4, 10, 199, 148 )
+light_mask = 5
+region_rect = Rect2( 4, 10, 200, 148 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
-light_mask = 3
+light_mask = 5
 occluder = SubResource( 1 )
-light_mask = 3
+light_mask = 5
 
-[node name="CollisionShape" parent="." index="1"]
+[node name="SpriteTop" type="Sprite" parent="." index="1"]
+light_mask = 3
+position = Vector2( 0, 66 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 4, 141, 199, 17 )
+
+[node name="CollisionShape" parent="." index="2"]
 visible = true
-polygon = PoolVector2Array( -100, -74, -100, 72, -66, 72, -66, 58, -96, 58, -96, -59, 96, -59, 96, 57, -21, 57, -21, 73, 99, 73, 98, -74 )
+polygon = PoolVector2Array( -100, -74, -100, 72, -66, 72, -66, 63, -96, 63, -96, -59, 96, -59, 96, 64, -21, 64, -21, 73, 99, 73, 98, -74 )
+
+[node name="Area2D" parent="." index="3"]
+visible = true
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -95, 57, -95, 73, 96, 73, 96, 57 )

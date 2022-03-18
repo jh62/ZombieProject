@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/res/items/trees.tres" type="Texture" id=2]
+[ext_resource path="res://scenes/Entities/Items/Trees/Tree.gd" type="Script" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -1, 11, -1, 10, 1, 10, 1, 11 )
+
+[node name="Tree" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+material_type = 1
+
+[node name="SpriteTop" type="Sprite" parent="." index="0"]
+position = Vector2( 0, -3 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 7, 4, 18, 17 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+hframes = 3
+region_enabled = false
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+occluder = SubResource( 1 )
+
+[node name="CollisionShape" parent="." index="2"]
+polygon = PoolVector2Array( -1, 2, -7, 4, -5, 9, -4, 13, 4, 13, 5, 9, 7, 4, 1, 2 )
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 0, -12, -7, -8, -9, -3, -5, 9, 6, 9, 9, -3, 6, -8 )
+
+[node name="VisibilityNotifier2D" parent="." index="4"]
+visible = false

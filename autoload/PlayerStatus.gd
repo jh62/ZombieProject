@@ -1,4 +1,4 @@
 extends Node
 
-var precision_margin_error := 15.0
+var precision_margin_error := 0.15
 var max_hitpoints := 10

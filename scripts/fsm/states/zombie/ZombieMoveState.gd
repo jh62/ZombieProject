@@ -26,6 +26,11 @@ func enter_state() -> void:
 		knows_about = 7.0
 
 func update(delta) -> void:
+	if !owner.can_move:
+		var state = owner.States.idle.new(owner)
+		owner.fsm.travel_to(state)
+		return
+
 	var target = owner.target
 
 	if owner.dir.length() != 0: # is going somewhere
@@ -49,7 +54,9 @@ func update(delta) -> void:
 					owner.target = null
 					return
 
-		if OS.get_ticks_msec() - last_update > update_delay:
+		var _now = OS.get_ticks_msec() - last_update
+
+		if _now > update_delay:
 			var target_pos = target if (target is Vector2) else target.global_position
 			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
 			wp_idx = 0
@@ -86,10 +93,12 @@ func update(delta) -> void:
 					if p.is_alive():
 						var new_state = owner.States.attack.new(owner, p)
 						owner.fsm.travel_to(new_state)
-					elif !p.is_eaten:
-						var new_state = owner.States.eat_wait.new(owner, p)
-						owner.fsm.travel_to(new_state)
-					return
+#					elif !p.is_eaten:
+#						var new_state = owner.States.eat_wait.new(owner, p)
+#						owner.fsm.travel_to(new_state)
+#					else:
+#						var new_state = owner.States.idle.new(owner, p)
+#						owner.fsm.travel_to(new_state)
 				else:
 					var p = collider as Mobile
 					if p.fsm.current_state.get_name().begins_with("idle"):

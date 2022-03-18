@@ -14,7 +14,10 @@ var damage := 0.0
 var knockback := 0.0
 
 func _ready() -> void:
-	pass
+	$CollisionShape2D.shape.radius = 5.0
+	yield(get_tree().create_timer(.05),"timeout")
+	if is_instance_valid(self):
+		$CollisionShape2D.shape.radius = 2.0
 
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):

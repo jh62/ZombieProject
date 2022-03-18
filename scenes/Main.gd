@@ -10,6 +10,8 @@ func _ready() -> void:
 	randomize()
 
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
+	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
+	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
 
 	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
 	n_Player.can_move = false
@@ -86,6 +88,19 @@ func _ready() -> void:
 		yield(get_tree().create_timer(.25),"timeout")
 		n_Player.equip_item(weapon)
 
+	var _weps_spawned := 0
+	var _max_weapons := (randi() % 2 + 1)
+
+	for i in $TileMap/Entities/Statics/Weapons.get_children():
+		var chance = randf()
+		if .52 > chance || _weps_spawned >= _max_weapons:
+			i.call_deferred("queue_free")
+			continue
+		_weps_spawned += 1
+
+	if Global.CINEMATIC_MODE:
+		$UI.layer = -1000
+
 func _unhandled_key_input(event):
 	if Input.is_key_pressed(KEY_F11):
 		OS.window_fullscreen = !(OS.window_fullscreen)
@@ -111,8 +126,6 @@ func _on_Button_button_up():
 
 func _on_Bike_on_full_tank():
 	for mob in $TileMap/Entities/Mobs.get_children():
-		if !(mob is Mobile):
-			continue
 		mob.can_move = false
 
 	n_Player.can_move = false
@@ -133,6 +146,30 @@ func _on_Player_on_death():
 	$AnimationPlayer.play("death")
 
 var fuel_pickedup_first := false
+
+var label_idx := 0
+
+var LabelPool := [
+	preload("res://LabelLoot.tscn").instance(),
+	preload("res://LabelLoot.tscn").instance(),
+	preload("res://LabelLoot.tscn").instance()
+]
+
+func _on_loot_pickedup() -> void:
+	var label_root = LabelPool[label_idx]
+	var label = label_root.get_node("Label")
+	$TileMap/Entities/Statics.add_child(label_root)
+	label.rect_global_position = n_Player.global_position
+	label.bbcode_text = "[center][color=white]+LOOT"
+	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
+
+func _on_request_update_health() -> void:
+	var label_root = LabelPool[label_idx]
+	var label = label_root.get_node("Label")
+	$TileMap/Entities/Statics.add_child(label_root)
+	label.rect_global_position = n_Player.global_position
+	label.bbcode_text = "[center][color=lime]+HEALTH"
+	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
 
 func _on_fuel_pickedup(amount) -> void:
 	if fuel_pickedup_first:

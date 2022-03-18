@@ -20,6 +20,7 @@ const States := {
 }
 
 onready var equipment := $Equipment
+onready var vision := $Vision
 
 var loot_count := 0
 var aiming = false
@@ -42,22 +43,31 @@ func _process_animations() -> void:
 	match facing.round():
 		Vector2(0,-1):
 			$Flashlight.rotation_degrees = -90
+			vision.rotation_degrees = -90
 		Vector2(0,1):
 			$Flashlight.rotation_degrees = 90
+			vision.rotation_degrees = 90
 		Vector2(1,0):
 			$Flashlight.rotation_degrees = 0
+			vision.rotation_degrees = 0
 		Vector2(1,1):
 			$Flashlight.rotation_degrees = 45
+			vision.rotation_degrees = 45
 		Vector2(1,-1):
 			$Flashlight.rotation_degrees = -45
+			vision.rotation_degrees = -45
 		Vector2(-1,0):
 			$Flashlight.rotation_degrees = 180
+			vision.rotation_degrees = 180
 		Vector2(-1,-1):
 			$Flashlight.rotation_degrees = -135
+			vision.rotation_degrees = -135
 		Vector2(-1,1):
 			$Flashlight.rotation_degrees = 135
+			vision.rotation_degrees = 135
 		_:
 			$Flashlight.rotation_degrees = 0
+			vision.rotation_degrees = 0
 
 func _process(delta: float) -> void:
 	._process(delta)
@@ -112,13 +122,14 @@ func _unhandled_input(event: InputEvent) -> void:
 				emit_signal("on_aiming_start", self)
 				return
 			elif event.is_action_released("aim"):
+				$Camera.offset = Vector2.ZERO
 				emit_signal("on_aiming_stop", self)
 				return
 
-	if event.is_action_pressed("action_alt"):
+	if Input.is_action_just_pressed("action_alt"):
 		emit_signal("on_search_start", self)
 		return
-	elif event.is_action_released("action_alt"):
+	elif Input.is_action_just_released("action_alt"):
 		emit_signal("on_search_end", self)
 		return
 
@@ -165,6 +176,9 @@ func _process_input() -> void:
 	sprite.flip_h = facing.x < 0
 
 func begin_search() -> void:
+	if aiming:
+		aiming = false
+
 	fsm.travel_to(States.search.new(self))
 
 func stop_search() -> void:
@@ -175,6 +189,7 @@ func kill() -> void:
 		return
 
 	fsm.travel_to(States.die.new(self))
+	EventBus.emit_signal("on_player_death", self)
 	emit_signal("on_death")
 
 func on_hit_by(attacker) -> void:
@@ -202,7 +217,7 @@ func equip_item(item) -> void:
 func _on_item_pickedup(item) -> void:
 	equip_item(item)
 
-func _on_loot_pickedup(loot) -> void:
+func _on_loot_pickedup() -> void:
 	loot_count += 1
 	emit_signal("on_loot_pickedup")
 

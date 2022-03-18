@@ -2,6 +2,7 @@ extends Control
 
 export var p_player : NodePath
 export var p_bike : NodePath
+export var p_tilemap : NodePath
 
 onready var n_player : Player = get_node(p_player)
 onready var n_bike : Bike = get_node(p_bike)
@@ -31,6 +32,7 @@ func _ready():
 	EventBus.connect("fuel_pickedup", self, "_on_fuelcan_pickup")
 	EventBus.connect("fuel_changed", self, "_on_fuelcan_changed")
 	EventBus.connect("fuel_emptied", self, "_on_fuel_emptied")
+	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 	n_HealthBar.max_value = n_player.max_hitpoints
@@ -40,6 +42,19 @@ func _ready():
 	update_weapon_status()
 	update_fuel_status()
 	update_loot_count()
+
+	var cam := $ViewportContainer/Viewport/Camera2D as Camera2D
+	var tilemap := get_parent().get_parent().get_node("TileMap").get_child(0)
+
+	cam.add_child(get_node(p_player))
+	cam.limit_top = 0
+	cam.limit_left = 0
+	cam.limit_right = tilemap.get_node("Background").get_rect().size.x
+	cam.limit_bottom = tilemap.get_node("Background").get_rect().size.y
+
+func _process(delta):
+	$ViewportContainer/Viewport/Camera2D.global_position = n_player.global_position
+	$ViewportContainer/Viewport/ColorRect.rect_global_position = n_player.global_position
 
 func update_healthbar() -> void:
 	n_HealthBar.value = n_player.hitpoints
@@ -60,7 +75,14 @@ func update_weapon_status(weapon_type := -1) -> void:
 	n_AmmoRoot.visible = weapon is Firearm
 
 	if n_AmmoRoot.visible:
-		var mag_left := ceil(float(weapon.bullets) / float(weapon.mag_size))
+		var mag_left
+
+		if Global.GameOptions.gameplay.discard_bullets:
+			mag_left = ceil(float(weapon.bullets) / float(weapon.mag_size))
+		else:
+			mag_left = weapon.bullets
+			print_debug(weapon.bullets)
+
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 
@@ -104,3 +126,6 @@ func _on_player_loot() -> void:
 
 func _on_bike_fuel_changed(amount):
 	update_fuel_status()
+
+func _on_weapon_fired() -> void:
+	update_weapon_status()

@@ -64,10 +64,13 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				return
 
 			self.magazine -= 1
-#			self.bullets -= 1
+
+			if !Global.GameOptions.gameplay.discard_bullets:
+				self.bullets -= 1
 
 			equipper.vel += -equipper.facing * knockback
 
+			EventBus.emit_signal("on_weapon_fired")
 			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
 
 			var snd = get_sound_shoot()
@@ -80,7 +83,9 @@ func reload() -> bool:
 
 	var to_reload := min(bullets, mag_size)
 
-	self.bullets -= to_reload
+	if Global.GameOptions.gameplay.discard_bullets:
+		self.bullets -= to_reload
+
 	self.magazine = to_reload
 
 	var snd = get_reload_sound()

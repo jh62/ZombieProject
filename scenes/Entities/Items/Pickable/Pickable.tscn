@@ -32,24 +32,6 @@ collision_mask = 2
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -100
-
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-visible = false
-light_mask = 0
-anchor_left = 0.339063
-anchor_right = 0.660937
-anchor_bottom = 0.105556
-mouse_filter = 2
-bbcode_enabled = true
-bbcode_text = "Press E to pickup"
-text = "Press E to pickup"
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
 [node name="Tween" type="Tween" parent="."]
 
 [connection signal="texture_changed" from="Sprite" to="." method="_on_Sprite_texture_changed"]

@@ -17,10 +17,10 @@ occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
 visible = true
-polygon = PoolVector2Array( -74, 38, 73, 38, 73, -33, -74, -33 )
+polygon = PoolVector2Array( -74, 38, 73, 38, 73, -17, -74, -17 )
 
 [node name="Area2D" parent="." index="2"]
 visible = true
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array( -74, -39, 73, -39, 73, -33, -74, -33 )
+polygon = PoolVector2Array( -74, -44, 73, -44, 73, -17, -74, -17 )

@@ -7,5 +7,5 @@ func _process(delta):
 	pass
 
 func on_picked_up_by(body) -> void:
-	EventBus.emit_signal("on_loot_pickedup", -1)
+	EventBus.emit_signal("on_loot_pickedup")
 	.on_picked_up_by(body)

@@ -3,7 +3,9 @@ extends Control
 enum MenuScreen {
 	EMPTY = -1,
 	MAIN,
-	OPTIONS
+	OPTIONS,
+	CREDITS,
+	NEW_GAME
 }
 
 export var parallax_speed := 200.0
@@ -11,6 +13,7 @@ export var parallax_speed := 200.0
 onready var Menus := {
 	MenuScreen.MAIN: $ActiveMenu/MainMenu,
 	MenuScreen.OPTIONS: $ActiveMenu/OptionsMenu,
+	MenuScreen.CREDITS: $ActiveMenu/CreditsMenu,
 }
 
 # Gameplay controls
@@ -71,11 +74,24 @@ func _process(time):
 		print_debug("ERROR")
 		loader = null
 
-func _unhandled_input(event):
-	if !load_finished:
+func _input(event):
+	if !(event is InputEventKey) && !(event is InputEventMouseButton) && !(event is InputEventJoypadButton):
 		return
 
-	set_new_scene(resource)
+	match current_menu:
+			MenuScreen.NEW_GAME:
+				if !load_finished:
+					return
+				set_new_scene(resource)
+			_:
+				return
+
+func _unhandled_input(event):
+		match current_menu:
+			MenuScreen.CREDITS:
+				set_menu_screen(MenuScreen.MAIN)
+			_:
+				return
 
 func update_progress():
 	var progress = float(loader.get_stage()) / loader.get_stage_count()
@@ -87,15 +103,13 @@ func set_new_scene(scene_resource):
 	call_deferred("queue_free")
 
 func _on_ButtonNew_button_up():
-	$MusicMenu.stop()
-	progress_bar.visible = true
-	progress_bar.value = 0.0
-	splash_screen.visible = true
-	set_menu_screen(MenuScreen.EMPTY)
-	loader = ResourceLoader.load_interactive("res://scenes/Main.tscn")
+	set_menu_screen(MenuScreen.NEW_GAME)
 
 func _on_ButtonOptions_button_up():
 	set_menu_screen(MenuScreen.OPTIONS)
+
+func _on_ButtonCredits_button_up():
+	set_menu_screen(MenuScreen.CREDITS)
 
 func _on_ButtonExit_button_up():
 	get_tree().quit()
@@ -132,6 +146,14 @@ func set_menu_screen(new_value) -> void:
 			$AnimationPlayer.play("menu_main")
 		MenuScreen.OPTIONS:
 			$AnimationPlayer.play("menu_options")
+		MenuScreen.CREDITS:
+			$AnimationPlayer.play("menu_credits")
+		MenuScreen.NEW_GAME:
+			$MusicMenu.stop()
+			progress_bar.visible = true
+			progress_bar.value = 0.0
+			splash_screen.visible = true
+			loader = ResourceLoader.load_interactive("res://scenes/Main.tscn")
 
 #	for key in Menus:
 #		var menu = Menus[key]
@@ -151,14 +173,16 @@ func _on_OptionsDifficulty_item_selected(index):
 			n_CheckBoxDeathWish.pressed = false
 			n_CheckBoxRealMags.pressed = false
 		Global.Difficulty.NORMAL:
-			n_CheckBoxAutopick.pressed = true
+			n_CheckBoxAutopick.pressed = false
 			n_CheckBoxDeathWish.pressed = false
 			n_CheckBoxRealMags.pressed = true
 		Global.Difficulty.HARD:
 			n_CheckBoxAutopick.pressed = false
-			n_CheckBoxDeathWish.pressed = false
+			n_CheckBoxDeathWish.pressed = true
 			n_CheckBoxRealMags.pressed = true
 
 
 func _on_OptionsDifficulty_item_focused(index):
 	_on_OptionsDifficulty_item_selected(index)
+
+

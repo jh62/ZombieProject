@@ -1,5 +1,11 @@
 extends Node2D
 
+const TRACKS := [
+	preload("res://assets/music/track_01.mp3"),
+	preload("res://assets/music/track_02.mp3"),
+	preload("res://assets/music/track_04.mp3")
+]
+
 export var origin : NodePath
 
 onready var music_player := $MusicPlayer
@@ -16,6 +22,8 @@ func _ready() -> void:
 	EventBus.connect("play_music", self, "_play_music")
 
 func _on_intro_finished() -> void:
+#	TRACKS.shuffle()
+#	$MusicPlayer.stream = TRACKS.front()
 	$MusicPlayer.volume_db = Global.GameOptions.audio.music_db
 	$MusicPlayer.play()
 

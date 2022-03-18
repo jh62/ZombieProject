@@ -22,6 +22,7 @@ const Sounds  := {
 	]
 }
 
+export var AI : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
@@ -39,7 +40,12 @@ var down_times := 0
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
-	fsm.current_state = States.idle.new(self)
+	EventBus.connect("on_player_death", self, "_on_player_death")
+
+	if AI != null:
+		fsm.current_state = AI.new(self)
+	else:
+		fsm.current_state = States.idle.new(self)
 	area_collision.shape.radius = sight_radius
 
 	match Global.GameOptions.gameplay.difficulty:
@@ -60,6 +66,20 @@ func _ready() -> void:
 			attack_damage = 3.25
 		_:
 			pass
+
+func _on_player_death(player : Node2D) -> void:
+	yield(get_tree(),"idle_frame")
+	var p_pos := player.global_position
+	waypoints = []
+
+	if global_position.distance_to(p_pos) < 14:
+		var new_state = States.eat_wait.new(self, player)
+		fsm.travel_to(new_state)
+		return
+	else:
+		var new_state = States.idle.new(self)
+		fsm.travel_to(new_state)
+		return
 
 func _process_animations() -> void:
 	var epsilon := .25
@@ -159,6 +179,3 @@ func _on_screen_exited():
 
 func set_can_move(_can_move) -> void:
 	can_move = _can_move
-	if !can_move:
-		var state = States.idle.new(self)
-		fsm.travel_to(state)

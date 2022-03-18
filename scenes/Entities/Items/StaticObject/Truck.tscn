@@ -9,12 +9,12 @@
 polygon = PoolVector2Array( 21, -4, 6, -12, 2, -10, -7, -14, -16, -10, -16, -3, -22, 0, -22, 2, -7, 12 )
 
 [node name="Truck" instance=ExtResource( 2 )]
-light_mask = 2
 script = ExtResource( 1 )
 max_hitpoints = 800.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]
+light_mask = 6
 material = ExtResource( 3 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 43, 27 )
