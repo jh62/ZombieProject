@@ -61,7 +61,7 @@ func _ready() -> void:
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 250
+			weapon.bullets = 1
 
 			n_ZombieSpawner.mob_max = 150
 			n_ZombieSpawner.mob_group_max = 4
@@ -69,7 +69,7 @@ func _ready() -> void:
 			n_ZombieSpawner.restart_delay = 12
 		Globals.Difficulty.NORMAL:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 200
+			weapon.bullets = 120
 
 			n_ZombieSpawner.mob_max = 200
 			n_ZombieSpawner.mob_group_max = 8
@@ -77,7 +77,7 @@ func _ready() -> void:
 			n_ZombieSpawner.restart_delay = 10
 		Globals.Difficulty.HARD:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 180
+			weapon.bullets = 90
 
 			n_ZombieSpawner.mob_max = 250
 			n_ZombieSpawner.mob_group_max = 10

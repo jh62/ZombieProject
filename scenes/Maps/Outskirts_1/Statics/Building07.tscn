@@ -8,7 +8,7 @@ cull_mode = 1
 polygon = PoolVector2Array( -24, 32, 24, 32, 24, 10, -24, 10 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -25, -33, -25, 7, 24, 7, 24, -33 )
+polygon = PoolVector2Array( -25, -33, -25, 34, -24, 7, 23, 7, 24, 34, 24, -33 )
 
 [node name="Building" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -18,7 +18,9 @@ region_rect = Rect2( 624, 60, 50, 68 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+light_mask = 8
 occluder = SubResource( 1 )
+light_mask = 8
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
 occluder = SubResource( 2 )

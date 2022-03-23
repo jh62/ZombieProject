@@ -11,14 +11,16 @@ onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
 onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
 onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
-onready var n_GasTankProgressBar := $GasTank/ProgressBar
-onready var n_GasTankLabel := $GasTank/Label
+onready var n_GasTankProgressBar := n_GasTank.get_node("ProgressBar")
+onready var n_GasTankLabel := n_GasTank.get_node("Label")
 onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
 onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/HBoxContainer
 onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
-onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/TextureProgressFuelCan
+onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/VBoxContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
+onready var n_Camera := $ViewportContainer/Viewport/Camera2D
+onready var n_Minimap := $Minimap
 
 func _ready():
 	n_player.connect("on_hit", self, "_on_player_hit")
@@ -34,6 +36,8 @@ func _ready():
 	EventBus.connect("fuel_emptied", self, "_on_fuel_emptied")
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 
+	n_Minimap.n_player = n_player
+
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
 	n_HealthBar.max_value = n_player.max_hitpoints
 	n_FuelCan.visible = false
@@ -42,19 +46,6 @@ func _ready():
 	update_weapon_status()
 	update_fuel_status()
 	update_loot_count()
-
-	var cam := $ViewportContainer/Viewport/Camera2D as Camera2D
-	var tilemap := get_parent().get_parent().get_node("TileMap").get_child(0)
-
-	cam.add_child(get_node(p_player))
-	cam.limit_top = 0
-	cam.limit_left = 0
-	cam.limit_right = tilemap.get_node("Background").get_rect().size.x
-	cam.limit_bottom = tilemap.get_node("Background").get_rect().size.y
-
-func _process(delta):
-	$ViewportContainer/Viewport/Camera2D.global_position = n_player.global_position
-	$ViewportContainer/Viewport/ColorRect.rect_global_position = n_player.global_position
 
 func update_healthbar() -> void:
 	n_HealthBar.value = n_player.hitpoints
@@ -81,7 +72,11 @@ func update_weapon_status(weapon_type := -1) -> void:
 			mag_left = ceil(float(weapon.bullets) / float(weapon.mag_size))
 		else:
 			mag_left = weapon.bullets
-			print_debug(weapon.bullets)
+
+		if weapon.magazine > 0:
+			$AnimationPlayer.play("RESET")
+		else:
+			$AnimationPlayer.play("gun_flash")
 
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
@@ -129,3 +124,6 @@ func _on_bike_fuel_changed(amount):
 
 func _on_weapon_fired() -> void:
 	update_weapon_status()
+
+func _on_Entities_on_mob_spawned(mob):
+	n_Minimap._on_mob_spawned(mob)

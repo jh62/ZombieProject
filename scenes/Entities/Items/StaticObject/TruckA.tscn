@@ -10,7 +10,7 @@ polygon = PoolVector2Array( -8, -15, -7, 12, 5, 12, 6, -15 )
 
 [node name="Truck" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
-max_hitpoints = 800.0
+max_hitpoints = 280.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]

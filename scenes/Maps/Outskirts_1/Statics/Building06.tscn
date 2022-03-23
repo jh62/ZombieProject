@@ -4,12 +4,11 @@
 [ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building.gd" type="Script" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-closed = false
 cull_mode = 1
-polygon = PoolVector2Array( -30.7135, 1.03402, -30.7135, -0.992658, 31.7043, -0.992658, 31.7043, 1.03402 )
+polygon = PoolVector2Array( -30.7134, 0.992658, -30.7134, -0.0827215, 30.7134, -0.0827215, 30.7134, 0.992658 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -32, -24, -32, -2, 32, -2, 32, -24 )
+polygon = PoolVector2Array( -32, -24, -32, 24, -31, -2, 31, -2, 32, 24, 32, -24 )
 
 [node name="Building" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

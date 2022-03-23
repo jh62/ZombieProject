@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/Tooltips.gd" type="Script" id=25]
-[ext_resource path="res://scenes/Entities/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
@@ -806,7 +805,6 @@ script = ExtResource( 1 )
 
 [node name="ZombieSpawner" parent="TileMap" instance=ExtResource( 4 )]
 visible = false
-active = false
 mob_max = 250
 mob_group_max = 10
 spawn_delay_sec = 0.5
@@ -904,27 +902,11 @@ monitorable = false
 monitoring = false
 monitorable = false
 
-[node name="Zombie" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
-position = Vector2( 182.5, 422.5 )
-
-[node name="Zombie2" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
-position = Vector2( 250, 342 )
-
-[node name="Zombie3" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
-position = Vector2( 172.5, 424 )
-
-[node name="Zombie4" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
-position = Vector2( 130, 264 )
-
-[node name="Zombie5" parent="TileMap/Entities/Mobs" instance=ExtResource( 26 )]
-position = Vector2( 244, 218.7 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-z_index = 200
-color = Color( 0.235294, 0.235294, 0.235294, 1 )
+z_index = 1000
+color = Color( 0.0666667, 0.0588235, 0.0588235, 1 )
 
 [node name="SoundManager" parent="." instance=ExtResource( 8 )]
 position = Vector2( 21, 290 )
@@ -1170,6 +1152,7 @@ stream = ExtResource( 16 )
 [node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 17 )
 
+[connection signal="on_mob_spawned" from="TileMap/Entities" to="UI/HUD" method="_on_Entities_on_mob_spawned"]
 [connection signal="on_fuel_stopped" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
 [connection signal="on_full_tank" from="TileMap/Entities/Statics/Bike" to="TileMap/Entities/Mobs/Player/Crosshair" method="_on_Bike_on_full_tank"]

@@ -6,25 +6,25 @@
 [ext_resource path="res://assets/res/items/truck.tres" type="Texture" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( 21, -4, 6, -12, 2, -10, -7, -14, -16, -10, -16, -3, -22, 0, -22, 2, -7, 12 )
+cull_mode = 2
+polygon = PoolVector2Array( 21, -3, 6, -12, -22, 2, -8, 12 )
 
 [node name="Truck" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
-max_hitpoints = 800.0
+max_hitpoints = 280.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 6
 material = ExtResource( 3 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 43, 27 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+show_behind_parent = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 position = Vector2( 0, -3 )
 polygon = PoolVector2Array( -22, 4, -5, 16, 24, 0, 6, -9 )
 

@@ -822,7 +822,6 @@ margin_bottom = 33.0
 focus_neighbour_top = NodePath("../OptionsDifficulty")
 focus_neighbour_bottom = NodePath("../CheckBoxAutoPickup")
 size_flags_horizontal = 4
-pressed = true
 
 [node name="LabelAutoPickup" type="Label" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid"]
 margin_top = 38.0

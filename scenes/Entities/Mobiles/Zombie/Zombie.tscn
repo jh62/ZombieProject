@@ -2805,7 +2805,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-light_mask = 8
+light_mask = 9
 texture = ExtResource( 10 )
 normal_map = ExtResource( 12 )
 

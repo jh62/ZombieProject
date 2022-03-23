@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/Trees/Forest/ForestA.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Entities/Items/Trees/TreeB.tscn" type="PackedScene" id=2]
+
+[node name="ForestB" instance=ExtResource( 1 )]
+
+[node name="Tree10" parent="." index="9" instance=ExtResource( 2 )]
+position = Vector2( -8, 24 )
+
+[node name="Tree11" parent="." index="10" instance=ExtResource( 2 )]
+position = Vector2( -10, 41 )
+
+[node name="Tree12" parent="." index="11" instance=ExtResource( 2 )]
+position = Vector2( -9, 56 )
+
+[node name="Tree13" parent="." index="12" instance=ExtResource( 2 )]
+position = Vector2( -9, 73 )
+
+[node name="Tree14" parent="." index="13" instance=ExtResource( 2 )]
+position = Vector2( 3, 68 )
+
+[node name="Tree15" parent="." index="14" instance=ExtResource( 2 )]
+position = Vector2( 4, 54 )
+
+[node name="Tree16" parent="." index="15" instance=ExtResource( 2 )]
+position = Vector2( 4, 39 )
+
+[node name="Tree17" parent="." index="16" instance=ExtResource( 2 )]
+position = Vector2( 4, 28 )
+
+[node name="Tree18" parent="." index="17" instance=ExtResource( 2 )]
+position = Vector2( 17, 28 )
+
+[node name="Tree19" parent="." index="18" instance=ExtResource( 2 )]
+position = Vector2( 18, 45 )
+
+[node name="Tree20" parent="." index="19" instance=ExtResource( 2 )]
+position = Vector2( 18, 62 )
+
+[node name="Tree21" parent="." index="20" instance=ExtResource( 2 )]
+position = Vector2( 14, 77 )
+
+[node name="Tree22" parent="." index="21" instance=ExtResource( 2 )]
+position = Vector2( 27, 73 )
+
+[node name="Tree23" parent="." index="22" instance=ExtResource( 2 )]
+position = Vector2( 39, 79 )
+
+[node name="Tree24" parent="." index="23" instance=ExtResource( 2 )]
+position = Vector2( 36, 66 )
+
+[node name="Tree25" parent="." index="24" instance=ExtResource( 2 )]
+position = Vector2( 30, 55 )
+
+[node name="Tree26" parent="." index="25" instance=ExtResource( 2 )]
+position = Vector2( 41, 48 )
+
+[node name="Tree27" parent="." index="26" instance=ExtResource( 2 )]
+position = Vector2( 31, 38 )
+
+[node name="Tree28" parent="." index="27" instance=ExtResource( 2 )]
+position = Vector2( 41, 32 )
+
+[node name="Tree29" parent="." index="28" instance=ExtResource( 2 )]
+position = Vector2( 30, 22 )
+
+[node name="Tree30" parent="." index="29" instance=ExtResource( 2 )]
+position = Vector2( 42, 17 )
+
+[node name="Tree31" parent="." index="30" instance=ExtResource( 2 )]
+position = Vector2( 33, 9 )
+
+[node name="Tree32" parent="." index="31" instance=ExtResource( 2 )]
+position = Vector2( 43, -1 )
+
+[node name="VisibilityEnabler2D" parent="." index="32"]
+position = Vector2( 15, 28.5 )
+scale = Vector2( 3.6, 5.95 )

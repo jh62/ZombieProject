@@ -14,7 +14,7 @@ func _process(delta):
 
 	if speed == 0.0:
 		if elapsed >= lifetime:
-			$Light2D.energy -= .0015
+			$Light2D.energy -= .0005
 			$AnimatedSprite.scale.y -= .0035
 			$AudioStreamPlayer2D.volume_db -= 0.1
 

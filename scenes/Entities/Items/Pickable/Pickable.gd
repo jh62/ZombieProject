@@ -12,12 +12,7 @@ var _flash_secs := 0.1
 func _ready():
 	area_shape.disabled = true
 	linear_velocity = Vector2(rand_range(-1.0,1.0),rand_range(-1.0,1.0)) * 1000.0
-	yield(get_tree().create_timer(pick_delay),"timeout")
-
-	if is_instance_valid(self):
-		area_shape.disabled = false
-		tween.interpolate_property($Sprite.material,"shader_param/hit_strength", 0.0, 1.0, _flash_secs, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, _flash_delay)
-		tween.start()
+	$Timer.start(pick_delay)
 
 func _process(delta):
 	if sleeping:
@@ -53,4 +48,9 @@ func _on_Tween_tween_completed(object, key):
 	var delay = 0.0 if _flash_bounce else _flash_delay
 
 	tween.interpolate_property($Sprite.material,"shader_param/hit_strength", old_val, new_val, _flash_secs, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay)
+	tween.start()
+
+func _on_Timer_timeout():
+	area_shape.disabled = false
+	tween.interpolate_property($Sprite.material,"shader_param/hit_strength", 0.0, 1.0, _flash_secs, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, _flash_delay)
 	tween.start()

@@ -100,6 +100,8 @@ func _ready():
 				weapon.random_drop = true
 				EventBus.emit_signal("on_object_spawn", weapon, pos)
 
+	$TileMap/MapObjects/StreetLamps.queue_free()
+
 	for c in $TileMap/MapObjects.get_children():
 		c.visible = true
 

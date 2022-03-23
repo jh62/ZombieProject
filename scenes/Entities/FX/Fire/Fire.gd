@@ -1,7 +1,6 @@
 extends Node2D
 
 onready var sprite := $AnimatedSprite
-onready var light := $Light2D
 
 export var damage := 9.7
 export var lifetime := 5.0

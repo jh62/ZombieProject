@@ -60,3 +60,6 @@ func on_hit_by(attacker):
 
 func find_trail():
 	return find_node("TrailSmoke", true, false)
+
+func _on_AreaGasCap_body_entered(body):
+	explode()

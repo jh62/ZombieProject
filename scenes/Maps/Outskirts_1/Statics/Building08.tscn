@@ -9,7 +9,7 @@ cull_mode = 1
 polygon = PoolVector2Array( -24, 32, -24, 8, 24, 8, 24, 32 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -24, -32, -24, 8, 24, 8, 24, -32 )
+polygon = PoolVector2Array( -24, -32, -24, 32, -23, 0, 23, 0, 24, 32, 24, -32 )
 
 [node name="Building" instance=ExtResource( 1 )]
 script = ExtResource( 2 )

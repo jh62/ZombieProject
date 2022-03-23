@@ -41,7 +41,7 @@ var GameOptions := {
 	},
 	"graphics": {
 		"render_bullets": 1,
-		"render_mags": 1,
+		"render_mags": 0,
 		"render_blood": 1,
 		"render_mist": 1,
 		"render_noise": 1,
