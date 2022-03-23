@@ -1,0 +1,125 @@
+class_name CrawlerMoveState extends State
+
+var growl_delay := randi() % 15000 + 15000
+var last_growl := 0.0
+
+var wp_idx := 0
+var last_update := 0
+var update_delay := 750 #650
+var knows_about := 0.0
+
+func _init(owner).(owner):
+	pass
+
+func get_name():
+	return "walk"
+
+func update_waypoints(target) -> void:
+	var target_pos = target if (target is Vector2) else target.global_position
+	owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
+	wp_idx = 0
+
+func enter_state() -> void:
+	wp_idx = 0
+	last_growl = OS.get_ticks_msec()
+
+	var anim_p : AnimationPlayer = owner.get_anim_player()
+	var facing := Mobile.get_facing_as_string(owner.facing)
+	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+
+	if owner.target != null && (owner.target is Mobile):
+		knows_about = 7.0
+
+func update(delta) -> void:
+	if !owner.can_move:
+		var state = owner.States.idle.new(owner)
+		owner.fsm.travel_to(state)
+		return
+
+	if owner.threat != null && !owner.is_visible_in_viewport():
+		owner.target = owner.threat
+		update_waypoints(owner.target)
+		owner.threat = null
+		print_debug("returning to threat")
+
+	var target = owner.target
+
+	if owner.dir.length() != 0: # is going somewhere
+#		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && target.is_eaten):
+		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && !target.is_alive()):
+			var new_state = owner.States.idle.new(owner)
+			owner.fsm.travel_to(new_state)
+			return
+
+	if owner.is_visible_in_viewport():
+		last_growl += delta
+
+		if OS.get_ticks_msec() - last_growl > growl_delay:
+			last_growl = OS.get_ticks_msec()
+			owner.play_random_sound()
+
+	if target != null:
+		if (target is Mobile):
+			if !owner.area_perception.overlaps_body(target):
+				knows_about -= delta
+				if knows_about <= 0:
+					owner.target = null
+					return
+
+		var _now = OS.get_ticks_msec() - last_update
+
+		if _now > update_delay:
+			update_waypoints(target)
+			last_update = OS.get_ticks_msec()
+
+	if owner.waypoints.empty() || wp_idx >= owner.waypoints.size():
+		if (target is Vector2):
+			owner.target = null
+		var new_state = owner.States.idle.new(owner)
+		owner.fsm.travel_to(new_state)
+		return
+
+	var wp : Vector2 = owner.waypoints[wp_idx]
+	owner.dir = owner.global_position.direction_to(wp)
+
+	if owner.global_position.distance_to(wp) < 4.0:
+		wp_idx += 1
+
+	var facing := Mobile.get_facing_as_string(owner.facing)
+	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
+
+	if target != null && (target is Mobile):
+		var owner_facing = owner.facing
+		var target_facing = target.facing
+		var facing_direction = owner_facing.dot(target_facing)
+
+		if facing_direction < 0:
+			var dist_to_target = owner.global_position.distance_to(target.global_position)
+
+			if dist_to_target > 5.0:
+				print_debug("threat!!!!")
+				owner.threat = target
+				var new_target = owner.global_position + Vector2(180,180) * -(owner.dir)
+				owner.target = new_target
+				update_waypoints(new_target)
+				return
+
+	owner.vel += owner.speed * owner.dir
+	owner.vel = owner.move_and_slide(owner.vel)
+	owner.vel = owner.vel.clamped(owner.max_speed)
+
+	if owner.is_visible_in_viewport():
+		if owner.get_slide_count() > 0:
+			var collision = owner.get_slide_collision(0)
+			var collider = collision.collider
+			if collider is Mobile:
+
+				if collider is Player:
+					var p = collider as Player
+					if p.is_alive():
+						var new_state = owner.States.attack.new(owner, p)
+						owner.fsm.travel_to(new_state)
+				else:
+					var p = collider as Mobile
+					if p.fsm.current_state.get_name().begins_with("idle"):
+						p.vel = -(collision.normal * 16.25)

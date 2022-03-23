@@ -55,3 +55,10 @@ var GameOptions := {
 		"zombie_footsteps": 0.0
 	}
 }
+
+func set_canvas_item_light_mask_value(canvas_item: CanvasItem, layer_number: int, value: bool) -> void:
+	assert(layer_number >= 1 and layer_number <= 20, "layer_number must be between 1 and 20 inclusive")
+	if value:
+		canvas_item.light_mask |= 1 << (layer_number - 1)
+	else:
+		canvas_item.light_mask &= ~(1 << (layer_number - 1))

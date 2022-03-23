@@ -1088,6 +1088,7 @@ position = Vector2( 389, 464 )
 position = Vector2( 254, 433 )
 
 [node name="Navigation2D" type="Navigation2D" parent="TileMap"]
+visible = false
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="TileMap/Navigation2D"]
 navpoly = SubResource( 33 )
