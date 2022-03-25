@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/crawler/CrawlerDieState.gd"
 }, {
 "base": "State",
+"class": "CrawlerFleeState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/crawler/CrawlerFleeState.gd"
+}, {
+"base": "State",
 "class": "CrawlerHitState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/crawler/CrawlerHitState.gd"
@@ -248,6 +253,7 @@ _global_script_class_icons={
 "Building": "",
 "CrawlerAttackState": "",
 "CrawlerDieState": "",
+"CrawlerFleeState": "",
 "CrawlerHitState": "",
 "CrawlerIdleState": "",
 "CrawlerMeleeDeathState": "",
@@ -308,7 +314,7 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 window/size/width=320
 window/size/height=180
 window/size/resizable=false
-window/size/fullscreen=true
+window/size/always_on_top=true
 window/size/test_width=640
 window/size/test_height=480
 mouse_cursor/custom_image="res://assets/ui/cursors/pointer64.png"
@@ -474,6 +480,7 @@ pause={
 2d_physics/layer_6="bullets"
 2d_physics/layer_7="areas"
 2d_physics/layer_8="crosshair"
+2d_physics/layer_9="trees"
 
 [physics]
 

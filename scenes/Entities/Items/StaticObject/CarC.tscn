@@ -14,7 +14,6 @@ max_hitpoints = 200.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 9
 material = ExtResource( 4 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 31, 17 )

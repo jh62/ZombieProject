@@ -3,6 +3,7 @@ extends Mobile
 const States := {
 	"idle": preload("res://scripts/fsm/states/crawler/CrawlerIdleState.gd"),
 	"walk": preload("res://scripts/fsm/states/crawler/CrawlerMoveState.gd"),
+	"flee": preload("res://scripts/fsm/states/crawler/CrawlerFleeState.gd"),
 	"attack": preload("res://scripts/fsm/states/crawler/CrawlerAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/crawler/CrawlerDieState.gd"),
 	"melee": preload("res://scripts/fsm/states/crawler/CrawlerMeleeDeathState.gd"),
@@ -32,8 +33,6 @@ var target
 var nav : Navigation2D
 var waypoints : PoolVector2Array
 var down_times := 0
-var fleeing := false
-var threat : Node2D
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
@@ -153,9 +152,6 @@ func _on_AreaPerception_body_entered(body):
 	if !mob.is_alive():
 		return
 
-	if fleeing:
-		return
-
 	if target != null && (target is Mobile):
 		var dist_to_mob := global_position.distance_to(mob.global_position)
 		var dist_to_target := global_position.distance_to(target.global_position)
@@ -170,8 +166,6 @@ func play_random_sound() -> void:
 
 func _on_screen_exited():
 	._on_screen_exited()
-
-	fleeing = false
 
 	if target == null || (target is Vector2):
 		return

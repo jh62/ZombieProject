@@ -15,16 +15,13 @@ max_hitpoints = 200.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 9
 material = ExtResource( 4 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 31, 17 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
-light_mask = 2
 occluder = SubResource( 1 )
-light_mask = 2
 
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( 14, -5, 9, -5, 6, -8, -4, -8, -15, -7, -15, 4, 14, 4 )

@@ -86,6 +86,8 @@ func _ready():
 	texture = $TileMap/Background.texture.get_data()
 	texture.lock()
 
+	Global.MAP_SIZE = $TileMap/Background.region_rect.size
+
 	_update_navigation_polygon()
 
 	# generate random loot

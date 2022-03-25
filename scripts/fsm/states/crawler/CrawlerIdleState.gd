@@ -1,5 +1,8 @@
 class_name CrawlerIdleState extends State
 
+var last_update := 0
+var update_delay := 2000 #650
+
 func _init(owner).(owner):
 	pass
 
@@ -15,12 +18,23 @@ func enter_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", false)
 
+	last_update = OS.get_ticks_msec()
+
 func update(delta) -> void:
 	if owner.nav == null:
 		return
 
 	if !owner.can_move:
 		return
+
+	var now := OS.get_ticks_msec() - last_update
+
+	if now > update_delay:
+		var target_pos := owner.global_position + Vector2(1.0,1.0).rotated(deg2rad(randi()%360)) * 50
+		target_pos.x = clamp(target_pos.x, 32, Global.MAP_SIZE.x - 32)
+		target_pos.y = clamp(target_pos.y, 32, Global.MAP_SIZE.y - 32)
+		var new_target = owner.nav.get_closest_point(target_pos)
+		owner.target = new_target
 
 	var target = owner.target
 

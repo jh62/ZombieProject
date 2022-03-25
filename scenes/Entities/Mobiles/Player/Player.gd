@@ -148,24 +148,20 @@ func _process_input() -> void:
 
 	var equipped := get_equipped() as BaseItem
 
-	if equipped.in_use || aiming:
-		var m_pos : Vector2
+	var m_pos : Vector2
 
-		if Global.GameOptions.gameplay.joypad:
-			m_pos = get_global_transform_with_canvas().origin.direction_to($Crosshair.position)
-		else:
-			m_pos = global_position.direction_to(get_global_mouse_position())
-
-		look_at_dir.x = m_pos.x
-		look_at_dir.y = m_pos.y
+	if Global.GameOptions.gameplay.joypad:
+		m_pos = get_global_transform_with_canvas().origin.direction_to($Crosshair.position)
 	else:
-		look_at_dir.x = dir.x
-		look_at_dir.y = dir.y
+		m_pos = global_position.direction_to(get_global_mouse_position())
+
+	look_at_dir.x = m_pos.x
+	look_at_dir.y = m_pos.y
 
 	if look_at_dir.dot(dir) < 0:
 		speed = max_speed * (.18 if aiming else .5)
 	else:
-		speed = max_speed
+		speed = max_speed * (.18 if aiming else 1.0)
 
 	var epsilon := .35
 

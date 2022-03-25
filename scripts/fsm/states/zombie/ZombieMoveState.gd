@@ -93,13 +93,9 @@ func update(delta) -> void:
 					if p.is_alive():
 						var new_state = owner.States.attack.new(owner, p)
 						owner.fsm.travel_to(new_state)
-#					elif !p.is_eaten:
-#						var new_state = owner.States.eat_wait.new(owner, p)
-#						owner.fsm.travel_to(new_state)
-#					else:
-#						var new_state = owner.States.idle.new(owner, p)
-#						owner.fsm.travel_to(new_state)
 				else:
 					var p = collider as Mobile
 					if p.fsm.current_state.get_name().begins_with("idle"):
 						p.vel = -(collision.normal * 16.25)
+			else:
+				owner.vel += collision.normal * 8.0

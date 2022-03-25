@@ -31,7 +31,9 @@ const GROUP_FIRE := "fire"
 
 const MAX_FUEL_LITERS := 12.5 # 120.5
 
-var GameOptions := {
+var MAP_SIZE := Vector2()
+
+const GameOptions := {
 	"gameplay": {
 		"difficulty": Difficulty.NORMAL,
 		"discard_bullets": 1,

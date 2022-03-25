@@ -27,8 +27,11 @@ func enter_state() -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-	if owner.target != null && (owner.target is Mobile):
-		knows_about = 7.0
+	if owner.target != null:
+		update_waypoints(owner.target)
+
+		if owner.target is Mobile:
+			knows_about = 7.0
 
 func update(delta) -> void:
 	if !owner.can_move:
@@ -36,17 +39,10 @@ func update(delta) -> void:
 		owner.fsm.travel_to(state)
 		return
 
-	if owner.threat != null && !owner.is_visible_in_viewport():
-		owner.target = owner.threat
-		update_waypoints(owner.target)
-		owner.threat = null
-		print_debug("returning to threat")
-
 	var target = owner.target
 
 	if owner.dir.length() != 0: # is going somewhere
-#		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && target.is_eaten):
-		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && !target.is_alive()):
+		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && target.is_eaten):
 			var new_state = owner.States.idle.new(owner)
 			owner.fsm.travel_to(new_state)
 			return
@@ -82,26 +78,21 @@ func update(delta) -> void:
 	var wp : Vector2 = owner.waypoints[wp_idx]
 	owner.dir = owner.global_position.direction_to(wp)
 
-	if owner.global_position.distance_to(wp) < 4.0:
+	if owner.global_position.distance_to(wp) < 6.0:
 		wp_idx += 1
 
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
 	if target != null && (target is Mobile):
-		var owner_facing = owner.facing
-		var target_facing = target.facing
-		var facing_direction = owner_facing.dot(target_facing)
+		var facing_direction = owner.target.global_position.direction_to(owner.global_position).dot(owner.target.facing)
 
-		if facing_direction < 0:
+		if facing_direction >= 0:
 			var dist_to_target = owner.global_position.distance_to(target.global_position)
 
 			if dist_to_target > 5.0:
-				print_debug("threat!!!!")
-				owner.threat = target
-				var new_target = owner.global_position + Vector2(180,180) * -(owner.dir)
-				owner.target = new_target
-				update_waypoints(new_target)
+				var new_state = owner.States.flee.new(owner, target)
+				owner.fsm.travel_to(new_state)
 				return
 
 	owner.vel += owner.speed * owner.dir
@@ -113,7 +104,6 @@ func update(delta) -> void:
 			var collision = owner.get_slide_collision(0)
 			var collider = collision.collider
 			if collider is Mobile:
-
 				if collider is Player:
 					var p = collider as Player
 					if p.is_alive():
@@ -123,3 +113,5 @@ func update(delta) -> void:
 					var p = collider as Mobile
 					if p.fsm.current_state.get_name().begins_with("idle"):
 						p.vel = -(collision.normal * 16.25)
+			else:
+				owner.vel += collision.normal * 10.0
