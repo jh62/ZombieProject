@@ -161,7 +161,7 @@ func _process_input() -> void:
 	if look_at_dir.dot(dir) < 0:
 		speed = max_speed * (.18 if aiming else .5)
 	else:
-		speed = max_speed * (.18 if aiming else 1.0)
+		speed = max_speed * (.5 if aiming else 1.0)
 
 	var epsilon := .35
 
@@ -189,6 +189,9 @@ func stop_search() -> void:
 func kill() -> void:
 	if fsm.current_state.get_name().begins_with("die"):
 		return
+
+	$Flashlight.enabled = false
+	$Vision.enabled = false
 
 	fsm.travel_to(States.die.new(self))
 	EventBus.emit_signal("on_player_death", self)

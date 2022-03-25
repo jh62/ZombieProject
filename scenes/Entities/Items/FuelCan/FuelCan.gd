@@ -90,12 +90,6 @@ func on_action_pickup(mob) -> void:
 	yield(parent.get_tree(),"idle_frame")
 
 	player = mob
-#	var fuelcan = player.find_node("FuelCan*",false, false)
-#
-#	if fuelcan:
-#		fuelcan.fuel_amount += fuel_amount
-#		queue_free()
-#		return
 
 	player.connect("on_death", self, "on_player_death")
 	player.add_child(self)

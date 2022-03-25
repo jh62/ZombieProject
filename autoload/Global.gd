@@ -27,9 +27,11 @@ const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 
 const GROUP_PLAYER := "player"
 const GROUP_ZOMBIE := "zombie"
+const GROUP_SPECIAL := "special"
 const GROUP_FIRE := "fire"
 
 const MAX_FUEL_LITERS := 12.5 # 120.5
+const MAX_SPECIAL_ZOMBIES := 2
 
 var MAP_SIZE := Vector2()
 

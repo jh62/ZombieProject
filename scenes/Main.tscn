@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
@@ -25,7 +25,6 @@
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/Tooltips.gd" type="Script" id=25]
-[ext_resource path="res://scenes/Entities/Items/FuelCan/FuelCan.tscn" type="PackedScene" id=26]
 
 [sub_resource type="GDScript" id=15]
 script/source = "extends Node2D
@@ -854,30 +853,6 @@ position = Vector2( 600, 630.5 )
 
 [node name="PickableWeapon4" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
 position = Vector2( 298.8, 472.5 )
-
-[node name="FuelCan" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 41, 296 )
-fuel_amount = 3.0
-
-[node name="FuelCan2" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 21, 317 )
-fuel_amount = 3.0
-
-[node name="FuelCan3" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 68, 336 )
-fuel_amount = 3.0
-
-[node name="FuelCan4" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 110, 278.5 )
-fuel_amount = 3.0
-
-[node name="FuelCan5" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 120, 307.9 )
-fuel_amount = 3.0
-
-[node name="FuelCan6" parent="TileMap/Entities/Statics" instance=ExtResource( 26 )]
-position = Vector2( 116, 336 )
-fuel_amount = 3.0
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 

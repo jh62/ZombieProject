@@ -4,6 +4,7 @@ signal on_mob_spawned(mob)
 
 const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
+const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
 const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
 const Magazine := preload("res://scenes/Entities/Items/Magazine/Magazine.tscn")
 
@@ -51,35 +52,39 @@ func _spawn_bullet(position, damage, knockback := 0.0, aimed := false) -> void:
 var bad_spawns := [] # lazy fix
 
 func _spawn_mob(position) -> void:
-	var zombie : Mobile
-	zombie = Zombie.instance()
+	var _mob : Mobile
 
-	if bad_spawns.empty():
-		zombie = Zombie.instance()
+	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.25 > randf()):
+		_mob = Crawler.instance()
+		print_debug("spaend crawler")
 	else:
-		zombie = bad_spawns.pop_back()
+		if bad_spawns.empty():
+			_mob = Zombie.instance()
+		else:
+			_mob = bad_spawns.pop_back()
 
-	n_Mobs.add_child(zombie)
+	n_Mobs.add_child(_mob)
 
 	# Check if spot is valid
-	zombie.move_and_slide(Vector2.ZERO)
+	_mob.move_and_slide(Vector2.ZERO)
 
-	if zombie.get_slide_count() > 0:
-		var collision := zombie.get_slide_collision(0)
+	if _mob.get_slide_count() > 0:
+		var collision := _mob.get_slide_collision(0)
 		if collision.collider is StaticObject:
-			bad_spawns.append(zombie)
+			bad_spawns.append(_mob)
 			return
 
 	var map_nav := get_parent().get_node("TileMap/Navigation2D")
 
-	zombie.nav = map_nav
-	zombie.global_position = position
-	zombie.speed *= rand_range(1.0,1.5)
+	_mob.nav = map_nav
+	_mob.global_position = position
 
-	if .07 > randf():
-		zombie.fsm.travel_to(ZombieRestState.new(zombie))
+	if _mob.is_in_group(Global.GROUP_ZOMBIE):
+		_mob.speed *= rand_range(1.0,1.5)
+		if .07 > randf():
+			_mob.fsm.travel_to(ZombieRestState.new(_mob))
 
-	emit_signal("on_mob_spawned", zombie)
+	emit_signal("on_mob_spawned", _mob)
 
 func _spawn_object(scene, position : Vector2) -> void:
 	if scene is PackedScene:
