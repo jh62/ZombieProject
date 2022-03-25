@@ -39,7 +39,6 @@ func update(delta) -> void:
 		owner.target = threat
 		var state = owner.States.walk.new(owner)
 		owner.fsm.travel_to(state)
-		print_debug("no threat")
 		return
 
 	var target = owner.target
@@ -53,7 +52,6 @@ func update(delta) -> void:
 		owner.target = threat
 		var new_state = owner.States.walk.new(owner)
 		owner.fsm.travel_to(new_state)
-		print_debug("done fleeing")
 		return
 
 	var wp : Vector2 = owner.waypoints[wp_idx]

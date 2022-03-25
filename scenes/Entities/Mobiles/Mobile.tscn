@@ -16,3 +16,5 @@ vframes = 5
 region_rect = Rect2( 32, 16, 128, 16 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]

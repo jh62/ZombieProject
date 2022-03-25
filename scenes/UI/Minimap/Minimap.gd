@@ -30,7 +30,7 @@ func _process(delta):
 		var mob_marker = markers[mob]
 
 		if !mob.is_alive():
-			mob_marker.call_deferred("queue_free")
+			mob_marker.queue_free()
 			markers.erase(mob)
 			continue
 
@@ -45,6 +45,7 @@ func _process(delta):
 				alpha = 0.0
 			if mob.target != null:
 				mob_marker.modulate =  Color(1.0,1.0,0.0,alpha) if (mob.target is Vector2) else Color(1.0,0.0,0.0,alpha)
+
 			mob_marker.modulate.a = alpha
 			mob_marker.show()
 		else:

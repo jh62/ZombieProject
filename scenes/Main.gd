@@ -65,24 +65,21 @@ func _ready() -> void:
 
 			n_ZombieSpawner.mob_max = 150
 			n_ZombieSpawner.mob_group_max = 4
-			n_ZombieSpawner.spawn_delay_sec = 0.5
-			n_ZombieSpawner.restart_delay = 12
+			n_ZombieSpawner.spawn_delay_sec = 30
 		Globals.Difficulty.NORMAL:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 120
 
 			n_ZombieSpawner.mob_max = 200
 			n_ZombieSpawner.mob_group_max = 8
-			n_ZombieSpawner.spawn_delay_sec = 0.35
-			n_ZombieSpawner.restart_delay = 10
+			n_ZombieSpawner.spawn_delay_sec = 25
 		Globals.Difficulty.HARD:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 90
 
 			n_ZombieSpawner.mob_max = 250
 			n_ZombieSpawner.mob_group_max = 10
-			n_ZombieSpawner.spawn_delay_sec = 0.25
-			n_ZombieSpawner.restart_delay = 8
+			n_ZombieSpawner.spawn_delay_sec = 20
 
 	if weapon != null:
 		yield(get_tree().create_timer(.25),"timeout")

@@ -1982,6 +1982,7 @@ tracks/4/keys = {
 [sub_resource type="Animation" id=27]
 resource_name = "idle_n"
 length = 0.666667
+loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -2805,9 +2806,10 @@ position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
-light_mask = 9
+light_mask = 8
 texture = ExtResource( 10 )
-normal_map = ExtResource( 12 )
+normal_map = ExtResource( 16 )
+frame = 16
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 autoplay = "idle_e"

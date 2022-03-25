@@ -14,6 +14,11 @@ func _init(owner).(owner):
 func get_name():
 	return "walk"
 
+func update_waypoints(target) -> void:
+	var target_pos = target if (target is Vector2) else target.global_position
+	owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
+	wp_idx = 0
+
 func enter_state() -> void:
 	wp_idx = 0
 	last_growl = OS.get_ticks_msec()
@@ -22,8 +27,11 @@ func enter_state() -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-	if owner.target != null && (owner.target is Mobile):
-		knows_about = 7.0
+	if owner.target != null:
+		update_waypoints(owner.target)
+
+		if owner.target is Mobile:
+			knows_about = 7.0
 
 func update(delta) -> void:
 	if !owner.can_move:
@@ -57,9 +65,7 @@ func update(delta) -> void:
 		var _now = OS.get_ticks_msec() - last_update
 
 		if _now > update_delay:
-			var target_pos = target if (target is Vector2) else target.global_position
-			owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
-			wp_idx = 0
+			update_waypoints(owner.target)
 			last_update = OS.get_ticks_msec()
 
 	if owner.waypoints.empty() || wp_idx >= owner.waypoints.size():
@@ -80,7 +86,7 @@ func update(delta) -> void:
 
 	owner.vel += owner.speed * owner.dir
 	owner.vel = owner.move_and_slide(owner.vel)
-	owner.vel = owner.vel.clamped(owner.speed)
+	owner.vel = owner.vel.clamped(owner.max_speed)
 
 	if owner.is_visible_in_viewport():
 		if owner.get_slide_count() > 0:

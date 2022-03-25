@@ -7,18 +7,23 @@
 
 [node name="Tree10" parent="." index="9" instance=ExtResource( 2 )]
 position = Vector2( -8, 24 )
+enabled = false
 
 [node name="Tree11" parent="." index="10" instance=ExtResource( 2 )]
 position = Vector2( -10, 41 )
+enabled = false
 
 [node name="Tree12" parent="." index="11" instance=ExtResource( 2 )]
 position = Vector2( -9, 56 )
+enabled = false
 
 [node name="Tree13" parent="." index="12" instance=ExtResource( 2 )]
 position = Vector2( -9, 73 )
+enabled = false
 
 [node name="Tree14" parent="." index="13" instance=ExtResource( 2 )]
 position = Vector2( 3, 68 )
+enabled = false
 
 [node name="Tree15" parent="." index="14" instance=ExtResource( 2 )]
 position = Vector2( 4, 54 )
@@ -40,39 +45,47 @@ position = Vector2( 18, 62 )
 
 [node name="Tree21" parent="." index="20" instance=ExtResource( 2 )]
 position = Vector2( 14, 77 )
+enabled = false
 
 [node name="Tree22" parent="." index="21" instance=ExtResource( 2 )]
 position = Vector2( 27, 73 )
+enabled = false
 
 [node name="Tree23" parent="." index="22" instance=ExtResource( 2 )]
 position = Vector2( 39, 79 )
+enabled = false
 
 [node name="Tree24" parent="." index="23" instance=ExtResource( 2 )]
 position = Vector2( 36, 66 )
+enabled = false
 
 [node name="Tree25" parent="." index="24" instance=ExtResource( 2 )]
 position = Vector2( 30, 55 )
 
 [node name="Tree26" parent="." index="25" instance=ExtResource( 2 )]
 position = Vector2( 41, 48 )
+enabled = false
 
 [node name="Tree27" parent="." index="26" instance=ExtResource( 2 )]
 position = Vector2( 31, 38 )
 
 [node name="Tree28" parent="." index="27" instance=ExtResource( 2 )]
 position = Vector2( 41, 32 )
+enabled = false
 
 [node name="Tree29" parent="." index="28" instance=ExtResource( 2 )]
 position = Vector2( 30, 22 )
 
 [node name="Tree30" parent="." index="29" instance=ExtResource( 2 )]
 position = Vector2( 42, 17 )
+enabled = false
 
 [node name="Tree31" parent="." index="30" instance=ExtResource( 2 )]
 position = Vector2( 33, 9 )
 
 [node name="Tree32" parent="." index="31" instance=ExtResource( 2 )]
 position = Vector2( 43, -1 )
+enabled = false
 
 [node name="VisibilityEnabler2D" parent="." index="32"]
 position = Vector2( 15, 28.5 )

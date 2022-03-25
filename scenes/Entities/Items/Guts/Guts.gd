@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+const blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
+const squish := preload("res://assets/sfx/impact/flesh_impact_1.wav")
+
 export var decay_time := 1.0
 
 var decay_time_elapsed := 0.0
@@ -23,3 +26,10 @@ func _process(delta):
 			call_deferred("queue_free")
 		return
 	decay_time_elapsed += delta
+
+func _on_Guts_body_entered(body):
+	if body is Mobile:
+		if Global.GameOptions.graphics.render_blood:
+			EventBus.emit_signal("on_object_spawn", blood, global_position)
+			EventBus.emit_signal("play_sound", squish, global_position)
+			call_deferred("queue_free")

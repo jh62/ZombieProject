@@ -7,18 +7,23 @@
 script = ExtResource( 2 )
 
 [node name="Tree" parent="." instance=ExtResource( 1 )]
+enabled = false
 
 [node name="Tree2" parent="." instance=ExtResource( 1 )]
 position = Vector2( -9, -7 )
+enabled = false
 
 [node name="Tree3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 5, -15 )
+enabled = false
 
 [node name="Tree4" parent="." instance=ExtResource( 1 )]
 position = Vector2( 15, -11 )
+enabled = false
 
 [node name="Tree5" parent="." instance=ExtResource( 1 )]
 position = Vector2( 13, 3 )
+enabled = false
 
 [node name="Tree6" parent="." instance=ExtResource( 1 )]
 position = Vector2( 4, 13 )
@@ -33,6 +38,7 @@ position = Vector2( 19, 14 )
 position = Vector2( 27, -2 )
 
 [node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+show_behind_parent = true
 position = Vector2( 7, -4.5 )
 scale = Vector2( 3.1, 2.95 )
 process_parent = true

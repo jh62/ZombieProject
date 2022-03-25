@@ -1,7 +1,7 @@
 class_name CrawlerIdleState extends State
 
+var update_delay : float
 var last_update := 0
-var update_delay := 2000 #650
 
 func _init(owner).(owner):
 	pass
@@ -18,6 +18,7 @@ func enter_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", false)
 
+	update_delay = randi() % 700 + 2000
 	last_update = OS.get_ticks_msec()
 
 func update(delta) -> void:

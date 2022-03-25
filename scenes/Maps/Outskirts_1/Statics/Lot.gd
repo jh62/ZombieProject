@@ -4,7 +4,6 @@ onready var sprite_top := $SpriteTop
 onready var occluder := $Sprite/LightOccluder2D
 
 func _on_body_entered(body : Node2D):
-	print_debug(body.dir.y)
 	if body.dir.y < 0:
 		sprite_top.self_modulate.a = .75
 		sprite_top.z_index = 1

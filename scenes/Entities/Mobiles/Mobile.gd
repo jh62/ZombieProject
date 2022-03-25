@@ -81,3 +81,9 @@ func is_visible_in_viewport() -> bool:
 
 func set_can_move(_can_move) -> void:
 	can_move = _can_move
+
+func _on_VisibilityNotifier2D_screen_exited():
+	pass # Replace with function body.
+
+func _on_screen_exited():
+	pass

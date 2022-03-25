@@ -23,6 +23,7 @@ const Sounds  := {
 }
 
 export var AI : Script
+export var Nav2D : NodePath
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
@@ -42,11 +43,13 @@ func _ready() -> void:
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
+	if !Nav2D.is_empty():
+		nav = get_node(Nav2D).get_node("TileMap/Navigation2D")
+
 	if AI != null:
 		fsm.current_state = AI.new(self)
 	else:
 		fsm.current_state = States.idle.new(self)
-	area_collision.shape.radius = sight_radius
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
@@ -56,7 +59,6 @@ func _ready() -> void:
 			hearing_distance = 350
 			awareness_timer = 15
 			attack_damage = 4
-			hitpoints = max_hitpoints
 		Globals.Difficulty.NORMAL:
 			max_hitpoints = 12
 			max_speed = 8
@@ -66,6 +68,10 @@ func _ready() -> void:
 			attack_damage = 3.25
 		_:
 			pass
+
+	hitpoints = max_hitpoints
+	damage = attack_damage
+	area_collision.shape.radius = sight_radius
 
 func _on_player_death(player : Node2D) -> void:
 	yield(get_tree(),"idle_frame")

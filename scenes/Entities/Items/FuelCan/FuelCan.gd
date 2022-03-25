@@ -62,12 +62,18 @@ func _on_Area2D_body_entered(body):
 		return
 
 	var p = body as Player
+	var fuelcan = p.find_node("FuelCan*",false, false)
 
-	if p.find_node("FuelCan*",false, false):
+	if fuelcan:
+		if fuelcan.fuel_amount >= Global.MAX_FUEL_LITERS:
+			return
+
+		fuelcan.fuel_amount += fuel_amount
+		EventBus.emit_signal("play_sound", SoundPickUp, global_position)
+		queue_free()
 		return
 
 	p.connect("on_search_start", self, "on_action_pickup")
-
 	show_label(true)
 
 func _on_Area2D_body_exited(body):
@@ -84,6 +90,13 @@ func on_action_pickup(mob) -> void:
 	yield(parent.get_tree(),"idle_frame")
 
 	player = mob
+#	var fuelcan = player.find_node("FuelCan*",false, false)
+#
+#	if fuelcan:
+#		fuelcan.fuel_amount += fuel_amount
+#		queue_free()
+#		return
+
 	player.connect("on_death", self, "on_player_death")
 	player.add_child(self)
 
@@ -103,7 +116,8 @@ func on_use_stop(mob := null) -> void:
 	$AudioStreamPlayer.play()
 
 func queue_free() -> void:
-	yield($AudioStreamPlayer,"finished")
+	if $AudioStreamPlayer.playing:
+		yield($AudioStreamPlayer,"finished")
 	.queue_free()
 
 func show_label(_visible) -> void:

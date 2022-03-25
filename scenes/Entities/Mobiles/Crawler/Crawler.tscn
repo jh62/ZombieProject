@@ -2836,6 +2836,7 @@ position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
+light_mask = 8
 texture = ExtResource( 4 )
 normal_map = ExtResource( 12 )
 hframes = 2
