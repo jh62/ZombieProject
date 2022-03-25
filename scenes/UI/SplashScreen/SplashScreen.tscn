@@ -1,36 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=1]
-[ext_resource path="res://assets/ui/logo08.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/DAU_newlogo_small.png" type="Texture" id=1]
 [ext_resource path="res://scenes/UI/SplashScreen/SplashScreen.gd" type="Script" id=4]
 
 [node name="SplashScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TextureRect_Background" type="TextureRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect_Logo" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -67.5
+margin_right = 67.5
+margin_bottom = 54.9999
 texture = ExtResource( 1 )
 expand = true
 stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect_Logo" type="TextureRect" parent="."]
-anchor_left = 0.3
-anchor_top = 0.0888889
-anchor_right = 0.721875
-anchor_bottom = 0.394444
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_left = 0.5
@@ -55,5 +46,28 @@ align = 1
 valign = 1
 
 [node name="Tween" type="Tween" parent="CenterContainer"]
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -52.0
+margin_bottom = 102.0
+
+[node name="LabelTips" type="RichTextLabel" parent="."]
+anchor_left = 0.2
+anchor_top = 0.755556
+anchor_right = 0.8
+anchor_bottom = 0.977778
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+bbcode_text = "adasdadasa"
+meta_underlined = false
+fit_content_height = true
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [connection signal="tween_completed" from="CenterContainer/Tween" to="." method="_on_Tween_tween_completed"]

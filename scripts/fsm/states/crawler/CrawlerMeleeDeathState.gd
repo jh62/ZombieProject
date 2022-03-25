@@ -16,17 +16,9 @@ func get_name():
 	return "melee"
 
 func enter_state() -> void:
-	var anim_name : String
-
-	match melee_type:
-		MeleeWeapon.MeleeType.EDGED:
-			anim_name = "die_sliced"
-		_:
-			anim_name = "headshot"
-
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:anim_name,1:facing}))
+	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)

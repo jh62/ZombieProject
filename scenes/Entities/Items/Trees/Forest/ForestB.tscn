@@ -88,5 +88,6 @@ position = Vector2( 43, -1 )
 enabled = false
 
 [node name="VisibilityEnabler2D" parent="." index="32"]
+visible = false
 position = Vector2( 15, 28.5 )
 scale = Vector2( 3.6, 5.95 )

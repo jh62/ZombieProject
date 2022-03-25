@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/logo04.png-2c2f26064576ba77563639691975e6a2.stex"
+path="res://.import/DAU_newlogo_small.png-ae0e50c3dc399db07378b1f52ab79d12.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/logo04.png"
-dest_files=[ "res://.import/logo04.png-2c2f26064576ba77563639691975e6a2.stex" ]
+source_file="res://assets/ui/DAU_newlogo_small.png"
+dest_files=[ "res://.import/DAU_newlogo_small.png-ae0e50c3dc399db07378b1f52ab79d12.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=2
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

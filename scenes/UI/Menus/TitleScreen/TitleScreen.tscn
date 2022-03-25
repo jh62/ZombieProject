@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/titlescreen.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/smoke.png" type="Texture" id=4]
-[ext_resource path="res://assets/ui/logo08.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/DAU_newlogo_small.png" type="Texture" id=5]
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
@@ -675,9 +675,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 6 )
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 parallax_speed = 150.0
 
 [node name="ActiveMenu" type="Control" parent="."]
@@ -811,7 +808,7 @@ margin_top = 18.0
 margin_right = 126.0
 margin_bottom = 31.0
 mouse_filter = 0
-text = "Real mags"
+text = "Real magazines"
 script = SubResource( 4 )
 
 [node name="CheckBoxRealMags" type="CheckBox" parent="ActiveMenu/OptionsMenu/TabContainer/Gameplay/Grid" groups=["ui_checkbox"]]
@@ -1350,11 +1347,10 @@ anchor_left = 0.3375
 anchor_top = 0.444444
 anchor_right = 0.6625
 anchor_bottom = 0.533333
+margin_top = -15.9999
+margin_bottom = -15.9999
 rect_pivot_offset = Vector2( -52, -95.9999 )
 custom_styles/panel = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Graphics/Banner"]
 anchor_top = 0.625004
