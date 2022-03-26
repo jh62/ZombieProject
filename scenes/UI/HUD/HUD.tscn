@@ -151,10 +151,10 @@ texture_progress = ExtResource( 10 )
 fill_mode = 3
 
 [node name="Gun" type="MarginContainer" parent="."]
-anchor_left = 0.69375
-anchor_top = 0.794444
-anchor_right = 0.846875
-anchor_bottom = 0.994444
+anchor_left = 0.7625
+anchor_top = 0.8
+anchor_right = 0.915625
+anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -274,9 +274,6 @@ margin_bottom = 16.0
 grow_horizontal = 0
 mouse_filter = 2
 custom_styles/panel = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ProgressBar" type="TextureProgress" parent="GasTank"]
 margin_right = 24.0
@@ -302,10 +299,14 @@ align = 1
 valign = 2
 
 [node name="Minimap" parent="." instance=ExtResource( 12 )]
-anchor_left = 0.840625
-anchor_top = 0.711111
-anchor_right = 0.990625
-anchor_bottom = 0.977778
+anchor_left = 0.925
+anchor_top = 0.861111
+anchor_right = 1.0
+anchor_bottom = 0.994444
+margin_left = -2.0
+margin_top = -1.0
+margin_right = -2.0
+margin_bottom = -1.0
 
 [node name="Tween" type="Tween" parent="."]
 

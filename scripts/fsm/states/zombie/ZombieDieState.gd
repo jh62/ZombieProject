@@ -14,7 +14,7 @@ const SoundZombieDown := [
 
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
-var can_raise := false
+var can_raise
 var elapsed := 0.0
 var dead_time := rand_range(5.0,18.0)
 
@@ -34,6 +34,8 @@ func enter_state() -> void:
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
+
+	can_raise = Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD && owner.down_times < 3
 
 	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
@@ -57,13 +59,7 @@ func _on_animation_started(anim : String) -> void:
 	EventBus.emit_signal("play_sound_random", SoundZombieDown, owner.global_position)
 
 func _on_animation_finished(anim : String) -> void:
-	if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
-		if owner.down_times >= 3:
-			owner.set_process(false)
-			owner.set_physics_process(false)
-		else:
-			can_raise = true
-
+	if can_raise:
 		return
 
 	if !Global.GameOptions.graphics.corpses_decay:

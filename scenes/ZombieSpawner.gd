@@ -1,6 +1,6 @@
 extends Node2D
 
-export var is_active := true
+export var is_active := true setget set_active
 export var mob_max := 250
 export var mob_group_max := 4
 export var restart_delay := 30.0
@@ -41,6 +41,12 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 func _on_Timer_timeout():
 	if !is_active:
 		n_timer.stop()
+
+		for m in get_tree().get_nodes_in_group(Global.GROUP_ZOMBIE):
+			m.call_deferred("queue_free")
+
+		for m in get_tree().get_nodes_in_group(Global.GROUP_SPECIAL):
+			m.call_deferred("queue_free")
 		return
 
 	if spawn_count < mob_max:
@@ -59,4 +65,9 @@ func _on_Timer_timeout():
 			spawn_count += 1
 
 	n_timer.start(restart_delay)
-	print_debug("restarted with {0} zombies alive".format({0:spawn_count}))
+
+func set_active(active : bool) -> void:
+	is_active = active
+
+	if is_active && n_timer.is_stopped():
+		n_timer.start()

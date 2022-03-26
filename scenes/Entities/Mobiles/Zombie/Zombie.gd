@@ -60,7 +60,7 @@ func _ready() -> void:
 			awareness_timer = 15
 			attack_damage = 4
 		Globals.Difficulty.NORMAL:
-			max_hitpoints = 12
+			max_hitpoints = 20
 			max_speed = 8
 			sight_radius = 90
 			hearing_distance = 325
