@@ -855,17 +855,6 @@ position = Vector2( 600, 630.5 )
 [node name="PickableWeapon4" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
 position = Vector2( 298.8, 472.5 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 96, 300 )
-random_drop = false
-weapon_name = 4
-
-[node name="PickableWeapon2" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 47, 284 )
-random_drop = false
-weapon_name = 2
-bullets = 10
-
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
 [node name="Player" parent="TileMap/Entities/Mobs" instance=ExtResource( 2 )]

@@ -84,6 +84,7 @@ func _ready() -> void:
 	if weapon != null:
 		yield(get_tree().create_timer(.25),"timeout")
 		n_Player.equip_item(weapon)
+		weapon.reload()
 
 	var _weps_spawned := 0
 	var _max_weapons := (randi() % 2 + 1)
