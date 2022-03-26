@@ -57,7 +57,7 @@ func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	n_LabelLootCount.text = "x {0}".format({0:n_player.loot_count})
 
-func update_weapon_status(weapon_type := -1) -> void:
+func update_weapon_status() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	var weapon = n_player.equipment.get_item()
 
@@ -80,6 +80,8 @@ func update_weapon_status(weapon_type := -1) -> void:
 
 		n_AmmoIcon.texture = weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
+	else:
+		$AnimationPlayer.play("RESET")
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = n_bike.fuel_amount

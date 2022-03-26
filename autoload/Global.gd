@@ -38,7 +38,7 @@ var MAP_SIZE := Vector2()
 const GameOptions := {
 	"gameplay": {
 		"difficulty": Difficulty.NORMAL,
-		"discard_bullets": 1,
+		"discard_bullets": 0,
 		"auto_pickup": 0,
 		"death_wish": 0,
 		"joypad": 0,

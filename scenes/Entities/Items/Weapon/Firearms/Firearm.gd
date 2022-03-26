@@ -17,8 +17,9 @@ func get_mag_icon():
 	pass
 
 func _ready():
-	yield(get_tree().create_timer(.1),"timeout") # leave it or bullets don't compute properly
-	reload()
+#	yield(get_tree().create_timer(.1),"timeout") # leave it or bullets don't compute properly
+#	reload()
+	pass
 
 func update_animations() -> void:
 	.update_animations()
@@ -52,7 +53,7 @@ func _on_action_pressed(action_type, facing) -> void:
 
 			equipper.dir = Vector2.ZERO
 			equipper.busy_time += reload_time
-			EventBus.emit_signal("on_weapon_reloaded", get_weapon_type())
+			EventBus.emit_signal("on_weapon_reloaded")
 
 func _on_action_animation_started(_anim_name, _facing) -> void:
 	match _anim_name:

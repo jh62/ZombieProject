@@ -13,7 +13,6 @@ func equip(_item : BaseItem) -> void:
 		if old_item is Firearm:
 			if _item.get_weapon_type() == old_item.get_weapon_type():
 				_item.bullets += old_item.bullets
-				print_debug(old_item.bullets)
 		clear()
 
 	_item.equipper = self.owner

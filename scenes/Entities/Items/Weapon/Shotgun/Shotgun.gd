@@ -17,7 +17,7 @@ const sounds := {
 }
 
 func _ready() -> void:
-	magazine = clamp(bullets, 0, mag_size)
+	pass
 
 func get_weapon_type():
 	return Globals.WeaponNames.SHOTGUN

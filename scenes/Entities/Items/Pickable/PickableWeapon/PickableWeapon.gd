@@ -2,28 +2,34 @@ class_name PickableWeapon extends Pickable
 
 export var random_drop := false
 export(Globals.WeaponNames) var weapon_name := Globals.WeaponNames.PISTOL
-export var bullets := 0
+export var bullets := -1
+
+var magazine := -1
 
 var weapons := {
 	Globals.WeaponNames.PISTOL:{
 		"texture": preload("res://assets/res/weapon/icons/pistol.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-		"bullets": 45
+		"bullets": 45,
+		"mag_size": 10
 	},
 	Globals.WeaponNames.SHOTGUN:{
 		"texture": preload("res://assets/res/weapon/icons/shotgun.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn"),
-		"bullets": 20
+		"bullets": 20,
+		"mag_size": 6
 	},
 	Globals.WeaponNames.SMG:{
 		"texture": preload("res://assets/res/weapon/icons/smg.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn"),
-		"bullets": 90
+		"bullets": 90,
+		"mag_size": 30
 	},
 	Globals.WeaponNames.RIFLE:{
 		"texture": preload("res://assets/res/weapon/icons/rifle.tres"),
 		"scene": preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn"),
-		"bullets": 60
+		"bullets": 60,
+		"mag_size": 30
 	},
 	Globals.WeaponNames.LEADPIPE:{
 		"texture": preload("res://assets/res/weapon/icons/leadpipe.tres"),
@@ -53,10 +59,10 @@ func _ready():
 		var random_weapon : int = keys[randi()%keys.size()]
 		weapon_name = Globals.WeaponNames.values()[random_weapon]
 
-	if bullets == 0:
-		bullets = weapons.get(weapon_name).bullets
-		if Global.GameOptions.gameplay.difficulty == Global.Difficulty.HARD:
-			bullets /= 2
+#	if bullets == -1:
+#		bullets = weapons.get(weapon_name).bullets
+#		if Global.GameOptions.gameplay.difficulty == Global.Difficulty.HARD:
+#			bullets /= 2
 
 	$Sprite.texture = weapons.get(weapon_name).texture
 
@@ -82,11 +88,17 @@ func _on_Area2D_body_entered(body):
 		EventBus.emit_signal("on_tooltip", _text)
 
 func on_picked_up_by(body) -> void:
-	var item = weapons.get(weapon_name).scene.instance()
+	var weapon_info = weapons.get(weapon_name)
+	var item = weapon_info.scene.instance()
 
 	if item is Firearm:
-		item.bullets = bullets
-#		picked_sound = item.get_reload_sound().front()
+		item.bullets = weapon_info.bullets if (bullets == -1) else bullets
+		item.mag_size = weapon_info.mag_size
+
+		if magazine == -1:
+			item.reload()
+		else:
+			item.magazine = magazine
 
 	var current_wep = body.get_equipped()
 
@@ -94,7 +106,8 @@ func on_picked_up_by(body) -> void:
 	var is_firearm : bool = current_wep is Firearm && current_wep.bullets > 0
 	var not_same_weapon : bool = item.get_weapon_type() != current_wep.get_weapon_type()
 
-	if (is_melee || is_firearm) && not_same_weapon:
+#	if (is_melee || is_firearm) && not_same_weapon:
+	if not_same_weapon:
 		_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_tooltip", "")
@@ -110,5 +123,6 @@ func _create_drop(body, old_weapon) -> void:
 
 	if "bullets" in old_weapon:
 		drop.bullets = old_weapon.bullets
+		drop.magazine = old_weapon.magazine
 
 	EventBus.emit_signal("on_object_spawn", drop, body.global_position)
