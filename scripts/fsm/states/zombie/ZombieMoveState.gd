@@ -85,8 +85,7 @@ func update(delta) -> void:
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
 	owner.vel += owner.speed * owner.dir
-	owner.vel = owner.move_and_slide(owner.vel)
-	owner.vel = owner.vel.clamped(owner.max_speed)
+
 
 	if owner.is_visible_in_viewport():
 		if owner.get_slide_count() > 0:
@@ -102,6 +101,14 @@ func update(delta) -> void:
 				else:
 					var p = collider as Mobile
 					if p.fsm.current_state.get_name().begins_with("idle"):
-						p.vel = -(collision.normal * 16.25)
+						p.target = p.global_position + (collision.normal * 16.0)
+					else:
+						if owner.target == null || !(owner.target is Mobile):
+							owner.target = owner.global_position + (collision.normal * 16.0)
+						else:
+							owner.vel = collision.normal * 16.0
 			else:
-				owner.vel += collision.normal * 8.0
+				pass
+
+	owner.vel = owner.move_and_slide(owner.vel)
+	owner.vel = owner.vel.clamped(owner.max_speed)

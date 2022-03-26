@@ -15,7 +15,9 @@ var spawn_count := 0
 
 func _ready() -> void:
 	tilemap = get_parent().get_node("TileMap")
-	n_timer.start(spawn_delay_sec)
+
+	if is_active:
+		n_timer.start(spawn_delay_sec)
 
 func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 	var areas := tilemap.get_node("AreaSpawns")
@@ -39,16 +41,6 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 
 
 func _on_Timer_timeout():
-	if !is_active:
-		n_timer.stop()
-
-		for m in get_tree().get_nodes_in_group(Global.GROUP_ZOMBIE):
-			m.call_deferred("queue_free")
-
-		for m in get_tree().get_nodes_in_group(Global.GROUP_SPECIAL):
-			m.call_deferred("queue_free")
-		return
-
 	if spawn_count < mob_max:
 		_spawn_mob()
 		return
@@ -69,5 +61,19 @@ func _on_Timer_timeout():
 func set_active(active : bool) -> void:
 	is_active = active
 
+	if !is_inside_tree():
+		return
+
 	if is_active && n_timer.is_stopped():
 		n_timer.start()
+		return
+
+	if !is_active:
+		if !n_timer.is_stopped():
+			n_timer.stop()
+
+		for m in get_tree().get_nodes_in_group(Global.GROUP_ZOMBIE):
+			m.call_deferred("queue_free")
+
+		for m in get_tree().get_nodes_in_group(Global.GROUP_SPECIAL):
+			m.call_deferred("queue_free")

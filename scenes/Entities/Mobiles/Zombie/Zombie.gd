@@ -31,6 +31,7 @@ export var attack_damage := 3
 
 onready var area_perception := $AreaPerception
 onready var area_collision := $AreaPerception/CollisionShape2D
+onready var area_head := $AreaHead
 onready var damage := attack_damage
 
 var target
@@ -40,7 +41,7 @@ var down_times := 0
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
-	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
+	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
 	if !Nav2D.is_empty():
@@ -103,6 +104,7 @@ func _process_animations() -> void:
 	sprite.flip_h = facing.x < 0
 
 func kill() -> void:
+	.kill()
 	var new_state = States.headshot.new(self)
 	fsm.travel_to(new_state)
 
@@ -130,6 +132,9 @@ func _on_AreaHead_body_entered(body : Node2D):
 	body.call_deferred("queue_free")
 
 func _on_fuelcan_explode(_position):
+	if nav == null:
+		return
+
 	if target != null && !(target is Vector2):
 		return
 
@@ -139,7 +144,10 @@ func _on_fuelcan_explode(_position):
 	var target_pos = get_area_point(_position, 80.0)
 	target = nav.get_closest_point(target_pos)
 
-func _on_bullet_spawn(_position, _damage, _direction = null, aimed := false) -> void:
+func _on_weapon_fired(_position) -> void:
+	if nav == null:
+		return
+
 	if target != null && !(target is Vector2):
 		return
 

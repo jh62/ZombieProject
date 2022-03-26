@@ -21,7 +21,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.5
-height = 4.5
+height = 9.0
 
 [sub_resource type="Animation" id=40]
 length = 0.001
@@ -2801,8 +2801,6 @@ script = ExtResource( 3 )
 max_speed = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
-visible = false
-position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" parent="." index="1"]
@@ -2865,8 +2863,7 @@ collision_mask = 2
 shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="." index="4"]
-visible = false
-collision_layer = 0
+collision_layer = 512
 collision_mask = 160
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHead" index="0"]

@@ -22,8 +22,8 @@ func enter_state() -> void:
 	last_update = OS.get_ticks_msec()
 
 func update(delta) -> void:
-#	if owner.nav == null:
-#		return
+	if owner.nav == null:
+		return
 
 	if !owner.can_move:
 		return

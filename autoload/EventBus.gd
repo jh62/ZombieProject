@@ -36,7 +36,7 @@ signal fuel_emptied
 
 # Firearm signals
 signal on_weapon_reloaded
-signal on_weapon_fired
+signal on_weapon_fired(position)
 
 # SoundManager
 signal play_sound_full(sound, position, pitch, db, max_distance)

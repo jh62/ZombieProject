@@ -71,12 +71,45 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 			equipper.vel += -equipper.facing * knockback
 
-			EventBus.emit_signal("on_weapon_fired")
-			EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
-
 			var snd = get_sound_shoot()
-			emit_signal("on_use")
 			EventBus.emit_signal("play_sound_random", snd, global_position)
+
+			EventBus.emit_signal("on_weapon_fired", global_position)
+			emit_signal("on_use")
+
+			var space = get_world_2d().direct_space_state
+			var mouse_pos := get_global_mouse_position()
+
+#			if space.intersect_point(mouse_pos, 1, [], 512, false, true):
+#				var collisions = space.intersect_ray(global_position, mouse_pos, [equipper], 4, true, false)
+#
+#				if collisions.size() > 0:
+#					equipper.global_position = collisions.values()[0]
+#					print_debug(collisions.values())
+
+			var spawn_bullet := true
+			var collisions = space.intersect_point(mouse_pos, 1, [], 512, false, true)
+
+			if !collisions.empty():
+				var cc = collisions[0].collider.get_parent()
+
+				var ray : RayCast2D = equipper.ray
+				ray.enabled = true
+				ray.cast_to = global_position.direction_to(get_global_mouse_position()) * global_position.distance_to(cc.global_position) * 1.25
+				ray.force_raycast_update()
+
+				if ray.is_colliding():
+					var collider = ray.get_collider()
+					if collider == cc:
+						collider.kill()
+						spawn_bullet = false
+
+				ray.enabled = false
+
+			if spawn_bullet:
+				EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
+
+
 
 func reload() -> bool:
 	if bullets == 0:

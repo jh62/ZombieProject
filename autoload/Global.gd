@@ -31,7 +31,7 @@ const GROUP_SPECIAL := "special"
 const GROUP_FIRE := "fire"
 
 const MAX_FUEL_LITERS := 12.5 # 120.5
-const MAX_SPECIAL_ZOMBIES := 2
+const MAX_SPECIAL_ZOMBIES := 4
 
 var MAP_SIZE := Vector2()
 

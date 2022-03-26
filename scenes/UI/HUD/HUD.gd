@@ -121,11 +121,11 @@ func _on_player_loot() -> void:
 		n_Tween.interpolate_property(n_LootbagTexture,"rect_scale",n_LootbagTexture.rect_scale,Vector2(1,1), .1,n_Tween.TRANS_BOUNCE,n_Tween.EASE_OUT_IN)
 		n_Tween.start()
 
-func _on_bike_fuel_changed(amount):
+func _on_bike_fuel_changed(_amount):
 	update_fuel_status()
 
-func _on_weapon_fired() -> void:
+func _on_weapon_fired(_position ) -> void:
 	update_weapon_status()
 
-func _on_Entities_on_mob_spawned(mob):
-	n_Minimap._on_mob_spawned(mob)
+func _on_Entities_on_mob_spawned(_mob):
+	n_Minimap._on_mob_spawned(_mob)

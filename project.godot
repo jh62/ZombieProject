@@ -479,6 +479,7 @@ pause={
 2d_physics/layer_7="areas"
 2d_physics/layer_8="crosshair"
 2d_physics/layer_9="trees"
+2d_physics/layer_10="zombie_head"
 
 [physics]
 

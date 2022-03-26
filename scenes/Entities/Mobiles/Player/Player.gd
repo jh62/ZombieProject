@@ -21,6 +21,7 @@ const States := {
 
 onready var equipment := $Equipment
 onready var vision := $Vision
+onready var ray := $RayHeadshot
 
 var loot_count := 0
 var aiming = false

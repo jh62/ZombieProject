@@ -22,7 +22,7 @@ var can_move := true setget set_can_move
 
 # virtual methods
 func kill() -> void:
-	pass
+	hitpoints = 0
 
 func on_hit_by(_attacker : Node2D) -> void:
 	var angle := PI * rand_range(0.0, 2.0)

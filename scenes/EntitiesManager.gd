@@ -54,7 +54,7 @@ var bad_spawns := [] # lazy fix
 func _spawn_mob(position) -> void:
 	var _mob : Mobile
 
-	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.25 > randf()):
+	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.75 > randf()):
 		_mob = Crawler.instance()
 		print_debug("spaend crawler")
 	else:
