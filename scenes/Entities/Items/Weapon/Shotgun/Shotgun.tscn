@@ -1984,10 +1984,11 @@ region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 8 )
 damage = 21.0
 knockback = 4.0
-fire_rate = 1.0
+fire_rate = 0.47
 bullets = 50
-mag_size = 6
-reload_time = 0.88
+mag_size = 4
+reload_time = 1.18
+bullet_type = 1
 
 [node name="GunMuzzle" parent="." index="0" instance=ExtResource( 7 )]
 visible = false

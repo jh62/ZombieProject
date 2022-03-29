@@ -3,6 +3,7 @@ class_name Firearm extends BaseWeapon
 export var bullets := 0 setget set_bullets
 export var mag_size := 0
 export var reload_time := 2.0
+export(Projectile.Type) var bullet_type := Projectile.Type.BULLET
 
 onready var n_Muzzle : Sprite = get_node("GunMuzzle")
 
@@ -77,37 +78,36 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			EventBus.emit_signal("on_weapon_fired", global_position)
 			emit_signal("on_use")
 
-			var space = get_world_2d().direct_space_state
-			var mouse_pos := get_global_mouse_position()
-
-#			if space.intersect_point(mouse_pos, 1, [], 512, false, true):
-#				var collisions = space.intersect_ray(global_position, mouse_pos, [equipper], 4, true, false)
-#
-#				if collisions.size() > 0:
-#					equipper.global_position = collisions.values()[0]
-#					print_debug(collisions.values())
-
+			var weapon_type = get_weapon_type()
 			var spawn_bullet := true
-			var collisions = space.intersect_point(mouse_pos, 1, [], 512, false, true)
 
-			if !collisions.empty():
-				var cc = collisions[0].collider.get_parent()
+			match bullet_type:
+				Projectile.Type.SHELL:
+					pass
+				_:
+					var space = get_world_2d().direct_space_state
+					var mouse_pos := get_global_mouse_position()
 
-				var ray : RayCast2D = equipper.ray
-				ray.enabled = true
-				ray.cast_to = global_position.direction_to(get_global_mouse_position()) * global_position.distance_to(cc.global_position) * 1.25
-				ray.force_raycast_update()
+					var collisions = space.intersect_point(mouse_pos, 1, [], 512, false, true)
 
-				if ray.is_colliding():
-					var collider = ray.get_collider()
-					if collider == cc:
-						collider.kill()
-						spawn_bullet = false
+					if !collisions.empty():
+						var cc = collisions[0].collider.get_parent()
 
-				ray.enabled = false
+						var ray : RayCast2D = equipper.ray
+						ray.enabled = true
+						ray.cast_to = global_position.direction_to(get_global_mouse_position()) * global_position.distance_to(cc.global_position) * 1.25
+						ray.force_raycast_update()
+
+						if ray.is_colliding():
+							var collider = ray.get_collider()
+							if collider == cc:
+								collider.kill()
+								spawn_bullet = false
+
+						ray.enabled = false
 
 			if spawn_bullet:
-				EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming)
+				EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming, bullet_type)
 
 
 

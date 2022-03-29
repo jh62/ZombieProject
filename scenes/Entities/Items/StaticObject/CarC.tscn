@@ -25,7 +25,8 @@ occluder = SubResource( 1 )
 light_mask = 1
 
 [node name="CollisionShape" parent="." index="1"]
-polygon = PoolVector2Array( 14, -5, 9, -5, 7, -8, -4, -8, -6.02908, -5, -15, -5, -15, 4, 14, 4 )
+visible = true
+polygon = PoolVector2Array( -15, 0, 0, 5, 14, 0, 0, -8 )
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
 polygon = PoolVector2Array( -4, -9, 7, -9, 9, -6, 15, -6, 15, 5, -16, 5, -16, -6, -6, -6 )

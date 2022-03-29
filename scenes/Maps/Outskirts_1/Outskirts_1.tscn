@@ -937,6 +937,27 @@ position = Vector2( 570, 386 )
 [node name="ForestA2" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
 position = Vector2( 399, 248 )
 
+[node name="ForestA38" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 350, 244 )
+
+[node name="ForestA39" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 312, 229 )
+
+[node name="ForestA40" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 310, 199 )
+
+[node name="ForestA41" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 320, 162 )
+
+[node name="ForestA42" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 370, 154 )
+
+[node name="ForestA43" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 359, 188 )
+
+[node name="ForestA44" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
+position = Vector2( 382, 217 )
+
 [node name="ForestA3" parent="TileMap/MapObjects/Objects/Forests/Forest6" instance=ExtResource( 5 )]
 position = Vector2( 448, 221 )
 

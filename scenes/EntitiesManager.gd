@@ -2,7 +2,11 @@ extends YSort
 
 signal on_mob_spawned(mob)
 
-const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
+const BULLET_TYPE := {
+	Projectile.Type.BULLET: preload("res://scenes/Entities/Items/Projectile/Projectile.tscn"),
+	Projectile.Type.SHELL: preload("res://scenes/Entities/Items/Projectile/Shells/Shells.tscn")
+}
+
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
 const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
@@ -17,8 +21,8 @@ func _ready() -> void:
 	EventBus.connect("on_object_spawn", self, "_spawn_object")
 	EventBus.connect("on_weapon_reloaded", self, "_on_weapon_reloaded")
 
-func _spawn_bullet(position, damage, knockback := 0.0, aimed := false) -> void:
-	var bullet : Projectile = Bullet.instance()
+func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0) -> void:
+	var bullet = BULLET_TYPE.get(type, Projectile.Type.BULLET).instance()
 	var target_pos : Vector2
 
 	if Global.GameOptions.gameplay.joypad:

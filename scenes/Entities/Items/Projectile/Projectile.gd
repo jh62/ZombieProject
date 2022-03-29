@@ -1,5 +1,10 @@
 class_name Projectile extends RigidBody2D
 
+enum Type {
+	BULLET = 0,
+	SHELL
+}
+
 const HITSOUNDS := [
 		preload("res://assets/sfx/impact/ricochet_1.wav"),
 		preload("res://assets/sfx/impact/ricochet_2.wav"),
@@ -14,10 +19,10 @@ var damage := 0.0
 var knockback := 0.0
 
 func _ready() -> void:
-	$CollisionShape2D.shape.radius = 5.0
-	yield(get_tree().create_timer(.05),"timeout")
-	if is_instance_valid(self):
-		$CollisionShape2D.shape.radius = 3.5
+	pass
+#	yield(get_tree().create_timer(.05),"timeout")
+#	if is_instance_valid(self):
+#		collision.shape.radius = 3.5
 
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):
