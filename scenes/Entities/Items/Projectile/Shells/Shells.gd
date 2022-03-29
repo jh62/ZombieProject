@@ -11,5 +11,7 @@ func _ready():
 		shell.damage = damage
 		shell.knockback = knockback
 
-	$Projectile.linear_velocity.y = $Projectile.linear_velocity.rotated(-.08).y
-	$Projectile3.linear_velocity.y = $Projectile3.linear_velocity.rotated(.08).y
+	$Projectile.linear_velocity = $Projectile.linear_velocity.rotated(-.12)
+	$Projectile3.linear_velocity = $Projectile3.linear_velocity.rotated(.12)
+#	$Projectile.linear_velocity.y = $Projectile.linear_velocity.rotated(-.08).y
+#	$Projectile3.linear_velocity.y = $Projectile3.linear_velocity.rotated(.08).y

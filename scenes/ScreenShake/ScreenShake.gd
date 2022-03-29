@@ -10,6 +10,10 @@ onready var camera = get_parent()
 
 func _ready():
 	EventBus.connect("on_fuelcan_explode", self, "_on_fuelcan_explode")
+	EventBus.connect("create_shake", self, "_on_create_shake")
+
+func _on_create_shake(duration, frequency, amplitude, priority) -> void:
+	start(duration, frequency, amplitude, priority)
 
 func start(duration = 0.2, frequency = 15, amplitude = 16, priority = 0):
 	if (priority >= self.priority):

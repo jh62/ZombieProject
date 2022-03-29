@@ -19,6 +19,7 @@ func enter_state() -> void:
 
 	owner.target.is_eaten = true
 	owner.target = null
+	owner.waypoints = []
 	owner.dir = Vector2.ZERO
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 

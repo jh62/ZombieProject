@@ -5,7 +5,7 @@ const MAX_WARNINGS := 30
 var exploded = false
 
 func _ready():
-	$Area2D.set_collision_mask_bit(5, true) # Bullets
+	pass
 
 func get_item_name():
 	return "vehicle"
@@ -19,7 +19,7 @@ func explode() -> void:
 	modulate = Color.white
 	$Area2D.set_collision_mask_bit(5, false) # Bullets
 	$Sprite.light_mask = 2
-	$Sprite.material.set_shader_param('difference', 0.45)
+	$Sprite.material.set_shader_param('difference', 0.65)
 
 	set_process(false)
 	set_physics_process(false)
@@ -28,9 +28,7 @@ func explode() -> void:
 
 	if search_area:
 		search_area.spawn_loot()
-		print_debug("spawned")
-#		search_area.call_deferred("queue_free")
-#		search_area.queue_free()
+		search_area.call_deferred("queue_free")
 
 	for c in get_children():
 		if c.name.begins_with("TrailSmoke"):
@@ -38,7 +36,7 @@ func explode() -> void:
 
 	var expl := preload("res://scenes/Entities/Explosion/Explosion.tscn").instance() as Explosion
 	add_child(expl)
-	expl.create_huge_explosion()
+	expl.create_huge_explosion(16)
 	expl.rotation_degrees = 180 if rotation_degrees != 0 else 0
 
 func kill() -> void:

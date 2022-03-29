@@ -20,17 +20,12 @@ var knockback := 0.0
 
 func _ready() -> void:
 	pass
-#	yield(get_tree().create_timer(.05),"timeout")
-#	if is_instance_valid(self):
-#		collision.shape.radius = 3.5
 
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):
 		body.call_deferred("on_hit_by", self)
 
 	var decal := Decal.instance()
-#	body.add_child(decal)
-#	decal.position = body.to_local(global_position)
 	EventBus.emit_signal("on_object_spawn", decal, global_position)
 
 	if !(body is Mobile):

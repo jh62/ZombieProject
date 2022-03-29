@@ -37,7 +37,7 @@ func enter_state() -> void:
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
 	if "knockback" in attacker:
-		owner.vel *= -(attacker.knockback)
+		owner.vel *= -(attacker.knockback * .25)
 
 	if attacker is Projectile:
 		EventBus.emit_signal("play_sound_random", SOUNDS.bullet_impact, owner.global_position)

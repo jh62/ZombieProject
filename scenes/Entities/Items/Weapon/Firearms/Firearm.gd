@@ -18,8 +18,6 @@ func get_mag_icon():
 	pass
 
 func _ready():
-#	yield(get_tree().create_timer(.1),"timeout") # leave it or bullets don't compute properly
-#	reload()
 	pass
 
 func update_animations() -> void:
@@ -31,6 +29,11 @@ func update_animations() -> void:
 		if equipper.aiming:
 			var f := Mobile.get_facing_as_string(equipper.facing)
 			$AnimationPlayer.play("aim_" + f)
+
+func get_bullet_spawn_pos() -> Vector2:
+	if has_node("GunMuzzle"):
+		return get_node("GunMuzzle").global_position
+	return global_position
 
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
@@ -81,13 +84,6 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 			equipper.vel += -equipper.facing * knockback
 
-			var snd = get_sound_shoot()
-			EventBus.emit_signal("play_sound_random", snd, global_position)
-
-			EventBus.emit_signal("on_weapon_fired", global_position)
-			emit_signal("on_use")
-
-			var weapon_type = get_weapon_type()
 			var spawn_bullet := true
 
 			match bullet_type:
@@ -116,10 +112,25 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 						ray.enabled = false
 
 			if spawn_bullet:
-				EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming, bullet_type)
+				var _bullet_pos = equipper.global_position
+				var _equipper_facing = equipper.facing.normalized().round()
+
+				if _equipper_facing.x != 0:
+					_bullet_pos.x += _equipper_facing.x * 10
+				if _equipper_facing.y != 0:
+					_bullet_pos.y += _equipper_facing.y * 10
+				EventBus.emit_signal("on_bullet_spawn", _bullet_pos, damage, knockback, equipper.aiming, bullet_type)
+
+			var snd = get_sound_shoot()
+			EventBus.emit_signal("play_sound_random", snd, global_position)
+
+			EventBus.emit_signal("on_weapon_fired", global_position)
+			emit_signal("on_use")
+
+			EventBus.emit_signal("create_shake", .16, knockback * 4, knockback, 0)
 
 func is_magazine_empty() -> bool:
-	return magazine > 0
+	return magazine == 0
 
 func reload() -> bool:
 	if bullets == 0:

@@ -10,6 +10,9 @@ signal intro_finished
 signal on_pause
 signal on_unpause
 
+# Effect signals
+signal create_shake(duration, frequency, amplitude, priority)
+
 # HUD signals
 signal on_request_update_health
 signal on_tooltip(text)

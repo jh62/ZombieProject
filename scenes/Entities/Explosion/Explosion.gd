@@ -26,17 +26,17 @@ const ExplosionTypes := {
 func _ready():
 	pass
 
-func create_small_explosion(_radius := 16) -> void:
+func create_small_explosion(_radius := 12) -> void:
 	var t := [Type.SMALL_1, Type.SMALL_2]
 	t.shuffle()
 	explode(t.front(), _radius)
 
-func create_big_explosion(_radius := 32) -> void:
+func create_big_explosion(_radius := 16) -> void:
 	var t := [Type.BIG_1, Type.BIG_2, Type.BIG_3]
 	t.shuffle()
 	explode(t.front(), _radius)
 
-func create_huge_explosion(_radius := 48) -> void:
+func create_huge_explosion(_radius := 22) -> void:
 	explode(Type.HUGE, _radius)
 
 func explode(explosion_type, _radius := 16) -> void:
@@ -54,7 +54,7 @@ func explode(explosion_type, _radius := 16) -> void:
 		flames.dir = Vector2(rand_range(-1,1),rand_range(-1,1))
 		flames.speed = randf() * 5.0 + 3.0
 		EventBus.emit_signal("on_object_spawn", flames, global_position)
-		yield(get_tree(),"idle_frame")
+		yield(get_tree().create_timer(0.015),"timeout")
 
 func check_explosion() -> void:
 	var bodies := get_overlapping_bodies()
@@ -63,8 +63,6 @@ func check_explosion() -> void:
 			b.kill()
 		elif b.has_method("explode"):
 			b.explode()
-#		yield(get_tree(),"idle_frame")
-#		yield(get_tree().create_timer(0.015),"timeout")
 
 func _process(delta):
 	$Light2D.energy *= .96

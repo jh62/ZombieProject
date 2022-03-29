@@ -34,24 +34,23 @@ func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0
 	if !aimed:
 		var precision_margin := PlayerStatus.precision_margin_error
 		target_pos += Vector2(rand_range(-precision_margin,precision_margin),rand_range(-precision_margin,precision_margin))
-
+#
 	var direction : Vector2
-
+#
 	if Global.GameOptions.gameplay.joypad:
 		var player : Node2D = n_Mobs.get_node("Player")
 		direction = player.get_global_transform_with_canvas().origin.direction_to(target_pos)
 	else:
 		direction = position.direction_to(target_pos)
 
-	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.visible = Global.GameOptions.graphics.render_bullets
-
 	bullet.global_position = position
+	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
+	bullet.look_at(position + direction)
 
 	n_Mobs.add_child(bullet)
-	bullet.look_at(position + direction)
 
 var bad_spawns := [] # lazy fix
 
@@ -60,7 +59,7 @@ func _spawn_mob(position) -> void:
 
 	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.75 > randf()):
 		_mob = Crawler.instance()
-		print_debug("spaend crawler")
+		print_debug("CRAWLER SPAWNED")
 	else:
 		if bad_spawns.empty():
 			_mob = Zombie.instance()

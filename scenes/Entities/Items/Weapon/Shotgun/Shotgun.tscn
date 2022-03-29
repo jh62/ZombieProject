@@ -1650,7 +1650,7 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 0.0 ]
 }
 tracks/7/type = "method"
@@ -1980,10 +1980,11 @@ texture = ExtResource( 2 )
 normal_map = ExtResource( 6 )
 hframes = 2
 vframes = 5
+frame = 8
 region_rect = Rect2( 49, 37, 11, 8 )
 script = ExtResource( 8 )
 damage = 21.0
-knockback = 4.0
+knockback = 4.5
 fire_rate = 0.47
 bullets = 50
 mag_size = 4

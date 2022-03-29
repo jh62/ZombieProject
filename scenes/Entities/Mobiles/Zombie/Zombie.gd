@@ -75,18 +75,18 @@ func _ready() -> void:
 	area_collision.shape.radius = sight_radius
 
 func _on_player_death(player : Node2D) -> void:
-	yield(get_tree(),"idle_frame")
-	var p_pos := player.global_position
-	waypoints = []
-
-	if global_position.distance_to(p_pos) < 14:
-		var new_state = States.eat_wait.new(self, player)
-		fsm.travel_to(new_state)
+	if !is_alive():
 		return
-	else:
+
+	var distance := global_position.distance_to(player.global_position)
+
+	if !(target is Mobile) || distance > 14:
 		var new_state = States.idle.new(self)
 		fsm.travel_to(new_state)
 		return
+
+	var new_state = States.eat_wait.new(self, player)
+	fsm.travel_to(new_state)
 
 func _process_animations() -> void:
 	var epsilon := .25
