@@ -56,10 +56,19 @@ func _on_action_pressed(action_type, facing) -> void:
 			equipper.busy_time += reload_time
 			EventBus.emit_signal("on_weapon_reloaded")
 
+func _on_action_animation_finished(_anim_name, _facing) -> void:
+	match _anim_name:
+		"shoot":
+			if is_magazine_empty():
+				in_use = false
+				var snd = get_sound_dry()
+				EventBus.emit_signal("play_sound_random", snd, global_position)
+				return
+
 func _on_action_animation_started(_anim_name, _facing) -> void:
 	match _anim_name:
 		"shoot":
-			if magazine == 0:
+			if is_magazine_empty():
 				in_use = false
 				var snd = get_sound_dry()
 				EventBus.emit_signal("play_sound_random", snd, global_position)
@@ -109,7 +118,8 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			if spawn_bullet:
 				EventBus.emit_signal("on_bullet_spawn", global_position, damage, knockback, equipper.aiming, bullet_type)
 
-
+func is_magazine_empty() -> bool:
+	return magazine > 0
 
 func reload() -> bool:
 	if bullets == 0:
