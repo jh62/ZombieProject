@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/crawler_cry.wav-8ce51728ea6065aed6433e92a15c2aca.sample"
+
+[deps]
+
+source_file="res://assets/sfx/mobs/crawler/misc/crawler_cry.wav"
+dest_files=[ "res://.import/crawler_cry.wav-8ce51728ea6065aed6433e92a15c2aca.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

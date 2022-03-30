@@ -17,6 +17,7 @@ visible = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
+visible = true
 polygon = PoolVector2Array( -59, 52, 88, 52, 88, -49, -59, -49, -59, -42, -87, -24, -88, 38, -59, 32 )
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]

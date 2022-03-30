@@ -5,6 +5,8 @@ const SoundImpactFlesh := [
 		preload("res://assets/sfx/impact/flesh_impact_2.wav"),
 	]
 
+const CrawlerDeathSound := preload("res://assets/sfx/mobs/crawler/die/crawler_death.wav")
+
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
 var melee_type
@@ -25,6 +27,7 @@ func enter_state() -> void:
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
 	EventBus.emit_signal("play_sound_random", SoundImpactFlesh, owner.global_position)
+	EventBus.emit_signal("play_sound", CrawlerDeathSound, owner.global_position)
 
 	var guts := Guts.instance()
 	EventBus.emit_signal("on_object_spawn", guts, owner.global_position)

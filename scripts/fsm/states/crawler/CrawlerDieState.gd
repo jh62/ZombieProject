@@ -1,22 +1,8 @@
 class_name CrawlerDieState extends State
 
-const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/die/zombie_die_0.wav"),
-	preload("res://assets/sfx/mobs/zombie/die/zombie_die_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/die/zombie_die_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/die/zombie_die_3.wav"),
+const DeathSounds := [
+	preload("res://assets/sfx/mobs/crawler/die/crawler_death.wav")
 ]
-
-const SoundZombieDown := [
-	preload("res://assets/sfx/mobs/zombie/misc/zombie_down_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/misc/zombie_down_2.wav")
-]
-
-const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
-
-var can_raise := false
-var elapsed := 0.0
-var dead_time := rand_range(5.0,18.0)
 
 func _init(owner).(owner):
 	pass
@@ -35,37 +21,19 @@ func enter_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 
-	EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
-	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
-
 func update(delta) -> void:
-	if !can_raise:
-		if Global.GameOptions.graphics.corpses_decay:
-			owner.modulate.a -= 0.05 * delta
-			if owner.modulate.a <= .1:
-				owner.call_deferred("queue_free")
+	if !Global.GameOptions.graphics.corpses_decay:
 		return
 
-	if elapsed >= dead_time:
-		var new_state = owner.States.standup.new(owner)
-		owner.fsm.travel_to(new_state)
-		return
+	owner.modulate.a -= 0.05 * delta
 
-	elapsed += delta
+	if owner.modulate.a <= .1:
+		owner.call_deferred("queue_free")
 
 func _on_animation_started(anim : String) -> void:
-	EventBus.emit_signal("play_sound_random", SoundZombieDown, owner.global_position)
+	EventBus.emit_signal("play_sound_random", DeathSounds, owner.global_position)
 
 func _on_animation_finished(anim : String) -> void:
-	if Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD:
-		if owner.down_times >= 3:
-			owner.set_process(false)
-			owner.set_physics_process(false)
-		else:
-			can_raise = true
-
-		return
-
 	if !Global.GameOptions.graphics.corpses_decay:
 		owner.set_process(false)
 

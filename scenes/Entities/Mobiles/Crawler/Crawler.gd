@@ -12,9 +12,7 @@ const States := {
 
 const Sounds  := {
 	"growl":[
-		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
-		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
-		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav")
+		preload("res://assets/sfx/mobs/crawler/misc/crawler_farcry.wav")
 	]
 }
 

@@ -1,9 +1,9 @@
 class_name CrawlerAttackState extends State
 
 const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_3.wav"),
+	preload("res://assets/sfx/mobs/crawler/attack/crawler_attack_1.wav"),
+	preload("res://assets/sfx/mobs/crawler/attack/crawler_attack_2.wav"),
+	preload("res://assets/sfx/mobs/crawler/attack/crawler_attack_3.wav"),
 ]
 
 const ATTACK_DISTANCE := 16

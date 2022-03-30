@@ -40,4 +40,6 @@ func _on_animation_finished(anim : String) -> void:
 			if is_facing:
 				attack_target.on_hit_by(owner)
 
-	owner.fsm.travel_to(owner.States.idle.new(owner))
+		owner.fsm.travel_to(owner.States.idle.new(owner))
+	else:
+		owner.fsm.travel_to(owner.States.eat_wait.new(owner, attack_target))

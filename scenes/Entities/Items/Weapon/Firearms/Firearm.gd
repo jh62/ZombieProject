@@ -117,7 +117,10 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 					_bullet_pos.x += _equipper_facing.x * 10
 				if _equipper_facing.y != 0:
 					_bullet_pos.y += _equipper_facing.y * 10
+
 				EventBus.emit_signal("on_bullet_spawn", _bullet_pos, damage, knockback, equipper.aiming, bullet_type)
+
+				EventBus.emit_signal("create_shake", .05, max(14, knockback * 4), knockback, 0)
 
 			var snd = get_sound_shoot()
 			EventBus.emit_signal("play_sound_random", snd, global_position)
@@ -125,7 +128,6 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			EventBus.emit_signal("on_weapon_fired", global_position)
 			emit_signal("on_use")
 
-#			EventBus.emit_signal("create_shake", .16, knockback * 4, knockback, 0)
 
 func is_magazine_empty() -> bool:
 	return magazine == 0

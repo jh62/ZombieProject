@@ -1,6 +1,6 @@
 class_name CrawlerMoveState extends State
 
-var growl_delay := randi() % 15000 + 15000
+var growl_delay := randi() % 22000 + 15000
 var last_growl := 0.0
 
 var wp_idx := 0
@@ -42,7 +42,7 @@ func update(delta) -> void:
 	var target = owner.target
 
 	if owner.dir.length() != 0: # is going somewhere
-		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && target.is_eaten):
+		if (target == null && owner.waypoints.empty()) || ((target is Mobile) && (target.is_eaten || !target.is_alive())):
 			var new_state = owner.States.idle.new(owner)
 			owner.fsm.travel_to(new_state)
 			return
@@ -84,16 +84,17 @@ func update(delta) -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
-	if target != null && (target is Mobile):
-		var facing_direction = owner.target.global_position.direction_to(owner.global_position).dot(owner.target.facing)
+	if owner.is_visible_in_viewport():
+		if target != null && (target is Mobile):
+			var facing_direction = owner.target.global_position.direction_to(owner.global_position).dot(owner.target.facing)
 
-		if facing_direction >= 0:
-			var dist_to_target = owner.global_position.distance_to(target.global_position)
+			if facing_direction >= 0:
+				var dist_to_target = owner.global_position.distance_to(target.global_position)
 
-			if dist_to_target > 5.0:
-				var new_state = owner.States.flee.new(owner, target)
-				owner.fsm.travel_to(new_state)
-				return
+				if dist_to_target > 5.0:
+					var new_state = owner.States.flee.new(owner, target)
+					owner.fsm.travel_to(new_state)
+					return
 
 	owner.vel += owner.speed * owner.dir
 	owner.vel = owner.move_and_slide(owner.vel)

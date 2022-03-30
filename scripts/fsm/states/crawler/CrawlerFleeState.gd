@@ -1,5 +1,7 @@
 class_name CrawlerFleeState extends State
 
+const CrawlerCrySound := preload("res://assets/sfx/mobs/crawler/misc/crawler_cry.wav")
+
 var wp_idx := 0
 var last_update := 0
 var update_delay := 1500 #650
@@ -19,12 +21,13 @@ func update_waypoints(target) -> void:
 
 func enter_state() -> void:
 	wp_idx = 0
-#	owner.target = _get_new_flee_position(owner.global_position, 480, threat.facing)
 	owner.target = Vector2.ZERO
 
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+
+	EventBus.emit_signal("play_sound", CrawlerCrySound, owner.global_position)
 
 func update(delta) -> void:
 	if !owner.can_move || threat == null || !threat.is_alive():

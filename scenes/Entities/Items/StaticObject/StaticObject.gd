@@ -45,6 +45,7 @@ export(MaterialType) var material_type := MaterialType.CEMENT
 
 onready var n_sprite := $Sprite
 onready var n_Area2d := $Area2D
+onready var n_Collision := $CollisionShape
 
 var hitpoints := 0 setget set_hitpoints
 
@@ -81,14 +82,16 @@ func _on_body_exited(body):
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(true)
 	set_physics_process(true)
-	$Area2D.monitorable = true
-	$Area2D.monitorable = true
+	n_Area2d.monitorable = true
+	n_Area2d.monitorable = true
+	n_Collision.disabled = false
 
 func _on_VisibilityNotifier2D_screen_exited():
 	set_process(false)
 	set_physics_process(false)
-	$Area2D.monitorable = false
-	$Area2D.monitorable = false
+	n_Area2d.monitorable = false
+	n_Area2d.monitorable = false
+	n_Collision.disabled = true
 
 func set_hitpoints(value) -> void:
 	hitpoints = clamp(value, 0.0, max_hitpoints)
