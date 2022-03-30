@@ -44,6 +44,7 @@ const hit_sounds := {
 export(MaterialType) var material_type := MaterialType.CEMENT
 
 onready var n_sprite := $Sprite
+onready var n_Area2d := $Area2D
 
 var hitpoints := 0 setget set_hitpoints
 
@@ -74,7 +75,8 @@ func _on_body_entered(body : Node2D):
 	n_sprite.self_modulate.a = .35
 
 func _on_body_exited(body):
-	n_sprite.self_modulate.a = 1.0
+	if n_Area2d.get_overlapping_bodies().size() == 0:
+		n_sprite.self_modulate.a = 1.0
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(true)

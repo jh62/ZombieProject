@@ -2,7 +2,7 @@ extends YSort
 
 func set_shapes_disabled(disabled : bool) -> void:
 	for c in get_children():
-		if c is StaticBody:
+		if c is TreeEntity:
 			var shape = c.get_node("CollisionShape2D")
 			if shape != null:
 				shape.disabled = disabled
@@ -17,3 +17,14 @@ func _on_VisibilityEnabler2D_screen_entered():
 
 func _on_VisibilityEnabler2D_screen_exited():
 	set_shapes_disabled(true)
+
+func _on_Area2D_body_entered(body):
+	for c in get_children():
+		if c is TreeEntity:
+			c.set_light_mask(0)
+
+
+func _on_Area2D_body_exited(body):
+	for c in get_children():
+		if c is TreeEntity:
+			c.set_light_mask(16)

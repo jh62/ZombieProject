@@ -184,6 +184,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/FX/TrailSmoke/TrailSmoke.gd"
 }, {
+"base": "StaticBody2D",
+"class": "TreeEntity",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/Trees/TreeB.gd"
+}, {
 "base": "StaticObject",
 "class": "Trees",
 "language": "GDScript",
@@ -280,6 +285,7 @@ _global_script_class_icons={
 "StaticObject": "",
 "Throwable": "",
 "TrailSmoke": "",
+"TreeEntity": "",
 "Trees": "",
 "ZombieAttackState": "",
 "ZombieDieState": "",

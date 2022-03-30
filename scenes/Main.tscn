@@ -899,36 +899,6 @@ monitorable = false
 monitoring = false
 monitorable = false
 
-[node name="PickableWeapon" parent="TileMap/Entities/Mobs" instance=ExtResource( 22 )]
-position = Vector2( 97, 295 )
-random_drop = false
-weapon_name = 1
-bullets = 9999
-
-[node name="PickableWeapon2" parent="TileMap/Entities/Mobs" instance=ExtResource( 22 )]
-position = Vector2( 125, 273 )
-random_drop = false
-weapon_name = 3
-bullets = 9999
-
-[node name="PickableWeapon4" parent="TileMap/Entities/Mobs" instance=ExtResource( 22 )]
-position = Vector2( 42, 287 )
-random_drop = false
-weapon_name = 6
-bullets = 9999
-
-[node name="PickableWeapon5" parent="TileMap/Entities/Mobs" instance=ExtResource( 22 )]
-position = Vector2( 39, 328 )
-random_drop = false
-weapon_name = 4
-bullets = 9999
-
-[node name="PickableWeapon3" parent="TileMap/Entities/Mobs" instance=ExtResource( 22 )]
-position = Vector2( 128, 325 )
-random_drop = false
-weapon_name = 2
-bullets = 9999
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

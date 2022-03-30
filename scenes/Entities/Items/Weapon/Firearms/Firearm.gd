@@ -18,7 +18,8 @@ func get_mag_icon():
 	pass
 
 func _ready():
-	pass
+	var snd = get_reload_sound()
+	EventBus.emit_signal("play_sound", snd, global_position)
 
 func update_animations() -> void:
 	.update_animations()
@@ -29,11 +30,6 @@ func update_animations() -> void:
 		if equipper.aiming:
 			var f := Mobile.get_facing_as_string(equipper.facing)
 			$AnimationPlayer.play("aim_" + f)
-
-func get_bullet_spawn_pos() -> Vector2:
-	if has_node("GunMuzzle"):
-		return get_node("GunMuzzle").global_position
-	return global_position
 
 func set_bullets(val : int) -> void:
 	bullets = max(val, 0)
@@ -86,30 +82,32 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 			var spawn_bullet := true
 
-			match bullet_type:
-				Projectile.Type.SHELL:
-					pass
-				_:
-					var space = get_world_2d().direct_space_state
-					var mouse_pos := get_global_mouse_position()
+			if equipper.aiming:
+				match bullet_type:
+					Projectile.Type.SHELL:
+						pass
+					_:
+						var space = get_world_2d().direct_space_state
+						var mouse_pos := get_global_mouse_position()
 
-					var collisions = space.intersect_point(mouse_pos, 1, [], 512, false, true)
+						var collisions = space.intersect_point(mouse_pos, 1, [], 512, false, true)
 
-					if !collisions.empty():
-						var cc = collisions[0].collider.get_parent()
+						if !collisions.empty():
+							var cc = collisions[0].collider.get_parent()
 
-						var ray : RayCast2D = equipper.ray
-						ray.enabled = true
-						ray.cast_to = global_position.direction_to(get_global_mouse_position()) * global_position.distance_to(cc.global_position) * 1.25
-						ray.force_raycast_update()
+							var ray : RayCast2D = equipper.ray
+							ray.enabled = true
+							ray.cast_to = global_position.direction_to(get_global_mouse_position()) * global_position.distance_to(cc.global_position) * 1.25
+							ray.force_raycast_update()
 
-						if ray.is_colliding():
-							var collider = ray.get_collider()
-							if collider == cc:
-								collider.kill()
-								spawn_bullet = false
+							if ray.is_colliding():
+								var collider = ray.get_collider()
+								if collider == cc:
+									collider.kill()
+									spawn_bullet = false
+									EventBus.emit_signal("create_shake", .05, 250, 4, 0)
 
-						ray.enabled = false
+							ray.enabled = false
 
 			if spawn_bullet:
 				var _bullet_pos = equipper.global_position
@@ -127,7 +125,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			EventBus.emit_signal("on_weapon_fired", global_position)
 			emit_signal("on_use")
 
-			EventBus.emit_signal("create_shake", .16, knockback * 4, knockback, 0)
+#			EventBus.emit_signal("create_shake", .16, knockback * 4, knockback, 0)
 
 func is_magazine_empty() -> bool:
 	return magazine == 0

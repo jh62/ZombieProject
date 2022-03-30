@@ -128,8 +128,7 @@ func on_hit_by(attacker) -> void:
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
-	kill()
-	body.call_deferred("queue_free")
+	pass
 
 func _on_fuelcan_explode(_position):
 	if nav == null:
