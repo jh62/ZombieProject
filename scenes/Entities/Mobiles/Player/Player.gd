@@ -79,7 +79,8 @@ func _process_animations() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	busy_time = max(busy_time - delta, 0.0)
+	var slowdown := 0.25 if (dir.length() != 0) else 1.0
+	busy_time = max(busy_time - delta * slowdown, 0.0)
 
 	if is_alive():
 		if can_move:
@@ -143,9 +144,9 @@ func _unhandled_input(event: InputEvent) -> void:
 const look_at_dir := Vector2()
 
 func _process_input() -> void:
-	if busy_time == 0.0:
-		dir.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-		dir.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
+#	if busy_time == 0.0:
+	dir.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+	dir.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 
 	var equipped := get_equipped() as BaseItem
 
@@ -163,6 +164,9 @@ func _process_input() -> void:
 		speed = max_speed * (.18 if aiming else .5)
 	else:
 		speed = max_speed * (.5 if aiming else 1.0)
+
+#	if busy_time > 0:
+#		speed = clamp(speed, 0, 3.7)
 
 	var epsilon := .35
 
