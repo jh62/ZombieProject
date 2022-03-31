@@ -855,10 +855,33 @@ position = Vector2( 600, 630.5 )
 [node name="PickableWeapon4" parent="TileMap/Entities/Statics/Weapons" instance=ExtResource( 22 )]
 position = Vector2( 298.8, 472.5 )
 
-[node name="PickableWeapon" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
-position = Vector2( 88, 292 )
+[node name="PickableWeapon10" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 112, 286 )
 random_drop = false
 weapon_name = 1
+bullets = 999999
+
+[node name="PickableWeapon11" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 112, 309 )
+random_drop = false
+weapon_name = 3
+bullets = 999999
+
+[node name="PickableWeapon14" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 131, 298 )
+random_drop = false
+weapon_name = 2
+bullets = 999999
+
+[node name="Sword" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 136, 327 )
+random_drop = false
+weapon_name = 6
+
+[node name="Lead" parent="TileMap/Entities/Statics" instance=ExtResource( 22 )]
+position = Vector2( 109, 332 )
+random_drop = false
+weapon_name = 4
 
 [node name="Mobs" type="YSort" parent="TileMap/Entities"]
 
@@ -1114,8 +1137,7 @@ custom_fonts/font = ExtResource( 23 )
 text = "Press Q to skip"
 
 [node name="LabelDemo" type="Label" parent="UI"]
-visible = false
-modulate = Color( 1, 1, 1, 0.0980392 )
+modulate = Color( 1, 1, 1, 0.313726 )
 anchor_left = 0.4375
 anchor_top = 0.927778
 anchor_right = 0.5625

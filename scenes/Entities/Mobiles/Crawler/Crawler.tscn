@@ -1791,7 +1791,6 @@ collision_layer = 4
 collision_mask = 15
 script = ExtResource( 2 )
 sight_radius = 80.0
-hearing_distance = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

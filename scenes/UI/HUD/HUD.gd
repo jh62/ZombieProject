@@ -19,7 +19,6 @@ onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Texture
 onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
 onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/VBoxContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
-onready var n_Camera := $ViewportContainer/Viewport/Camera2D
 onready var n_Minimap := $Minimap
 
 func _ready():
@@ -57,7 +56,7 @@ func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	n_LabelLootCount.text = "x {0}".format({0:n_player.loot_count})
 
-func update_weapon_status() -> void:
+func update_weapon_status(_weapon_type := -1) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	var weapon = n_player.equipment.get_item()
 

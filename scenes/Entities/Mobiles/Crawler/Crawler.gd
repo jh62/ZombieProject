@@ -19,7 +19,7 @@ const Sounds  := {
 export var Nav2D : NodePath
 export var AI : Script
 export var sight_radius := 90.0
-export var hearing_distance := 310.0
+export var hearing_distance := 180.0
 export var awareness_timer := 15.0
 export var attack_damage := 10.0
 
@@ -126,7 +126,7 @@ func _on_fuelcan_explode(_position):
 	var target_pos = get_area_point(_position, 80.0)
 	target = nav.get_closest_point(target_pos)
 
-func _on_bullet_spawn(_position, _damage, _direction = null, aimed := false) -> void:
+func _on_bullet_spawn(_position, _damage, _direction = null, aimed := false, _bullet_type := 0) -> void:
 	if target != null && !(target is Vector2):
 		return
 

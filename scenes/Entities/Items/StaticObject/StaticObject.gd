@@ -58,7 +58,7 @@ func _ready():
 	$Sprite/LightOccluder2D.visible = true
 	yield(get_tree().create_timer(.25),"timeout")
 
-	if $Area2D/CollisionShapeArea.polygon == null:
+	if is_instance_valid(self) && $Area2D/CollisionShapeArea.polygon == null:
 		var poly = $CollisionShape.get_polygon()
 		$Area2D/CollisionShapeArea.set_polygon(poly)
 		$Area2D.position += Vector2.UP * 4

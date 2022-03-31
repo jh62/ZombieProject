@@ -1,6 +1,6 @@
 class_name Globals extends Node
 
-const CINEMATIC_MODE := false
+const CINEMATIC_MODE := true
 
 const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
 const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")

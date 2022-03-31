@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tilemap_test_transparent.png-cecc1ecd643239e78abcc57fc05d5557.stex"
+path="res://.import/tileset.png-417c29efd9b66c0b0c15b5777736b38d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/maps/harbor/tilemap_test_transparent.png"
-dest_files=[ "res://.import/tilemap_test_transparent.png-cecc1ecd643239e78abcc57fc05d5557.stex" ]
+source_file="res://assets/maps/harbor/tileset.png"
+dest_files=[ "res://.import/tileset.png-417c29efd9b66c0b0c15b5777736b38d.stex" ]
 
 [params]
 

@@ -315,12 +315,18 @@ EventBus="*res://autoload/EventBus.gd"
 MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
 PlayerStatus="*res://autoload/PlayerStatus.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/width=320
 window/size/height=180
 window/size/resizable=false
 window/size/fullscreen=true
+window/size/test_width=640
+window/size/test_height=480
 mouse_cursor/custom_image="res://assets/ui/cursors/pointer64.png"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
@@ -499,14 +505,11 @@ common/enable_pause_aware_picking=true
 
 quality/intended_usage/framebuffer_allocation=0
 2d/snapping/use_gpu_pixel_snap=true
-threads/thread_model=2
-quality/directional_shadow/size=2048
-quality/shadow_atlas/size=2048
+quality/directional_shadow/size=256
+quality/shadow_atlas/size=256
 quality/shadow_atlas/cubemap_size=256
-quality/reflections/texture_array_reflections=false
-quality/reflections/high_quality_ggx=false
 quality/filters/anisotropic_filter_level=2
+batching/lights/scissor_area_threshold=0.8
+quality/lightmapping/use_bicubic_sampling=false
 limits/rendering/max_renderable_elements=1024
-limits/rendering/max_renderable_lights=20
-limits/rendering/max_lights_per_object=8
 environment/default_clear_color=Color( 0.0431373, 0.0431373, 0.0431373, 1 )

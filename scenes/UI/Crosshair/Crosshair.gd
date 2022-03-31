@@ -38,21 +38,21 @@ func _process(delta):
 		global_position = get_global_mouse_position()
 
 	if mobile.busy_time > 0.0 && !(mobile.get_equipped() is MeleeWeapon):
-		n_ProgressWheel.visible = true
+		n_ProgressWheel.visible = !Global.CINEMATIC_MODE
 		n_ProgressWheel.rect_global_position = get_global_mouse_position()
 		n_ProgressWheel.value = mobile.busy_time
 	else:
 		n_ProgressWheel.visible = false
 
 		if Global.GameOptions.gameplay.joypad:
-			n_CrosshairTexture.visible = true
+			n_CrosshairTexture.visible = !Global.CINEMATIC_MODE
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_Player_on_death():
 	if Global.GameOptions.gameplay.joypad:
 		n_CrosshairTexture.texture = Global.POINTER_64
-		n_CrosshairTexture.visible = true
+		n_CrosshairTexture.visible = !Global.CINEMATIC_MODE
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		Input.set_custom_mouse_cursor(Global.POINTER_64, Input.CURSOR_ARROW, Vector2(0,0))
@@ -107,7 +107,7 @@ func _on_Player_on_busy_time_added(time):
 
 func _on_Bike_on_full_tank():
 	if Global.GameOptions.gameplay.joypad:
-		n_CrosshairTexture.visible = true
+		n_CrosshairTexture.visible = !Global.CINEMATIC_MODE
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		Input.set_custom_mouse_cursor(Global.POINTER_64, Input.CURSOR_ARROW, Vector2(0,0))

@@ -38,7 +38,7 @@ signal fuel_changed(amount)
 signal fuel_emptied
 
 # Firearm signals
-signal on_weapon_reloaded
+signal on_weapon_reloaded(weapon_type)
 signal on_weapon_fired(position)
 
 # SoundManager
