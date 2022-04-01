@@ -13,6 +13,7 @@ collision_layer = 32
 collision_mask = 13
 mode = 2
 gravity_scale = 0.0
+continuous_cd = 1
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 2 )

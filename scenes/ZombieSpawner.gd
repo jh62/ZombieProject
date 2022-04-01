@@ -10,28 +10,27 @@ export var restartable := false
 onready var n_timer := $Timer
 onready var n_visible := $VisibilityNotifier2D
 
-var tilemap : TileMap
+onready var map : Map
 var spawn_count := 0
 
 func _ready() -> void:
-	tilemap = get_parent().get_node("TileMap")
+	yield(get_tree().create_timer(0.15),"timeout")
+	map = get_parent().n_MapManager.get_map()
 
 	if is_active:
 		n_timer.start(spawn_delay_sec)
 
 func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
-	var areas := tilemap.get_node("AreaSpawns")
+	var areas = map.n_SpawnAreas
 	for area in areas.get_children():
 		var area_pos = area.global_position
-		n_visible.global_position = area_pos
-		yield(get_tree().create_timer(0.05),"timeout")
 
-		if n_visible.is_on_screen(): # don't spawn zombies in player's view, it's not nice
+		if area.is_on_screen(): # don't spawn zombies in player's view, it's not nice
 			continue
 		for i in count:
 			var angle := rand_range(0.0, 2.0) * PI
 			var direction = Vector2(cos(angle), sin(angle))
-			var pos =  area_pos + direction * area.shape.radius
+			var pos =  area_pos + direction * area.rect.size.x
 
 			spawn_count += 1
 			EventBus.emit_signal("on_mob_spawn", pos)

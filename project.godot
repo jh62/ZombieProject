@@ -114,6 +114,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/LootItem/LootItem.gd"
 }, {
+"base": "YSort",
+"class": "Map",
+"language": "GDScript",
+"path": "res://scenes/Maps/Map.gd"
+}, {
 "base": "BaseWeapon",
 "class": "MeleeWeapon",
 "language": "GDScript",
@@ -271,6 +276,7 @@ _global_script_class_icons={
 "HitState": "",
 "IdleState": "",
 "LootItem": "",
+"Map": "",
 "MeleeWeapon": "",
 "Mobile": "",
 "Pickable": "",
@@ -314,10 +320,6 @@ Global="*res://autoload/Global.gd"
 EventBus="*res://autoload/EventBus.gd"
 MaterialPreProcessor="*res://autoload/MaterialPreProcessor.gd"
 PlayerStatus="*res://autoload/PlayerStatus.gd"
-
-[debug]
-
-settings/stdout/print_fps=true
 
 [display]
 
@@ -495,7 +497,6 @@ pause={
 
 [physics]
 
-common/physics_fps=30
 common/enable_pause_aware_picking=true
 2d/cell_size=32
 2d/default_gravity=0

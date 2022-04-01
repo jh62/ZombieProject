@@ -1,15 +1,14 @@
-extends YSort
+class_name Map extends YSort
 
-enum ColorCodes {
+enum TileMaterial {
 	GRASS,
 	CEMENT,
 	DIRT,
 	METAL
 }
 
-const sound_color_codes := {
-	ColorCodes.GRASS: {
-		"hex": "",
+const MaterialSound := {
+	TileMaterial.GRASS: {
 		"sound": {
 			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_grass_1.wav"),
@@ -25,8 +24,7 @@ const sound_color_codes := {
 			]
 		}
 	},
-	ColorCodes.CEMENT:{
-		"hex": "",
+	TileMaterial.CEMENT:{
 		"sound": {
 			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_cement_1.wav"),
@@ -42,15 +40,13 @@ const sound_color_codes := {
 			]
 		}
 	},
-	ColorCodes.DIRT:{
-		"hex": "",
+	TileMaterial.DIRT:{
 		"sound": {
 			Globals.GROUP_PLAYER: [],
 			Globals.GROUP_ZOMBIE: []
 		}
 	},
-	ColorCodes.METAL:{
-		"hex": "",
+	TileMaterial.METAL:{
 		"sound": {
 			Globals.GROUP_PLAYER: [
 				preload("res://assets/sfx/footsteps/player/footstep_metal_1.wav"),
@@ -68,29 +64,57 @@ const sound_color_codes := {
 
 export var map_name := ""
 
-onready var n_navigation := $TileMap/Navigation2D
+onready var n_TilemapBottom : TileMap = $TileMapBottom
+onready var n_TilemapTop : TileMap = $TileMapTop
+onready var n_SpawnAreas := $SpawnAreas
 
-var json : JSONParseResult
-var texture : Image
+var pathfind := AStar2D.new()
 
 func _ready():
-	var file := File.new()
-	file.open("res://assets/maps/map_test.json",File.READ)
-	json = JSON.parse(file.get_as_text())
+	Global.MAP_SIZE = n_TilemapBottom.get_used_rect().size
 
-	sound_color_codes[ColorCodes.GRASS].hex = json.result["grass"]
-	sound_color_codes[ColorCodes.CEMENT].hex = json.result["cement"]
-	sound_color_codes[ColorCodes.DIRT].hex = json.result["dirt"]
-	sound_color_codes[ColorCodes.METAL].hex = json.result["metal"]
+func _create_pathfinding() -> void:
+	var usable_tiles : PoolVector2Array
 
-	texture = $TileMap/Background.texture.get_data()
-	texture.lock()
+	var walkable_tiles = n_TilemapBottom.get_used_cells()
+	var no_walkable_tiles = n_TilemapTop.get_used_cells()
+	var max_tiles : int = walkable_tiles.size() - 1
+	for i in max_tiles:
+		var t = walkable_tiles[i]
+		if t in no_walkable_tiles:
+			continue
+		usable_tiles.append(t)
 
-	Global.MAP_SIZE = $TileMap/Background.region_rect.size
+	for tile in usable_tiles:
+		var tileid = get_tile_id(tile)
+		pathfind.add_point(tileid, tile)
 
-	_update_navigation_polygon()
+	var DIRECTIONS := [Vector2.LEFT,Vector2.UP,Vector2.RIGHT,Vector2.DOWN, Vector2.UP + Vector2.LEFT, Vector2.UP + Vector2.RIGHT, Vector2.DOWN + Vector2.LEFT, Vector2.DOWN + Vector2.RIGHT]
 
-	# generate random loot
+	for tile in usable_tiles:
+		var tileid = get_tile_id(tile)
+		for d in DIRECTIONS:
+			var neighbour : Vector2 = tile + d
+			var n_id = get_tile_id(neighbour)
+
+			if !pathfind.has_point(n_id):
+				continue
+
+			if !pathfind.are_points_connected(tileid, n_id):
+				pathfind.connect_points(tileid, n_id)
+
+func get_waypoints_to(from : Vector2, to : Vector2) -> PoolVector2Array:
+	var cell_from := n_TilemapBottom.world_to_map(from)
+	var cell_to := n_TilemapBottom.world_to_map(to)
+
+	return pathfind.get_point_path(get_tile_id(cell_from), get_tile_id(cell_to))
+
+static func get_tile_id(point : Vector2) -> int:
+	var a = point.x
+	var b = point.y
+	return (a+b) * (a+b+1) / 2+b
+
+func generate_loot() -> void:
 	for x in range(0, $TileMap/Background.region_rect.size.x, 16):
 		for y in range(0, $TileMap/Background.region_rect.size.y, 16):
 			var pos := Vector2(x, y)
@@ -101,47 +125,6 @@ func _ready():
 				var weapon := preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn").instance()
 				weapon.random_drop = true
 				EventBus.emit_signal("on_object_spawn", weapon, pos)
-
-	$TileMap/MapObjects/StreetLamps.queue_free()
-
-	for c in $TileMap/MapObjects.get_children():
-		c.visible = true
-
-func make_outlines(objects) -> void:
-	for obj in objects:
-		if !(obj is StaticObject):
-			continue
-#		if !obj.visible:
-#			return
-		var outlines : PoolVector2Array
-#		var offset = obj.get_node("Sprite").offset
-		var shape = obj.get_node("CollisionShape")
-		for p in shape.get_polygon():
-			outlines.append(obj.global_position + shape.position + p)
-
-		var n_PolyInstance := $TileMap/Navigation2D/NavigationPolygonInstance
-
-		n_PolyInstance.get_navigation_polygon().add_outline(outlines)
-		n_PolyInstance.get_navigation_polygon().make_polygons_from_outlines()
-
-func _update_navigation_polygon() -> void:
-	var n_MapObjects := $TileMap/MapObjects
-
-	var buildings := n_MapObjects.get_node("Buildings").get_children()
-	var objects := n_MapObjects.get_node("Objects").get_children()
-	var streetlamps := n_MapObjects.get_node("StreetLamps").get_children()
-	var lot := n_MapObjects.get_node("BackgroundObjects/Lot")
-
-	make_outlines([lot])
-	make_outlines(buildings)
-	make_outlines(objects)
-	make_outlines(streetlamps)
-
-	var n_PolyInstance := $TileMap/Navigation2D/NavigationPolygonInstance
-
-	n_PolyInstance.enabled = false
-	yield(get_tree(),"idle_frame")
-	n_PolyInstance.enabled = true
 
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.connect("on_footstep", self, "_on_mob_footstep")
@@ -169,18 +152,13 @@ func _on_mob_footstep(mob : Mobile) -> void:
 			step_sounds = 0
 			return
 
-	var pix := texture.get_pixel(mob.global_position.x, mob.global_position.y + 720).to_html().substr(2)
-	var code
+	var snd = MaterialSound[TileMaterial.CEMENT].sound.get(grp)
+	var volume_db
 
-	if pix in sound_color_codes.get(ColorCodes.GRASS).hex:
-		code = ColorCodes.GRASS
-	elif pix in sound_color_codes.get(ColorCodes.CEMENT).hex:
-		code = ColorCodes.CEMENT
-	elif pix in sound_color_codes.get(ColorCodes.METAL).hex:
-		code = ColorCodes.METAL
-	else:
-		return
+	match grp:
+		Globals.GROUP_ZOMBIE:
+			volume_db = Global.GameOptions.audio.zombie_footsteps
+		_:
+			volume_db = Global.GameOptions.audio.player_footsteps
 
-	var snd = sound_color_codes[code].sound.get(grp)
-	var volume_db = Global.GameOptions.audio.zombie_footsteps if (grp == Globals.GROUP_ZOMBIE) else Global.GameOptions.audio.player_footsteps
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position, rand_range(.95,1.05), volume_db)

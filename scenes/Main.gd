@@ -1,27 +1,31 @@
 extends Node2D
 
-onready var n_Tilemap := $TileMap
-onready var n_Player := $TileMap/Entities/Mobs/Player
-onready var n_Crosshair := $TileMapTileMap/Entities/Mobs/Player/Crosshair
+onready var n_MapManager := $MapManager
+onready var n_Entities := $Entities
+onready var n_Player := n_Entities.get_node("Mobs/Player")
+onready var n_Crosshair := n_Player.get_node("Crosshair")
 onready var n_ScreenMessage := $UI/ScreenMessage
 onready var n_Dialog := $UI/DialogPopup
 
 func _ready() -> void:
 	randomize()
 
+	remove_child(n_Entities)
+	n_MapManager.get_map().add_child(n_Entities)
+
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
 
-	n_Player.connect("on_footstep",n_Tilemap,"_on_mob_footstep")
+	n_Player.connect("on_footstep",n_MapManager,"_on_mob_footstep")
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
 	var n_Camera := n_Player.get_node("Camera")
-	n_Camera.limit_top = 0
-	n_Camera.limit_left = 0
-	n_Camera.limit_right = n_Tilemap.get_node("TileMap/Background").get_rect().size.x
-	n_Camera.limit_bottom = n_Tilemap.get_node("TileMap/Background").get_rect().size.y
+#	n_Camera.limit_top = 0
+#	n_Camera.limit_left = 0
+#	n_Camera.limit_right = Global.MAP_SIZE.x
+#	n_Camera.limit_bottom = Global.MAP_SIZE.y
 
 	if OS.get_name().is_subsequence_ofi("Android"):
 		$WorldEnvironment.queue_free()
@@ -33,7 +37,7 @@ func _ready() -> void:
 	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 	$WorldEnvironment.environment.adjustment_saturation = 0.0
 
-	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_Tilemap.map_name
+	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_MapManager.get_map().map_name
 	$UI/ScreenMessage/Label.percent_visible = 0
 
 	# FX
@@ -53,9 +57,9 @@ func _ready() -> void:
 	else:
 		$VignetteLayer/ColorRect.visible = true
 
-	$TileMap/Entities.connect("on_mob_spawned", n_Tilemap, "_on_mob_spawned")
+	n_Entities.connect("on_mob_spawned", n_MapManager.get_map(), "_on_mob_spawned")
 
-	var n_ZombieSpawner := $TileMap/ZombieSpawner
+	var n_ZombieSpawner := $ZombieSpawner
 	var weapon
 
 	match Global.GameOptions.gameplay.difficulty:
@@ -85,16 +89,6 @@ func _ready() -> void:
 		yield(get_tree().create_timer(.25),"timeout")
 		n_Player.equip_item(weapon)
 		weapon.reload()
-
-	var _weps_spawned := 0
-	var _max_weapons := (randi() % 2 + 1)
-
-	for i in $TileMap/Entities/Statics/Weapons.get_children():
-		var chance = randf()
-		if .52 > chance || _weps_spawned >= _max_weapons:
-			i.call_deferred("queue_free")
-			continue
-		_weps_spawned += 1
 
 	if Global.CINEMATIC_MODE:
 		$UI.layer = -1000

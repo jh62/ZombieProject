@@ -16,7 +16,7 @@ func get_name():
 
 func update_waypoints(target) -> void:
 	var target_pos = target if (target is Vector2) else target.global_position
-	owner.waypoints = owner.nav.get_simple_path(owner.global_position, target_pos, true)
+	owner.waypoints = owner.map.get_waypoints_to(owner.global_position, target_pos)
 	wp_idx = 0
 
 func enter_state() -> void:

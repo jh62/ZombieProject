@@ -22,9 +22,6 @@ func enter_state() -> void:
 	last_update = OS.get_ticks_msec()
 
 func update(delta) -> void:
-	if owner.nav == null:
-		return
-
 	if !owner.can_move:
 		return
 
@@ -34,7 +31,7 @@ func update(delta) -> void:
 		var target_pos := owner.global_position + Vector2(1.0,1.0).rotated(deg2rad(randi()%360)) * 50
 		target_pos.x = clamp(target_pos.x, 32, Global.MAP_SIZE.x - 32)
 		target_pos.y = clamp(target_pos.y, 32, Global.MAP_SIZE.y - 32)
-		var new_target = owner.nav.get_closest_point(target_pos)
+		var new_target = owner.map.get_waypoints_to(owner.global_position, target_pos)
 		owner.target = new_target
 #
 	var target = owner.target

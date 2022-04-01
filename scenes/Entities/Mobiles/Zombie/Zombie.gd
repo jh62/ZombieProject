@@ -22,8 +22,8 @@ const Sounds  := {
 	]
 }
 
-export var AI : Script
-export var Nav2D : NodePath
+export var current_map : NodePath
+export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
@@ -35,7 +35,7 @@ onready var area_head := $AreaHead
 onready var damage := attack_damage
 
 var target
-var nav : Navigation2D
+var map : Map
 var waypoints : PoolVector2Array
 var down_times := 0
 
@@ -44,11 +44,11 @@ func _ready() -> void:
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
-	if !Nav2D.is_empty():
-		nav = get_node(Nav2D).get_node("TileMap/Navigation2D")
+	assert(current_map != null, "Mobile need a reference to the current map.")
+	map = get_node(current_map)
 
-	if AI != null:
-		fsm.current_state = AI.new(self)
+	if state != null:
+		fsm.current_state = state.new(self)
 	else:
 		fsm.current_state = States.idle.new(self)
 
@@ -131,9 +131,6 @@ func _on_AreaHead_body_entered(body : Node2D):
 	pass
 
 func _on_fuelcan_explode(_position):
-	if nav == null:
-		return
-
 	if target != null && !(target is Vector2):
 		return
 
@@ -141,12 +138,9 @@ func _on_fuelcan_explode(_position):
 		return
 
 	var target_pos = get_area_point(_position, 80.0)
-	target = nav.get_closest_point(target_pos)
+	target = target_pos
 
 func _on_weapon_fired(_position) -> void:
-	if nav == null:
-		return
-
 	if target != null && !(target is Vector2):
 		return
 
@@ -154,7 +148,7 @@ func _on_weapon_fired(_position) -> void:
 		return
 
 	var target_pos = get_area_point(_position)
-	target = nav.get_closest_point(target_pos)
+	target = target_pos
 
 func get_area_point(_position, _radius := 50.0) -> Vector2:
 	var angle := rand_range(0.0, 2.0) * PI
