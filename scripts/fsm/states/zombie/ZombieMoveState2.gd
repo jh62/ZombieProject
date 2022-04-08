@@ -8,6 +8,7 @@ var last_update := 0.0
 var last_growl := 0.0
 
 var steering_force := Vector2()
+var push_force := Vector2()
 
 func _init(owner).(owner):
 	pass
@@ -72,8 +73,6 @@ func update(delta) -> void:
 		owner.fsm.travel_to(new_state)
 		return
 
-	var push_force := Vector2()
-
 	if owner.is_visible_in_viewport():
 
 		if last_growl >= growl_delay:
@@ -87,7 +86,7 @@ func update(delta) -> void:
 		var neighbors := 0
 
 
-		var ahead = owner.global_position + owner.vel.normalized() * 24.0
+		var ahead = owner.global_position + owner.vel.normalized() * 8.0
 
 		for body in owner.area_soft.get_overlapping_bodies():
 			push_force = ahead - (body.global_position + Vector2(8,8))
