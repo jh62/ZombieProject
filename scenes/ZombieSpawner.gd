@@ -4,11 +4,10 @@ export var is_active := true setget set_active
 export var mob_max := 250
 export var mob_group_max := 4
 export var restart_delay := 30.0
-export var spawn_delay_sec := 0.250
+export var spawn_delay_sec := 0.5
 export var restartable := false
 
 onready var n_timer := $Timer
-onready var n_visible := $VisibilityNotifier2D
 
 onready var map : Map
 var spawn_count := 0
@@ -25,8 +24,8 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 	for area in areas.get_children():
 		var area_pos = area.global_position
 
-		if area.is_on_screen(): # don't spawn zombies in player's view, it's not nice
-			continue
+		#if area.is_on_screen(): # don't spawn zombies in player's view, it's not nice
+		#	continue
 		for i in count:
 			var angle := rand_range(0.0, 2.0) * PI
 			var direction = Vector2(cos(angle), sin(angle))
@@ -35,8 +34,8 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 			spawn_count += 1
 			EventBus.emit_signal("on_mob_spawn", pos)
 
-		if spawn_count >= mob_max:
-			return
+			if spawn_count >= mob_max:
+				return
 
 
 func _on_Timer_timeout():
@@ -52,6 +51,10 @@ func _on_Timer_timeout():
 	spawn_count = 0
 
 	for z in get_tree().get_nodes_in_group(Globals.GROUP_ZOMBIE):
+		if z.is_alive():
+			spawn_count += 1
+
+	for z in get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL):
 		if z.is_alive():
 			spawn_count += 1
 

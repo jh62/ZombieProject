@@ -66,6 +66,7 @@ func _spawn_mob(position) -> void:
 		else:
 			_mob = bad_spawns.pop_back()
 
+	_mob = Crawler.instance()
 	n_Mobs.add_child(_mob)
 
 	# Check if spot is valid
@@ -77,9 +78,6 @@ func _spawn_mob(position) -> void:
 			bad_spawns.append(_mob)
 			return
 
-	var map_nav := get_parent().get_node("TileMap/Navigation2D")
-
-	_mob.nav = map_nav
 	_mob.global_position = position
 
 	if _mob.is_in_group(Global.GROUP_ZOMBIE):

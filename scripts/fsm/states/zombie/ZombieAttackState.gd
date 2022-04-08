@@ -17,6 +17,8 @@ func get_name():
 	return "attack"
 
 func enter_state() -> void:
+	owner.facing = owner.global_position.direction_to(attack_target.global_position).round()
+
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
@@ -31,14 +33,14 @@ func _on_animation_finished(anim : String) -> void:
 		var target_dir := owner.global_position.direction_to(target_pos)
 		var is_facing = owner.dir.dot(target_dir) > 0
 
-		var dist := owner.global_position.distance_to(target_pos)
+#		var dist := owner.global_position.distance_to(target_pos)
 
 		if owner.is_visible_in_viewport():
 			EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
-		if dist <= ATTACK_DISTANCE:
-			if is_facing:
-				attack_target.on_hit_by(owner)
+		if is_facing && attack_target in owner.area_attack.get_overlapping_bodies():
+#			if dist <= ATTACK_DISTANCE:
+			attack_target.on_hit_by(owner)
 
 		owner.fsm.travel_to(owner.States.idle.new(owner))
 	else:

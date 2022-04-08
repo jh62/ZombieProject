@@ -17,7 +17,7 @@ func enter_state() -> void:
 	var facing := "s" if owner.facing.y > 0 else "n"
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-	owner.target.is_eaten = true
+	corpse.is_eaten = true
 	owner.target = null
 	owner.waypoints = []
 	owner.dir = Vector2.ZERO

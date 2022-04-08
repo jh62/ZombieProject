@@ -37,9 +37,20 @@ func set_bullets(val : int) -> void:
 func set_magazine(val : int):
 	magazine = clamp(val, 0, mag_size)
 
+func is_obstructed() -> bool:
+	n_raycast.enabled = true
+	n_raycast.cast_to = equipper.facing * 12.0
+	n_raycast.force_raycast_update()
+	var is_colliding := n_raycast.is_colliding()
+	n_raycast.enabled = false
+	return is_colliding
+
 func _on_action_pressed(action_type, facing) -> void:
 	match action_type:
 		EventBus.ActionEvent.USE:
+			if is_obstructed():
+				return
+
 			if magazine == 0:
 				var snd = get_sound_dry()
 				EventBus.emit_signal("play_sound_random", snd, global_position)
@@ -58,6 +69,10 @@ func _on_action_pressed(action_type, facing) -> void:
 func _on_action_animation_finished(_anim_name, _facing) -> void:
 	match _anim_name:
 		"shoot":
+			if is_obstructed():
+				in_use = false
+				return
+
 			if is_magazine_empty():
 				in_use = false
 				var snd = get_sound_dry()

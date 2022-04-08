@@ -15,5 +15,6 @@ func input(event: InputEvent) -> void:
 func travel_to(new_state : State) -> void:
 	if current_state != null:
 		current_state.exit_state()
+
+	new_state.enter_state()
 	current_state = new_state
-	current_state.enter_state()

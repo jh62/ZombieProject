@@ -1,6 +1,7 @@
 class_name Globals extends Node
 
 const CINEMATIC_MODE := false
+const DEBUG_MODE := true
 
 const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
 const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")
@@ -66,3 +67,11 @@ func set_canvas_item_light_mask_value(canvas_item: CanvasItem, layer_number: int
 		canvas_item.light_mask |= 1 << (layer_number - 1)
 	else:
 		canvas_item.light_mask &= ~(1 << (layer_number - 1))
+
+static func get_area_point(_position, _radius := 50.0) -> Vector2:
+	var angle := rand_range(0.0, 2.0) * PI
+	var dir := Vector2(sin(angle),cos(angle))
+	var radius := _radius
+	var target_pos = _position + dir * radius
+
+	return target_pos

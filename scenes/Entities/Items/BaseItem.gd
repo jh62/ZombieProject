@@ -3,6 +3,7 @@ class_name BaseItem extends Sprite
 signal on_use
 
 onready var anim_p : AnimationPlayer = $AnimationPlayer
+onready var n_raycast : RayCast2D = $RayCast2D
 
 var equipper : Mobile
 var in_use := false

@@ -31,6 +31,7 @@ func enter_state() -> void:
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("SoftCollision/CollisionShape2D").set_deferred("disabled", true)
 
 	EventBus.emit_signal("play_sound_random", SoundImpactFlesh, owner.global_position)
 

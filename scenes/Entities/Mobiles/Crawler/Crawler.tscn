@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/Entities/Mobiles/Crawler/Crawler.gd" type="Script" id=2]
 [ext_resource path="res://assets/res/zombies/idle_n.tres" type="Texture" id=3]
@@ -1786,11 +1786,16 @@ radius = 80.0
 [sub_resource type="CircleShape2D" id=39]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id=41]
+radius = 14.0
+
+[sub_resource type="CircleShape2D" id=42]
+radius = 11.0
+
 [node name="Crawler" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 15
 script = ExtResource( 2 )
-sight_radius = 80.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -1836,7 +1841,6 @@ anims/walk_s = SubResource( 36 )
 anims/walk_se = SubResource( 37 )
 
 [node name="AreaPerception" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -1845,15 +1849,35 @@ shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="."]
 visible = false
-collision_layer = 0
-collision_mask = 160
+position = Vector2( 3, 6 )
+collision_layer = 512
+collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaHead"]
 position = Vector2( 0, -5 )
 shape = SubResource( 39 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+[node name="SoftCollision" type="Area2D" parent="."]
 visible = false
+collision_layer = 1024
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+shape = SubResource( 41 )
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2( 0, 2 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 42 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+rect = Rect2( -20, -20, 40, 40 )
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
 
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]

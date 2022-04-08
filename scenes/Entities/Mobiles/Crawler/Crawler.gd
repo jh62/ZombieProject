@@ -1,8 +1,10 @@
 extends Mobile
 
+const MAX_KNOWS_ABOUT := 7.0
+
 const States := {
 	"idle": preload("res://scripts/fsm/states/crawler/CrawlerIdleState.gd"),
-	"walk": preload("res://scripts/fsm/states/crawler/CrawlerMoveState.gd"),
+	"walk": preload("res://scripts/fsm/states/crawler/CrawlerMoveState2.gd"),
 	"flee": preload("res://scripts/fsm/states/crawler/CrawlerFleeState.gd"),
 	"attack": preload("res://scripts/fsm/states/crawler/CrawlerAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/crawler/CrawlerDieState.gd"),
@@ -16,40 +18,39 @@ const Sounds  := {
 	]
 }
 
-export var Nav2D : NodePath
-export var AI : Script
-export var sight_radius := 90.0
-export var hearing_distance := 180.0
+export var state : Script
+export var sight_radius := 80.0
+export var hearing_distance := 300.0
 export var awareness_timer := 15.0
-export var attack_damage := 10.0
+export var attack_damage := 3
 
 onready var area_perception := $AreaPerception
-onready var area_collision := $AreaPerception/CollisionShape2D
+onready var area_head := $AreaHead
+onready var area_soft := $SoftCollision
+onready var area_attack := $AttackArea
+
 onready var damage := attack_damage
 
 var target
-var nav : Navigation2D
+var map : Map
 var waypoints : PoolVector2Array
 var down_times := 0
+var knows_about := 0.0
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_SPECIAL)
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
-	if !Nav2D.is_empty():
-		nav = get_node(Nav2D).get_node("TileMap/Navigation2D")
-
-	if AI != null:
-		fsm.current_state = AI.new(self)
+	if state != null:
+		fsm.current_state = state.new(self)
 	else:
 		fsm.current_state = States.idle.new(self)
-	area_collision.shape.radius = sight_radius
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
 			max_hitpoints = 4.0
-			max_speed = 32.0
+			max_speed = 40.0
 			sight_radius = 110.0
 			hearing_distance = 380.0
 			awareness_timer = 18.0
@@ -57,7 +58,7 @@ func _ready() -> void:
 			hitpoints = max_hitpoints
 		Globals.Difficulty.NORMAL:
 			max_hitpoints = 3
-			max_speed = 28.0
+			max_speed = 32.0
 			sight_radius = 97.0
 			hearing_distance = 340
 			awareness_timer = 16.0
@@ -65,12 +66,15 @@ func _ready() -> void:
 		_:
 			pass
 
+	hitpoints = max_hitpoints
+	damage = attack_damage
+	area_perception.get_node("CollisionShape2D").shape.radius = sight_radius
+
 func _on_player_death(player : Node2D) -> void:
-	yield(get_tree(),"idle_frame")
-	var p_pos := player.global_position
-	waypoints = []
+	if !is_alive():
+		return
 
-
+	target = Vector2.ZERO # change to something more meaningful
 	var new_state = States.idle.new(self)
 	fsm.travel_to(new_state)
 
@@ -105,16 +109,13 @@ func on_hit_by(attacker) -> void:
 		else:
 			down_times += 1
 			new_state = States.die.new(self)
-#			else:
-#				new_state = States.headshot.new(self)
 	else:
 		new_state = States.hit.new(self, attacker)
 
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
-	kill()
-	body.call_deferred("queue_free")
+	pass
 
 func _on_fuelcan_explode(_position):
 	if target != null && !(target is Vector2):
@@ -123,31 +124,24 @@ func _on_fuelcan_explode(_position):
 	if global_position.distance_to(_position) > hearing_distance * 2.0:
 		return
 
-	var target_pos = get_area_point(_position, 80.0)
-	target = nav.get_closest_point(target_pos)
+	target = Global.get_area_point(_position, 80.0)
 
-func _on_bullet_spawn(_position, _damage, _direction = null, aimed := false, _bullet_type := 0) -> void:
+func _on_weapon_fired(_position) -> void:
 	if target != null && !(target is Vector2):
 		return
 
 	if global_position.distance_to(_position) > hearing_distance:
 		return
 
-	var target_pos = get_area_point(_position)
-	target = nav.get_closest_point(target_pos)
-
-func get_area_point(_position, _radius := 50.0) -> Vector2:
-	var angle := rand_range(0.0, 2.0) * PI
-	var dir := Vector2(sin(angle),cos(angle))
-	var radius := _radius
-	var target_pos = _position + dir * radius
-
-	return target_pos
+	target = Global.get_area_point(_position, 40.0)
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile
 
 	if !mob.is_alive():
+		return
+
+	if fsm.current_state is CrawlerFleeState:
 		return
 
 	if target != null && (target is Mobile):
@@ -158,6 +152,7 @@ func _on_AreaPerception_body_entered(body):
 			return
 
 	target = mob
+	knows_about = MAX_KNOWS_ABOUT
 
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)
@@ -172,3 +167,11 @@ func _on_screen_exited():
 
 func set_can_move(_can_move) -> void:
 	can_move = _can_move
+#
+#func _on_AttackArea_body_entered(body):
+#	if !body.is_alive():
+#		return
+#
+#	var new_state = owner.States.attack.new(owner, body)
+#	owner.fsm.travel_to(new_state)
+#	return

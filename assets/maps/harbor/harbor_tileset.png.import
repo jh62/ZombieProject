@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ground_tiles.png-57048622b6c20a257e53d4b5e7832e2f.stex"
+path="res://.import/harbor_tileset.png-ce5f523c05ab0d9a8883c0916a8e5eb2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/maps/harbor/ground_tiles.png"
-dest_files=[ "res://.import/ground_tiles.png-57048622b6c20a257e53d4b5e7832e2f.stex" ]
+source_file="res://assets/maps/harbor/harbor_tileset.png"
+dest_files=[ "res://.import/harbor_tileset.png-ce5f523c05ab0d9a8883c0916a8e5eb2.stex" ]
 
 [params]
 

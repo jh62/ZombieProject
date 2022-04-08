@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var n_MapManager := $MapManager
-onready var n_Entities := $Entities
+onready var n_Entities := $MapManager/Harbor0/Entities
 onready var n_Player := n_Entities.get_node("Mobs/Player")
 onready var n_Crosshair := n_Player.get_node("Crosshair")
 onready var n_ScreenMessage := $UI/ScreenMessage
@@ -10,52 +10,54 @@ onready var n_Dialog := $UI/DialogPopup
 func _ready() -> void:
 	randomize()
 
-	remove_child(n_Entities)
-	n_MapManager.get_map().add_child(n_Entities)
+#	remove_child(n_Entities)
+#	n_MapManager.get_map().add_child(n_Entities)
 
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
 
-	n_Player.connect("on_footstep",n_MapManager,"_on_mob_footstep")
+	n_Player.connect("on_footstep",n_MapManager.get_map(),"_on_mob_footstep")
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-	var n_Camera := n_Player.get_node("Camera")
-#	n_Camera.limit_top = 0
-#	n_Camera.limit_left = 0
-#	n_Camera.limit_right = Global.MAP_SIZE.x
-#	n_Camera.limit_bottom = Global.MAP_SIZE.y
+	var n_Camera : Camera2D = n_Player.get_node("Camera")
+	n_Camera.limit_left = 0
+	n_Camera.limit_top = 0
+	n_Camera.limit_right = Global.MAP_SIZE.x
+	n_Camera.limit_bottom = Global.MAP_SIZE.y
 
-	if OS.get_name().is_subsequence_ofi("Android"):
+	if Global.DEBUG_MODE:
 		$WorldEnvironment.queue_free()
 		$CanvasModulate.queue_free()
 	else:
 		$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
 		$CanvasModulate.visible = true
 
-	$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
-	$WorldEnvironment.environment.adjustment_saturation = 0.0
+	if !Global.DEBUG_MODE:
+		$WorldEnvironment.environment = preload("res://assets/res/env/enviroment.tres")
+		$WorldEnvironment.environment.adjustment_saturation = 0.0
 
-	$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_MapManager.get_map().map_name
-	$UI/ScreenMessage/Label.percent_visible = 0
+		$UI/ScreenMessage/Label.text = "NOW ENTERING:\n" + n_MapManager.get_map().map_name
+		$UI/ScreenMessage/Label.percent_visible = 0
 
 	# FX
 
-	if !Global.GameOptions.graphics.render_mist:
-		$MistLayer.queue_free()
-	else:
-		$MistLayer/ColorRect.visible = true
+	if !Global.DEBUG_MODE:
+		if !Global.GameOptions.graphics.render_mist:
+			$MistLayer.queue_free()
+		else:
+			$MistLayer/ColorRect.visible = true
 
-	if !Global.GameOptions.graphics.render_noise:
-		$NoiseLayer.queue_free()
-	else:
-		$NoiseLayer/ColorRect.visible = true
+		if !Global.GameOptions.graphics.render_noise:
+			$NoiseLayer.queue_free()
+		else:
+			$NoiseLayer/ColorRect.visible = true
 
-	if !Global.GameOptions.graphics.render_vignette:
-		$VignetteLayer.queue_free()
-	else:
-		$VignetteLayer/ColorRect.visible = true
+		if !Global.GameOptions.graphics.render_vignette:
+			$VignetteLayer.queue_free()
+		else:
+			$VignetteLayer/ColorRect.visible = true
 
 	n_Entities.connect("on_mob_spawned", n_MapManager.get_map(), "_on_mob_spawned")
 
@@ -65,25 +67,28 @@ func _ready() -> void:
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 1
+			weapon.bullets = 160
 
-			n_ZombieSpawner.mob_max = 100
-			n_ZombieSpawner.mob_group_max = 4
-			n_ZombieSpawner.spawn_delay_sec = 30
+			if !Global.DEBUG_MODE:
+				n_ZombieSpawner.mob_max = 100
+				n_ZombieSpawner.mob_group_max = 4
+				n_ZombieSpawner.restart_delay = 30
 		Globals.Difficulty.NORMAL:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 120
 
-			n_ZombieSpawner.mob_max = 120
-			n_ZombieSpawner.mob_group_max = 8
-			n_ZombieSpawner.spawn_delay_sec = 25
+			if !Global.DEBUG_MODE:
+				n_ZombieSpawner.mob_max = 120
+				n_ZombieSpawner.mob_group_max = 8
+				n_ZombieSpawner.restart_delay = 25
 		Globals.Difficulty.HARD:
 			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
 			weapon.bullets = 90
 
-			n_ZombieSpawner.mob_max = 150
-			n_ZombieSpawner.mob_group_max = 10
-			n_ZombieSpawner.spawn_delay_sec = 20
+			if !Global.DEBUG_MODE:
+				n_ZombieSpawner.mob_max = 150
+				n_ZombieSpawner.mob_group_max = 10
+				n_ZombieSpawner.restart_delay = 20
 
 	if weapon != null:
 		yield(get_tree().create_timer(.25),"timeout")

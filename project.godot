@@ -14,11 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/Ammo/Ammo.gd"
 }, {
-"base": "Area2D",
-"class": "AreaSound",
-"language": "GDScript",
-"path": "res://scripts/AreaSound.gd"
-}, {
 "base": "Sprite",
 "class": "BaseItem",
 "language": "GDScript",
@@ -70,9 +65,9 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/crawler/CrawlerMeleeDeathState.gd"
 }, {
 "base": "State",
-"class": "CrawlerMoveState",
+"class": "CrawlerMoveState2",
 "language": "GDScript",
-"path": "res://scripts/fsm/states/crawler/CrawlerMoveState.gd"
+"path": "res://scripts/fsm/states/crawler/CrawlerMoveState2.gd"
 }, {
 "base": "State",
 "class": "DieState",
@@ -114,7 +109,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Pickable/LootItem/LootItem.gd"
 }, {
-"base": "YSort",
+"base": "Node",
 "class": "Map",
 "language": "GDScript",
 "path": "res://scenes/Maps/Map.gd"
@@ -240,9 +235,9 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieMeleeDeathState.gd"
 }, {
 "base": "State",
-"class": "ZombieMoveState",
+"class": "ZombieMoveState2",
 "language": "GDScript",
-"path": "res://scripts/fsm/states/zombie/ZombieMoveState.gd"
+"path": "res://scripts/fsm/states/zombie/ZombieMoveState2.gd"
 }, {
 "base": "State",
 "class": "ZombieRestState",
@@ -256,7 +251,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Ammo": "",
-"AreaSound": "",
 "BaseItem": "",
 "BaseWeapon": "",
 "Bike": "",
@@ -267,7 +261,7 @@ _global_script_class_icons={
 "CrawlerHitState": "",
 "CrawlerIdleState": "",
 "CrawlerMeleeDeathState": "",
-"CrawlerMoveState": "",
+"CrawlerMoveState2": "",
 "DieState": "",
 "Explosion": "",
 "Firearm": "",
@@ -301,7 +295,7 @@ _global_script_class_icons={
 "ZombieHitState": "",
 "ZombieIdleState": "",
 "ZombieMeleeDeathState": "",
-"ZombieMoveState": "",
+"ZombieMoveState2": "",
 "ZombieRestState": "",
 "ZombieStandUpState": ""
 }
@@ -325,8 +319,6 @@ PlayerStatus="*res://autoload/PlayerStatus.gd"
 
 window/size/width=320
 window/size/height=180
-window/size/resizable=false
-window/size/fullscreen=true
 window/size/test_width=640
 window/size/test_height=480
 mouse_cursor/custom_image="res://assets/ui/cursors/pointer64.png"
@@ -494,6 +486,7 @@ pause={
 2d_physics/layer_8="crosshair"
 2d_physics/layer_9="trees"
 2d_physics/layer_10="zombie_head"
+2d_physics/layer_11="soft_collision_mob"
 
 [physics]
 

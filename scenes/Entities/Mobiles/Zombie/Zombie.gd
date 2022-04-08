@@ -1,8 +1,10 @@
 extends Mobile
 
+const MAX_KNOWS_ABOUT := 7.0
+
 const States := {
 	"idle": preload("res://scripts/fsm/states/zombie/ZombieIdleState.gd"),
-	"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState.gd"),
+	"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState2.gd"),
 	"attack": preload("res://scripts/fsm/states/zombie/ZombieAttackState.gd"),
 	"die": preload("res://scripts/fsm/states/zombie/ZombieDieState.gd"),
 	"melee": preload("res://scripts/fsm/states/zombie/ZombieMeleeDeathState.gd"),
@@ -22,7 +24,6 @@ const Sounds  := {
 	]
 }
 
-export var current_map : NodePath
 export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
@@ -30,22 +31,22 @@ export var awareness_timer := 15.0
 export var attack_damage := 3
 
 onready var area_perception := $AreaPerception
-onready var area_collision := $AreaPerception/CollisionShape2D
 onready var area_head := $AreaHead
+onready var area_soft := $SoftCollision
+onready var area_attack := $AttackArea
+
 onready var damage := attack_damage
 
 var target
 var map : Map
 var waypoints : PoolVector2Array
 var down_times := 0
+var knows_about := 0.0
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
-
-	assert(current_map != null, "Mobile need a reference to the current map.")
-	map = get_node(current_map)
 
 	if state != null:
 		fsm.current_state = state.new(self)
@@ -72,21 +73,23 @@ func _ready() -> void:
 
 	hitpoints = max_hitpoints
 	damage = attack_damage
-	area_collision.shape.radius = sight_radius
+	area_perception.get_node("CollisionShape2D").shape.radius = sight_radius
 
 func _on_player_death(player : Node2D) -> void:
 	if !is_alive():
 		return
 
-	var distance := global_position.distance_to(player.global_position)
-
-	if !(target is Mobile) || distance > 14:
-		var new_state = States.idle.new(self)
-		fsm.travel_to(new_state)
-		return
-
-	var new_state = States.eat_wait.new(self, player)
-	fsm.travel_to(new_state)
+#	if area_attack.get_overlapping_bodies().size() == 0:
+#		target = Vector2.ZERO # change to something more meaningful
+#		var new_state = States.idle.new(self)
+#		fsm.travel_to(new_state)
+#		return
+#
+#	target = null
+#	waypoints = []
+#
+#	var new_state = States.eat_wait.new(self, player)
+#	fsm.travel_to(new_state)
 
 func _process_animations() -> void:
 	var epsilon := .25
@@ -137,8 +140,7 @@ func _on_fuelcan_explode(_position):
 	if global_position.distance_to(_position) > hearing_distance * 2.0:
 		return
 
-	var target_pos = get_area_point(_position, 80.0)
-	target = target_pos
+	target = Global.get_area_point(_position, 80.0)
 
 func _on_weapon_fired(_position) -> void:
 	if target != null && !(target is Vector2):
@@ -147,16 +149,7 @@ func _on_weapon_fired(_position) -> void:
 	if global_position.distance_to(_position) > hearing_distance:
 		return
 
-	var target_pos = get_area_point(_position)
-	target = target_pos
-
-func get_area_point(_position, _radius := 50.0) -> Vector2:
-	var angle := rand_range(0.0, 2.0) * PI
-	var dir := Vector2(sin(angle),cos(angle))
-	var radius := _radius
-	var target_pos = _position + dir * radius
-
-	return target_pos
+	target = Global.get_area_point(_position, 60.0)
 
 func _on_AreaPerception_body_entered(body):
 	var mob = body as Mobile
@@ -172,6 +165,7 @@ func _on_AreaPerception_body_entered(body):
 			return
 
 	target = mob
+	knows_about = MAX_KNOWS_ABOUT
 
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)

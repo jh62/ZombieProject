@@ -1,12 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/maps/harbor/harbor_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset_v2.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/Maps/Map.gd" type="Script" id=3]
 
-[node name="Map" type="YSort"]
+[sub_resource type="TileSet" id=1]
+
+[node name="Map" type="Node2D"]
 script = ExtResource( 3 )
 
-[node name="TileMapBottom" type="TileMap" parent="."]
+[node name="SpawnAreas" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMapRoofs" type="TileMap" parent="."]
+light_mask = 0
+z_index = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -17,5 +26,31 @@ cell_size = Vector2( 16, 16 )
 cell_tile_origin = 1
 cell_y_sort = true
 format = 1
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="SpawnAreas" type="Node" parent="."]
+[node name="TileMapBottom" type="TileMap" parent="TileMapTop"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Navigation" type="Navigation2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="TileMap" type="TileMap" parent="Navigation"]
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_tile_origin = 1
+cell_y_sort = true
+format = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Tween" type="Tween" parent="."]
