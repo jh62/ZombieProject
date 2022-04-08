@@ -2806,6 +2806,7 @@ collision_mask = 15
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+visible = false
 position = Vector2( 0, 1 )
 shape = SubResource( 1 )
 
@@ -2878,14 +2879,14 @@ position = Vector2( 0, -5 )
 shape = SubResource( 39 )
 
 [node name="SoftCollision" type="Area2D" parent="." index="5"]
-visible = false
 collision_layer = 1024
-collision_mask = 1024
+collision_mask = 1033
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" index="0"]
 shape = SubResource( 46 )
 
 [node name="AttackArea" type="Area2D" parent="." index="6"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

@@ -58,15 +58,13 @@ func _spawn_mob(position) -> void:
 	var _mob : Mobile
 
 	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.75 > randf()):
-		_mob = Crawler.instance()
-		print_debug("CRAWLER SPAWNED")
+		_mob = Zombie.instance()
 	else:
 		if bad_spawns.empty():
 			_mob = Zombie.instance()
 		else:
 			_mob = bad_spawns.pop_back()
 
-	_mob = Crawler.instance()
 	n_Mobs.add_child(_mob)
 
 	# Check if spot is valid

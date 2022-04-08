@@ -38,7 +38,9 @@ var down_times := 0
 var knows_about := 0.0
 
 func _ready() -> void:
+	add_to_group(Globals.GROUP_ZOMBIE)
 	add_to_group(Globals.GROUP_SPECIAL)
+
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 

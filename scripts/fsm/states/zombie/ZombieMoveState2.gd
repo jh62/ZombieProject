@@ -72,6 +72,8 @@ func update(delta) -> void:
 		owner.fsm.travel_to(new_state)
 		return
 
+	var push_force := Vector2()
+
 	if owner.is_visible_in_viewport():
 
 		if last_growl >= growl_delay:
@@ -83,6 +85,13 @@ func update(delta) -> void:
 		var closest : Node2D
 		var force := Vector2()
 		var neighbors := 0
+
+
+		var ahead = owner.global_position + owner.vel.normalized() * 24.0
+
+		for body in owner.area_soft.get_overlapping_bodies():
+			push_force = ahead - (body.global_position + Vector2(8,8))
+			push_force = push_force.normalized() * 4.0
 
 		for area in owner.area_soft.get_overlapping_areas():
 			var z = area.get_parent()
@@ -107,5 +116,6 @@ func update(delta) -> void:
 			steering_force = steering_force.clamped(8)
 
 	owner.vel = owner.speed * owner.dir
-	owner.vel = owner.vel.move_toward(steering_force, delta)
+	owner.vel += steering_force + push_force
 	owner.vel = owner.move_and_slide(owner.vel)
+	print_debug(owner.vel)

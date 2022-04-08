@@ -865,7 +865,7 @@ monitoring = false
 monitorable = false
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
-mob_max = 1
+mob_max = 10
 mob_group_max = 1
 restartable = true
 

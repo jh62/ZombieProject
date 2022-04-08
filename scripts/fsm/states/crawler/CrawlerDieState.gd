@@ -20,6 +20,8 @@ func enter_state() -> void:
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AreaPerception/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("SoftCollision/CollisionShape2D").set_deferred("disabled", true)
 
 func update(delta) -> void:
 	if !Global.GameOptions.graphics.corpses_decay:

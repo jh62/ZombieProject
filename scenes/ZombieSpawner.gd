@@ -54,10 +54,6 @@ func _on_Timer_timeout():
 		if z.is_alive():
 			spawn_count += 1
 
-	for z in get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL):
-		if z.is_alive():
-			spawn_count += 1
-
 	n_timer.start(restart_delay)
 
 func set_active(active : bool) -> void:
