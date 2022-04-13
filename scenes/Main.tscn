@@ -783,6 +783,7 @@ script = SubResource( 17 )
 [node name="Harbor0" parent="MapManager" instance=ExtResource( 3 )]
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
+is_active = false
 mob_max = 100
 mob_group_max = 1
 restartable = true

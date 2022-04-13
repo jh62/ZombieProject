@@ -12,8 +12,8 @@
 [ext_resource path="res://assets/res/zombies/crawler/crawler_move.tres" type="Texture" id=17]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 3.5
-height = 4.5
+radius = 2.0
+height = 0.0
 
 [sub_resource type="Animation" id=40]
 length = 0.001
@@ -1798,7 +1798,6 @@ collision_mask = 15
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 2 )
 shape = SubResource( 1 )
 

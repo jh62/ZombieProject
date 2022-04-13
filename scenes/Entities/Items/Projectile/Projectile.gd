@@ -26,7 +26,7 @@ func _on_impact(body) -> void:
 		body.call_deferred("on_hit_by", self)
 
 	var decal := Decal.instance()
-	EventBus.emit_signal("on_object_spawn", decal, global_position + Vector2(8,8))
+	EventBus.emit_signal("on_object_spawn", decal, global_position)
 
 	if !(body is Mobile):
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
