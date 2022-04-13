@@ -26,7 +26,7 @@ func _on_impact(body) -> void:
 		body.call_deferred("on_hit_by", self)
 
 	var decal := Decal.instance()
-	EventBus.emit_signal("on_object_spawn", decal, global_position)
+	EventBus.emit_signal("on_object_spawn", decal, global_position + Vector2(8,8))
 
 	if !(body is Mobile):
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
@@ -43,4 +43,5 @@ func _on_VisibilityTimer_timeout():
 	call_deferred("queue_free")
 
 func _on_VisibilityNotifier2D_viewport_exited(viewport):
-	$VisibilityTimer.start(.15)
+	if is_inside_tree():
+		$VisibilityTimer.start(.15)

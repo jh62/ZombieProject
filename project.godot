@@ -74,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/fsm/states/DieState.gd"
 }, {
+"base": "StaticObject",
+"class": "Door",
+"language": "GDScript",
+"path": "res://Door.gd"
+}, {
 "base": "Area2D",
 "class": "Explosion",
 "language": "GDScript",
@@ -263,6 +268,7 @@ _global_script_class_icons={
 "CrawlerMeleeDeathState": "",
 "CrawlerMoveState2": "",
 "DieState": "",
+"Door": "",
 "Explosion": "",
 "Firearm": "",
 "FuelCan": "",

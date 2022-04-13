@@ -37,6 +37,9 @@ signal fuel_pickedup(amount)
 signal fuel_changed(amount)
 signal fuel_emptied
 
+# Bike
+signal on_bike_tank_full
+
 # Firearm signals
 signal on_weapon_reloaded(weapon_type)
 signal on_weapon_fired(position)

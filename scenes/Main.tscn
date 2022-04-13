@@ -1,28 +1,18 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Maps/Harbor/Harbor0.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/ScreenShake/ScreenShake.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=6]
-[ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/music/pause.wav" type="AudioStream" id=9]
-[ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=10]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=11]
 [ext_resource path="res://scenes/UI/HUD/HUD.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/Entities/FX/GunMuzzle/GunMuzzle.tscn" type="PackedScene" id=13]
 [ext_resource path="res://assets/res/fx/Vignette.tres" type="Material" id=14]
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
 [ext_resource path="res://assets/ui/window.png" type="Texture" id=18]
-[ext_resource path="res://scenes/Entities/Explosion/Explosion.tscn" type="PackedScene" id=19]
-[ext_resource path="res://scenes/Entities/FX/TrailSmoke/TrailSmoke.tscn" type="PackedScene" id=20]
-[ext_resource path="res://scenes/Entities/FX/Smoke/Smoke.tscn" type="PackedScene" id=21]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
-[ext_resource path="res://scenes/Entities/FX/SmallFlames/SmallFlames.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/Tooltips.gd" type="Script" id=25]
 
 [sub_resource type="GDScript" id=17]
@@ -30,14 +20,6 @@ script/source = "extends Node
 
 func get_map() -> Map:
 	return get_child(0) as Map
-"
-
-[sub_resource type="GDScript" id=15]
-script/source = "extends Node2D
-
-func _ready():
-	yield(get_tree().create_timer(1.0),\"timeout\")
-	call_deferred(\"queue_free\")
 "
 
 [sub_resource type="GDScript" id=10]
@@ -110,7 +92,7 @@ tracks/0/keys = {
 "values": [ 1.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("MapManager/Harbor0/Entities/Mobs/Player/Camera:zoom")
+tracks/1/path = NodePath("UI/ScreenMessage/Label:percent_visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -119,10 +101,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ 1.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("UI/ScreenMessage/Label:percent_visible")
+tracks/2/path = NodePath("UI/ScreenMessage:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -131,10 +113,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 1.0 ]
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("UI/ScreenMessage:modulate")
+tracks/3/path = NodePath("UI/ScreenMessage:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -143,10 +125,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("UI/ScreenMessage:visible")
+tracks/4/path = NodePath("UI/ScreenMessage/Label:text")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -155,10 +137,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ "You survived for today" ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("UI/ScreenMessage/Label:text")
+tracks/5/path = NodePath("UI/ControlRestart/ButtonRestart:visible")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -167,10 +149,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ "You survived for today" ]
+"values": [ false ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("UI/ControlRestart/ButtonRestart:visible")
+tracks/6/path = NodePath("UI/ControlRestart:visible")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -182,7 +164,7 @@ tracks/6/keys = {
 "values": [ false ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("UI/ControlRestart:visible")
+tracks/7/path = NodePath("UI/DialogPopup:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -191,10 +173,10 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("UI/DialogPopup:visible")
+tracks/8/path = NodePath("UI/DialogPopup:modulate")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -203,10 +185,10 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("UI/DialogPopup:modulate")
+tracks/9/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -215,10 +197,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ 0.0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:percent_visible")
+tracks/10/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:text")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -227,27 +209,15 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ "Bike's outta fuel. " ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("UI/DialogPopup/MarginContainer/LabelDialog:text")
+tracks/11/path = NodePath("UI/HUD:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
 tracks/11/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ "Bike's outta fuel. " ]
-}
-tracks/12/type = "value"
-tracks/12/path = NodePath("UI/HUD:visible")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -812,66 +782,12 @@ script = SubResource( 17 )
 
 [node name="Harbor0" parent="MapManager" instance=ExtResource( 3 )]
 
-[node name="Entities" type="YSort" parent="MapManager/Harbor0"]
-script = ExtResource( 6 )
-
-[node name="Statics" type="YSort" parent="MapManager/Harbor0/Entities"]
-sort_enabled = false
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="Bike" parent="MapManager/Harbor0/Entities/Statics" instance=ExtResource( 7 )]
-position = Vector2( 227, 22 )
-
-[node name="Mobs" type="YSort" parent="MapManager/Harbor0/Entities"]
-
-[node name="Player" parent="MapManager/Harbor0/Entities/Mobs" instance=ExtResource( 2 )]
-position = Vector2( 280.71, 203.186 )
-
-[node name="Camera" type="Camera2D" parent="MapManager/Harbor0/Entities/Mobs/Player"]
-current = true
-drag_margin_left = 0.1
-drag_margin_right = 0.1
-editor_draw_limits = true
-editor_draw_drag_margin = true
-
-[node name="ScreenShake" parent="MapManager/Harbor0/Entities/Mobs/Player/Camera" instance=ExtResource( 5 )]
-
-[node name="Listener2D" type="Listener2D" parent="MapManager/Harbor0/Entities/Mobs/Player"]
-current = true
-
-[node name="Crosshair" parent="MapManager/Harbor0/Entities/Mobs/Player" instance=ExtResource( 10 )]
-pause_mode = 2
-
-[node name="ModelCache" type="Node2D" parent="MapManager/Harbor0/Entities/Mobs/Player"]
-light_mask = 0
-z_index = -2000
-z_as_relative = false
-script = SubResource( 15 )
-
-[node name="TrailSmoke" parent="MapManager/Harbor0/Entities/Mobs/Player/ModelCache" instance=ExtResource( 20 )]
-
-[node name="Smoke" parent="MapManager/Harbor0/Entities/Mobs/Player/ModelCache" instance=ExtResource( 21 )]
-
-[node name="GunMuzzle" parent="MapManager/Harbor0/Entities/Mobs/Player/ModelCache" instance=ExtResource( 13 )]
-
-[node name="Explosion" parent="MapManager/Harbor0/Entities/Mobs/Player/ModelCache" instance=ExtResource( 19 )]
-monitoring = false
-monitorable = false
-
-[node name="SmallFlames" parent="MapManager/Harbor0/Entities/Mobs/Player/ModelCache" instance=ExtResource( 24 )]
-monitoring = false
-monitorable = false
-
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
-is_active = false
-mob_max = 10
+mob_max = 100
 mob_group_max = 1
 restartable = true
 
 [node name="SoundManager" parent="." instance=ExtResource( 8 )]
-origin = NodePath("../MapManager/Harbor0/Entities/Mobs/Player")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
@@ -925,8 +841,6 @@ __meta__ = {
 layer = 100
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
-p_player = NodePath("../../MapManager/Harbor0/Entities/Mobs/Player")
-p_bike = NodePath("../../MapManager/Harbor0/Entities/Statics/Bike")
 
 [node name="ScreenMessage" type="Control" parent="UI"]
 visible = false
@@ -1121,21 +1035,6 @@ stream = ExtResource( 16 )
 [node name="AudioTypewriterStop" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 17 )
 
-[connection signal="on_mob_spawned" from="MapManager/Harbor0/Entities" to="UI/HUD" method="_on_Entities_on_mob_spawned"]
-[connection signal="on_fuel_stopped" from="MapManager/Harbor0/Entities/Statics/Bike" to="." method="_on_Bike_on_fuel_stopped"]
-[connection signal="on_full_tank" from="MapManager/Harbor0/Entities/Statics/Bike" to="." method="_on_Bike_on_full_tank"]
-[connection signal="on_full_tank" from="MapManager/Harbor0/Entities/Statics/Bike" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Bike_on_full_tank"]
-[connection signal="on_aiming_start" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player" method="_on_Player_on_aiming_start"]
-[connection signal="on_aiming_start" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_aiming_start"]
-[connection signal="on_aiming_stop" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player" method="_on_Player_on_aiming_stop"]
-[connection signal="on_aiming_stop" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_aiming_stop"]
-[connection signal="on_busy_time_added" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_busy_time_added"]
-[connection signal="on_death" from="MapManager/Harbor0/Entities/Mobs/Player" to="." method="_on_Player_on_death"]
-[connection signal="on_death" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_death"]
-[connection signal="on_death" from="MapManager/Harbor0/Entities/Mobs/Player" to="UI/PauseMessage" method="_on_Player_on_death"]
-[connection signal="on_hit" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Camera/ScreenShake" method="_on_Player_on_hit"]
-[connection signal="on_search_end" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_search_end"]
-[connection signal="on_search_start" from="MapManager/Harbor0/Entities/Mobs/Player" to="MapManager/Harbor0/Entities/Mobs/Player/Crosshair" method="_on_Player_on_search_start"]
 [connection signal="visibility_changed" from="UI/ControlRestart" to="UI/ControlRestart" method="_on_ControlRestart_visibility_changed"]
 [connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_Button_button_up"]
 [connection signal="on_pause" from="UI/PauseMessage" to="." method="_on_PauseMessage_on_pause"]

@@ -1,11 +1,8 @@
 extends Control
 
-export var p_player : NodePath
-export var p_bike : NodePath
-export var p_tilemap : NodePath
+onready var player : Player
+onready var bike : Bike
 
-onready var n_player : Player = get_node(p_player)
-onready var n_bike : Bike = get_node(p_bike)
 onready var n_Stats := $CharStats
 onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
 onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
@@ -22,11 +19,17 @@ onready var n_Tween := $Tween
 onready var n_Minimap := $Minimap
 
 func _ready():
-	n_player.connect("on_hit", self, "_on_player_hit")
-	n_player.connect("on_item_pickedup", self, "_on_item_pickedup")
-	n_player.connect("on_loot_pickedup", self, "_on_player_loot")
-	n_player.connect("on_footstep", self, "_on_player_footstep")
-	n_bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
+	pass
+
+func initialize(_player, _bike) -> void:
+	player = _player
+	bike = _bike
+
+	player.connect("on_hit", self, "_on_player_hit")
+	player.connect("on_item_pickedup", self, "_on_item_pickedup")
+	player.connect("on_loot_pickedup", self, "_on_player_loot")
+	player.connect("on_footstep", self, "_on_player_footstep")
+	bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
 
 	EventBus.connect("on_weapon_reloaded", self, "update_weapon_status")
 	EventBus.connect("on_request_update_health", self, "update_healthbar")
@@ -35,10 +38,10 @@ func _ready():
 	EventBus.connect("fuel_emptied", self, "_on_fuel_emptied")
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 
-	n_Minimap.n_player = n_player
+	n_Minimap.player = player
 
 	n_GasTankProgressBar.max_value = Globals.MAX_FUEL_LITERS
-	n_HealthBar.max_value = n_player.max_hitpoints
+	n_HealthBar.max_value = player.max_hitpoints
 	n_FuelCan.visible = false
 
 	update_healthbar()
@@ -47,18 +50,18 @@ func _ready():
 	update_loot_count()
 
 func update_healthbar() -> void:
-	n_HealthBar.value = n_player.hitpoints
+	n_HealthBar.value = player.hitpoints
 
 func _on_player_hit() -> void:
 	update_healthbar()
 
 func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
-	n_LabelLootCount.text = "x {0}".format({0:n_player.loot_count})
+	n_LabelLootCount.text = "x {0}".format({0:player.loot_count})
 
 func update_weapon_status(_weapon_type := -1) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
-	var weapon = n_player.equipment.get_item()
+	var weapon = player.equipment.get_item()
 
 	n_WeaponIcon.texture = weapon.get_icon()
 
@@ -83,7 +86,7 @@ func update_weapon_status(_weapon_type := -1) -> void:
 		$AnimationPlayer.play("RESET")
 
 func update_fuel_status() -> void:
-	n_GasTankProgressBar.value = n_bike.fuel_amount
+	n_GasTankProgressBar.value = bike.fuel_amount
 	n_GasTankLabel.text = "{0}%".format({0:str(n_GasTankProgressBar.value / n_GasTankProgressBar.max_value * 100).pad_decimals(0)})
 
 var alpha_when_behind := .05

@@ -10,7 +10,7 @@ height = 1.7
 [node name="Projectile" type="RigidBody2D"]
 show_behind_parent = true
 collision_layer = 32
-collision_mask = 13
+collision_mask = 9
 mode = 2
 gravity_scale = 0.0
 continuous_cd = 1

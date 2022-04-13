@@ -70,6 +70,7 @@ onready var n_TilemapBottom : TileMap = n_TilemapTop.get_node("TileMapBottom")
 onready var n_TilemapRoofs : TileMap = $TileMapRoofs
 onready var n_Navigation := $Navigation
 onready var n_TileMap : TileMap = n_Navigation.get_node("TileMap")
+onready var n_Entities := $TileMapTop/Entities
 
 var pathfind := AStar2D.new()
 
@@ -79,15 +80,9 @@ func _ready():
 	if !n_TilemapRoofs.visible:
 		n_TilemapRoofs.visible = true
 
-	if owner != null:
-		yield(owner,"ready")
-		if has_node("Entities"):
-			var n := get_node("Entities")
-			remove_child(n)
-			n_TilemapTop.add_child(n)
-#			n.get_node("Mobs/Player").connect("on_footstep", self, "_on_mob_footstep")
-
 	_create_pathfinding()
+
+	n_Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
 
 func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
@@ -99,16 +94,17 @@ func _create_pathfinding() -> void:
 		var t = walkable_tiles[i]
 		if t in no_walkable_tiles:
 			continue
-#		usable_tiles.append(t)
-		n_TileMap.set_cellv(t, 24)
+		n_TileMap.set_cellv(t, 43)
+
+	for object in n_Entities.get_node("Statics").get_children():
+		if !object.has_node("CollisionShape") || (object is Door):
+			continue
+		var cellv = n_TileMap.world_to_map(object.global_position)
+		n_TileMap.set_cellv(cellv, -1)
 
 	for tile in n_TileMap.get_used_cells():
 		var tileid = get_tile_id(tile)
 		pathfind.add_point(tileid, tile)
-
-#	for tile in usable_tiles:
-#		var tileid = get_tile_id(tile)
-#		pathfind.add_point(tileid, tile)
 
 	var DIRECTIONS := [
 		Vector2.LEFT,
@@ -181,7 +177,6 @@ func generate_loot() -> void:
 func _on_mob_spawned(mob : Mobile) -> void:
 	mob.map = self
 	mob.connect("on_footstep", self, "_on_mob_footstep")
-	print_debug("spaened")
 
 var step_sounds := 0
 var yielding := false
@@ -194,14 +189,14 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		var map_pos := n_TilemapRoofs.world_to_map(mob.global_position)
 		if n_TilemapRoofs.get_cellv(map_pos) != TileMap.INVALID_CELL:
 			if n_TilemapRoofs.modulate.a == 1.0:
-				$Tween.interpolate_property(n_TilemapRoofs,"modulate", Color(1,1,1,1.0),Color(1,1,1,.15), 1.0,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
+				$Tween.stop_all()
+				$Tween.interpolate_property(n_TilemapRoofs,"modulate", n_TilemapRoofs.modulate,Color(1,1,1,.15), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
 				$Tween.start()
-#			n_TilemapRoofs.modulate.a = .85
 		else:
 			if n_TilemapRoofs.modulate.a != 1.0:
-				$Tween.interpolate_property(n_TilemapRoofs,"modulate", Color(1,1,1,.15), Color(1,1,1,1.0), 1.0,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
+				$Tween.stop_all()
+				$Tween.interpolate_property(n_TilemapRoofs,"modulate", n_TilemapRoofs.modulate, Color(1,1,1,1.0), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
 				$Tween.start()
-#			n_TilemapRoofs.modulate.a = 1.0
 
 	else:
 		grp = Global.GROUP_ZOMBIE

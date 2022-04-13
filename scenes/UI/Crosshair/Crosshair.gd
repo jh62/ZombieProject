@@ -8,13 +8,23 @@ const MOUSE_SENSITIVITY := 2.5
 const JOYPAD_SENSITIVITY = 5.0
 
 #onready var mobile := get_tree().current_scene.get_node("TileMap/Entities/Mobs/Player")
-onready var mobile := get_parent()
+onready var mobile : Player = get_parent()
 onready var n_ProgressWheel := $CanvasLayer/TextureProgress
 onready var n_CrosshairTexture := $CanvasLayer2/TextureCrosshair
 
 export var sensitivity := 2.5
 
 func _ready():
+	mobile.connect("on_death", self, "_on_Player_on_death")
+	mobile.connect("on_aiming_start", self, "_on_Player_on_aiming_start")
+	mobile.connect("on_aiming_stop", self, "_on_Player_on_aiming_stop")
+	mobile.connect("on_search_start", self, "_on_Player_on_search_start")
+	mobile.connect("on_search_end", self, "_on_Player_on_search_end")
+	mobile.connect("on_busy_time_added", self, "_on_Player_on_busy_time_added")
+
+	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
+	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
+
 	if Global.GameOptions.gameplay.joypad:
 		n_CrosshairTexture.visible = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -22,7 +32,6 @@ func _ready():
 		n_CrosshairTexture.visible = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 	yield(get_tree().create_timer(.1),"timeout")
 	_on_item_pickedup(mobile.get_equipped())
 

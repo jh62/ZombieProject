@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/maps/harbor/harbor_tileset_v2.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/EntitiesManager.gd" type="Script" id=2]
 [ext_resource path="res://scenes/Maps/Map.gd" type="Script" id=3]
 
 [sub_resource type="TileSet" id=1]
@@ -16,6 +17,11 @@ __meta__ = {
 [node name="TileMapRoofs" type="TileMap" parent="."]
 light_mask = 0
 z_index = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="TileMapWallDecos" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -37,6 +43,16 @@ format = 1
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Entities" type="YSort" parent="TileMapTop"]
+script = ExtResource( 2 )
+
+[node name="Ground" type="YSort" parent="TileMapTop/Entities"]
+sort_enabled = false
+
+[node name="Statics" type="YSort" parent="TileMapTop/Entities"]
+
+[node name="Mobs" type="YSort" parent="TileMapTop/Entities"]
 
 [node name="Navigation" type="Navigation2D" parent="."]
 __meta__ = {

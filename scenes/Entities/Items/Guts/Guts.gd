@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 const blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
+
 const SquishSounds := [
 	preload("res://assets/sfx/misc/squish_1.wav"),
 	preload("res://assets/sfx/misc/squish_2.wav"),
@@ -34,6 +35,6 @@ func _process(delta):
 func _on_Guts_body_entered(body):
 	if body is Mobile:
 		if Global.GameOptions.graphics.render_blood:
-			EventBus.emit_signal("on_object_spawn", blood, global_position)
+			EventBus.emit_signal("on_object_spawn", blood, global_position, -1)
 			EventBus.emit_signal("play_sound_random", SquishSounds, global_position)
 			call_deferred("queue_free")

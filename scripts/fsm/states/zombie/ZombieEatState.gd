@@ -21,7 +21,12 @@ func enter_state() -> void:
 	owner.target = null
 	owner.waypoints = []
 	owner.dir = Vector2.ZERO
+	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
+
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+
+func exit_state() -> void:
+	owner.get_node("CollisionShape2D").set_deferred("disabled", false)
 
 var elapsed := 0.0
 var eat_time := rand_range(12,18)

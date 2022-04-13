@@ -12,6 +12,7 @@ const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
 const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
 const Magazine := preload("res://scenes/Entities/Items/Magazine/Magazine.tscn")
 
+onready var n_Ground := $Ground
 onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
 
@@ -58,7 +59,7 @@ func _spawn_mob(position) -> void:
 	var _mob : Mobile
 
 	if get_tree().get_nodes_in_group(Globals.GROUP_SPECIAL).size() < Global.MAX_SPECIAL_ZOMBIES && (.75 > randf()):
-		_mob = Zombie.instance()
+		_mob = Crawler.instance()
 	else:
 		if bad_spawns.empty():
 			_mob = Zombie.instance()
@@ -85,10 +86,15 @@ func _spawn_mob(position) -> void:
 
 	emit_signal("on_mob_spawned", _mob)
 
-func _spawn_object(scene, position : Vector2) -> void:
+func _spawn_object(scene, position : Vector2, layer := 0) -> void:
 	if scene is PackedScene:
 		scene = scene.instance()
-	n_Statics.add_child(scene)
+
+	if layer == -1:
+		n_Ground.add_child(scene)
+	else:
+		n_Statics.add_child(scene)
+
 	scene.global_position = position
 
 func _on_weapon_reloaded(weapon_type):

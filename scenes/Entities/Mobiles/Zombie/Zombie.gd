@@ -79,17 +79,17 @@ func _on_player_death(player : Node2D) -> void:
 	if !is_alive():
 		return
 
-#	if area_attack.get_overlapping_bodies().size() == 0:
-#		target = Vector2.ZERO # change to something more meaningful
-#		var new_state = States.idle.new(self)
-#		fsm.travel_to(new_state)
-#		return
-#
-#	target = null
-#	waypoints = []
-#
-#	var new_state = States.eat_wait.new(self, player)
-#	fsm.travel_to(new_state)
+	target = null
+	waypoints = []
+
+	var new_state
+
+	if !(player in area_attack.get_overlapping_bodies()) || global_position.distance_to(player.global_position) > area_attack.get_node("CollisionShape2D").shape.radius:
+		new_state = States.idle.new(self)
+	else:
+		new_state = States.eat_wait.new(self, player)
+
+	fsm.travel_to(new_state)
 
 func _process_animations() -> void:
 	var epsilon := .25
@@ -129,6 +129,12 @@ func on_hit_by(attacker) -> void:
 		new_state = States.hit.new(self, attacker)
 
 	fsm.travel_to(new_state)
+
+
+func _on_AreaBody_body_entered(body):
+#	self.on_hit_by(body)
+	if is_instance_valid(body):
+		body._on_impact(self)
 
 func _on_AreaHead_body_entered(body : Node2D):
 	pass

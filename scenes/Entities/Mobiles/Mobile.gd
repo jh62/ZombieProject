@@ -29,7 +29,7 @@ func on_hit_by(_attacker : Node2D) -> void:
 	var radius := 10.0
 
 	if Global.GameOptions.graphics.render_blood:
-		EventBus.emit_signal("on_object_spawn", Blood, global_position + Vector2(cos(angle),sin(angle)) * radius)
+		EventBus.emit_signal("on_object_spawn", Blood, global_position + Vector2(cos(angle),sin(angle)) * radius, -1)
 
 func _process_animations() -> void:
 	pass

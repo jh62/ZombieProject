@@ -1,27 +1,37 @@
 extends Node2D
 
 onready var n_MapManager := $MapManager
-onready var n_Entities := $MapManager/Harbor0/Entities
-onready var n_Player := n_Entities.get_node("Mobs/Player")
-onready var n_Crosshair := n_Player.get_node("Crosshair")
 onready var n_ScreenMessage := $UI/ScreenMessage
 onready var n_Dialog := $UI/DialogPopup
+onready var n_Hud := $UI/HUD
+
+var n_Player
+var n_Crosshair
+var n_Entities
 
 func _ready() -> void:
 	randomize()
 
-#	remove_child(n_Entities)
-#	n_MapManager.get_map().add_child(n_Entities)
+	var current_map = n_MapManager.get_map()
+	var _player = current_map.find_node("Player", true, false)
+	var _bike = current_map.find_node("Bike", true, false)
+
+	n_Player = _player
+	n_Crosshair = n_Player.crosshair
+
+	n_Hud.initialize(_player, _bike)
 
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
+	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
+	EventBus.connect("on_player_death", self, "_on_Player_on_death")
 
 	n_Player.connect("on_footstep",n_MapManager.get_map(),"_on_mob_footstep")
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-	var n_Camera : Camera2D = n_Player.get_node("Camera")
+	var n_Camera : Camera2D = n_Player.get_node("Camera2D")
 	n_Camera.limit_left = 0
 	n_Camera.limit_top = 0
 	n_Camera.limit_right = Global.MAP_SIZE.x
@@ -58,8 +68,6 @@ func _ready() -> void:
 			$VignetteLayer.queue_free()
 		else:
 			$VignetteLayer/ColorRect.visible = true
-
-	n_Entities.connect("on_mob_spawned", n_MapManager.get_map(), "_on_mob_spawned")
 
 	var n_ZombieSpawner := $ZombieSpawner
 	var weapon
@@ -136,8 +144,6 @@ func _on_Bike_on_full_tank():
 func _on_Player_on_death():
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
-
-
 
 	var lose := preload("res://assets/music/losing.mp3")
 	EventBus.emit_signal("play_music", lose)

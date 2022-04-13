@@ -20,7 +20,7 @@ func set_fuel_amount(new_amount) -> void:
 
 	if fuel_amount >= Globals.MAX_FUEL_LITERS:
 		stop()
-		emit_signal("on_full_tank")
+		EventBus.emit_signal("on_bike_tank_full")
 		return
 
 func on_player_action_start(_player : Node2D) -> void:

@@ -22,6 +22,8 @@ const States := {
 onready var equipment := $Equipment
 onready var vision := $Vision
 onready var ray := $RayHeadshot
+onready var camera := $Camera2D
+onready var crosshair := $Crosshair
 
 var loot_count := 0
 var aiming = false
@@ -130,7 +132,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				emit_signal("on_aiming_start", self)
 				return
 			elif event.is_action_released("aim"):
-				$Camera.offset = Vector2.ZERO
+				camera.offset = Vector2.ZERO
 				emit_signal("on_aiming_stop", self)
 				return
 
