@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Maps/Harbor/crane.tres" type="Texture" id=1]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+closed = false
+cull_mode = 1
+polygon = PoolVector2Array( -9, -21, -9, -3, -7, -3, -7, -19, 4, -19, 4, -3, 6, -3, 6, -21 )
+
+[node name="BigCrane" instance=ExtResource( 2 )]
+
+[node name="SpriteTop" type="Sprite" parent="." index="0"]
+light_mask = 0
+z_index = 1
+texture = ExtResource( 1 )
+offset = Vector2( -32, -99 )
+region_enabled = true
+region_rect = Rect2( 0, -16, 224, 192 )
+
+[node name="Sprite" parent="." index="1"]
+light_mask = 23
+texture = ExtResource( 1 )
+region_rect = Rect2( 112, 160, 64, 48 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+light_mask = 23
+occluder = SubResource( 1 )
+light_mask = 23
+
+[node name="CollisionShape" parent="." index="2"]
+polygon = PoolVector2Array( -30, -8, 30, -8, 30, 20, -30, 20 )
+
+[node name="Area2D" parent="." index="3"]
+visible = true
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+position = Vector2( 0, 5 )
+polygon = PoolVector2Array( 18, -152, -16, -152, -22, -146, -22, -122, 15, -122, 18, -125 )
+
+[node name="VisibilityNotifier2D" parent="." index="4"]
+visible = false

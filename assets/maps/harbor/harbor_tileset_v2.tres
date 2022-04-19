@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=217 format=2]
+[gd_resource type="TileSet" load_steps=218 format=2]
 
 [ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
 
@@ -713,6 +713,9 @@ points = PoolVector2Array( 16, 20, 0, 20, 0, 4, 16, 4 )
 
 [sub_resource type="ConvexPolygonShape2D" id=309]
 points = PoolVector2Array( 16, 20, 0, 20, 0, 4, 16, 4 )
+
+[sub_resource type="ConvexPolygonShape2D" id=314]
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [resource]
 20/name = "grass 20"
@@ -1951,3 +1954,31 @@ points = PoolVector2Array( 16, 20, 0, 20, 0, 4, 16, 4 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 55/z_index = 0
+56/name = "water 56"
+56/texture = ExtResource( 1 )
+56/tex_offset = Vector2( 0, 0 )
+56/modulate = Color( 1, 1, 1, 1 )
+56/region = Rect2( 80, 32, 80, 16 )
+56/tile_mode = 2
+56/autotile/icon_coordinate = Vector2( 0, 0 )
+56/autotile/tile_size = Vector2( 16, 16 )
+56/autotile/spacing = 0
+56/autotile/occluder_map = [  ]
+56/autotile/navpoly_map = [  ]
+56/autotile/priority_map = [  ]
+56/autotile/z_index_map = [  ]
+56/occluder_offset = Vector2( 0, 0 )
+56/navigation_offset = Vector2( 0, 0 )
+56/shape_offset = Vector2( 0, 0 )
+56/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+56/shape = SubResource( 314 )
+56/shape_one_way = false
+56/shape_one_way_margin = 1.0
+56/shapes = [ {
+"autotile_coord": Vector2( 4, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 314 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+56/z_index = 0
