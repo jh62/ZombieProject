@@ -19,10 +19,13 @@ func enter_state() -> void:
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", false)
 
 func update(delta) -> void:
+	if owner.knows_about > 0.0:
+		owner.knows_about -= delta
+
 	if !owner.can_move:
 		return
 
-	last_update += delta
+#	last_update += delta
 
 	if last_update >= update_delay && (owner.target == null || owner.target is Vector2):
 		var target_pos := owner.global_position + Vector2(1.0,1.0).rotated(deg2rad(randi()%360)) * 50

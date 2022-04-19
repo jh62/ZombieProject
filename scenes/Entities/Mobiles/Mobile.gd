@@ -9,12 +9,13 @@ export var max_hitpoints := 10.0
 
 onready var sprite := $Sprite
 onready var n_Visibility := $VisibilityNotifier2D
+onready var n_RayCast := $RayCast2D
 
 onready var hitpoints := max_hitpoints setget set_hitpoints
 onready var speed := max_speed
 var dir := Vector2.ZERO
 var vel := Vector2.ZERO
-var facing := Vector2.ZERO
+var facing := Vector2(1,0)
 var is_eaten := false
 var fsm : StateMachine
 var _visible_viewport := true
@@ -87,3 +88,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 
 func _on_screen_exited():
 	pass
+
+func check_LOS(target) -> bool:
+	n_RayCast.enabled = true
+	n_RayCast.cast_to = target.global_position - position
+	n_RayCast.force_raycast_update()
+
+	var colliding = n_RayCast.is_colliding() && n_RayCast.get_collider() == target
+	n_RayCast.enabled = false
+
+	return colliding

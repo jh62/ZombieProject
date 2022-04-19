@@ -1,6 +1,6 @@
 extends Mobile
 
-const MAX_KNOWS_ABOUT := 7.0
+const MAX_KNOWS_ABOUT := 12.0
 
 const States := {
 	"idle": preload("res://scripts/fsm/states/crawler/CrawlerIdleState.gd"),
@@ -28,13 +28,13 @@ onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead
 onready var area_soft := $SoftCollision
 onready var area_attack := $AttackArea
+onready var area_body := $AreaBody
 
 onready var damage := attack_damage
 
 var target
 var map : Map
 var waypoints : PoolVector2Array
-var down_times := 0
 var knows_about := 0.0
 
 func _ready() -> void:
@@ -101,19 +101,8 @@ func kill() -> void:
 
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
-	hitpoints -=  attacker.damage
 
-	var new_state : State
-
-	if !is_alive():
-		if attacker is MeleeWeapon:
-			new_state = States.melee.new(self, attacker.melee_type)
-		else:
-			down_times += 1
-			new_state = States.die.new(self)
-	else:
-		new_state = States.hit.new(self, attacker)
-
+	var new_state = States.die.new(self)
 	fsm.travel_to(new_state)
 
 func _on_AreaHead_body_entered(body : Node2D):
@@ -169,11 +158,7 @@ func _on_screen_exited():
 
 func set_can_move(_can_move) -> void:
 	can_move = _can_move
-#
-#func _on_AttackArea_body_entered(body):
-#	if !body.is_alive():
-#		return
-#
-#	var new_state = owner.States.attack.new(owner, body)
-#	owner.fsm.travel_to(new_state)
-#	return
+
+func _on_AreaBody_body_entered(body):
+	if is_instance_valid(body):
+		body._on_impact(self)

@@ -58,7 +58,6 @@ func update(delta) -> void:
 	if wp_idx >= owner.waypoints.size():
 		owner.waypoints = []
 		owner.target = null
-		print_debug("bad waypoint")
 		return
 
 	var facing := Mobile.get_facing_as_string(owner.facing)

@@ -88,7 +88,7 @@ func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
 
 	var walkable_tiles = n_TilemapBottom.get_used_cells()
-	var no_walkable_tiles = n_TilemapTop.get_used_cells()
+	var no_walkable_tiles = n_TilemapTop.get_used_cells() + $TileMapTop/TileMapObjects.get_used_cells()
 	var max_tiles : int = walkable_tiles.size()
 	for i in max_tiles:
 		var t = walkable_tiles[i]
@@ -97,8 +97,10 @@ func _create_pathfinding() -> void:
 		n_TileMap.set_cellv(t, 43)
 
 	for object in n_Entities.get_node("Statics").get_children():
-		if !object.has_node("CollisionShape") || (object is Door):
+		if !object.has_node("CollisionShape"):
 			continue
+		if object is Door:
+			object.connect("on_door_used", self, "_on_door_used")
 		var cellv = n_TileMap.world_to_map(object.global_position)
 		n_TileMap.set_cellv(cellv, -1)
 
@@ -223,3 +225,14 @@ func _on_mob_footstep(mob : Mobile) -> void:
 			volume_db = Global.GameOptions.audio.player_footsteps
 
 	EventBus.emit_signal("play_sound_random", snd, mob.global_position, rand_range(.95,1.05), volume_db)
+
+func _on_AreaRoof_body_entered(body : Node2D) -> void:
+	pass
+
+func _on_door_used(position : Vector2) -> void:
+	var tile_pos := n_TileMap.world_to_map(position)
+	var cell_type := n_TileMap.get_cellv(tile_pos)
+	n_TileMap.set_cellv(tile_pos, 43 if cell_type == -1 else -1)
+	yield(get_tree(),"idle_frame")
+	n_TileMap.update_dirty_quadrants()
+	print_debug("hola")

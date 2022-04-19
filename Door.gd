@@ -1,6 +1,8 @@
 tool
 class_name Door extends StaticObject
 
+signal on_door_used(position)
+
 const OPEN_DELAY := 700.0
 
 enum DoorType {
@@ -36,8 +38,24 @@ func _unhandled_input(event):
 	$CollisionShape.disabled = !$CollisionShape.disabled
 	$Sprite.visible = !$CollisionShape.disabled
 	last_open_elapsed = OS.get_system_time_msecs()
+	_update_tooltip()
+	emit_signal("on_door_used", global_position)
 
 func set_door_type(value) -> void:
 	var type = clamp(value, 0, DoorType.values().size())
 	door_type = type
 	$Sprite.frame = type
+
+func is_open() -> bool:
+	return !$CollisionShape.disabled
+
+func _on_AreaDoor_body_entered(body):
+	_update_tooltip()
+
+func _on_AreaDoor_body_exited(body):
+	EventBus.emit_signal("on_tooltip", "")
+
+func _update_tooltip() -> void:
+	var button = InputMap.get_action_list("action_alt")[0].as_text()
+	var _text = "[center]Press [color=#fffc00]{0}[/color] to {1} [color=#de2d22]DOOR[/color][/center]".format({0:button,1:("open" if is_open() else "close")})
+	EventBus.emit_signal("on_tooltip", _text)

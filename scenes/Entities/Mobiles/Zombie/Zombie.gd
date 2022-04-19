@@ -24,6 +24,7 @@ const Sounds  := {
 	]
 }
 
+export var map_node : NodePath
 export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
@@ -34,6 +35,7 @@ onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead
 onready var area_soft := $SoftCollision
 onready var area_attack := $AttackArea
+onready var area_body := $AreaBody
 
 onready var damage := attack_damage
 
@@ -41,12 +43,15 @@ var target
 var map : Map
 var waypoints : PoolVector2Array
 var down_times := 0
-var knows_about := 0.0
+var knows_about := 0.0 setget set_knows_about
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
+
+	if map_node != null:
+		map = get_node(map_node)
 
 	if state != null:
 		fsm.current_state = state.new(self)
@@ -132,12 +137,47 @@ func on_hit_by(attacker) -> void:
 
 
 func _on_AreaBody_body_entered(body):
-#	self.on_hit_by(body)
 	if is_instance_valid(body):
 		body._on_impact(self)
 
 func _on_AreaHead_body_entered(body : Node2D):
 	pass
+
+func is_facing_target(target_pos : Vector2) -> bool:
+	var dir_to_mob = global_position.direction_to(target_pos)
+	var is_facing_mob = facing.dot(dir_to_mob) > 0
+	return is_facing_mob
+
+func _on_AreaPerception_body_entered(body):
+	var mob = body as Mobile
+
+	if !mob.is_alive():
+		return
+
+	knows_about = MAX_KNOWS_ABOUT
+
+	var facing_target = is_facing_target(mob.global_position)
+	var can_see_target = check_LOS(mob)
+
+	if !(mob.aiming && can_see_target) || (facing_target && can_see_target):
+		target = mob
+	else:
+		$TimerPerception.start()
+
+func _on_TimerPerception_timeout():
+	if target != null || area_perception.get_overlapping_bodies().empty() || knows_about == 0.0:
+		$TimerPerception.stop()
+		return
+
+	var mob = area_perception.get_overlapping_bodies()[0]
+	knows_about = MAX_KNOWS_ABOUT
+
+	var facing_target = is_facing_target(mob.global_position)
+	var can_see_target = check_LOS(mob)
+	var distance_to_target = global_position.distance_to(mob.global_position)
+
+	if !(mob.aiming && can_see_target) || (facing_target && can_see_target) || (can_see_target && distance_to_target < sight_radius / 4):
+		target = mob
 
 func _on_fuelcan_explode(_position):
 	if target != null && !(target is Vector2):
@@ -157,22 +197,6 @@ func _on_weapon_fired(_position) -> void:
 
 	target = Global.get_area_point(_position, 60.0)
 
-func _on_AreaPerception_body_entered(body):
-	var mob = body as Mobile
-
-	if !mob.is_alive():
-		return
-
-	if target != null && (target is Mobile):
-		var dist_to_mob := global_position.distance_to(mob.global_position)
-		var dist_to_target := global_position.distance_to(target.global_position)
-
-		if dist_to_mob > dist_to_target:
-			return
-
-	target = mob
-	knows_about = MAX_KNOWS_ABOUT
-
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)
 
@@ -186,3 +210,8 @@ func _on_screen_exited():
 
 func set_can_move(_can_move) -> void:
 	can_move = _can_move
+
+func set_knows_about(_value) -> void:
+	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
+
+

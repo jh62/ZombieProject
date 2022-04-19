@@ -1749,11 +1749,10 @@ item = ExtResource( 4 )
 visible = false
 
 [node name="Flashlight" type="Light2D" parent="." index="5"]
-visible = false
 texture = ExtResource( 12 )
 offset = Vector2( 58, 0 )
 range_height = 100.0
-range_item_cull_mask = 19
+range_item_cull_mask = 8215
 shadow_enabled = true
 shadow_gradient_length = 0.1
 shadow_filter = 1
@@ -1761,7 +1760,6 @@ shadow_filter_smooth = 10.0
 shadow_item_cull_mask = 7
 
 [node name="Vision" type="Light2D" parent="." index="6"]
-visible = false
 z_index = 1
 texture = ExtResource( 11 )
 offset = Vector2( 58, 0 )
@@ -1774,13 +1772,14 @@ shadow_filter = 1
 shadow_filter_smooth = 10.0
 shadow_item_cull_mask = 8
 
-[node name="RayHeadshot" type="RayCast2D" parent="." index="7"]
-collision_mask = 13
-
-[node name="Camera2D" type="Camera2D" parent="." index="8"]
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
 current = true
 
-[node name="Crosshair" parent="." index="9" instance=ExtResource( 13 )]
+[node name="Crosshair" parent="." index="8" instance=ExtResource( 13 )]
+
+[node name="RayHeadshot" type="RayCast2D" parent="." index="9"]
+enabled = true
+collision_mask = 13
 
 [connection signal="on_aiming_start" from="." to="." method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_stop" from="." to="." method="_on_Player_on_aiming_stop"]

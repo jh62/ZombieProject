@@ -110,14 +110,14 @@ func update(delta) -> void:
 		if neighbors != 0:
 			steering_force /= neighbors
 			steering_force *= -1
-			steering_force = steering_force.normalized() * 400.0
+			steering_force = steering_force.normalized() * 40.0
 
 		if closest != null:
 			var zomb_v = closest.vel * -1
 			zomb_v = zomb_v.normalized() * 2
 			steering_force += closest.global_position + zomb_v
-			steering_force = steering_force.clamped(8)
+			steering_force = steering_force.clamped(8.0)
 
 	owner.vel = owner.speed * owner.dir
 	owner.vel += steering_force + push_force
-	owner.vel = owner.move_and_slide(owner.vel)
+	owner.global_position = owner.global_position.move_toward(owner.global_position + owner.vel, delta * owner.speed)

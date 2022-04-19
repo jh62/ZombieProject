@@ -44,12 +44,6 @@ func enter_state() -> void:
 	EventBus.emit_signal("play_sound", CrawlerCrySound, owner.global_position)
 
 func update(delta) -> void:
-	var line : Line2D = owner.get_node("Line2D")
-
-	line.clear_points()
-	line.add_point(owner.global_position - owner.position)
-	line.add_point(owner.target - owner.position)
-
 	if threat in owner.area_attack.get_overlapping_bodies():
 		var new_state = owner.States.attack.new(owner, threat)
 		owner.fsm.travel_to(new_state)
