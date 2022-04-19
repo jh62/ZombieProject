@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+cull_mode = 1
+polygon = PoolVector2Array( -16, 0, -16, 8, -16, 8, -15, 8, -15, 1, 14, 1, 14, 7, 15, 7, 15, 0 )
+
+[node name="BigDesk" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+light_mask = 1
+texture = ExtResource( 1 )
+region_rect = Rect2( 672, 80, 32, 16 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+light_mask = 0
+occluder = SubResource( 1 )
+light_mask = 0
+
+[node name="CollisionShape" parent="." index="1"]
+visible = true
+polygon = PoolVector2Array( -16, 7, 15, 7, 15, -6, -16, -6 )

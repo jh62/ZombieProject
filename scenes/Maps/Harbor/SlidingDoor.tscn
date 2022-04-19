@@ -1,12 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Maps/Harbor/SlidingDoor.tres" type="Texture" id=1]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Maps/Harbor/SlidingDoor.gd" type="Script" id=3]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 672, 112, 64, 16 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 31.5, 11 )
@@ -26,7 +22,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape:position")
+tracks/1/path = NodePath("CollisionShape:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -35,10 +31,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("CollisionShape:disabled")
+tracks/2/path = NodePath("Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -46,8 +42,20 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -59,13 +67,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false ]
+"values": [ true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:offset")
+tracks/1/path = NodePath("Sprite:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -92,31 +100,31 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=5]
 resource_name = "open"
 tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape:disabled")
+tracks/0/path = NodePath("Sprite:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 1 ),
+"times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:offset")
+tracks/1/path = NodePath("CollisionShape:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -64, 0 ) ]
+"update": 1,
+"values": [ false, true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("CollisionShape:position")
+tracks/2/path = NodePath("Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -127,17 +135,56 @@ tracks/2/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( -64, 0 ) ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -64, 0 ) ]
+}
 
 [node name="SlidingDoor" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
-texture = SubResource( 1 )
-region_rect = Rect2( 0, 0, 64, 16 )
+light_mask = 23
+texture = ExtResource( 1 )
+region_rect = Rect2( 16, 16, 16, 16 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+light_mask = 7
+light_mask = 7
+
+[node name="Sprite2" type="Sprite" parent="Sprite" index="1"]
+light_mask = 23
+texture = ExtResource( 1 )
+offset = Vector2( -16, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="Sprite3" type="Sprite" parent="Sprite" index="2"]
+light_mask = 23
+texture = ExtResource( 1 )
+offset = Vector2( 16, 0 )
+region_enabled = true
+region_rect = Rect2( 32, 32, 16, 16 )
+
+[node name="Sprite4" type="Sprite" parent="Sprite" index="3"]
+light_mask = 23
+texture = ExtResource( 1 )
+offset = Vector2( 32, 0 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 16 )
 
 [node name="CollisionShape" parent="." index="1"]
 visible = true
-polygon = PoolVector2Array( -32, -3, 32, -3, 32, 4, -32, 4 )
+polygon = PoolVector2Array( -24, 0, 40, 0, 40, 8, -24, 8 )
 
 [node name="AreaDoor" type="Area2D" parent="." index="3"]
 visible = false
