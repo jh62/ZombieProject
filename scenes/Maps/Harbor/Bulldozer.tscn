@@ -4,24 +4,27 @@
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( 16, -8, -8, -8, -8, 8, 16, 8 )
+cull_mode = 1
+polygon = PoolVector2Array( 14, -5, -7, -5, -7, 7, 14, 7 )
 
 [node name="Bulldozer" instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="." index="0"]
+light_mask = 1
 texture = ExtResource( 1 )
 region_rect = Rect2( 400, 21, 33, 22 )
+region_filter_clip = true
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+show_behind_parent = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( -16, 8, 16, 8, 16, 0, -16, 0 )
-
-[node name="Area2D" parent="." index="2"]
-visible = true
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
 polygon = PoolVector2Array( -15, -4, 15, -4, 15, 3, -15, 3 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+visible = false

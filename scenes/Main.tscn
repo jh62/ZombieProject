@@ -792,7 +792,6 @@ restartable = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 z_index = 1000
 color = Color( 0.117647, 0.117647, 0.117647, 1 )
 

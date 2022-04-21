@@ -22,21 +22,19 @@ polygon = PoolVector2Array( -9, 1, -9, 15, 9, 15, 9, 1 )
 script = SubResource( 1 )
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 17
+light_mask = 2
 texture = ExtResource( 2 )
 hframes = 3
 region_enabled = false
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
-light_mask = 23
 occluder = SubResource( 2 )
-light_mask = 23
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
-light_mask = 23
+light_mask = 2
 occluder = SubResource( 3 )
-light_mask = 23
+light_mask = 2
 
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( -8, -8, -8, 8, 8, 8, 8, -8 )

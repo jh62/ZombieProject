@@ -18,7 +18,7 @@ region = Rect2( 496, 48, 48, 16 )
 script = SubResource( 1 )
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 0
+light_mask = 1
 texture = SubResource( 2 )
 hframes = 3
 region_rect = Rect2( 0, 0, 48, 16 )
