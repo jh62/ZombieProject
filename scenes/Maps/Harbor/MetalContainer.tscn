@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Maps/Harbor/metal_containers.tres" type="Texture" id=2]
@@ -12,29 +12,22 @@ func _ready():
 
 [sub_resource type="OccluderPolygon2D" id=2]
 cull_mode = 1
-polygon = PoolVector2Array( -9, -15, -9, 1, 9, 1, 9, -15 )
-
-[sub_resource type="OccluderPolygon2D" id=3]
-cull_mode = 2
-polygon = PoolVector2Array( -9, 1, -9, 15, 9, 15, 9, 1 )
+polygon = PoolVector2Array( -8, -15, -8, 2, 9, 2, 9, -15 )
 
 [node name="MetalContainer" instance=ExtResource( 1 )]
 script = SubResource( 1 )
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 2
+light_mask = 3
 texture = ExtResource( 2 )
 hframes = 3
 region_enabled = false
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+light_mask = 3
 occluder = SubResource( 2 )
-
-[node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
-light_mask = 2
-occluder = SubResource( 3 )
-light_mask = 2
+light_mask = 3
 
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( -8, -8, -8, 8, 8, 8, 8, -8 )

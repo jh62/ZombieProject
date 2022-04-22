@@ -1,18 +1,19 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=48 format=2]
 
-[ext_resource path="res://scenes/Entities/Mobiles/Mobile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/Entities/Mobiles/Player/Equipment.gd" type="Script" id=2]
-[ext_resource path="res://scenes/Entities/Mobiles/Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset_v2.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/Entities/Mobiles/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/res/char/shoot.tres" type="Texture" id=5]
-[ext_resource path="res://assets/res/char/die.tres" type="Texture" id=6]
-[ext_resource path="res://assets/res/char/idle.tres" type="Texture" id=7]
+[ext_resource path="res://assets/res/char/searching.tres" type="Texture" id=5]
+[ext_resource path="res://assets/res/char/idle_n.tres" type="Texture" id=6]
+[ext_resource path="res://assets/res/char/die.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/char/run.tres" type="Texture" id=8]
-[ext_resource path="res://assets/res/char/searching.tres" type="Texture" id=9]
-[ext_resource path="res://assets/res/char/idle_n.tres" type="Texture" id=10]
+[ext_resource path="res://assets/res/char/idle.tres" type="Texture" id=9]
+[ext_resource path="res://assets/res/char/shoot.tres" type="Texture" id=10]
 [ext_resource path="res://assets/fx/flashlight2.png" type="Texture" id=11]
 [ext_resource path="res://assets/fx/flashlight.png" type="Texture" id=12]
-[ext_resource path="res://scenes/UI/Crosshair/Crosshair.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/Entities/Mobiles/Player/Equipment.gd" type="Script" id=13]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=14]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 3.92417
@@ -30,7 +31,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -81,7 +82,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -132,7 +133,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -183,7 +184,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -234,7 +235,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -287,7 +288,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -340,7 +341,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -393,7 +394,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -446,7 +447,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -499,7 +500,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ ExtResource( 7 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -552,7 +553,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -600,7 +601,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 10 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -617,7 +618,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -670,7 +671,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -723,7 +724,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -776,7 +777,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 7 ) ]
+"values": [ ExtResource( 9 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1179,7 +1180,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1232,7 +1233,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1285,7 +1286,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1338,7 +1339,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1391,7 +1392,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 5 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1443,7 +1444,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1495,7 +1496,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1548,7 +1549,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1600,7 +1601,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1652,7 +1653,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ) ]
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1691,23 +1692,61 @@ tracks/3/keys = {
 "values": [ 12, 13, 14 ]
 }
 
-[node name="Player" instance=ExtResource( 1 )]
+[sub_resource type="OccluderPolygon2D" id=34]
+closed = false
+cull_mode = 1
+polygon = PoolVector2Array( 642, 219, 642, 223 )
+
+[sub_resource type="OccluderPolygon2D" id=33]
+closed = false
+cull_mode = 2
+polygon = PoolVector2Array( 640, 219, 640, 223 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap2" type="TileMap" parent="."]
+light_mask = 4
+z_index = 1
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_tile_origin = 1
+cell_y_sort = true
+centered_textures = true
+occluder_light_mask = 4
+format = 1
+tile_data = PoolIntArray( 393248, 27, 0, 393249, 27, 2, 393250, 27, 2, 393251, 27, 2, 393252, 27, 2, 393253, 27, 2, 393254, 27, 6, 458784, 27, 65536, 458785, 27, 65538, 458786, 27, 65538, 458787, 27, 65538, 458788, 27, 65538, 458789, 27, 65538, 458790, 27, 65542, 524320, 27, 262144, 524326, 27, 262150, 589856, 27, 262144, 589862, 27, 262150, 655392, 27, 262144, 655398, 27, 262150, 720928, 27, 524288, 720929, 27, 524289, 720930, 27, 524289, 720931, 27, 524289, 720932, 27, 524289, 720934, 27, 524294, 786464, 27, 589824, 786465, 27, 589825, 786466, 27, 589825, 786467, 27, 589825, 786468, 27, 589825, 786470, 27, 589830, 786473, 57, 0 )
+
+[node name="TileMap3" type="TileMap" parent="TileMap2"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_tile_origin = 1
+cell_y_sort = true
+centered_textures = true
+occluder_light_mask = 7
+format = 1
+tile_data = PoolIntArray( 327715, 32, 1, 655390, 32, 1, 655400, 32, 1, 852008, 36, 0, 852009, 57, 65536, 917537, 36, 0, 917539, 32, 1 )
+
+[node name="Player" type="KinematicBody2D" parent="TileMap2"]
+position = Vector2( 560, 152 )
 collision_layer = 2
 collision_mask = 271
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 max_speed = 16.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap2/Player"]
 position = Vector2( 0, 2.83163 )
 shape = SubResource( 1 )
 
-[node name="Sprite" parent="." index="1"]
+[node name="Sprite" type="Sprite" parent="TileMap2/Player"]
 light_mask = 16
-texture = ExtResource( 7 )
-normal_map = ExtResource( 10 )
+texture = ExtResource( 9 )
+normal_map = ExtResource( 6 )
+hframes = 4
+vframes = 5
 frame = 8
+region_rect = Rect2( 32, 16, 128, 16 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TileMap2/Player"]
 autoplay = "idle_e"
 anims/die_e = SubResource( 2 )
 anims/die_n = SubResource( 3 )
@@ -1740,27 +1779,27 @@ anims/shoot_ne = SubResource( 29 )
 anims/shoot_s = SubResource( 30 )
 anims/shoot_se = SubResource( 31 )
 
-[node name="Equipment" type="Node2D" parent="." index="3"]
+[node name="Equipment" type="Node2D" parent="TileMap2/Player"]
 light_mask = 16
-script = ExtResource( 2 )
+script = ExtResource( 13 )
 item = ExtResource( 4 )
 
-[node name="VisibilityNotifier2D" parent="." index="4"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="TileMap2/Player"]
 visible = false
 
-[node name="Flashlight" type="Light2D" parent="." index="5"]
+[node name="Flashlight" type="Light2D" parent="TileMap2/Player"]
 texture = ExtResource( 12 )
 offset = Vector2( 58, 0 )
 mode = 2
 range_height = 100.0
-range_item_cull_mask = 17
+range_item_cull_mask = 7
 shadow_enabled = true
 shadow_gradient_length = 0.1
 shadow_filter = 2
 shadow_filter_smooth = 5.0
-shadow_item_cull_mask = 1030
+shadow_item_cull_mask = 7
 
-[node name="Vision" type="Light2D" parent="." index="6"]
+[node name="Vision" type="Light2D" parent="TileMap2/Player"]
 z_index = 1
 texture = ExtResource( 11 )
 offset = Vector2( 58, 0 )
@@ -1773,14 +1812,49 @@ shadow_filter = 1
 shadow_filter_smooth = 10.0
 shadow_item_cull_mask = 8
 
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
+[node name="Camera2D" type="Camera2D" parent="TileMap2/Player"]
 current = true
 
-[node name="Crosshair" parent="." index="8" instance=ExtResource( 13 )]
+[node name="Crosshair" parent="TileMap2/Player" instance=ExtResource( 3 )]
 
-[node name="RayHeadshot" type="RayCast2D" parent="." index="9"]
+[node name="RayHeadshot" type="RayCast2D" parent="TileMap2/Player"]
 enabled = true
 collision_mask = 13
 
-[connection signal="on_aiming_start" from="." to="." method="_on_Player_on_aiming_start"]
-[connection signal="on_aiming_stop" from="." to="." method="_on_Player_on_aiming_stop"]
+[node name="RayCast2D" type="RayCast2D" parent="TileMap2/Player"]
+collision_mask = 0
+
+[node name="TileMap" type="TileMap" parent="."]
+z_as_relative = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 262172, 20, 0, 262173, 20, 0, 262174, 20, 0, 262175, 20, 0, 262176, 20, 0, 262177, 20, 0, 262178, 20, 0, 262179, 20, 0, 262180, 20, 0, 262181, 20, 0, 262182, 20, 0, 262183, 20, 0, 262184, 20, 0, 262185, 20, 0, 262186, 20, 0, 327708, 20, 0, 327709, 20, 0, 327710, 20, 0, 327711, 20, 0, 327712, 20, 0, 327713, 20, 0, 327714, 20, 0, 327715, 20, 0, 327716, 20, 0, 327717, 20, 0, 327718, 20, 0, 327719, 20, 0, 327720, 20, 0, 327721, 20, 0, 327722, 20, 0, 393244, 20, 0, 393245, 20, 0, 393246, 20, 0, 393247, 20, 0, 393248, 20, 0, 393249, 20, 0, 393250, 20, 0, 393251, 20, 0, 393252, 20, 0, 393253, 20, 0, 393254, 20, 0, 393255, 20, 0, 393256, 20, 0, 393257, 20, 0, 393258, 20, 0, 458780, 20, 0, 458781, 20, 0, 458782, 20, 0, 458783, 20, 0, 458784, 20, 0, 458785, 20, 0, 458786, 20, 0, 458787, 20, 0, 458788, 20, 0, 458789, 20, 0, 458790, 20, 0, 458791, 20, 0, 458792, 20, 0, 458793, 20, 0, 458794, 20, 0, 524316, 20, 0, 524317, 20, 0, 524318, 20, 0, 524319, 20, 0, 524320, 21, 9, 524321, 21, 9, 524322, 21, 9, 524323, 21, 9, 524324, 21, 9, 524325, 21, 9, 524326, 21, 9, 524327, 20, 0, 524328, 20, 0, 524329, 20, 0, 524330, 20, 0, 589852, 20, 0, 589853, 20, 0, 589854, 20, 0, 589855, 20, 0, 589856, 21, 9, 589857, 21, 9, 589858, 21, 9, 589859, 21, 9, 589860, 21, 9, 589861, 21, 9, 589862, 21, 9, 589863, 20, 0, 589864, 20, 0, 589865, 20, 0, 589866, 20, 0, 655388, 20, 0, 655389, 20, 0, 655390, 20, 0, 655391, 20, 0, 655392, 21, 9, 655393, 21, 9, 655394, 21, 9, 655395, 21, 9, 655396, 21, 9, 655397, 21, 9, 655398, 21, 9, 655399, 20, 0, 655400, 20, 0, 655401, 20, 0, 655402, 20, 0, 720924, 20, 0, 720925, 20, 0, 720926, 20, 0, 720927, 20, 0, 720928, 21, 9, 720929, 21, 9, 720930, 21, 9, 720931, 21, 9, 720932, 21, 9, 720933, 21, 9, 720934, 21, 9, 720935, 20, 0, 720936, 20, 0, 720937, 20, 0, 720938, 20, 0, 786460, 20, 0, 786461, 20, 0, 786462, 20, 0, 786463, 20, 0, 786464, 21, 9, 786465, 21, 9, 786466, 21, 9, 786467, 21, 9, 786468, 21, 9, 786469, 21, 9, 786470, 21, 9, 786471, 20, 0, 786472, 20, 0, 786473, 20, 0, 786474, 20, 0, 851996, 20, 0, 851997, 20, 0, 851998, 20, 0, 851999, 20, 0, 852000, 20, 0, 852001, 20, 0, 852002, 20, 0, 852003, 20, 0, 852004, 20, 0, 852005, 20, 0, 852006, 20, 0, 852007, 20, 0, 852008, 20, 0, 852009, 20, 0, 852010, 20, 0, 917532, 20, 0, 917533, 20, 0, 917534, 20, 0, 917535, 20, 0, 917536, 20, 0, 917537, 20, 0, 917538, 20, 0, 917539, 20, 0, 917540, 20, 0, 917541, 20, 0, 917542, 20, 0, 917543, 20, 0, 917544, 20, 0, 917545, 20, 0, 917546, 20, 0, 983068, 20, 0, 983069, 20, 0, 983070, 20, 0, 983071, 20, 0, 983072, 20, 0, 983073, 20, 0, 983074, 20, 0, 983075, 20, 0, 983076, 20, 0, 983077, 20, 0, 983078, 20, 0, 983079, 20, 0, 983080, 20, 0, 983081, 20, 0, 983082, 20, 0 )
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.156863, 0.156863, 0.156863, 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+position = Vector2( 641, 212 )
+z_index = 1
+texture = ExtResource( 14 )
+region_enabled = true
+region_rect = Rect2( 581, 36, 6, 25 )
+
+[node name="Sprite2" type="Sprite" parent="Node2D"]
+visible = false
+texture = ExtResource( 14 )
+region_enabled = true
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Node2D"]
+occluder = SubResource( 34 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Node2D"]
+occluder = SubResource( 33 )
+
+[connection signal="on_aiming_start" from="TileMap2/Player" to="TileMap2/Player" method="_on_Player_on_aiming_start"]
+[connection signal="on_aiming_stop" from="TileMap2/Player" to="TileMap2/Player" method="_on_Player_on_aiming_stop"]
+[connection signal="screen_exited" from="TileMap2/Player/VisibilityNotifier2D" to="TileMap2/Player" method="_on_screen_exited"]

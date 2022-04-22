@@ -22,7 +22,9 @@ region_rect = Rect2( 0, 0, 64, 20 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+light_mask = 10
 occluder = SubResource( 1 )
+light_mask = 10
 
 [node name="CollisionShape" parent="." index="1"]
 visible = true
