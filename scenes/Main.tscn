@@ -784,7 +784,6 @@ script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
 is_active = false
-mob_max = 20
 restartable = true
 
 [node name="SoundManager" parent="." instance=ExtResource( 8 )]
@@ -792,6 +791,7 @@ restartable = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 z_index = 1000
 color = Color( 0.117647, 0.117647, 0.117647, 1 )
 

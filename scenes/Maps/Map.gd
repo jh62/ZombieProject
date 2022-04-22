@@ -64,21 +64,22 @@ const MaterialSound := {
 
 export var map_name := ""
 
+onready var n_TileMap4 : TileMap = $TileMap4 setget ,get_tilemap
+onready var n_TileMap3 : TileMap = $TileMap3 setget ,get_tilemap
+onready var n_TileMap2 : TileMap = $TileMap2 setget ,get_tilemap
+onready var n_TileMap1 : TileMap = $TileMap1 setget ,get_tilemap
 onready var n_SpawnAreas := $SpawnAreas
-onready var n_TilemapTop : TileMap = $TileMapTop setget ,get_tilemap
-onready var n_TilemapBottom : TileMap = n_TilemapTop.get_node("TileMapBottom")
-onready var n_TilemapRoofs : TileMap = $TileMapRoofs
 onready var n_Navigation := $Navigation
 onready var n_TileMap : TileMap = n_Navigation.get_node("TileMap")
-onready var n_Entities := $TileMapTop/Entities
+onready var n_Entities := n_TileMap2.get_node("Entities")
 
 var pathfind := AStar2D.new()
 
 func _ready():
-	Global.MAP_SIZE = n_TilemapBottom.get_used_rect().size * 16
+	Global.MAP_SIZE = n_TileMap1.get_used_rect().size * 16
 
-	if !n_TilemapRoofs.visible:
-		n_TilemapRoofs.visible = true
+	if !n_TileMap4.visible:
+		n_TileMap4.visible = true
 
 	_create_pathfinding()
 
@@ -87,8 +88,8 @@ func _ready():
 func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
 
-	var walkable_tiles = n_TilemapBottom.get_used_cells()
-	var no_walkable_tiles = n_TilemapTop.get_used_cells() + $TileMapTop/TileMapObjects.get_used_cells()
+	var walkable_tiles = n_TileMap1.get_used_cells()
+	var no_walkable_tiles = n_TileMap2.get_used_cells()
 	var max_tiles : int = walkable_tiles.size()
 	for i in max_tiles:
 		var t = walkable_tiles[i]
@@ -144,8 +145,8 @@ func get_waypoint_nav(from : Vector2, to : Vector2) -> PoolVector2Array:
 	return points as PoolVector2Array
 
 func get_waypoints_to(from : Vector2, to : Vector2) -> PoolVector2Array:
-	var cell_from := n_TilemapBottom.world_to_map(from)
-	var cell_to := n_TilemapBottom.world_to_map(to)
+	var cell_from := n_TileMap1.world_to_map(from)
+	var cell_to := n_TileMap1.world_to_map(to)
 
 	return pathfind.get_point_path(get_tile_id(cell_from), get_tile_id(cell_to))
 
@@ -188,16 +189,16 @@ func _on_mob_footstep(mob : Mobile) -> void:
 
 	if mob.is_in_group(Global.GROUP_PLAYER):
 		grp = Global.GROUP_PLAYER
-		var map_pos := n_TilemapRoofs.world_to_map(mob.global_position)
-		if n_TilemapRoofs.get_cellv(map_pos) != TileMap.INVALID_CELL:
-			if n_TilemapRoofs.modulate.a == 1.0:
+		var map_pos := n_TileMap4.world_to_map(mob.global_position)
+		if n_TileMap4.get_cellv(map_pos) != TileMap.INVALID_CELL:
+			if n_TileMap4.modulate.a == 1.0:
 				$Tween.stop_all()
-				$Tween.interpolate_property(n_TilemapRoofs,"modulate", n_TilemapRoofs.modulate,Color(1,1,1,.15), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
+				$Tween.interpolate_property(n_TileMap4,"modulate", n_TileMap4.modulate,Color(1,1,1,.15), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
 				$Tween.start()
 		else:
-			if n_TilemapRoofs.modulate.a != 1.0:
+			if n_TileMap4.modulate.a != 1.0:
 				$Tween.stop_all()
-				$Tween.interpolate_property(n_TilemapRoofs,"modulate", n_TilemapRoofs.modulate, Color(1,1,1,1.0), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
+				$Tween.interpolate_property(n_TileMap4,"modulate", n_TileMap4.modulate, Color(1,1,1,1.0), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
 				$Tween.start()
 
 	else:

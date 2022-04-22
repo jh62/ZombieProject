@@ -13,7 +13,6 @@ angular_damp = 1.25
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-light_mask = 2
 texture = ExtResource( 3 )
 normal_map = ExtResource( 1 )
 

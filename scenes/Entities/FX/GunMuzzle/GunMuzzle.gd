@@ -2,11 +2,6 @@ extends Sprite
 
 export var duration := 0.167
 
-func _ready():
-	pass
-#	set_process(false)
-#	set_physics_process(false)
-
 func show() -> void:
 	visible = true
 #	$Light2D.enabled = true

@@ -14,19 +14,19 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="TileMapRoofs" type="TileMap" parent="."]
+[node name="TileMap4" type="TileMap" parent="."]
 light_mask = 0
 z_index = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
-[node name="TileMapWallDecos" type="TileMap" parent="."]
+[node name="TileMap3" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 
-[node name="TileMapTop" type="TileMap" parent="."]
+[node name="TileMap2" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 cell_tile_origin = 1
@@ -36,23 +36,23 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="TileMapBottom" type="TileMap" parent="TileMapTop"]
+[node name="Entities" type="YSort" parent="TileMap2"]
+script = ExtResource( 2 )
+
+[node name="Ground" type="YSort" parent="TileMap2/Entities"]
+sort_enabled = false
+
+[node name="Statics" type="YSort" parent="TileMap2/Entities"]
+
+[node name="Mobs" type="YSort" parent="TileMap2/Entities"]
+
+[node name="TileMap1" type="TileMap" parent="."]
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Entities" type="YSort" parent="TileMapTop"]
-script = ExtResource( 2 )
-
-[node name="Ground" type="YSort" parent="TileMapTop/Entities"]
-sort_enabled = false
-
-[node name="Statics" type="YSort" parent="TileMapTop/Entities"]
-
-[node name="Mobs" type="YSort" parent="TileMapTop/Entities"]
 
 [node name="Navigation" type="Navigation2D" parent="."]
 __meta__ = {

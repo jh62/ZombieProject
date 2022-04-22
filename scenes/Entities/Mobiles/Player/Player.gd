@@ -43,37 +43,33 @@ func _ready() -> void:
 func _process_animations() -> void:
 	._process_animations()
 
+	Global.set_canvas_item_light_mask_value(sprite, 5, facing.y >= 0)
+
 	match facing.round():
 		Vector2(0,-1):
 			$Flashlight.rotation_degrees = -90
 			vision.rotation_degrees = -90
-			Global.set_canvas_item_light_mask_value(sprite, 5, false)
 		Vector2(0,1):
 			$Flashlight.rotation_degrees = 90
 			vision.rotation_degrees = 90
-			Global.set_canvas_item_light_mask_value(sprite, 5, true)
 		Vector2(1,0):
 			$Flashlight.rotation_degrees = 0
 			vision.rotation_degrees = 0
 		Vector2(1,1):
 			$Flashlight.rotation_degrees = 45
 			vision.rotation_degrees = 45
-			Global.set_canvas_item_light_mask_value(sprite, 5, true)
 		Vector2(1,-1):
 			$Flashlight.rotation_degrees = -45
 			vision.rotation_degrees = -45
-			Global.set_canvas_item_light_mask_value(sprite, 5, false)
 		Vector2(-1,0):
 			$Flashlight.rotation_degrees = 180
 			vision.rotation_degrees = 180
 		Vector2(-1,-1):
 			$Flashlight.rotation_degrees = -135
 			vision.rotation_degrees = -135
-			Global.set_canvas_item_light_mask_value(sprite, 5, false)
 		Vector2(-1,1):
 			$Flashlight.rotation_degrees = 135
 			vision.rotation_degrees = 135
-			Global.set_canvas_item_light_mask_value(sprite, 5, true)
 		_:
 			$Flashlight.rotation_degrees = 0
 			vision.rotation_degrees = 0

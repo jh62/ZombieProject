@@ -1751,14 +1751,13 @@ visible = false
 [node name="Flashlight" type="Light2D" parent="." index="5"]
 texture = ExtResource( 12 )
 offset = Vector2( 58, 0 )
-mode = 2
 range_height = 100.0
-range_item_cull_mask = 17
+range_item_cull_mask = 3
 shadow_enabled = true
 shadow_gradient_length = 0.1
 shadow_filter = 2
 shadow_filter_smooth = 5.0
-shadow_item_cull_mask = 1030
+shadow_item_cull_mask = 3
 
 [node name="Vision" type="Light2D" parent="." index="6"]
 z_index = 1
@@ -1774,7 +1773,10 @@ shadow_filter_smooth = 10.0
 shadow_item_cull_mask = 8
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
+light_mask = 0
 current = true
+limit_smoothed = true
+smoothing_enabled = true
 
 [node name="Crosshair" parent="." index="8" instance=ExtResource( 13 )]
 

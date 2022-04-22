@@ -1854,6 +1854,7 @@ tracks/7/keys = {
 }
 
 [node name="Pistol" instance=ExtResource( 3 )]
+light_mask = 16
 texture = ExtResource( 1 )
 normal_map = ExtResource( 7 )
 hframes = 4
