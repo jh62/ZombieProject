@@ -205,6 +205,7 @@ func kill() -> void:
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
 	self.hitpoints -= attacker.damage
+	print_debug(attacker.damage)
 
 	if hitpoints == 0:
 #		vel *= vel * attacker.dir

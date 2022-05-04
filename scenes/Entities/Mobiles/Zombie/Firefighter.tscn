@@ -1,6 +1,6 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=59 format=2]
 
-[ext_resource path="res://scenes/Entities/Mobiles/Zombie/Zombie.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Entities/Mobiles/Zombie/Firefighter.gd" type="Script" id=1]
 [ext_resource path="res://assets/res/zombies/eating_n.tres" type="Texture" id=2]
 [ext_resource path="res://assets/res/zombies/idle_n.tres" type="Texture" id=3]
 [ext_resource path="res://assets/res/zombies/standup_n.tres" type="Texture" id=4]
@@ -8,13 +8,14 @@
 [ext_resource path="res://assets/res/zombies/die_n.tres" type="Texture" id=6]
 [ext_resource path="res://assets/res/zombies/die.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/zombies/walk_n.tres" type="Texture" id=8]
-[ext_resource path="res://assets/res/zombies/firefighter/ff_walk.tres" type="Texture" id=9]
+[ext_resource path="res://assets/fx/smoke.png" type="Texture" id=9]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_idle.tres" type="Texture" id=10]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_getup.tres" type="Texture" id=11]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_die.tres" type="Texture" id=12]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_hit.tres" type="Texture" id=13]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_eat.tres" type="Texture" id=14]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_attack.tres" type="Texture" id=15]
+[ext_resource path="res://assets/res/zombies/firefighter/ff_walk.tres" type="Texture" id=16]
 
 [sub_resource type="Animation" id=40]
 length = 0.001
@@ -964,7 +965,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 7 ]
+"values": [ 4, 6 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1026,10 +1027,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 4, 6 ]
+"values": [ 4, 6, 14 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1091,10 +1092,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 3 ]
+"values": [ 0, 3, 10 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1168,10 +1169,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.166667 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 3 ]
+"values": [ 0, 3, 18 ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -1649,7 +1650,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1732,7 +1733,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1815,7 +1816,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1898,7 +1899,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1981,7 +1982,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ ExtResource( 16 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -2061,7 +2062,7 @@ height = 8.0
 radius = 80.0
 
 [sub_resource type="CircleShape2D" id=39]
-radius = 8.0
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id=46]
 radius = 14.0
@@ -2069,15 +2070,50 @@ radius = 14.0
 [sub_resource type="CircleShape2D" id=47]
 radius = 12.0
 
+[sub_resource type="CapsuleShape2D" id=54]
+radius = 2.0
+height = 4.0
+
+[sub_resource type="Gradient" id=49]
+offsets = PoolRealArray( 0.0186335, 0.987578 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=50]
+gradient = SubResource( 49 )
+
+[sub_resource type="Curve" id=51]
+_data = [ Vector2( 0.00543478, 0.278409 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=52]
+curve = SubResource( 51 )
+
+[sub_resource type="ParticlesMaterial" id=53]
+flag_disable_z = true
+direction = Vector3( -1, -1, 0 )
+spread = 42.88
+flatness = 0.53
+gravity = Vector3( 0, -12, 0 )
+initial_velocity = 37.6
+angular_velocity = 2.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 30.0
+damping_random = 0.5
+scale = 0.18
+scale_random = 0.1
+scale_curve = SubResource( 52 )
+color_ramp = SubResource( 50 )
+
 [node name="Firefighter" type="KinematicBody2D"]
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 1 )
+attack_damage = 500
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 8
 texture = ExtResource( 7 )
-normal_map = ExtResource( 2 )
+normal_map = ExtResource( 8 )
 hframes = 4
 vframes = 2
 frame = 4
@@ -2159,6 +2195,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource( 47 )
 
+[node name="AreaExtinguisher" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaExtinguisher"]
+position = Vector2( -5, -1 )
+shape = SubResource( 54 )
+
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
 
@@ -2167,8 +2211,17 @@ collision_mask = 15
 
 [node name="TimerPerception" type="Timer" parent="."]
 
+[node name="Particles2D" type="Particles2D" parent="."]
+show_behind_parent = true
+position = Vector2( -5, 0 )
+emitting = false
+amount = 2
+process_material = SubResource( 53 )
+texture = ExtResource( 9 )
+
 [connection signal="body_entered" from="AreaBody" to="." method="_on_AreaBody_body_entered"]
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]
+[connection signal="body_entered" from="AreaExtinguisher" to="." method="_on_AreaExtinguisher_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
 [connection signal="timeout" from="TimerPerception" to="." method="_on_TimerPerception_timeout"]

@@ -35,7 +35,7 @@ export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
-export var attack_damage := 3
+export var attack_damage := 10
 export(Type) var zombie_type := Type.COMMON
 
 onready var area_perception := $AreaPerception
@@ -67,19 +67,19 @@ func _ready() -> void:
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
-			max_hitpoints = 40
-			max_speed = 10
+			max_hitpoints = 46
+			max_speed = 14
 			sight_radius = 90
 			hearing_distance = 350
 			awareness_timer = 15
-			attack_damage = 4
+			attack_damage = 40
 		Globals.Difficulty.NORMAL:
-			max_hitpoints = 20
-			max_speed = 8
+			max_hitpoints = 26
+			max_speed = 10
 			sight_radius = 90
 			hearing_distance = 325
 			awareness_timer = 15
-			attack_damage = 3.25
+			attack_damage = 10
 		_:
 			pass
 
@@ -125,7 +125,7 @@ func kill() -> void:
 
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
-	hitpoints -=  attacker.damage
+	hitpoints -=  attacker.damage	
 
 	var new_state : State
 
@@ -226,4 +226,6 @@ func set_can_move(_can_move) -> void:
 func set_knows_about(_value) -> void:
 	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
 
-
+func _on_AreaExtinguisher_body_entered(body):
+	$Particles2D.emitting = true
+	$Particles2D.amount = max_hitpoints - hitpoints

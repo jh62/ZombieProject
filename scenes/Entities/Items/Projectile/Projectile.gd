@@ -27,7 +27,6 @@ func _on_impact(body) -> void:
 
 	var decal := Decal.instance()
 	EventBus.emit_signal("on_object_spawn", decal, global_position)
-
 	if !(body is Mobile):
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
 
