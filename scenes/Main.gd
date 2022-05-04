@@ -130,10 +130,6 @@ func _on_Button_button_up():
 		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
-	for mob in $TileMap/Entities/Mobs.get_children():
-		mob.can_move = false
-
-	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
 	$AnimationPlayer.play("win")

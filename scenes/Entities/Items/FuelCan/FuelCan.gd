@@ -62,8 +62,8 @@ func _on_Area2D_body_entered(body):
 		return
 
 	var p = body as Player
-	var fuelcan = p.find_node("FuelCan*",false, false)
-
+	var fuelcan = p.get_fuelcan()
+	
 	if fuelcan:
 		if fuelcan.fuel_amount >= Global.MAX_FUEL_LITERS:
 			return

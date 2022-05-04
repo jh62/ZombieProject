@@ -54,7 +54,7 @@ func _on_Timer_timeout():
 
 func _on_Area2D_body_entered(body):
 	var _player = body as Player
-	var _fuelcan = _player.find_node("FuelCan*",false, false)
+	var _fuelcan = _player.get_fuelcan()
 
 	if _fuelcan == null:
 		return

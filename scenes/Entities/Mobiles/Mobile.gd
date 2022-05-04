@@ -37,6 +37,7 @@ func _process_animations() -> void:
 
 # class methods
 func _ready() -> void:
+	add_to_group(Global.GROUP_MOBILE)
 	fsm = StateMachine.new(self)
 
 func is_alive() -> bool:

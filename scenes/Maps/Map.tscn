@@ -14,6 +14,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="SpawnAreasFuel" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="TileMap4" type="TileMap" parent="."]
 light_mask = 0
 z_index = 1

@@ -91,9 +91,30 @@ func _ready():
 		n_TileMap4.visible = true
 
 	_create_pathfinding()
+	_spawn_fuelcans()
 
 	EventBus.connect("mob_spawned", self, "_on_mob_spawned")
-#	n_Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
+	EventBus.connect("on_bike_tank_full", self, "_on_bike_on_full_tank")
+
+func _spawn_fuelcans() -> void:
+	var FuelCan := preload("res://scenes/Entities/Items/FuelCan/FuelCan.tscn")
+	var fuel_remaning := Global.MAX_FUEL_LITERS
+	var max_fuel_cans := 3
+	
+	var spawn_zones := $SpawnAreasFuel.get_children()
+	spawn_zones.shuffle()
+	
+	for zone in spawn_zones:
+		var fuelcan := FuelCan.instance() 
+		var fuel_amount := float(Global.MAX_FUEL_LITERS / max_fuel_cans)
+		fuel_remaning = max(0.0, fuel_remaning - fuel_amount)
+		print_debug(fuel_remaning)
+		n_Entities.add_child(fuelcan)
+		fuelcan.global_position = zone.global_position
+		fuelcan.fuel_amount = fuel_amount + rand_range(0.11, 0.73)
+		
+		if fuel_remaning == 0.0:
+			return
 
 func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
@@ -258,3 +279,7 @@ func _on_door_used(position : Vector2, tiles_blocked) -> void:
 #	n_TileMap.set_cellv(tile_pos, TILE_ID.WALKABLE if cell_type == -1 else -1)
 	yield(get_tree(),"idle_frame")
 	n_TileMap.update_dirty_quadrants()
+
+func _on_bike_on_full_tank() -> void: 
+	for mob in get_tree().get_nodes_in_group(Global.GROUP_MOBILE):
+		mob.can_move = false

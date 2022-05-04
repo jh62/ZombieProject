@@ -214,8 +214,8 @@ func on_hit_by(attacker) -> void:
 
 	emit_signal("on_hit")
 
-func has_fuelcan() -> bool:
-	return find_node("FuelCan*",true) != null
+func get_fuelcan():
+	return find_node("*FuelCan*",true, false)
 
 func get_equipped():
 	return equipment.get_child(0)
