@@ -62,6 +62,11 @@ const MaterialSound := {
 	},
 }
 
+enum TILE_ID{
+	BLOCKED = 43,
+	WALKABLE = 59
+}
+
 export var map_name := ""
 
 onready var n_TileMap4 : TileMap = $TileMap4 setget ,get_tilemap
@@ -78,12 +83,17 @@ var pathfind := AStar2D.new()
 func _ready():
 	Global.MAP_SIZE = n_TileMap1.get_used_rect().size * 16
 
-	if !n_TileMap4.visible:
+	if !Global.DEBUG_MODE:
+		n_Navigation.visible = false
+		n_TileMap1.visible = true
+		n_TileMap2.visible = true
+		n_TileMap3.visible = true
 		n_TileMap4.visible = true
 
 	_create_pathfinding()
 
-	n_Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
+	EventBus.connect("mob_spawned", self, "_on_mob_spawned")
+#	n_Entities.connect("on_mob_spawned", self, "_on_mob_spawned")
 
 func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
@@ -95,14 +105,25 @@ func _create_pathfinding() -> void:
 		var t = walkable_tiles[i]
 		if t in no_walkable_tiles:
 			continue
-		n_TileMap.set_cellv(t, 43)
+		if n_TileMap.get_cellv(t) == TILE_ID.BLOCKED:
+			n_TileMap.set_cellv(t, -1)
+		else:
+			n_TileMap.set_cellv(t, TILE_ID.WALKABLE)
 
 	for object in n_Entities.get_node("Statics").get_children():
 		if !object.has_node("CollisionShape"):
 			continue
+
+		var cellv = n_TileMap.world_to_map(object.global_position)
+
 		if object is Door:
 			object.connect("on_door_used", self, "_on_door_used")
-		var cellv = n_TileMap.world_to_map(object.global_position)
+			
+			if object.blocks_tile:
+				for t in object.tiles_blocked:
+					n_TileMap.set_cellv(cellv + t, -1)
+				continue
+
 		n_TileMap.set_cellv(cellv, -1)
 
 	for tile in n_TileMap.get_used_cells():
@@ -118,8 +139,6 @@ func _create_pathfinding() -> void:
 		Vector2.UP + Vector2.RIGHT,
 		Vector2.DOWN + Vector2.LEFT,
 		Vector2.DOWN + Vector2.RIGHT]
-
-#	var DIRECTIONS := [Vector2.LEFT,Vector2.UP,Vector2.RIGHT,Vector2.DOWN]
 
 	for tile in n_TileMap.get_used_cells():
 		var tileid = get_tile_id(tile)
@@ -230,10 +249,12 @@ func _on_mob_footstep(mob : Mobile) -> void:
 func _on_AreaRoof_body_entered(body : Node2D) -> void:
 	pass
 
-func _on_door_used(position : Vector2) -> void:
+func _on_door_used(position : Vector2, tiles_blocked) -> void:
 	var tile_pos := n_TileMap.world_to_map(position)
 	var cell_type := n_TileMap.get_cellv(tile_pos)
-	n_TileMap.set_cellv(tile_pos, 43 if cell_type == -1 else -1)
+	
+	for t in tiles_blocked:
+		n_TileMap.set_cellv(tile_pos + t, TILE_ID.WALKABLE if cell_type == -1 else -1)
+#	n_TileMap.set_cellv(tile_pos, TILE_ID.WALKABLE if cell_type == -1 else -1)
 	yield(get_tree(),"idle_frame")
 	n_TileMap.update_dirty_quadrants()
-	print_debug("hola")

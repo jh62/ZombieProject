@@ -55,7 +55,10 @@ func on_search_successful() -> void:
 
 func _ready():
 	hitpoints = max_hitpoints
-	$Sprite/LightOccluder2D.visible = true
+
+	if has_node("$Sprite/LightOccluder2D"):
+		$Sprite/LightOccluder2D.visible = true
+
 	yield(get_tree().create_timer(.25),"timeout")
 
 	if is_instance_valid(self) && $Area2D/CollisionShapeArea.polygon == null:

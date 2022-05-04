@@ -1,5 +1,7 @@
 class_name Player extends Mobile
 
+export var player_id := 1
+
 signal on_search_start(this)
 signal on_search_end(this)
 signal on_aiming_start(this)
@@ -93,7 +95,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Global.GameOptions.gameplay.joypad:
 		if event is InputEventMouse:
 			return
-
+	
 	if get_tree().paused:
 		return
 

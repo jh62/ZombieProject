@@ -784,6 +784,7 @@ script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
 is_active = false
+mob_max = 25
 restartable = true
 
 [node name="SoundManager" parent="." instance=ExtResource( 8 )]
@@ -803,11 +804,12 @@ follow_viewport_enable = true
 visible = false
 light_mask = 3
 material = ExtResource( 11 )
-anchor_right = 4.0
-anchor_bottom = 4.0
+anchor_left = -0.025
+anchor_right = 2.25
+anchor_bottom = 5.68889
 mouse_filter = 2
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="NoiseLayer" type="CanvasLayer" parent="."]

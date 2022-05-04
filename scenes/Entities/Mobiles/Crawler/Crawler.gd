@@ -18,6 +18,7 @@ const Sounds  := {
 	]
 }
 
+export var map_node : NodePath
 export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
@@ -43,6 +44,9 @@ func _ready() -> void:
 
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	EventBus.connect("on_player_death", self, "_on_player_death")
+	
+	if map_node != null:
+		map = get_node(map_node)
 
 	if state != null:
 		fsm.current_state = state.new(self)
@@ -160,5 +164,8 @@ func set_can_move(_can_move) -> void:
 	can_move = _can_move
 
 func _on_AreaBody_body_entered(body):
+	if !is_alive():
+		return
+		
 	if is_instance_valid(body):
 		body._on_impact(self)

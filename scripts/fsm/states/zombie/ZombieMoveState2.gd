@@ -121,5 +121,3 @@ func update(delta) -> void:
 	owner.vel = owner.speed * owner.dir
 	owner.vel += steering_force + push_force
 	owner.global_position = owner.global_position.move_toward(owner.global_position + owner.vel, delta * owner.speed)
-#	owner.vel = owner.move_and_slide(owner.vel)
-#	owner.vel = owner.vel.clamped(8)

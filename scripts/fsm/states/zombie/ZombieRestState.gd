@@ -13,8 +13,12 @@ func enter_state() -> void:
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("die_{0}".format({0:facing}))
 
-#	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
-#	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AreaBody/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AreaPerception/CollisionShape2D").set_deferred("disabled", false)
+	owner.get_node("SoftCollision/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AttackArea/CollisionShape2D").set_deferred("disabled", true)
 
 func update(delta) -> void:
 	if owner.target == null:

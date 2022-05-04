@@ -36,6 +36,7 @@ var check := false
 func enter_state() -> void:
 	check = true
 	owner.target = _get_new_flee_position(owner.global_position, 200, threat.facing)
+	update_waypoints(owner.target)
 
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
@@ -84,7 +85,14 @@ func update(delta) -> void:
 	if last_update >= update_delay:
 		update_waypoints(owner.target)
 		last_update = 0.0
+		return	
 
+	if wp_idx >= owner.waypoints.size():
+		owner.target = _get_new_flee_position(owner.global_position, 200, threat.facing)
+		update_waypoints(owner.target)
+		last_update = 0.0
+		return
+	
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
@@ -95,12 +103,6 @@ func update(delta) -> void:
 
 	if dist < 8.0:
 		wp_idx += 1
-
-	if wp_idx >= owner.waypoints.size():
-		owner.target = _get_new_flee_position(owner.global_position, 200, threat.facing)
-		update_waypoints(owner.target)
-		last_update = 0.0
-		return
 
 	if owner.is_visible_in_viewport():
 

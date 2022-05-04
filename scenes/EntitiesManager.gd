@@ -1,6 +1,6 @@
 extends YSort
 
-signal on_mob_spawned(mob)
+#signal on_mob_spawned(mob)
 
 const BULLET_TYPE := {
 	Projectile.Type.BULLET: preload("res://scenes/Entities/Items/Projectile/Projectile.tscn"),
@@ -84,6 +84,7 @@ func _spawn_mob(position) -> void:
 		if .07 > randf():
 			_mob.fsm.travel_to(ZombieRestState.new(_mob))
 
+	EventBus.emit_signal("mob_spawned", _mob)
 	emit_signal("on_mob_spawned", _mob)
 
 func _spawn_object(scene, position : Vector2, layer := 0) -> void:

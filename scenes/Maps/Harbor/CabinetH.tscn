@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+cull_mode = 2
+polygon = PoolVector2Array( -8, 0, -8, 8, 0, 8, 0, 0 )
+
+[node name="CabinetH" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 1 )
+hframes = 2
+region_rect = Rect2( 736, 11, 32, 21 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+occluder = SubResource( 1 )
+
+[node name="CollisionShape" parent="." index="1"]
+visible = true
+polygon = PoolVector2Array( -8, 0, -8, 8, 0, 8, 0, 0 )

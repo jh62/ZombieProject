@@ -24,12 +24,19 @@ const Sounds  := {
 	]
 }
 
+enum Type {
+	COMMON,
+	POLICE,
+	FIREFIGHTER
+}
+
 export var map_node : NodePath
 export var state : Script
 export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 3
+export(Type) var zombie_type := Type.COMMON
 
 onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead

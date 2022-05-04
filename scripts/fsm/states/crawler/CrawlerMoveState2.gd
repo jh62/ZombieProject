@@ -30,8 +30,7 @@ func enter_state() -> void:
 		update_waypoints(owner.target)
 
 func update(delta) -> void:
-
-	if !owner.can_move || owner.target == null || owner.waypoints.empty():
+	if !owner.can_move || (owner.target == null && owner.waypoints.empty()):
 		var state = owner.States.idle.new(owner)
 		owner.fsm.travel_to(state)
 		return
@@ -56,10 +55,18 @@ func update(delta) -> void:
 
 	last_update += delta
 
-	if last_update >= update_delay:
+	if last_update >= update_delay && owner.target != null:
 		update_waypoints(owner.target)
 		last_update = 0
+		return	
 
+	if wp_idx >= owner.waypoints.size():
+		if (owner.target is Vector2):
+			owner.target = null
+		var new_state = owner.States.idle.new(owner)
+		owner.fsm.travel_to(new_state)
+		return
+	
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	owner.get_anim_player().play("{0}_{1}".format({0:get_name(),1:facing}))
 
@@ -70,13 +77,6 @@ func update(delta) -> void:
 
 	if dist < 8.0:
 		wp_idx += 1
-
-	if wp_idx >= owner.waypoints.size():
-		if (owner.target is Vector2):
-			owner.target = null
-		var new_state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(new_state)
-		return
 
 	if owner.is_visible_in_viewport():
 
@@ -114,7 +114,7 @@ func update(delta) -> void:
 
 		if closest != null:
 			var zomb_v = closest.vel * -1
-			zomb_v = zomb_v.normalized() * 2
+			zomb_v = zomb_v.normalized() * 2.0
 			steering_force += closest.global_position + zomb_v
 			steering_force = steering_force.clamped(8.0)
 

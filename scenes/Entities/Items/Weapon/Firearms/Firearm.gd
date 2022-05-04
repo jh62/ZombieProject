@@ -109,16 +109,14 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 						if !collisions.empty():
 							var cc = collisions[0].collider.get_parent()
-
 							var ray : RayCast2D = equipper.ray
 
-#							ray.enabled = true
 							ray.cast_to = get_global_mouse_position() - equipper.position
 							ray.force_raycast_update()
 							if ray.is_colliding():
-								var collider = ray.get_collider()
-								print_debug(collider)
+								var collider = ray.get_collider().get_parent()
 								if collider == cc:
+									print_debug(collider)
 									collider.kill()
 									spawn_bullet = false
 									EventBus.emit_signal("create_shake", .05, 250, 4, 0)

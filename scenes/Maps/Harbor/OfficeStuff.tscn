@@ -8,15 +8,17 @@
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
-light_mask = 23
+light_mask = 1
 texture = ExtResource( 1 )
 hframes = 4
-vframes = 2
-region_rect = Rect2( 736, 96, 64, 32 )
+vframes = 3
+region_rect = Rect2( 736, 96, 64, 48 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( -8, -8, -8, 8, 8, 8, 8, -8 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+visible = false

@@ -141,9 +141,9 @@ func _on_Bike_on_full_tank():
 	var music := preload("res://assets/music/winning.mp3")
 	EventBus.emit_signal("play_music", music)
 
-func _on_Player_on_death():
-	n_Player.can_move = false
-	n_Player.set_process_unhandled_key_input(false)
+func _on_Player_on_death(player_mob):
+	player_mob.can_move = false
+	player_mob.set_process_unhandled_key_input(false)
 
 	var lose := preload("res://assets/music/losing.mp3")
 	EventBus.emit_signal("play_music", lose)

@@ -33,9 +33,11 @@ func enter_state() -> void:
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AreaBody/CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaPerception/CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("SoftCollision/CollisionShape2D").set_deferred("disabled", true)
+	owner.get_node("AttackArea/CollisionShape2D").set_deferred("disabled", true)
 
 	can_raise = Global.GameOptions.gameplay.difficulty >= Globals.Difficulty.HARD && owner.down_times < 3
 

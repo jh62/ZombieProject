@@ -5,20 +5,22 @@
 [ext_resource path="res://assets/res/maps/harbor/doors.tres" type="Texture" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-cull_mode = 1
-polygon = PoolVector2Array( -8, 10, 8, 10, 8, -9, -8, -9 )
+closed = false
+polygon = PoolVector2Array( -8, -9, 8, -9 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 10.5 )
+extents = Vector2( 10, 11 )
 
 [node name="Door" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+blocks_tile = true
 
 [node name="Sprite" parent="." index="0"]
 light_mask = 2
 texture = ExtResource( 3 )
 hframes = 4
-region_rect = Rect2( 0, 0, 64, 20 )
+vframes = 2
+region_rect = Rect2( 0, 0, 64, 40 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
@@ -27,11 +29,8 @@ occluder = SubResource( 1 )
 light_mask = 10
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( -8, -6, -8, 8, 8, 8, 8, -6 )
-
-[node name="Area2D" parent="." index="2"]
-visible = true
+disabled = true
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
 polygon = PoolVector2Array( -8, -10, -8, 0, 8, 0, 8, -10 )
@@ -40,11 +39,12 @@ polygon = PoolVector2Array( -8, -10, -8, 0, 8, 0, 8, -10 )
 visible = false
 
 [node name="AreaDoor" type="Area2D" parent="." index="4"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDoor" index="0"]
-position = Vector2( 0, -0.5 )
+position = Vector2( 0, 1 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="AreaDoor" to="." method="_on_AreaDoor_body_entered"]

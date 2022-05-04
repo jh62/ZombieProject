@@ -1,0 +1,135 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Maps/Harbor/Door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Maps/Harbor/FenceGate.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Maps/Harbor/SlidingDoor.tres" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 25, 10 )
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "close"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -48, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -48, 0 ) ]
+}
+
+[node name="FenceGate" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+hframes = 1
+vframes = 1
+region_rect = Rect2( 16, 16, 16, 16 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+occluder = null
+
+[node name="SpriteL" type="Sprite" parent="Sprite" index="1"]
+texture = ExtResource( 3 )
+offset = Vector2( -16, 0 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 16, 16 )
+
+[node name="SpriteR" type="Sprite" parent="Sprite" index="2"]
+texture = ExtResource( 3 )
+offset = Vector2( 16, 0 )
+region_enabled = true
+region_rect = Rect2( 32, 0, 16, 16 )
+
+[node name="CollisionShape" parent="." index="1"]
+visible = true
+polygon = PoolVector2Array( -24, 0, -24, 8, 24, 8, 24, 0 )
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array(  )
+disabled = true
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+position = Vector2( 1.19209e-07, 1 )
+scale = Vector2( 2.6, 1.1 )
+
+[node name="CollisionShape2D" parent="AreaDoor" index="0"]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+autoplay = "RESET"
+anims/RESET = SubResource( 1 )
+anims/close = SubResource( 2 )
+anims/open = SubResource( 3 )

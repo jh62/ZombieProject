@@ -128,6 +128,3 @@ func _on_bike_fuel_changed(_amount):
 
 func _on_weapon_fired(_position ) -> void:
 	update_weapon_status()
-
-func _on_Entities_on_mob_spawned(_mob):
-	n_Minimap._on_mob_spawned(_mob)

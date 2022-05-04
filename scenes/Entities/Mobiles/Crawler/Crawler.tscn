@@ -1797,7 +1797,7 @@ radius = 14.0
 radius = 11.0
 
 [node name="Crawler" type="KinematicBody2D"]
-collision_layer = 4
+collision_layer = 12
 collision_mask = 15
 script = ExtResource( 2 )
 

@@ -11,10 +11,11 @@ var grid_scale
 var markers := {}
 
 func _ready():
+	EventBus.connect("mob_spawned", self, "_mob_spawned")
 	player_marker.rect_position = rect_size / 2
 	grid_scale = rect_size / (get_viewport_rect().size * zoom)
 
-func _on_mob_spawned(mob : Node2D) -> void:
+func _mob_spawned(mob : Node2D) -> void:
 	add_to_group("minimap_mob")
 	var new_marker = mob_marker.duplicate()
 	add_child(new_marker)

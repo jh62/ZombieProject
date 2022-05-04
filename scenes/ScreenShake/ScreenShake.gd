@@ -41,16 +41,18 @@ func _reset():
 
 	priority = 0
 
-
 func _on_Frequency_timeout():
 	_new_shake()
 
 func _on_Duration_timeout():
-	_reset()
 	$Frequency.stop()
+	$Duration.stop()
 
 func _on_Player_on_hit():
 	start(0.1, 15, 4, 0)
 
 func _on_fuelcan_explode(position):
 	start(0.25, 12, 8, 0)
+
+func _on_ShakeTween_tween_completed(object, key):
+	print_debug("done")

@@ -9,6 +9,7 @@ polygon = PoolVector2Array( -6, 1, -6, 3, 0, 3, 6, 1, 4, -2, 2, -3 )
 [node name="Debris" instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="." index="0"]
+light_mask = 1
 texture = ExtResource( 1 )
 offset = Vector2( 0, 4 )
 region_enabled = false

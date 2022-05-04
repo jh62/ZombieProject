@@ -40,7 +40,7 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3 )
 frames = SubResource( 5 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -49,8 +49,10 @@ shape = SubResource( 6 )
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 1 )
 energy = 0.75
-range_height = 300.0
-range_item_cull_mask = 11
+range_height = 200.0
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_item_cull_mask = 3
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
