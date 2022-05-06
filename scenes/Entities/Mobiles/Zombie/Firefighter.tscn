@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://scenes/Entities/Mobiles/Zombie/Firefighter.gd" type="Script" id=1]
 [ext_resource path="res://assets/res/zombies/eating_n.tres" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/res/zombies/standup_n.tres" type="Texture" id=4]
 [ext_resource path="res://assets/res/zombies/hit_n.tres" type="Texture" id=5]
 [ext_resource path="res://assets/res/zombies/die_n.tres" type="Texture" id=6]
-[ext_resource path="res://assets/res/zombies/die.tres" type="Texture" id=7]
 [ext_resource path="res://assets/res/zombies/walk_n.tres" type="Texture" id=8]
 [ext_resource path="res://assets/fx/smoke.png" type="Texture" id=9]
 [ext_resource path="res://assets/res/zombies/firefighter/ff_idle.tres" type="Texture" id=10]
@@ -28,11 +27,11 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ ExtResource( 7 ) ]
+"update": 1,
+"values": [ ExtResource( 10 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:frame")
+tracks/1/path = NodePath("Sprite:hframes")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -40,11 +39,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
+"update": 1,
 "values": [ 4 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/path = NodePath("Sprite:vframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -52,11 +51,11 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 4 ]
+"update": 1,
+"values": [ 5 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Sprite:vframes")
+tracks/3/path = NodePath("Sprite:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -64,8 +63,8 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 2 ]
+"update": 1,
+"values": [ 0 ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -2070,10 +2069,6 @@ radius = 14.0
 [sub_resource type="CircleShape2D" id=47]
 radius = 12.0
 
-[sub_resource type="CapsuleShape2D" id=54]
-radius = 2.0
-height = 4.0
-
 [sub_resource type="Gradient" id=49]
 offsets = PoolRealArray( 0.0186335, 0.987578 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
@@ -2089,7 +2084,7 @@ curve = SubResource( 51 )
 
 [sub_resource type="ParticlesMaterial" id=53]
 flag_disable_z = true
-direction = Vector3( -1, -1, 0 )
+direction = Vector3( 10, -1, 0 )
 spread = 42.88
 flatness = 0.53
 gravity = Vector3( 0, -12, 0 )
@@ -2108,15 +2103,18 @@ color_ramp = SubResource( 50 )
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 1 )
-attack_damage = 500
+max_speed = 10.0
+max_hitpoints = 26.0
+sight_radius = 90.0
+hearing_distance = 325.0
+attack_damage = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 8
-texture = ExtResource( 7 )
+texture = ExtResource( 10 )
 normal_map = ExtResource( 8 )
 hframes = 4
-vframes = 2
-frame = 4
+vframes = 5
 region_rect = Rect2( 32, 16, 128, 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -2195,14 +2193,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 shape = SubResource( 47 )
 
-[node name="AreaExtinguisher" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaExtinguisher"]
-position = Vector2( -5, -1 )
-shape = SubResource( 54 )
-
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
 
@@ -2222,6 +2212,5 @@ texture = ExtResource( 9 )
 [connection signal="body_entered" from="AreaBody" to="." method="_on_AreaBody_body_entered"]
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]
-[connection signal="body_entered" from="AreaExtinguisher" to="." method="_on_AreaExtinguisher_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
 [connection signal="timeout" from="TimerPerception" to="." method="_on_TimerPerception_timeout"]

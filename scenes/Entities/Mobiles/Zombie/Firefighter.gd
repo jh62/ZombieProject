@@ -16,11 +16,17 @@ const States := {
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
 }
 
-const Sounds  := {
+const SOUNDS  := {
 	"growl":[
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav")
+	],
+	"attack":[
+		preload("res://assets/sfx/mobs/zombie/misc/firefighter_axe_hit.wav")		
+	],
+	"ext_hit":[
+		preload("res://assets/sfx/mobs/zombie/misc/firefighter_ext_hit.wav")		
 	]
 }
 
@@ -73,13 +79,13 @@ func _ready() -> void:
 			hearing_distance = 350
 			awareness_timer = 15
 			attack_damage = 40
-		Globals.Difficulty.NORMAL:
-			max_hitpoints = 26
-			max_speed = 10
-			sight_radius = 90
-			hearing_distance = 325
-			awareness_timer = 15
-			attack_damage = 10
+		Globals.Difficulty.EASY:
+			max_hitpoints *= .75
+			max_speed *= .9
+			sight_radius *= .9
+			hearing_distance *= .8
+			awareness_timer *= .97
+			attack_damage *= .92
 		_:
 			pass
 
@@ -117,7 +123,11 @@ func _process_animations() -> void:
 		facing.y = dir.y
 #
 	sprite.flip_h = facing.x < 0
-
+	
+	if $Particles2D.emitting:
+		var p_mat : ParticlesMaterial = $Particles2D.process_material
+		p_mat.direction.x = -facing.x * 10
+		
 func kill() -> void:
 	.kill()
 	var new_state = States.headshot.new(self)
@@ -125,7 +135,13 @@ func kill() -> void:
 
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
-	hitpoints -=  attacker.damage	
+	hitpoints -=  attacker.damage
+	
+	var attacker_dir = attacker.linear_velocity.normalized().dot(dir)
+	
+	if attacker_dir >= 0:
+		$Particles2D.emitting = true
+		$Particles2D.amount = max_hitpoints - hitpoints
 
 	var new_state : State
 
@@ -210,7 +226,7 @@ func _on_weapon_fired(_position) -> void:
 	target = Global.get_area_point(_position, 60.0)
 
 func play_random_sound() -> void:
-	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)
+	EventBus.emit_signal("play_sound_random",SOUNDS.growl, global_position)
 
 func _on_screen_exited():
 	._on_screen_exited()
@@ -225,7 +241,3 @@ func set_can_move(_can_move) -> void:
 
 func set_knows_about(_value) -> void:
 	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
-
-func _on_AreaExtinguisher_body_entered(body):
-	$Particles2D.emitting = true
-	$Particles2D.amount = max_hitpoints - hitpoints

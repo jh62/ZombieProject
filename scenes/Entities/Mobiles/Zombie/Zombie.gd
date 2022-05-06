@@ -16,11 +16,16 @@ const States := {
 	"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
 }
 
-const Sounds  := {
+const SOUNDS  := {
 	"growl":[
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_1.wav"),
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_2.wav"),
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav")
+	],
+	"attack":[
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_1.wav"),
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_2.wav"),
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_3.wav"),
 	]
 }
 
@@ -210,7 +215,7 @@ func _on_weapon_fired(_position) -> void:
 	target = Global.get_area_point(_position, 60.0)
 
 func play_random_sound() -> void:
-	EventBus.emit_signal("play_sound_random",Sounds.growl, global_position)
+	EventBus.emit_signal("play_sound_random",SOUNDS.growl, global_position)
 
 func _on_screen_exited():
 	._on_screen_exited()

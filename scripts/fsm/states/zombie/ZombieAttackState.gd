@@ -1,11 +1,5 @@
 class_name ZombieAttackState extends State
 
-const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_1.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_2.wav"),
-	preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_3.wav"),
-]
-
 const ATTACK_DISTANCE := 16
 
 var attack_target : Player
@@ -36,7 +30,7 @@ func _on_animation_finished(anim : String) -> void:
 #		var dist := owner.global_position.distance_to(target_pos)
 
 		if owner.is_visible_in_viewport():
-			EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+			EventBus.emit_signal("play_sound_random", owner.SOUNDS.attack, owner.global_position)
 
 		if is_facing && attack_target in owner.area_attack.get_overlapping_bodies():
 #			if dist <= ATTACK_DISTANCE:
