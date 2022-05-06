@@ -19,6 +19,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="SpawnAreasWeapons" type="Node2D" parent="."]
+
 [node name="TileMap4" type="TileMap" parent="."]
 light_mask = 0
 z_index = 1

@@ -13,6 +13,7 @@ extents = Vector2( 10, 11 )
 
 [node name="Door" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+material_type = 1
 blocks_tile = true
 
 [node name="Sprite" parent="." index="0"]
@@ -32,8 +33,8 @@ light_mask = 10
 polygon = PoolVector2Array( -8, -6, -8, 8, 8, 8, 8, -6 )
 disabled = true
 
-[node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array( -8, -10, -8, 0, 8, 0, 8, -10 )
+[node name="Area2D" parent="." index="2"]
+visible = true
 
 [node name="VisibilityNotifier2D" parent="." index="3"]
 visible = false

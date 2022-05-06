@@ -74,6 +74,8 @@ onready var n_TileMap3 : TileMap = $TileMap3 setget ,get_tilemap
 onready var n_TileMap2 : TileMap = $TileMap2 setget ,get_tilemap
 onready var n_TileMap1 : TileMap = $TileMap1 setget ,get_tilemap
 onready var n_SpawnAreas := $SpawnAreas
+onready var n_SpawnAreasWeapons := $SpawnAreasWeapons
+onready var n_SpawnAreasFuel := $SpawnAreasFuel
 onready var n_Navigation := $Navigation
 onready var n_TileMap : TileMap = n_Navigation.get_node("TileMap")
 onready var n_Entities := n_TileMap2.get_node("Entities")
@@ -92,6 +94,7 @@ func _ready():
 
 	_create_pathfinding()
 	_spawn_fuelcans()
+	_spawn_weapons()
 
 	EventBus.connect("mob_spawned", self, "_on_mob_spawned")
 	EventBus.connect("on_bike_tank_full", self, "_on_bike_on_full_tank")
@@ -101,11 +104,11 @@ func _spawn_fuelcans() -> void:
 	var fuel_remaning := Global.MAX_FUEL_LITERS
 	var max_fuel_cans := 3
 	
-	var spawn_zones := $SpawnAreasFuel.get_children()
+	var spawn_zones := n_SpawnAreasFuel.get_children()
 	spawn_zones.shuffle()
 	
 	for zone in spawn_zones:
-		var fuelcan := FuelCan.instance() 
+		var fuelcan := FuelCan.instance()
 		var fuel_amount := float(Global.MAX_FUEL_LITERS / max_fuel_cans)
 		fuel_remaning = max(0.0, fuel_remaning - fuel_amount)
 		print_debug(fuel_remaning)
@@ -115,6 +118,18 @@ func _spawn_fuelcans() -> void:
 		
 		if fuel_remaning == 0.0:
 			return
+
+func _spawn_weapons() -> void:
+	var Weapon := preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn")
+	
+	var spawn_zones := n_SpawnAreasWeapons.get_children()
+	spawn_zones.shuffle()
+	
+	for zone in spawn_zones:
+		if .25 >= randf():
+			var weapon := Weapon.instance() as PickableWeapon
+			n_Entities.add_child(weapon)
+			weapon.global_position = zone.global_position
 
 func _create_pathfinding() -> void:
 	var usable_tiles : PoolVector2Array
@@ -280,6 +295,6 @@ func _on_door_used(position : Vector2, tiles_blocked) -> void:
 	yield(get_tree(),"idle_frame")
 	n_TileMap.update_dirty_quadrants()
 
-func _on_bike_on_full_tank() -> void: 
+func _on_bike_on_full_tank() -> void:
 	for mob in get_tree().get_nodes_in_group(Global.GROUP_MOBILE):
 		mob.can_move = false

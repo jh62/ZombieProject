@@ -5,15 +5,18 @@ signal on_door_used(position, tiles_blocked)
 
 const OPEN_DELAY := 700.0
 
-enum DoorType {
-	Type1,
-	Type2,
-	Type3,
-	Type4,
-	Type5
+const SOUNDS := {
+	MaterialType.WOOD:[
+		preload("res://assets/sfx/misc/door_wood_open.wav"),
+		preload("res://assets/sfx/misc/door_wood_closed.wav")
+	],
+	MaterialType.METAL: [
+		preload("res://assets/sfx/misc/door_metal_open.wav"),
+		preload("res://assets/sfx/misc/door_metal_closed.wav")
+	],
 }
 
-export(DoorType) var door_type := DoorType.Type1 setget set_door_type
+export var door_type := 0 setget set_door_type
 export var is_open := false
 export var blocks_tile := false
 
@@ -44,6 +47,9 @@ func _unhandled_input(event):
 	is_open = !is_open
 	activate_door()
 	emit_signal("on_door_used", global_position, tiles_blocked)
+	
+	var sound := 1 if is_open else 0
+	EventBus.emit_signal("play_sound", SOUNDS[material_type][sound], global_position)
 
 func activate_door() -> void:
 	$CollisionShape.disabled = !is_open
@@ -52,10 +58,9 @@ func activate_door() -> void:
 	_update_tooltip()
 
 func set_door_type(value) -> void:
-	var type = clamp(value, 0, DoorType.values().size())
-	door_type = type
-	$Sprite.frame = type
-
+	door_type = clamp(value, 0, $Sprite.hframes * $Sprite.vframes)
+	$Sprite.frame = door_type
+		
 func _on_AreaDoor_body_entered(body):
 	_update_tooltip()
 
