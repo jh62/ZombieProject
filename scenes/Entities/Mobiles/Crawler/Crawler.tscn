@@ -1800,6 +1800,12 @@ radius = 11.0
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 2 )
+max_speed = 32.0
+max_hitpoints = 3.0
+sight_radius = 100.0
+hearing_distance = 340.0
+awareness_timer = 16.0
+attack_damage = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 8

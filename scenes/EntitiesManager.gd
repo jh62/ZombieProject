@@ -97,6 +97,7 @@ func _spawn_object(scene, position : Vector2, layer := 0) -> void:
 		n_Statics.add_child(scene)
 
 	scene.global_position = position
+	print_debug("spawned")
 
 func _on_weapon_reloaded(weapon_type):
 	var mag := Magazine.instance() as RigidBody2D

@@ -2798,6 +2798,7 @@ script = ExtResource( 3 )
 light_mask = 8
 texture = ExtResource( 9 )
 normal_map = ExtResource( 13 )
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
 autoplay = "idle_e"

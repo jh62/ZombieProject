@@ -116,7 +116,6 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 							if ray.is_colliding():
 								var collider = ray.get_collider().get_parent()
 								if collider == cc:
-									print_debug(collider)
 									collider.kill()
 									spawn_bullet = false
 									EventBus.emit_signal("create_shake", .05, 250, 4, 0)

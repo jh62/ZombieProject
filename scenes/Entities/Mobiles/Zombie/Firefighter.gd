@@ -23,10 +23,18 @@ const SOUNDS  := {
 		preload("res://assets/sfx/mobs/zombie/misc/zombie_growl_3.wav")
 	],
 	"attack":[
-		preload("res://assets/sfx/mobs/zombie/misc/firefighter_axe_hit.wav")		
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_axe_attack_1.wav"),
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_axe_attack_2.wav"),
+		preload("res://assets/sfx/mobs/zombie/attack/zombie_axe_attack_3.wav"),
 	],
 	"ext_hit":[
 		preload("res://assets/sfx/mobs/zombie/misc/firefighter_ext_hit.wav")		
+	],
+	"axe_hit":[
+		preload("res://assets/sfx/mobs/zombie/misc/firefighter_axe_hit.wav")		
+	],
+	"eating":[
+		preload("res://assets/sfx/mobs/zombie/eat/zombie_eating_1.wav")
 	]
 }
 
@@ -42,7 +50,7 @@ export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 10
-export(Type) var zombie_type := Type.COMMON
+export(Type) var zombie_type := Type.FIREFIGHTER
 
 onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead
@@ -73,19 +81,19 @@ func _ready() -> void:
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
-			max_hitpoints = 46
-			max_speed = 14
-			sight_radius = 90
-			hearing_distance = 350
-			awareness_timer = 15
-			attack_damage = 40
+			max_hitpoints *= 1.25
+			max_speed *= 1.25
+			sight_radius *= 1.25
+			hearing_distance *= 1.25
+			awareness_timer *= 1.25
+			attack_damage *= 1.25
 		Globals.Difficulty.EASY:
 			max_hitpoints *= .75
-			max_speed *= .9
-			sight_radius *= .9
-			hearing_distance *= .8
-			awareness_timer *= .97
-			attack_damage *= .92
+			max_speed *= .75
+			sight_radius *= .75
+			hearing_distance *= .75
+			awareness_timer *= .75
+			attack_damage *= .75
 		_:
 			pass
 
@@ -93,10 +101,12 @@ func _ready() -> void:
 	damage = attack_damage
 	area_perception.get_node("CollisionShape2D").shape.radius = sight_radius
 
+func get_class():
+	return "FireFighterZombie"
+	
 func _on_player_death(player : Node2D) -> void:
 	if !is_alive():
 		return
-
 	target = null
 	waypoints = []
 
@@ -107,6 +117,7 @@ func _on_player_death(player : Node2D) -> void:
 	else:
 		new_state = States.eat_wait.new(self, player)
 
+	yield(get_tree(),"idle_frame")
 	fsm.travel_to(new_state)
 
 func _process_animations() -> void:
@@ -130,7 +141,7 @@ func _process_animations() -> void:
 		
 func kill() -> void:
 	.kill()
-	var new_state = States.headshot.new(self)
+	var new_state = States.die.new(self)
 	fsm.travel_to(new_state)
 
 func on_hit_by(attacker) -> void:
@@ -142,6 +153,7 @@ func on_hit_by(attacker) -> void:
 	if attacker_dir >= 0:
 		$Particles2D.emitting = true
 		$Particles2D.amount = max_hitpoints - hitpoints
+		EventBus.emit_signal("play_sound", SOUNDS.ext_hit, global_position)
 
 	var new_state : State
 

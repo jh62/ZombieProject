@@ -26,6 +26,9 @@ const SOUNDS  := {
 		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_1.wav"),
 		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_2.wav"),
 		preload("res://assets/sfx/mobs/zombie/attack/zombie_growl_attack_3.wav"),
+	],
+	"eating":[
+		preload("res://assets/sfx/mobs/zombie/eat/zombie_eating_1.wav")
 	]
 }
 
@@ -72,19 +75,19 @@ func _ready() -> void:
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
-			max_hitpoints = 40
-			max_speed = 10
-			sight_radius = 90
-			hearing_distance = 350
-			awareness_timer = 15
-			attack_damage = 4
-		Globals.Difficulty.NORMAL:
-			max_hitpoints = 20
-			max_speed = 8
-			sight_radius = 90
-			hearing_distance = 325
-			awareness_timer = 15
-			attack_damage = 3.25
+			max_hitpoints *= 1.25
+			max_speed *= 1.25
+			sight_radius *= 1.25
+			hearing_distance *= 1.25
+			awareness_timer *= 1.25
+			attack_damage *= 1.25
+		Globals.Difficulty.EASY:
+			max_hitpoints *= .75
+			max_speed *= .75
+			sight_radius *= .75
+			hearing_distance *= .75
+			awareness_timer *= .75
+			attack_damage *= .75
 		_:
 			pass
 
@@ -106,6 +109,7 @@ func _on_player_death(player : Node2D) -> void:
 	else:
 		new_state = States.eat_wait.new(self, player)
 
+	yield(get_tree(),"idle_frame")
 	fsm.travel_to(new_state)
 
 func _process_animations() -> void:

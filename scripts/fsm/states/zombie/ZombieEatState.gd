@@ -1,7 +1,11 @@
 class_name ZombieEatState extends State
 
-const SOUNDS := [
-	preload("res://assets/sfx/mobs/zombie/eat/zombie_eating_1.wav")
+const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
+
+const Sounds := [
+	preload("res://assets/sfx/misc/squish_1.wav"),
+	preload("res://assets/sfx/misc/squish_2.wav"),
+	preload("res://assets/sfx/misc/squish_3.wav"),
 ]
 
 var corpse : Mobile
@@ -23,7 +27,7 @@ func enter_state() -> void:
 	owner.dir = Vector2.ZERO
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 
-	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
+	EventBus.emit_signal("play_sound_random", owner.SOUNDS.eating, owner.global_position)
 
 func exit_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)
@@ -39,3 +43,8 @@ func update(delta) -> void:
 
 	elapsed += delta
 	owner.vel = owner.move_and_slide(Vector2.ZERO)
+	
+	if 0.017 > randf():
+		var guts := Guts.instance()
+		EventBus.emit_signal("on_object_spawn", guts, corpse.global_position + Vector2(cos(2.0),sin(2.0)) * 2.0, -1)
+		EventBus.emit_signal("play_sound_random",Sounds, owner.global_position)

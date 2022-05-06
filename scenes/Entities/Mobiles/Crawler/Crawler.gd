@@ -55,20 +55,19 @@ func _ready() -> void:
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
-			max_hitpoints = 4.0
-			max_speed = 40.0
-			sight_radius = 110.0
-			hearing_distance = 380.0
-			awareness_timer = 18.0
-			attack_damage = 10.0
-			hitpoints = max_hitpoints
-		Globals.Difficulty.NORMAL:
-			max_hitpoints = 3
-			max_speed = 32.0
-			sight_radius = 97.0
-			hearing_distance = 340
-			awareness_timer = 16.0
-			attack_damage = 10.0
+			max_hitpoints *= 1.25
+			max_speed *= 1.25
+			sight_radius *= 1.25
+			hearing_distance *= 1.25
+			awareness_timer *= 1.25
+			attack_damage *= 1.25
+		Globals.Difficulty.EASY:
+			max_hitpoints *= .75
+			max_speed *= .75
+			sight_radius *= .75
+			hearing_distance *= .75
+			awareness_timer *= .75
+			attack_damage *= .75
 		_:
 			pass
 

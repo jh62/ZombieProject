@@ -8,7 +8,7 @@ const SquishSounds := [
 	preload("res://assets/sfx/misc/squish_3.wav")
 ]
 
-export var decay_time := 1.0
+export var decay_time := 10.0
 
 var decay_time_elapsed := 0.0
 
