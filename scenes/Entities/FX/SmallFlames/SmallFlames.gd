@@ -2,7 +2,7 @@ extends Area2D
 
 var speed := 2.0
 var dir := Vector2(1,1)
-var lifetime := 5.0
+var lifetime := 50.0
 var elapsed := 0.0
 var damage := .05
 

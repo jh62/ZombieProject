@@ -66,6 +66,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [ 0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack_e"
@@ -456,6 +468,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 6 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.666668 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "die_n"
@@ -520,6 +544,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ ExtResource( 6 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.666668 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -586,6 +622,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 6 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.666668 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
+}
 
 [sub_resource type="Animation" id=10]
 resource_name = "die_s"
@@ -651,6 +699,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 6 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.666668 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
+}
 
 [sub_resource type="Animation" id=11]
 resource_name = "die_se"
@@ -715,6 +775,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ ExtResource( 6 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.666668 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 6 ) ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -1369,6 +1441,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=27]
 resource_name = "idle_n"
@@ -1434,6 +1518,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ ExtResource( 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=28]
@@ -1501,6 +1597,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=29]
 resource_name = "idle_s"
@@ -1567,6 +1675,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [ ExtResource( 3 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=30]
 resource_name = "idle_se"
@@ -1632,6 +1752,18 @@ tracks/4/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ ExtResource( 3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -2225,7 +2357,7 @@ orbit_velocity_random = 0.0
 damping = 30.0
 damping_random = 0.5
 scale = 0.18
-scale_random = 0.1
+scale_random = 0.45
 scale_curve = SubResource( 52 )
 color_ramp = SubResource( 50 )
 
@@ -2335,14 +2467,20 @@ collision_mask = 15
 
 [node name="Particles2D" type="Particles2D" parent="."]
 show_behind_parent = true
-position = Vector2( -5, 0 )
+position = Vector2( 0, 6 )
 emitting = false
-amount = 2
+amount = 100
+local_coords = false
 process_material = SubResource( 53 )
 texture = ExtResource( 9 )
+
+[node name="TimerExtinguisher" type="Timer" parent="."]
+wait_time = 4.5
+one_shot = true
 
 [connection signal="body_entered" from="AreaBody" to="." method="_on_AreaBody_body_entered"]
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_screen_exited"]
 [connection signal="timeout" from="TimerPerception" to="." method="_on_TimerPerception_timeout"]
+[connection signal="timeout" from="TimerExtinguisher" to="." method="_on_TimerExtinguisher_timeout"]

@@ -39,20 +39,29 @@ func update(delta) -> void:
 		if owner.area_perception.get_overlapping_bodies().size() == 0:
 			owner.knows_about -= delta
 
-			if owner.knows_about <= 0.0:
-				owner.target = null
-				return
+		if owner.knows_about <= 0.0:
+			owner.target = null
+			return
 
 		if owner.target in owner.area_attack.get_overlapping_bodies() && owner.target.is_alive():
 			var new_state = owner.States.attack.new(owner, owner.target)
 			owner.fsm.travel_to(new_state)
 			return
+	else:
+		owner.knows_about = 0.0
 
 	last_update += delta
 
 	if last_update >= update_delay && owner.target != null:
 		update_waypoints(owner.target)
 		last_update = 0
+		
+#		for p in owner.get_tree().get_nodes_in_group(Global.GROUP_PLAYER):
+#			if p in owner.area_perception.get_overlapping_bodies():
+#				owner.target = p
+#				owner.knows_about = owner.MAX_KNOWS_ABOUT
+#				return
+				
 		return
 
 	if wp_idx >= owner.waypoints.size():

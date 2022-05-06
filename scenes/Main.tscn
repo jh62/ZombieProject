@@ -784,7 +784,7 @@ script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
 is_active = false
-mob_max = 25
+mob_max = 100
 restartable = true
 
 [node name="SoundManager" parent="." instance=ExtResource( 8 )]

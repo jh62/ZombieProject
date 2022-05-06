@@ -23,23 +23,26 @@ const ExplosionTypes := {
 	Type.HUGE: "big_explosion",
 }
 
+var radius := 4.0
+var max_flames := 4
+
 func _ready():
 	pass
 
-func create_small_explosion(_radius := 12) -> void:
+func create_small_explosion(_radius := radius, _max_flames := max_flames) -> void:
 	var t := [Type.SMALL_1, Type.SMALL_2]
 	t.shuffle()
 	explode(t.front(), _radius)
 
-func create_big_explosion(_radius := 16) -> void:
+func create_big_explosion(_radius := 16.0, _max_flames := 14) -> void:
 	var t := [Type.BIG_1, Type.BIG_2, Type.BIG_3]
 	t.shuffle()
 	explode(t.front(), _radius)
 
-func create_huge_explosion(_radius := 22) -> void:
+func create_huge_explosion(_radius := 24.0, _max_flames := 16) -> void:
 	explode(Type.HUGE, _radius)
 
-func explode(explosion_type, _radius := 16) -> void:
+func explode(explosion_type, _radius := radius, _max_flames := max_flames) -> void:
 	z_index += 1
 #	$Light2D.enabled = true
 	$AnimatedSprite.play(ExplosionTypes.get(explosion_type))
@@ -49,12 +52,12 @@ func explode(explosion_type, _radius := 16) -> void:
 	yield(get_tree().create_timer(.1),"timeout")
 	check_explosion()
 
-	for i in range(14):
+	for i in range(max_flames):
 		var flames := SmallFlames.instance()
 		flames.dir = Vector2(rand_range(-1,1),rand_range(-1,1))
-		flames.speed = randf() * 5.0 + 3.0
+		flames.speed = randf() * 4.6 + 3.0
 		EventBus.emit_signal("on_object_spawn", flames, global_position)
-		yield(get_tree().create_timer(0.002),"timeout")
+#		yield(get_tree().create_timer(0.002),"timeout")
 
 func check_explosion() -> void:
 	var bodies := get_overlapping_bodies()

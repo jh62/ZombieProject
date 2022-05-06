@@ -126,6 +126,7 @@ func _process_animations() -> void:
 		facing.y = dir.y
 #
 	sprite.flip_h = facing.x < 0
+	print_debug(knows_about)
 
 func kill() -> void:
 	.kill()

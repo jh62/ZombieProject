@@ -1750,19 +1750,17 @@ item = ExtResource( 4 )
 visible = false
 
 [node name="Flashlight" type="Light2D" parent="." index="5"]
-visible = false
 texture = ExtResource( 12 )
 offset = Vector2( 58, 0 )
 range_height = 100.0
-range_item_cull_mask = 3
+range_item_cull_mask = 19
 shadow_enabled = true
 shadow_gradient_length = 0.1
 shadow_filter = 2
 shadow_filter_smooth = 5.0
-shadow_item_cull_mask = 3
+shadow_item_cull_mask = 19
 
 [node name="Vision" type="Light2D" parent="." index="6"]
-visible = false
 z_index = 1
 texture = ExtResource( 11 )
 offset = Vector2( 58, 0 )

@@ -141,8 +141,8 @@ func _on_Player_on_death(player_mob):
 	player_mob.can_move = false
 	player_mob.set_process_unhandled_key_input(false)
 
-#	var lose := preload("res://assets/music/losing.mp3")
-#	EventBus.emit_signal("play_music", lose)
+	var lose := preload("res://assets/music/losing.mp3")
+	EventBus.emit_signal("play_music", lose)
 
 	$AnimationPlayer.play("death")
 

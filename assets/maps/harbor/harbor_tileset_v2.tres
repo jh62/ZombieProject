@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=241 format=2]
+[gd_resource type="TileSet" load_steps=240 format=2]
 
 [ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
 
@@ -307,10 +307,6 @@ polygon = PoolVector2Array( 4, 0, 4, 16, 16, 16, 16, 12, 10, 12, 10, 0 )
 
 [sub_resource type="OccluderPolygon2D" id=254]
 cull_mode = 2
-polygon = PoolVector2Array( 16, 16, 0, 16, 0, 12, 16, 12 )
-
-[sub_resource type="OccluderPolygon2D" id=334]
-cull_mode = 1
 polygon = PoolVector2Array( 16, 16, 0, 16, 0, 12, 16, 12 )
 
 [sub_resource type="OccluderPolygon2D" id=266]
@@ -1171,7 +1167,7 @@ points = PoolVector2Array( 14, 8, 16, 8, 16, 16, 14, 16 )
 27/autotile/icon_coordinate = Vector2( 1, 0 )
 27/autotile/tile_size = Vector2( 16, 16 )
 27/autotile/spacing = 0
-27/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 257 ), Vector2( 0, 1 ), SubResource( 258 ), Vector2( 0, 2 ), SubResource( 259 ), Vector2( 0, 3 ), SubResource( 260 ), Vector2( 0, 4 ), SubResource( 203 ), Vector2( 0, 5 ), SubResource( 261 ), Vector2( 0, 8 ), SubResource( 262 ), Vector2( 1, 0 ), SubResource( 263 ), Vector2( 1, 2 ), SubResource( 264 ), Vector2( 1, 7 ), SubResource( 289 ), Vector2( 1, 8 ), SubResource( 254 ), Vector2( 2, 0 ), SubResource( 334 ), Vector2( 2, 2 ), SubResource( 266 ), Vector2( 2, 5 ), SubResource( 267 ), Vector2( 2, 6 ), SubResource( 214 ), Vector2( 2, 8 ), SubResource( 255 ), Vector2( 3, 0 ), SubResource( 268 ), Vector2( 3, 1 ), SubResource( 269 ), Vector2( 3, 2 ), SubResource( 270 ), Vector2( 3, 3 ), SubResource( 271 ), Vector2( 3, 4 ), SubResource( 217 ), Vector2( 3, 5 ), SubResource( 272 ), Vector2( 3, 8 ), SubResource( 273 ), Vector2( 4, 2 ), SubResource( 274 ), Vector2( 4, 5 ), SubResource( 275 ), Vector2( 4, 7 ), SubResource( 276 ), Vector2( 4, 8 ), SubResource( 277 ), Vector2( 5, 2 ), SubResource( 278 ), Vector2( 5, 7 ), SubResource( 279 ), Vector2( 5, 8 ), SubResource( 280 ), Vector2( 5, 9 ), SubResource( 281 ), Vector2( 6, 0 ), SubResource( 282 ), Vector2( 6, 1 ), SubResource( 283 ), Vector2( 6, 2 ), SubResource( 284 ), Vector2( 6, 3 ), SubResource( 285 ), Vector2( 6, 4 ), SubResource( 231 ), Vector2( 6, 5 ), SubResource( 286 ), Vector2( 6, 8 ), SubResource( 256 ) ]
+27/autotile/occluder_map = [ Vector2( 0, 0 ), SubResource( 257 ), Vector2( 0, 1 ), SubResource( 258 ), Vector2( 0, 2 ), SubResource( 259 ), Vector2( 0, 3 ), SubResource( 260 ), Vector2( 0, 4 ), SubResource( 203 ), Vector2( 0, 5 ), SubResource( 261 ), Vector2( 0, 8 ), SubResource( 262 ), Vector2( 1, 0 ), SubResource( 263 ), Vector2( 1, 2 ), SubResource( 264 ), Vector2( 1, 7 ), SubResource( 289 ), Vector2( 1, 8 ), SubResource( 254 ), Vector2( 2, 2 ), SubResource( 266 ), Vector2( 2, 5 ), SubResource( 267 ), Vector2( 2, 6 ), SubResource( 214 ), Vector2( 2, 8 ), SubResource( 255 ), Vector2( 3, 0 ), SubResource( 268 ), Vector2( 3, 1 ), SubResource( 269 ), Vector2( 3, 2 ), SubResource( 270 ), Vector2( 3, 3 ), SubResource( 271 ), Vector2( 3, 4 ), SubResource( 217 ), Vector2( 3, 5 ), SubResource( 272 ), Vector2( 3, 8 ), SubResource( 273 ), Vector2( 4, 2 ), SubResource( 274 ), Vector2( 4, 5 ), SubResource( 275 ), Vector2( 4, 7 ), SubResource( 276 ), Vector2( 4, 8 ), SubResource( 277 ), Vector2( 5, 2 ), SubResource( 278 ), Vector2( 5, 7 ), SubResource( 279 ), Vector2( 5, 8 ), SubResource( 280 ), Vector2( 5, 9 ), SubResource( 281 ), Vector2( 6, 0 ), SubResource( 282 ), Vector2( 6, 1 ), SubResource( 283 ), Vector2( 6, 2 ), SubResource( 284 ), Vector2( 6, 3 ), SubResource( 285 ), Vector2( 6, 4 ), SubResource( 231 ), Vector2( 6, 5 ), SubResource( 286 ), Vector2( 6, 8 ), SubResource( 256 ) ]
 27/autotile/navpoly_map = [  ]
 27/autotile/priority_map = [  ]
 27/autotile/z_index_map = [  ]

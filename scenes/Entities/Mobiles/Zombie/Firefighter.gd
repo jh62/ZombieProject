@@ -148,12 +148,18 @@ func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
 	hitpoints -=  attacker.damage
 	
-	var attacker_dir = attacker.linear_velocity.normalized().dot(dir)
-	
-	if attacker_dir >= 0:
-		$Particles2D.emitting = true
-		$Particles2D.amount = max_hitpoints - hitpoints
-		EventBus.emit_signal("play_sound", SOUNDS.ext_hit, global_position)
+	if attacker is Projectile:
+		var attacker_dir = attacker.linear_velocity.normalized().dot(dir)
+		
+		if attacker_dir >= 0:
+			if !$Particles2D.emitting:
+				$Particles2D.emitting = true
+				$TimerExtinguisher.start()
+				EventBus.emit_signal("play_sound_random", SOUNDS.ext_hit, global_position)
+			else:
+				var exlp := preload("res://scenes/Entities/Explosion/Explosion.tscn").instance()
+				add_child(exlp)
+				exlp.create_small_explosion(2.0, 1.0)
 
 	var new_state : State
 
@@ -253,3 +259,6 @@ func set_can_move(_can_move) -> void:
 
 func set_knows_about(_value) -> void:
 	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
+
+func _on_TimerExtinguisher_timeout():
+	$Particles2D.emitting = false
