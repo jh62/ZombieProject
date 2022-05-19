@@ -1,5 +1,7 @@
 extends Area2D
 
+signal on_key_pickedup(keyid)
+
 const KEY_SOUND := preload("res://assets/sfx/misc/keys_pickup.wav")
 
 export var key_id := -1
@@ -16,9 +18,11 @@ func on_action_pressed(event, facing):
 		
 	var _owner = get_overlapping_bodies()[0]
 	
+	play_sound()
+	
 	get_parent().remove_child(self)
 	_owner.add_child(self)
-	play_sound()
+	emit_signal("on_key_pickedup", key_id)
 
 func play_sound() -> void:
 	EventBus.emit_signal("play_sound", KEY_SOUND, global_position)

@@ -2787,7 +2787,6 @@ radius = 5.0
 radius = 14.0
 
 [sub_resource type="CircleShape2D" id=47]
-radius = 12.0
 
 [node name="Zombie" instance=ExtResource( 1 )]
 collision_layer = 12

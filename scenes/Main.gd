@@ -131,6 +131,9 @@ func _on_Button_button_up():
 		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
+	for mob in get_tree().get_nodes_in_group(Global.GROUP_MOBILE):
+		mob.can_move = false
+		
 	n_Player.dir = Vector2.ZERO
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
@@ -141,6 +144,9 @@ func _on_Bike_on_full_tank():
 	EventBus.emit_signal("play_music", music)
 
 func _on_escape() -> void:
+	for mob in get_tree().get_nodes_in_group(Global.GROUP_MOBILE):
+		mob.can_move = false
+		
 	n_Player.dir = Vector2.ZERO
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)

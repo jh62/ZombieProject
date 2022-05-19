@@ -90,6 +90,9 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_screen_exited():
 	pass
 
+func check_facing(target) -> bool:
+	return global_position.direction_to(target.global_position).dot(facing) > 0
+
 func check_LOS(target) -> bool:	
 	n_RayCast.enabled = true
 	n_RayCast.cast_to = target.global_position - position

@@ -8,6 +8,7 @@ const SoundFlowStop := preload("res://assets/sfx/misc/fuelcan_end.wav")
 
 export var fuel_amount := 0.0 setget set_fuelamount
 export var can_pickup := true
+export var can_stack := true
 
 var player
 var exploded := false
@@ -70,6 +71,9 @@ func _on_Area2D_body_entered(body):
 	var fuelcan = p.get_fuelcan()
 	
 	if fuelcan:
+		if !can_stack:
+			return
+			
 		if fuelcan.fuel_amount >= Global.MAX_FUEL_LITERS:
 			return
 

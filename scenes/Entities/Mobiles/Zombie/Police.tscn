@@ -2203,7 +2203,7 @@ collision_layer = 12
 collision_mask = 15
 script = ExtResource( 7 )
 max_hitpoints = 30.0
-attack_damage = 0
+attack_damage = 100
 zombie_type = 1
 
 [node name="Sprite" type="Sprite" parent="."]

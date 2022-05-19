@@ -45,8 +45,6 @@ enum MeleeType {
 export(MeleeType) var melee_type := MeleeType.EDGED
 export var swing_time := 0.25
 
-onready var raycast := $RayCast
-
 # Virtual methods
 func get_swing_sound():
 	return Sounds.get(melee_type).swing
@@ -107,11 +105,6 @@ func update_animations() -> void:
 
 	anim_p.play(anim_name)
 
-func raycast_enable(enable) -> void:
-	for ray in raycast.get_children():
-		ray.enabled = enable
-		ray.force_raycast_update()
-
 func _on_action_animation_started(anim_name, facing) -> void:
 	texture = ANIMATIONS.get(anim_name)
 
@@ -124,41 +117,26 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			equipper.dir = Vector2.ZERO
 #			equipper.vel += -equipper.facing * damage * 5
 
-			match facing:
-				"n":
-					raycast.rotation_degrees = -45
-				"ne":
-					raycast.rotation_degrees = 0 if !flip_h else -90
-				"e":
-					raycast.rotation_degrees = 45 if !flip_h else -135
-				"se":
-					raycast.rotation_degrees = 90 if !flip_h else 180
-				"s":
-					raycast.rotation_degrees = 135
-
 			var snd = get_swing_sound()
 			emit_signal("on_use")
 
 			EventBus.emit_signal("play_sound_random", snd, global_position)
 			
 			if !$AreaAttack.get_overlapping_bodies().empty():
-				var _target = $AreaAttack.get_overlapping_bodies()[0]
-				var can_see_target = equipper.check_LOS(_target)
 				
-				if can_see_target:					
-					_target.on_hit_by(self)
-
-#			raycast_enable(true)
-#			yield(get_tree().create_timer(.05),"timeout")
-#			if in_use:
-#				for ray in raycast.get_children():
-#					ray = ray as RayCast2D
-#					if ray.is_colliding():
-#						var collider = ray.get_collider()
-#						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
-#							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
-#							collider.on_hit_by(self)
-#							EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
+				for b in $AreaAttack.get_overlapping_bodies():
+					var _target = b
+					
+					if equipper.check_facing(_target):
+						var can_see_target = equipper.check_LOS(_target)
+					
+						if can_see_target:
+							_target.on_hit_by(self)
+							EventBus.emit_signal("play_sound_random", get_sound_shoot(), _target.global_position)
+							EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
+							
+						if melee_type != MeleeType.BLUNT:
+							return
 
 func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:
@@ -166,4 +144,3 @@ func _on_action_animation_finished(anim_name, facing) -> void:
 			equipper.can_move = true
 			equipper.busy_time += swing_time
 			in_use = false
-			raycast_enable(false)

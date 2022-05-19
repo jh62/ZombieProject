@@ -7,7 +7,7 @@
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
-polygon = PoolVector2Array( -16, -3, -3.75, -3, -3, -8, 6, -8, 9, -4, 16, -3, 16, 7, -16, 7 )
+polygon = PoolVector2Array( -16, -5, -4, -5, -3, -8, 6, -8, 9, -4, 16, -3, 16, 7, -16, 7 )
 
 [node name="CarType2" type="StaticBody2D"]
 collision_layer = 8

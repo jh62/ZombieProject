@@ -797,19 +797,13 @@ color = Color( 0.117647, 0.117647, 0.117647, 1 )
 
 [node name="MistLayer" type="CanvasLayer" parent="."]
 layer = 50
-follow_viewport_enable = true
 
 [node name="ColorRect" type="ColorRect" parent="MistLayer"]
-visible = false
 light_mask = 3
 material = ExtResource( 11 )
-anchor_left = -0.025
-anchor_right = 2.25
-anchor_bottom = 5.68889
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="NoiseLayer" type="CanvasLayer" parent="."]
 layer = 51

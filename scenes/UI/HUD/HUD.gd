@@ -133,11 +133,17 @@ func _on_bike_fuel_changed(_amount):
 func _on_weapon_fired(_position ) -> void:
 	update_weapon_status()
 
+func is_objective_completed(idx) -> bool:
+	var objective_idx = clamp(idx, 0, $Panel/VBoxContainer.get_child_count())
+	var n_Objective := $Panel/VBoxContainer.get_child(objective_idx)
+	
+	return n_Objective.get_node("CheckBox").pressed
+	
 func _update_objective(idx, completed, hint := true, text := "") -> void:
 	if hint:
 		$AnimationPlayer.play("update_obj")
+		$AudioStreamPlayer.play()
 		
-	$AnimationPlayer.play()
 	
 	var objective_idx = clamp(idx, 0, $Panel/VBoxContainer.get_child_count())
 	var n_Objective := $Panel/VBoxContainer.get_child(objective_idx)
