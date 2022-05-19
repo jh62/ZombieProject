@@ -68,6 +68,7 @@ enum TILE_ID{
 }
 
 export var map_name := ""
+export var max_fuelcans := 3
 
 onready var n_TileMap4 : TileMap = $TileMap4 setget ,get_tilemap
 onready var n_TileMap3 : TileMap = $TileMap3 setget ,get_tilemap
@@ -98,25 +99,26 @@ func _ready():
 
 	EventBus.connect("mob_spawned", self, "_on_mob_spawned")
 	EventBus.connect("on_bike_tank_full", self, "_on_bike_on_full_tank")
+	EventBus.connect("tilemap_set_tile", self, "_tilemap_set_tile")
+	EventBus.connect("tilemap_set_tile_at", self, "_tilemap_set_tile_at")
 
 func _spawn_fuelcans() -> void:
 	var FuelCan := preload("res://scenes/Entities/Items/FuelCan/FuelCan.tscn")
-	var fuel_remaning := Global.MAX_FUEL_LITERS
-	var max_fuel_cans := 3
+	var _fuel_remaning := Global.MAX_FUEL_LITERS
+	var _max_fuelcans := max_fuelcans
 	
 	var spawn_zones := n_SpawnAreasFuel.get_children()
 	spawn_zones.shuffle()
 	
 	for zone in spawn_zones:
 		var fuelcan := FuelCan.instance()
-		var fuel_amount := float(Global.MAX_FUEL_LITERS / max_fuel_cans)
-		fuel_remaning = max(0.0, fuel_remaning - fuel_amount)
-		print_debug(fuel_remaning)
+		var fuel_amount := float(Global.MAX_FUEL_LITERS / _max_fuelcans)
+		_fuel_remaning = max(0.0, _fuel_remaning - fuel_amount)
 		n_Entities.add_child(fuelcan)
 		fuelcan.global_position = zone.global_position
 		fuelcan.fuel_amount = fuel_amount + rand_range(0.11, 0.73)
 		
-		if fuel_remaning == 0.0:
+		if _fuel_remaning == 0.0:
 			return
 
 func _spawn_weapons() -> void:
@@ -298,3 +300,10 @@ func _on_door_used(position : Vector2, tiles_blocked) -> void:
 func _on_bike_on_full_tank() -> void:
 	for mob in get_tree().get_nodes_in_group(Global.GROUP_MOBILE):
 		mob.can_move = false
+
+func _tilemap_set_tile(cellv : Vector2, id) -> void:
+	n_TileMap2.set_cellv(cellv, id)
+	
+func _tilemap_set_tile_at(position : Vector2, id) -> void:
+	var cellv := n_TileMap2.world_to_map(position)
+	n_TileMap2.set_cellv(cellv, id)

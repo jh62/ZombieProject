@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/97170-Ship_cabin_door_locked_wiggle_handle-BLASTWAVEFX-31835.mp3-fa4c568b7bf36bc10410a0d9f24b0801.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/misc/97170-Ship_cabin_door_locked_wiggle_handle-BLASTWAVEFX-31835.mp3"
+dest_files=[ "res://.import/97170-Ship_cabin_door_locked_wiggle_handle-BLASTWAVEFX-31835.mp3-fa4c568b7bf36bc10410a0d9f24b0801.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

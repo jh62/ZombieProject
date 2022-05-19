@@ -828,7 +828,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -840,7 +840,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667, 0.333334, 0.500001 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 1, 2, 3, 2 ]
+"values": [ 4, 5, 6, 7 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -894,7 +894,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -923,7 +923,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=54]
 resource_name = "eat_wait_n"
-length = 0.5
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -935,7 +935,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 14 ) ]
+"values": [ ExtResource( 11 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -959,7 +959,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -968,10 +968,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 7, 6 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -988,7 +988,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=55]
 resource_name = "eat_wait_s"
-length = 0.5
+length = 0.333334
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1000,7 +1000,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 14 ) ]
+"values": [ ExtResource( 11 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1024,7 +1024,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 1 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -1033,10 +1033,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.166667 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0 ]
+"values": [ 3, 1 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1378,7 +1378,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id=26]
 resource_name = "idle_e"
-length = 0.666667
+length = 0.666668
 loop = true
 step = 0.166667
 tracks/0/type = "value"
@@ -1403,7 +1403,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:vframes")
@@ -1424,10 +1424,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.333333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3 ]
+"values": [ 0, 1 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1481,7 +1481,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:vframes")
@@ -1502,10 +1502,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.333333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 5, 6, 7 ]
+"values": [ 2, 3 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1559,7 +1559,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:vframes")
@@ -1580,10 +1580,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.333333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 12, 13, 14, 15 ]
+"values": [ 6, 7 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1637,7 +1637,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:vframes")
@@ -1658,10 +1658,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.333333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11 ]
+"values": [ 4, 5 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -1715,7 +1715,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 4 ]
+"values": [ 2 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite:vframes")
@@ -1736,10 +1736,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.166667, 0.333333, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.333333 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 16, 17, 18, 19 ]
+"values": [ 8, 9 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -2374,7 +2374,7 @@ attack_damage = 100
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 8
 texture = ExtResource( 10 )
-normal_map = ExtResource( 3 )
+normal_map = ExtResource( 2 )
 hframes = 4
 vframes = 5
 region_rect = Rect2( 32, 16, 128, 16 )

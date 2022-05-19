@@ -90,11 +90,12 @@ func _on_VisibilityNotifier2D_screen_exited():
 func _on_screen_exited():
 	pass
 
-func check_LOS(target) -> bool:
+func check_LOS(target) -> bool:	
 	n_RayCast.enabled = true
 	n_RayCast.cast_to = target.global_position - position
+	yield(get_tree().create_timer(0.05),"timeout")
 	n_RayCast.force_raycast_update()
-
+	
 	var colliding = n_RayCast.is_colliding() && n_RayCast.get_collider() == target
 	n_RayCast.enabled = false
 

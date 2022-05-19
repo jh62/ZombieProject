@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/Weapon/MeleeWeapon/MeleeWeapon.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Items/BaseItem.tscn" type="PackedScene" id=2]
@@ -833,6 +833,9 @@ tracks/2/keys = {
 "values": [ 16, 17, 18, 19 ]
 }
 
+[sub_resource type="CircleShape2D" id=23]
+radius = 16.0
+
 [node name="MeleeWeapon" instance=ExtResource( 2 )]
 hframes = 4
 vframes = 5
@@ -877,3 +880,10 @@ collision_mask = 4
 [node name="RayCast2D3" type="RayCast2D" parent="RayCast" index="2"]
 cast_to = Vector2( 12, -2 )
 collision_mask = 4
+
+[node name="AreaAttack" type="Area2D" parent="." index="3"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaAttack" index="0"]
+shape = SubResource( 23 )

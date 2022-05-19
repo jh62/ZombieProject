@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/76776-Door_weather_strip_door_handle_turn_locked_fast-BLASTWAVEFX-14038.mp3-b2b38d6db32646e90736d8039bf26b9f.mp3str"
+
+[deps]
+
+source_file="res://assets/sfx/misc/76776-Door_weather_strip_door_handle_turn_locked_fast-BLASTWAVEFX-14038.mp3"
+dest_files=[ "res://.import/76776-Door_weather_strip_door_handle_turn_locked_fast-BLASTWAVEFX-14038.mp3-b2b38d6db32646e90736d8039bf26b9f.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

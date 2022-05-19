@@ -1742,7 +1742,6 @@ anims/shoot_s = SubResource( 30 )
 anims/shoot_se = SubResource( 31 )
 
 [node name="Equipment" type="Node2D" parent="." index="3"]
-light_mask = 16
 script = ExtResource( 2 )
 item = ExtResource( 4 )
 
@@ -1776,7 +1775,6 @@ shadow_item_cull_mask = 8
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 light_mask = 0
 current = true
-limit_left = -99999999
 limit_smoothed = true
 smoothing_enabled = true
 
@@ -1788,6 +1786,9 @@ smoothing_enabled = true
 enabled = true
 collision_mask = 2057
 collide_with_areas = true
+
+[node name="RayCast2D" parent="." index="10"]
+collision_mask = 4
 
 [connection signal="on_aiming_start" from="." to="." method="_on_Player_on_aiming_start"]
 [connection signal="on_aiming_stop" from="." to="." method="_on_Player_on_aiming_stop"]

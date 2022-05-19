@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Maps/Harbor/SlidingDoor.tres" type="Texture" id=1]
 [ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=2]
@@ -100,6 +100,9 @@ tracks/1/keys = {
 "values": [ PoolVector2Array( -8, 2, -8, 8, 24, 8, 24, 2 ), PoolVector2Array( 0, 2, 0, 8, 24, 8, 24, 2 ), PoolVector2Array( 8, 2, 8, 8, 24, 8, 24, 2 ) ]
 }
 
+[sub_resource type="CircleShape2D" id=8]
+radius = 72.0
+
 [node name="FenceDoor" type="StaticBody2D"]
 collision_layer = 8
 collision_mask = 0
@@ -149,6 +152,13 @@ shape = SubResource( 4 )
 anims/RESET = SubResource( 5 )
 anims/close = SubResource( 6 )
 anims/open = SubResource( 7 )
+
+[node name="AreaOpen" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaOpen"]
+shape = SubResource( 8 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]

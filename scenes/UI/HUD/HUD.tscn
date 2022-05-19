@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://assets/res/weapon/icons/pistol_icon.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/ui/fuelcan_empty.tres" type="Texture" id=2]
@@ -12,8 +12,22 @@
 [ext_resource path="res://assets/res/ui/fuelcan_progress.tres" type="Texture" id=10]
 [ext_resource path="res://assets/res/ui/healthbar/healthbar_v_under.tres" type="Texture" id=11]
 [ext_resource path="res://scenes/UI/Minimap/Minimap.tscn" type="PackedScene" id=12]
+[ext_resource path="res://assets/ui/window.png" type="Texture" id=13]
+[ext_resource path="res://assets/sfx/misc/notification.wav" type="AudioStream" id=14]
 
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 180, 52 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -40,6 +54,42 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("LabelObjectiveUpdated:percent_visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("LabelObjectiveUpdated:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -71,9 +121,43 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=5]
+resource_name = "update_obj"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("LabelObjectiveUpdated:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LabelObjectiveUpdated:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="HUD" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -90.0
+margin_right = 160.0
+margin_bottom = 90.0
 mouse_filter = 2
 script = ExtResource( 6 )
 __meta__ = {
@@ -298,6 +382,141 @@ text = "100%"
 align = 1
 valign = 2
 
+[node name="Panel" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.705882 )
+anchor_left = 0.25
+anchor_top = 0.188889
+anchor_right = 0.725
+anchor_bottom = 0.811111
+custom_styles/panel = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 0.116071
+text = "OBJECTIVES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+anchor_top = 0.196429
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Objective1" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+margin_right = 152.0
+margin_bottom = 24.0
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Objective1"]
+margin_right = 29.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+button_mask = 0
+align = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Objective1"]
+margin_left = 33.0
+margin_right = 152.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
+valign = 1
+
+[node name="Objective2" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+margin_top = 28.0
+margin_right = 152.0
+margin_bottom = 52.0
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Objective2"]
+margin_right = 29.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+button_mask = 0
+align = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Objective2"]
+margin_left = 33.0
+margin_right = 152.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
+valign = 1
+
+[node name="Objective3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+margin_right = 152.0
+margin_bottom = 24.0
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Objective3"]
+margin_right = 29.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+button_mask = 0
+align = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Objective3"]
+margin_left = 33.0
+margin_right = 152.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
+valign = 1
+
+[node name="Objective4" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
+margin_top = 84.0
+margin_right = 95.0
+margin_bottom = 108.0
+alignment = 1
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/Objective4"]
+margin_right = 24.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+button_mask = 0
+align = 1
+expand_icon = true
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Objective4"]
+margin_left = 28.0
+margin_right = 95.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
+valign = 1
+
+[node name="LabelObjectiveUpdated" type="Label" parent="."]
+anchor_top = 0.927778
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "OBJECTIVES UPDATED"
+align = 1
+valign = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
 [node name="Minimap" parent="." instance=ExtResource( 12 )]
 anchor_left = 0.925
 anchor_top = 0.861111
@@ -311,5 +530,10 @@ margin_bottom = -1.0
 [node name="Tween" type="Tween" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "RESET"
 anims/RESET = SubResource( 2 )
 anims/gun_flash = SubResource( 3 )
+anims/update_obj = SubResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )

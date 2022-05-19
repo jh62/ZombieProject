@@ -16,6 +16,7 @@ polygon = PoolVector2Array( -8, -15, -8, 2, 9, 2, 9, -15 )
 
 [node name="MetalContainer" instance=ExtResource( 1 )]
 script = SubResource( 1 )
+material_type = 0
 
 [node name="Sprite" parent="." index="0"]
 light_mask = 3

@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=1]
+[ext_resource path="res://assets/maps/harbor/harbor_truck.tres" type="Texture" id=2]
+[ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=4]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+resource_local_to_scene = true
+cull_mode = 2
+polygon = PoolVector2Array( 22, -12, 10, -19, -10, -9, -10, -3, -18, 1, -22, 14, -9, 19, 22, 3 )
+
+[node name="TruckType1" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 1 )
+max_hitpoints = 25.0
+material_type = 0
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 16
+texture = ExtResource( 2 )
+normal_map = ExtResource( 3 )
+vframes = 2
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite"]
+visible = false
+light_mask = 2
+occluder = SubResource( 1 )
+light_mask = 2
+
+[node name="SpriteDestroyed" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 768, 384, 64, 64 )
+
+[node name="CollisionShape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 22, 3, 20, -12, 12, -17, -10, -3, -18, 1, -22, 14, -9, 19 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

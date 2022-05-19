@@ -90,14 +90,18 @@ tracks/1/keys = {
 
 [node name="FenceGate" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+max_hitpoints = 25.0
+material_type = 0
 
 [node name="Sprite" parent="." index="0"]
+light_mask = 1
 texture = ExtResource( 3 )
 hframes = 1
 vframes = 1
 region_rect = Rect2( 16, 16, 16, 16 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = false
 occluder = null
 
 [node name="SpriteL" type="Sprite" parent="Sprite" index="1"]
@@ -115,9 +119,9 @@ region_rect = Rect2( 32, 0, 16, 16 )
 [node name="CollisionShape" parent="." index="1"]
 visible = true
 polygon = PoolVector2Array( -24, 0, -24, 8, 24, 8, 24, 0 )
+disabled = false
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array(  )
 disabled = true
 
 [node name="VisibilityNotifier2D" parent="." index="3"]

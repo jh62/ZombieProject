@@ -71,7 +71,7 @@ func _ready() -> void:
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
-	if map_node != null:
+	if !map_node.is_empty():
 		map = get_node(map_node)
 
 	if state != null:
@@ -262,3 +262,14 @@ func set_knows_about(_value) -> void:
 
 func _on_TimerExtinguisher_timeout():
 	$Particles2D.emitting = false
+
+func search_nearby() -> void:
+	if !is_alive():
+		return
+		
+	if area_perception.get_overlapping_bodies().size() == 0:
+		return
+	
+	var mob = area_perception.get_overlapping_bodies()[0]
+	target = mob
+	knows_about = MAX_KNOWS_ABOUT

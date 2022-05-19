@@ -19,7 +19,7 @@ func get_mag_icon():
 
 func _ready():
 	var snd = get_reload_sound()
-	EventBus.emit_signal("play_sound", snd, global_position)
+	EventBus.emit_signal("play_sound_random", snd, global_position)
 
 func update_animations() -> void:
 	.update_animations()

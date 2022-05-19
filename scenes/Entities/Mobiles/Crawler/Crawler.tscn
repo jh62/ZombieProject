@@ -1897,6 +1897,8 @@ shape = SubResource( 42 )
 visible = false
 rect = Rect2( -20, -20, 40, 40 )
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
 [connection signal="body_entered" from="AreaBody" to="." method="_on_AreaBody_body_entered"]
 [connection signal="body_entered" from="AreaPerception" to="." method="_on_AreaPerception_body_entered"]
 [connection signal="body_entered" from="AreaHead" to="." method="_on_AreaHead_body_entered"]

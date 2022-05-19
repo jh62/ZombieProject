@@ -37,6 +37,7 @@ func initialize(_player, _bike) -> void:
 	EventBus.connect("fuel_changed", self, "_on_fuelcan_changed")
 	EventBus.connect("fuel_emptied", self, "_on_fuel_emptied")
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
+	EventBus.connect("update_objective", self, "_update_objective")
 
 	n_Minimap.player = player
 
@@ -48,6 +49,9 @@ func initialize(_player, _bike) -> void:
 	update_weapon_status()
 	update_fuel_status()
 	update_loot_count()
+
+func _process(delta):
+	$Panel.visible = Input.is_action_pressed("objectives")
 
 func update_healthbar() -> void:
 	n_HealthBar.value = player.hitpoints
@@ -128,3 +132,17 @@ func _on_bike_fuel_changed(_amount):
 
 func _on_weapon_fired(_position ) -> void:
 	update_weapon_status()
+
+func _update_objective(idx, completed, hint := true, text := "") -> void:
+	if hint:
+		$AnimationPlayer.play("update_obj")
+		
+	$AnimationPlayer.play()
+	
+	var objective_idx = clamp(idx, 0, $Panel/VBoxContainer.get_child_count())
+	var n_Objective := $Panel/VBoxContainer.get_child(objective_idx)
+	n_Objective.visible = true
+	n_Objective.get_node("CheckBox").pressed = completed
+	
+	if !text.empty():
+		n_Objective.get_node("Label").text = text

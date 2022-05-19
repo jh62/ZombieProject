@@ -7,6 +7,7 @@ signal on_fuel_changed(amount)
 const STEP := 0.1
 
 export var fuel_amount := 0.0 setget set_fuel_amount
+export var can_refuel := true
 
 var player
 var fuelcan
@@ -24,13 +25,13 @@ func set_fuel_amount(new_amount) -> void:
 		return
 
 func on_player_action_start(_player : Node2D) -> void:
-	if fuelcan == null:
+	if fuelcan == null || !can_refuel:
 		return
 
 	start()
 
 func on_player_action_end(_player : Node2D) -> void:
-	if fuelcan == null:
+	if fuelcan == null || !can_refuel:
 		return
 	stop()
 
@@ -53,6 +54,9 @@ func _on_Timer_timeout():
 	emit_signal("on_fuel_changed", fuel_amount)
 
 func _on_Area2D_body_entered(body):
+	if !can_refuel:
+		return
+		
 	var _player = body as Player
 	var _fuelcan = _player.get_fuelcan()
 
@@ -70,6 +74,9 @@ func _on_Area2D_body_entered(body):
 	EventBus.emit_signal("on_tooltip", _text)
 
 func _on_Area2D_body_exited(body):
+	if !can_refuel:
+		return
+		
 	var _player = body as Player
 
 	player = _player

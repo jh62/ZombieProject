@@ -1,17 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Maps/Harbor/TrailerTruck.gd" type="Script" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-cull_mode = 1
-polygon = PoolVector2Array( 64, -16, -40, 40, -64, 24, 40, -32 )
+cull_mode = 2
+polygon = PoolVector2Array( -12, 6, -30, -3, 12, -25, 30, -15 )
 
 [node name="TrailerTruck" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 1 )
-region_rect = Rect2( 734, 144, 127, 86 )
+hframes = 2
+region_rect = Rect2( 720, 192, 128, 64 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
@@ -19,7 +22,11 @@ occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
 visible = true
-polygon = PoolVector2Array( 64, -16, -40, 40, -68, 19, 34, -36 )
+polygon = PoolVector2Array( 30, 3, -13, 24, -30, 15, -27, -1, 14, -24, 29, -12 )
 
 [node name="Area2D" parent="." index="2"]
 visible = true
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+position = Vector2( 1.90735e-06, -0.499998 )
+scale = Vector2( 3.1, 2.45 )

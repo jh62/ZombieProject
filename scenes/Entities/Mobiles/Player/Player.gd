@@ -136,6 +136,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed("action_alt"):
 		emit_signal("on_search_start", self)
+		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE_KEY, facing)
 		return
 	elif Input.is_action_just_released("action_alt"):
 		emit_signal("on_search_end", self)
@@ -205,7 +206,6 @@ func kill() -> void:
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
 	self.hitpoints -= attacker.damage
-	print_debug(attacker.damage)
 
 	if hitpoints == 0:
 #		vel *= vel * attacker.dir

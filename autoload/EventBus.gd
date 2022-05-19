@@ -2,13 +2,15 @@ extends Node
 
 enum ActionEvent{
 	USE,
-	RELOAD
+	RELOAD,
+	USE_KEY
 }
 
 # Main signals
 signal intro_finished
 signal on_pause
 signal on_unpause
+signal on_escape
 
 # Effect signals
 signal create_shake(duration, frequency, amplitude, priority)
@@ -16,6 +18,7 @@ signal create_shake(duration, frequency, amplitude, priority)
 # HUD signals
 signal on_request_update_health
 signal on_tooltip(text)
+signal update_objective(idx, completed, text)
 
 # Player signals
 signal action_pressed(action_name, facing)
@@ -51,3 +54,9 @@ signal play_sound(sound, position)
 signal play_sound_random(sound, position)
 signal play_sound_random_full(sound, position, pitch, db, max_distance)
 signal play_music(music)
+signal play_sound_no2d(sound, pitch, db)
+signal play_sound_rand_no2d(sound_pool, pitch, db)
+
+# Tilemap
+signal tilemap_set_tile(cellv, id)
+signal tilemap_set_tile_at(position, id)

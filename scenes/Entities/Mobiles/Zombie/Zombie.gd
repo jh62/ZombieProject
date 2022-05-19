@@ -65,7 +65,7 @@ func _ready() -> void:
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 
-	if map_node != null:
+	if !map_node.is_empty():
 		map = get_node(map_node)
 
 	if state != null:
@@ -126,7 +126,6 @@ func _process_animations() -> void:
 		facing.y = dir.y
 #
 	sprite.flip_h = facing.x < 0
-	print_debug(knows_about)
 
 func kill() -> void:
 	.kill()
@@ -154,6 +153,9 @@ func on_hit_by(attacker) -> void:
 
 
 func _on_AreaBody_body_entered(body):
+	if !is_alive():
+		return
+		
 	if is_instance_valid(body):
 		body._on_impact(self)
 
@@ -235,5 +237,16 @@ func set_can_move(_can_move) -> void:
 
 func set_knows_about(_value) -> void:
 	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
+	
+func search_nearby() -> void:
+	if !is_alive():
+		return
+		
+	if area_perception.get_overlapping_bodies().size() == 0:
+		return
+	
+	var mob = area_perception.get_overlapping_bodies()[0]
+	target = mob
+	knows_about = MAX_KNOWS_ABOUT
 
 

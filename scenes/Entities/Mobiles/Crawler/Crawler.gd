@@ -42,10 +42,10 @@ func _ready() -> void:
 	add_to_group(Globals.GROUP_ZOMBIE)
 	add_to_group(Globals.GROUP_SPECIAL)
 
-	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
+	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 	
-	if map_node != null:
+	if !map_node.is_empty():
 		map = get_node(map_node)
 
 	if state != null:
@@ -168,3 +168,14 @@ func _on_AreaBody_body_entered(body):
 		
 	if is_instance_valid(body):
 		body._on_impact(self)
+
+func search_nearby() -> void:
+	if !is_alive():
+		return
+		
+	if area_perception.get_overlapping_bodies().size() == 0:
+		return
+	
+	var mob = area_perception.get_overlapping_bodies()[0]
+	target = mob
+	knows_about = MAX_KNOWS_ABOUT

@@ -23,6 +23,7 @@ func _ready() -> void:
 
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
+	EventBus.connect("on_escape", self, "_on_escape")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
 	EventBus.connect("on_player_death", self, "_on_Player_on_death")
@@ -31,11 +32,11 @@ func _ready() -> void:
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-	var n_Camera : Camera2D = n_Player.get_node("Camera2D")
-	n_Camera.limit_left = 0
-	n_Camera.limit_top = 0
-	n_Camera.limit_right = Global.MAP_SIZE.x
-	n_Camera.limit_bottom = Global.MAP_SIZE.y
+#	var n_Camera : Camera2D = n_Player.get_node("Camera2D")
+#	n_Camera.limit_top = 0
+#	n_Camera.limit_bottom = Global.MAP_SIZE.y
+#	n_Camera.limit_left = 0
+#	n_Camera.limit_right = Global.MAP_SIZE.x
 
 	if Global.DEBUG_MODE:
 		$WorldEnvironment.queue_free()
@@ -130,9 +131,21 @@ func _on_Button_button_up():
 		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():
+	n_Player.dir = Vector2.ZERO
+	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
 	$AnimationPlayer.play("win")
+
+	var music := preload("res://assets/music/winning.mp3")
+	EventBus.emit_signal("play_music", music)
+
+func _on_escape() -> void:
+	n_Player.dir = Vector2.ZERO
+	n_Player.can_move = false
+	n_Player.set_process_unhandled_key_input(false)
+
+	$AnimationPlayer.play("win_final")
 
 	var music := preload("res://assets/music/winning.mp3")
 	EventBus.emit_signal("play_music", music)
@@ -158,7 +171,7 @@ var LabelPool := [
 func _on_loot_pickedup() -> void:
 	var label_root = LabelPool[label_idx]
 	var label = label_root.get_node("Label")
-	$TileMap/Entities/Statics.add_child(label_root)
+	n_MapManager.get_map().add_child(label_root)
 	label.rect_global_position = n_Player.global_position
 	label.bbcode_text = "[center][color=white]+LOOT"
 	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
@@ -166,7 +179,7 @@ func _on_loot_pickedup() -> void:
 func _on_request_update_health() -> void:
 	var label_root = LabelPool[label_idx]
 	var label = label_root.get_node("Label")
-	$TileMap/Entities/Statics.add_child(label_root)
+	n_MapManager.get_map().add_child(label_root)
 	label.rect_global_position = n_Player.global_position
 	label.bbcode_text = "[center][color=lime]+HEALTH"
 	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
@@ -197,7 +210,4 @@ func _on_PauseMessage_on_pause():
 	n_Dialog.visible = !n_Dialog.visible
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	match anim_name:
-		"intro":
-			yield(get_tree().create_timer(1.0),"timeout")
-			$AnimationPlayer.play("intro_dialog")
+	pass

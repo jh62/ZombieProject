@@ -140,18 +140,25 @@ func _on_action_animation_started(anim_name, facing) -> void:
 			emit_signal("on_use")
 
 			EventBus.emit_signal("play_sound_random", snd, global_position)
+			
+			if !$AreaAttack.get_overlapping_bodies().empty():
+				var _target = $AreaAttack.get_overlapping_bodies()[0]
+				var can_see_target = equipper.check_LOS(_target)
+				
+				if can_see_target:					
+					_target.on_hit_by(self)
 
-			raycast_enable(true)
-			yield(get_tree().create_timer(.025),"timeout")
-			if in_use:
-				for ray in raycast.get_children():
-					ray = ray as RayCast2D
-					if ray.is_colliding():
-						var collider = ray.get_collider()
-						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
-							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
-							collider.on_hit_by(self)
-							EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
+#			raycast_enable(true)
+#			yield(get_tree().create_timer(.05),"timeout")
+#			if in_use:
+#				for ray in raycast.get_children():
+#					ray = ray as RayCast2D
+#					if ray.is_colliding():
+#						var collider = ray.get_collider()
+#						if collider.is_alive() && !collider.fsm.current_state.get_name().begins_with("hit"):
+#							EventBus.emit_signal("play_sound_random", get_sound_shoot(), collider.global_position)
+#							collider.on_hit_by(self)
+#							EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
 
 func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:

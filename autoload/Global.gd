@@ -31,6 +31,8 @@ const GROUP_ZOMBIE := "zombie"
 const GROUP_SPECIAL := "special"
 const GROUP_FIRE := "fire"
 const GROUP_MOBILE := "mobile"
+const GROUP_FUELCAN := "fuelcan"
+const GROUP_KEYS := "keys"
 
 const MAX_FUEL_LITERS := 12.5 # 120.5
 const MAX_SPECIAL_ZOMBIES := 4

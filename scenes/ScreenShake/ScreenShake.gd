@@ -55,4 +55,4 @@ func _on_fuelcan_explode(position):
 	start(0.25, 12, 8, 0)
 
 func _on_ShakeTween_tween_completed(object, key):
-	print_debug("done")
+	pass

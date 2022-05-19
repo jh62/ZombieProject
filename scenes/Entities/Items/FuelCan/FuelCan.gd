@@ -7,11 +7,13 @@ const SoundFlow := preload("res://assets/sfx/misc/fuelcan_flow.wav")
 const SoundFlowStop := preload("res://assets/sfx/misc/fuelcan_end.wav")
 
 export var fuel_amount := 0.0 setget set_fuelamount
+export var can_pickup := true
 
 var player
 var exploded := false
 
 func _ready():
+	add_to_group(Global.GROUP_FUELCAN)
 	if !fuel_amount:
 		fuel_amount = rand_range(1.5, Global.MAX_FUEL_LITERS * .25)
 
@@ -57,6 +59,9 @@ func _on_Area2D_body_entered(body):
 	if (body is Projectile):
 		explode()
 		return
+	
+	if !can_pickup:
+		return
 
 	if !(body is Player):
 		return
@@ -77,6 +82,9 @@ func _on_Area2D_body_entered(body):
 	show_label(true)
 
 func _on_Area2D_body_exited(body):
+	if !can_pickup:
+		return
+		
 	if !(body is Player):
 		return
 

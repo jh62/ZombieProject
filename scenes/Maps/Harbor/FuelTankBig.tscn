@@ -5,9 +5,8 @@
 [ext_resource path="res://scenes/Maps/Harbor/FuelTankBig.gd" type="Script" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-closed = false
-cull_mode = 2
-polygon = PoolVector2Array( -19, -5, -18, -14, -13, -17, -8, -19, 5, -19, 11, -17, 15, -13, 15, -4 )
+cull_mode = 1
+polygon = PoolVector2Array( -11, 15, -18, 11, -18, -13, -14, -17, -8, -19, 5, -19, 13, -16, 15, -13, 15, 11, 11, 14, -1, 16 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
 closed = false
@@ -26,19 +25,21 @@ region_rect = Rect2( 399, 78, 35, 37 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true
+light_mask = 1
 occluder = SubResource( 1 )
+light_mask = 1
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
+visible = false
 light_mask = 2
 occluder = SubResource( 2 )
 light_mask = 2
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( -18, 0, -18, 10, -8, 17, 6, 17, 14, 11, 14, 0, 8, -4, -12, -4 )
-
-[node name="Area2D" parent="." index="2"]
-visible = true
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
 polygon = PoolVector2Array( 15, 1, -18, 1, -18, -11, 15, -11 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+visible = false

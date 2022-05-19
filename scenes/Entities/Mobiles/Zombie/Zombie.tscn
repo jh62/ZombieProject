@@ -2880,7 +2880,6 @@ collision_mask = 1033
 shape = SubResource( 46 )
 
 [node name="AttackArea" type="Area2D" parent="." index="7"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

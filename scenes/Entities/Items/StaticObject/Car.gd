@@ -5,7 +5,7 @@ const MAX_WARNINGS := 30
 var exploded = false
 
 func _ready():
-	pass
+	$Sprite.frame = randi() % ($Sprite.hframes * $Sprite.vframes)
 
 func get_item_name():
 	return "vehicle"
@@ -18,8 +18,7 @@ func explode() -> void:
 	exploded = true
 	modulate = Color.white
 	$Area2D.set_collision_mask_bit(5, false) # Bullets
-	$Sprite.light_mask = 2
-	$Sprite.material.set_shader_param('difference', 0.65)
+	$SpriteDestroyed.visible = true
 
 	set_process(false)
 	set_physics_process(false)

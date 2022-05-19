@@ -65,8 +65,20 @@ damage = 100.0
 knockback = 9.0
 fire_rate = 1.57
 melee_type = 1
-swing_time = 0.29
+swing_time = 0.24
 
 [node name="AnimationPlayer" parent="." index="0"]
 autoplay = "idle_e"
 anims/RESET = SubResource( 1 )
+
+[node name="RayCast" parent="." index="1"]
+visible = false
+
+[node name="RayCast2D" parent="RayCast" index="0"]
+cast_to = Vector2( 10, -16 )
+
+[node name="RayCast2D2" parent="RayCast" index="1"]
+cast_to = Vector2( 16, -16 )
+
+[node name="RayCast2D3" parent="RayCast" index="2"]
+cast_to = Vector2( 16, -10 )

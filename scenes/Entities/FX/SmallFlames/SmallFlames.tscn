@@ -34,13 +34,12 @@ radius = 3.16228
 
 [node name="SmallFlames" type="Area2D"]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 14
 script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3 )
 frames = SubResource( 5 )
-frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

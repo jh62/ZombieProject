@@ -9,4 +9,4 @@ func _on_tooltip(_text : String) -> void:
 	if !visible:
 		return
 
-	bbcode_text = _text
+	bbcode_text = "[center]" + _text + "[/center]"

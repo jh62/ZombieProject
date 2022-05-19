@@ -140,7 +140,7 @@ func update(delta) -> void:
 
 		owner.vel = owner.speed * owner.dir
 		owner.vel = owner.vel.move_toward(steering_force, delta)
-		owner.vel = owner.move_and_slide(owner.vel * 4.0)
+		owner.vel = owner.move_and_slide(owner.vel * 2.0)
 	else:
 		owner.vel = owner.speed * owner.dir
 		owner.vel = owner.vel.move_toward(steering_force, delta)

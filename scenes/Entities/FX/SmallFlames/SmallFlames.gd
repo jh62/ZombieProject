@@ -36,5 +36,7 @@ func _on_SmallFlames_body_entered(body : Node2D):
 			var Fire := preload("res://scenes/Entities/FX/Fire/Fire.tscn")
 			body.add_child(Fire.instance())
 			call_deferred("queue_free")
+	elif body.is_in_group(Globals.GROUP_FUELCAN):
+		body.explode()
 	else:
 		body.on_hit_by(self)

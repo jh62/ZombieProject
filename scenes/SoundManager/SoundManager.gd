@@ -6,10 +6,10 @@ const TRACKS := [
 	preload("res://assets/music/track_04.mp3")
 ]
 
-export var origin : NodePath
+#export var origin : NodePath
 
 onready var music_player := $MusicPlayer
-onready var audio_streams := $AudioStreams
+onready var audio_streams_2d := $AudioStreams2D
 
 var idx := 0
 
@@ -38,8 +38,8 @@ func get_audio_player() -> AudioStreamPlayer2D:
 	var audio_p : AudioStreamPlayer2D
 
 	while audio_p == null || audio_p.playing:
-		idx = wrapi(idx + 1, 0, audio_streams.get_child_count())
-		audio_p = audio_streams.get_child(idx)
+		idx = wrapi(idx + 1, 0, audio_streams_2d.get_child_count())
+		audio_p = audio_streams_2d.get_child(idx)
 	return audio_p
 
 func _rplay_sound(stream_pool, position := Vector2.ZERO, pitch := rand_range(.95,1.05), db := 0.0, max_distance := 240.0) -> void:

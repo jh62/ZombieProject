@@ -8,7 +8,7 @@
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
-[ext_resource path="res://assets/music/track_03.mp3" type="AudioStream" id=9]
+[ext_resource path="res://assets/music/main_song.mp3" type="AudioStream" id=9]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/MainMenu.gd" type="Script" id=10]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/OptionsMenu.gd" type="Script" id=11]
 
@@ -1312,6 +1312,7 @@ __meta__ = {
 }
 
 [node name="Background" type="TextureRect" parent="CanvasLayer/Graphics"]
+visible = false
 show_behind_parent = true
 light_mask = 0
 anchor_right = 1.0
@@ -1319,9 +1320,8 @@ anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
-stretch_mode = 6
+stretch_mode = 7
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
