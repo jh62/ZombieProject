@@ -64,6 +64,7 @@ const MaterialSound := {
 
 enum TILE_ID{
 	BLOCKED = 43,
+	BLOCKED_2 = 62,
 	WALKABLE = 59
 }
 
@@ -143,7 +144,7 @@ func _create_pathfinding() -> void:
 		var t = walkable_tiles[i]
 		if t in no_walkable_tiles:
 			continue
-		if n_TileMap.get_cellv(t) == TILE_ID.BLOCKED:
+		if n_TileMap.get_cellv(t) == TILE_ID.BLOCKED || n_TileMap.get_cellv(t) == TILE_ID.BLOCKED_2:
 			n_TileMap.set_cellv(t, -1)
 		else:
 			n_TileMap.set_cellv(t, TILE_ID.WALKABLE)

@@ -28,12 +28,14 @@ func play_sound() -> void:
 	EventBus.emit_signal("play_sound", KEY_SOUND, global_position)
 	
 func _on_Key_body_entered(body):
-	EventBus.connect("action_pressed", self, "on_action_pressed")
+	if !EventBus.is_connected("action_pressed", self, "on_action_pressed"):
+		EventBus.connect("action_pressed", self, "on_action_pressed")
 	
 	var button = InputMap.get_action_list("action_alt")[0].as_text()
 	var _text = "Press [color=#fffc00]{0}[/color] to pickup the key".format({0:button})
 	EventBus.emit_signal("on_tooltip", _text)
 
 func _on_Key_body_exited(body):
-	EventBus.disconnect("action_pressed", self, "on_action_pressed")
+	if EventBus.is_connected("action_pressed", self, "on_action_pressed"):
+		EventBus.disconnect("action_pressed", self, "on_action_pressed")
 	EventBus.emit_signal("on_tooltip", "")

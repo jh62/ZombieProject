@@ -31,7 +31,7 @@ func _process(delta):
 		speed = 0.0
 
 func _on_SmallFlames_body_entered(body : Node2D):
-	if body.is_in_group(Globals.GROUP_ZOMBIE):
+	if body.is_in_group(Globals.GROUP_HOSTILES):
 		if !body.find_node("Fire", true, false):
 			var Fire := preload("res://scenes/Entities/FX/Fire/Fire.tscn")
 			body.add_child(Fire.instance())

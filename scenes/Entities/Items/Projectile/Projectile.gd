@@ -6,12 +6,10 @@ enum Type {
 }
 
 const HITSOUNDS := [
-		preload("res://assets/sfx/impact/ricochet_1.wav"),
-		preload("res://assets/sfx/impact/ricochet_2.wav"),
-		preload("res://assets/sfx/impact/ricochet_3.wav")
+	preload("res://assets/sfx/impact/ricochet_1.wav"),
+	preload("res://assets/sfx/impact/ricochet_2.wav"),
+	preload("res://assets/sfx/impact/ricochet_3.wav")
 ]
-
-const Decal := preload("res://scenes/Entities/FX/Decals/Decals.tscn")
 
 onready var collision := $CollisionShape2D
 
@@ -24,13 +22,16 @@ func _ready() -> void:
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):
 		body.call_deferred("on_hit_by", self)
-
-	var decal := Decal.instance()
-	EventBus.emit_signal("on_object_spawn", decal, global_position)
+			
 	if !(body is Mobile):
+		EventBus.emit_signal("spawn_decal", global_position)
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
 
-	call_deferred("queue_free")
+	if get_parent() != null:
+		get_parent().remove_child(self)
+		print_debug("removed")
+#	print_debug(get_parent())
+#	call_deferred("queue_free")
 
 func _on_Projectile_body_entered(body: Node) -> void:
 	_on_impact(body)
@@ -39,8 +40,9 @@ func _on_Projectile_body_shape_entered(body_id, body, body_shape, local_shape):
 	_on_impact(body)
 
 func _on_VisibilityTimer_timeout():
-	call_deferred("queue_free")
+#	call_deferred("queue_free")
+	pass
 
 func _on_VisibilityNotifier2D_viewport_exited(viewport):
-	if is_inside_tree():
+	if $VisibilityTimer.is_inside_tree():
 		$VisibilityTimer.start(.15)

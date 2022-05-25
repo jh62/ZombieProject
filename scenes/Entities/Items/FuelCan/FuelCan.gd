@@ -35,7 +35,7 @@ func explode() -> void:
 	add_child(explosion)
 	explosion.create_big_explosion()
 	explosion.connect("explosion_complete", self, "on_explosion_complete")
-	$Area2D/CollisionShape2D.disabled = true
+	$Area2D/CollisionShape2D.call_deferred("disabled", true)
 	set_collision_mask_bit(5, false)
 	exploded = true
 	$Sprite.visible = false

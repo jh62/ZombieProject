@@ -62,3 +62,4 @@ func _on_objective_completed(objective_id, _step):
 
 func _on_FenceGate2_on_door_used(position, tiles_blocked):
 	_on_objective_completed(1, 2)
+	$TileMap2/Entities/Statics/FenceGate2.disconnect("on_door_used", self, "_on_FenceGate2_on_door_used")

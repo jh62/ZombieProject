@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/abomination_die.wav-956c8fb605ba8b044221eedd54917afa.sample"
+
+[deps]
+
+source_file="res://assets/sfx/mobs/abomination/abomination_die.wav"
+dest_files=[ "res://.import/abomination_die.wav-956c8fb605ba8b044221eedd54917afa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

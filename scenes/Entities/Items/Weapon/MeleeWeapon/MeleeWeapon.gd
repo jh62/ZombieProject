@@ -45,6 +45,8 @@ enum MeleeType {
 export(MeleeType) var melee_type := MeleeType.EDGED
 export var swing_time := 0.25
 
+onready var n_TimerAttackCheck := $TimerAttackCheck
+
 # Virtual methods
 func get_swing_sound():
 	return Sounds.get(melee_type).swing
@@ -119,24 +121,10 @@ func _on_action_animation_started(anim_name, facing) -> void:
 
 			var snd = get_swing_sound()
 			emit_signal("on_use")
-
-			EventBus.emit_signal("play_sound_random", snd, global_position)
 			
-			if !$AreaAttack.get_overlapping_bodies().empty():
+			n_TimerAttackCheck.start(0.1)
 				
-				for b in $AreaAttack.get_overlapping_bodies():
-					var _target = b
-					
-					if equipper.check_facing(_target):
-						var can_see_target = equipper.check_LOS(_target)
-					
-						if can_see_target:
-							_target.on_hit_by(self)
-							EventBus.emit_signal("play_sound_random", get_sound_shoot(), _target.global_position)
-							EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
-							
-						if melee_type != MeleeType.BLUNT:
-							return
+			EventBus.emit_signal("play_sound_random", snd, global_position)
 
 func _on_action_animation_finished(anim_name, facing) -> void:
 	match anim_name:
@@ -144,3 +132,22 @@ func _on_action_animation_finished(anim_name, facing) -> void:
 			equipper.can_move = true
 			equipper.busy_time += swing_time
 			in_use = false
+
+func _on_TimerAttackCheck_timeout():
+	if $AreaAttack.get_overlapping_areas().empty():
+		print_debug("no bodies")
+		return
+				
+	for b in $AreaAttack.get_overlapping_areas():
+		var _target = b.get_parent() as Mobile
+		
+		if equipper.check_facing(_target):
+			var can_see_target = equipper.check_LOS(_target)
+		
+			if can_see_target:
+				_target.on_hit_by(self)
+				EventBus.emit_signal("play_sound_random", get_sound_shoot(), _target.global_position)
+				EventBus.emit_signal("create_shake", 0.3, knockback * 2, knockback, 0)
+				
+			if melee_type != MeleeType.BLUNT:
+				return

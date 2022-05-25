@@ -50,7 +50,7 @@ func _on_Timer_timeout():
 
 	spawn_count = 0
 
-	for z in get_tree().get_nodes_in_group(Globals.GROUP_ZOMBIE):
+	for z in get_tree().get_nodes_in_group(Globals.GROUP_HOSTILES):
 		if z.is_alive():
 			spawn_count += 1
 
@@ -70,8 +70,5 @@ func set_active(active : bool) -> void:
 		if !n_timer.is_stopped():
 			n_timer.stop()
 
-		for m in get_tree().get_nodes_in_group(Global.GROUP_ZOMBIE):
-			m.call_deferred("queue_free")
-
-		for m in get_tree().get_nodes_in_group(Global.GROUP_SPECIAL):
+		for m in get_tree().get_nodes_in_group(Global.GROUP_HOSTILES):
 			m.call_deferred("queue_free")

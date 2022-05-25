@@ -24,13 +24,13 @@ closed = false
 cull_mode = 2
 polygon = PoolVector2Array( -9, 12, 9, 12 )
 
-[node name="Dumpster" instance=ExtResource( 2 )]
+[node name="DumpsterFull" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
 
 [node name="Sprite" parent="." index="0"]
 light_mask = 1
 texture = ExtResource( 1 )
-region_rect = Rect2( 544, 0, 32, 32 )
+region_rect = Rect2( 576, 0, 32, 32 )
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
 visible = true

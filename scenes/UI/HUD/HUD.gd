@@ -142,8 +142,7 @@ func is_objective_completed(idx) -> bool:
 func _update_objective(idx, completed, hint := true, text := "") -> void:
 	if hint:
 		$AnimationPlayer.play("update_obj")
-		$AudioStreamPlayer.play()
-		
+		$AudioStreamPlayer.play()		
 	
 	var objective_idx = clamp(idx, 0, $Panel/VBoxContainer.get_child_count())
 	var n_Objective := $Panel/VBoxContainer.get_child(objective_idx)

@@ -7,7 +7,7 @@
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
-polygon = PoolVector2Array( -15, -3, -11, -4, -8, -7, -3, -8, 1, -8, 5, -4, 8, -4, 14, -3, 14, 6, -15, 6 )
+polygon = PoolVector2Array( -15, 5, -15, -3, -11, -4, -7, -7, 2, -7, 5, -5, 8, -4, 14, -3, 14, 5 )
 
 [node name="CarType1" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -21,6 +21,7 @@ vframes = 2
 region_enabled = false
 
 [node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
 light_mask = 16
 occluder = SubResource( 1 )
 light_mask = 16

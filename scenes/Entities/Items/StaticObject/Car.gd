@@ -35,7 +35,7 @@ func explode() -> void:
 
 	var expl := preload("res://scenes/Entities/Explosion/Explosion.tscn").instance() as Explosion
 	add_child(expl)
-	expl.create_huge_explosion(16)
+	expl.create_huge_explosion(24)
 	expl.rotation_degrees = 180 if rotation_degrees != 0 else 0
 
 func kill() -> void:

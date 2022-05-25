@@ -39,19 +39,23 @@ var waypoints : PoolVector2Array
 var knows_about := 0.0
 
 func _ready() -> void:
-	add_to_group(Globals.GROUP_ZOMBIE)
+	add_to_group(Globals.GROUP_HOSTILES)
 	add_to_group(Globals.GROUP_SPECIAL)
-
+	
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
 	
 	if !map_node.is_empty():
 		map = get_node(map_node)
 
+	var new_state
+	
 	if state != null:
-		fsm.current_state = state.new(self)
+		new_state = state.new(self)
 	else:
-		fsm.current_state = States.idle.new(self)
+		new_state = States.idle.new(self)
+		
+	fsm.travel_to(new_state)
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:
@@ -177,5 +181,9 @@ func search_nearby() -> void:
 		return
 	
 	var mob = area_perception.get_overlapping_bodies()[0]
-	target = mob
-	knows_about = MAX_KNOWS_ABOUT
+	
+	if fsm.current_state is CrawlerFleeState:
+		target = mob.global_position
+	else:
+		target = mob
+		knows_about = MAX_KNOWS_ABOUT

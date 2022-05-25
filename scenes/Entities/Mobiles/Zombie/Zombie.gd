@@ -61,6 +61,7 @@ var down_times := 0
 var knows_about := 0.0 setget set_knows_about
 
 func _ready() -> void:
+	add_to_group(Globals.GROUP_HOSTILES)
 	add_to_group(Globals.GROUP_ZOMBIE)
 	EventBus.connect("on_weapon_fired", self, "_on_weapon_fired")
 	EventBus.connect("on_player_death", self, "_on_player_death")
@@ -68,10 +69,14 @@ func _ready() -> void:
 	if !map_node.is_empty():
 		map = get_node(map_node)
 
+	var new_state
+	
 	if state != null:
-		fsm.current_state = state.new(self)
+		new_state = state.new(self)
 	else:
-		fsm.current_state = States.idle.new(self)
+		new_state = States.idle.new(self)
+		
+	fsm.travel_to(new_state)
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.HARD:

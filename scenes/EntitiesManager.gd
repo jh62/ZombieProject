@@ -1,11 +1,14 @@
 extends YSort
 
-#signal on_mob_spawned(mob)
+const Decal := preload("res://scenes/Entities/FX/Decals/Decals.tscn")
+const Blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
+const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
+const Shell := preload("res://scenes/Entities/Items/Projectile/Shells/Shells.tscn")
 
-const BULLET_TYPE := {
-	Projectile.Type.BULLET: preload("res://scenes/Entities/Items/Projectile/Projectile.tscn"),
-	Projectile.Type.SHELL: preload("res://scenes/Entities/Items/Projectile/Shells/Shells.tscn")
-}
+const pool_decals := []
+const pool_blood := []
+const pool_bullets := []
+const pool_shells := []
 
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
@@ -16,42 +19,91 @@ onready var n_Ground := $Ground
 onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
 
+var decal_idx := 0
+var blood_idx := 0
+var bullet_idx := 0
+var shell_idx := 0
+
 func _ready() -> void:
 	EventBus.connect("on_bullet_spawn", self, "_spawn_bullet")
+	EventBus.connect("spawn_blood", self, "_spawn_blood")
+	EventBus.connect("spawn_decal", self, "_spawn_decal")
 	EventBus.connect("on_mob_spawn", self, "_spawn_mob")
 	EventBus.connect("on_object_spawn", self, "_spawn_object")
 	EventBus.connect("on_weapon_reloaded", self, "_on_weapon_reloaded")
+	
+	for i in 34:
+		var bullet := Bullet.instance()
+		pool_bullets.append(bullet)
+	
+	for i in 6:
+		var shell := Shell.instance()
+		pool_shells.append(shell)
+		
+	for i in 50:
+		var decal := Decal.instance()
+		pool_decals.append(decal)
+	
+	for i in 20:
+		var blood := Blood.instance()
+		pool_blood.append(blood)
+		
+func _spawn_blood(position) -> void:
+	var blood = pool_blood[blood_idx]
+	
+	if blood.get_parent() != n_Ground:
+		n_Ground.add_child(blood)
+		
+	blood.global_position = position
+	blood_idx = wrapi(blood_idx + 1, 0, pool_blood.size())
+
+func _spawn_decal(position) -> void:
+	var decal = pool_decals[decal_idx]
+	
+	if decal.get_parent() != n_Ground:
+		n_Ground.add_child(decal)
+		
+	decal.global_position = position
+	decal_idx = wrapi(decal_idx + 1, 0, pool_decals.size())
 
 func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0) -> void:
-	var bullet = BULLET_TYPE.get(type, Projectile.Type.BULLET).instance()
+	var bullet
+	
+	match type:
+		Projectile.Type.BULLET:
+			bullet = pool_bullets[bullet_idx]
+			bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
+		Projectile.Type.SHELL:
+			bullet = pool_shells[shell_idx]
+			shell_idx = wrapi(shell_idx + 1, 0, pool_shells.size())
+			
 	var target_pos : Vector2
-
-	if Global.GameOptions.gameplay.joypad:
-		var crosshair := n_Mobs.get_node("Player").get_node("Crosshair")
-		target_pos = crosshair.position
-	else:
-		target_pos = get_global_mouse_position()
-
+	var direction : Vector2
+	var precision : Vector2
+	
 	if !aimed:
 		var precision_margin := PlayerStatus.precision_margin_error
-		target_pos += Vector2(rand_range(-precision_margin,precision_margin),rand_range(-precision_margin,precision_margin))
-#
-	var direction : Vector2
-#
+		precision.x = rand_range(-precision_margin,precision_margin)
+		precision.y = rand_range(-precision_margin,precision_margin)
+
 	if Global.GameOptions.gameplay.joypad:
 		var player : Node2D = n_Mobs.get_node("Player")
+		var crosshair := player.get_node("Crosshair")
+		target_pos = crosshair.position + precision
 		direction = player.get_global_transform_with_canvas().origin.direction_to(target_pos)
 	else:
+		target_pos = get_global_mouse_position()  + precision
 		direction = position.direction_to(target_pos)
 
+	if bullet.get_parent() != n_Mobs:
+		n_Mobs.add_child(bullet)
+	
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.visible = Global.GameOptions.graphics.render_bullets
 	bullet.global_position = position
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
 	bullet.look_at(position + direction)
-
-	n_Mobs.add_child(bullet)
 
 var bad_spawns := [] # lazy fix
 
@@ -81,8 +133,10 @@ func _spawn_mob(position) -> void:
 
 	if _mob.is_in_group(Global.GROUP_ZOMBIE):
 		_mob.speed *= rand_range(1.0,1.5)
+		
 		if .07 > randf():
-			_mob.fsm.travel_to(ZombieRestState.new(_mob))
+			var new_state = _mob.States.rest.new(_mob)
+			_mob.fsm.travel_to(new_state)
 
 	EventBus.emit_signal("mob_spawned", _mob)
 

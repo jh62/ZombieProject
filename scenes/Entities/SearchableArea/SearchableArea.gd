@@ -17,14 +17,12 @@ export var fill_time := 3.5
 
 onready var progress_wheel := $CanvasLayer/ProgressWheel
 onready var icon := $CanvasLayer/TextureRect
-onready var label := $CanvasLayer_Label/RichTextLabel
 
 var searched_by : Node2D
 var searching := false setget, is_searching
 var looted := false setget ,is_looted
 
 func _ready():
-#	connect("on_search_successful", get_parent(), "on_search_successful")
 	$CollisionShape2D.shape.radius = radius
 	$CanvasLayer/ProgressWheel.fill_time = fill_time
 	icon.visible = false

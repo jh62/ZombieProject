@@ -191,11 +191,7 @@ func _on_request_update_health() -> void:
 	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
 
 func _on_fuel_pickedup(amount) -> void:
-	if fuel_pickedup_first:
-		return
-
-	fuel_pickedup_first = true
-	$AnimationPlayer.play("fuel_hint")
+	pass
 
 const messages := [
 		"That was not enough. I need more.",

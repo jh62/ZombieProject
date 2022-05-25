@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fx/flashlight2.png" type="Texture" id=1]
+[ext_resource path="res://assets/maps/harbor/harbor_truck.tres" type="Texture" id=2]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset_v2.tres" type="TileSet" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+cull_mode = 1
+polygon = PoolVector2Array( 23, -14, 23, 3, 20, 9, 14, 9, 0, 16, -2, 19, -7, 20, -11, 19, -22, 12, -19, -1, -12, -8, -10, -11, 10, -21 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 3 )
+cell_size = Vector2( 16, 16 )
+occluder_light_mask = 2
+format = 1
+tile_data = PoolIntArray( 0, 20, 0, 1, 20, 0, 2, 20, 0, 3, 20, 0, 4, 20, 0, 5, 20, 0, 6, 20, 0, 7, 20, 0, 8, 20, 0, 65536, 20, 0, 65537, 20, 0, 65538, 20, 0, 65539, 20, 0, 65540, 20, 0, 65541, 20, 0, 65542, 20, 0, 65543, 20, 0, 65544, 20, 0, 65545, 20, 0, 131072, 20, 0, 131073, 20, 0, 131074, 20, 0, 131075, 20, 0, 131076, 20, 0, 131077, 20, 0, 131078, 20, 0, 131079, 20, 0, 131080, 20, 0, 131081, 20, 0, 196608, 20, 0, 196609, 20, 0, 196610, 20, 0, 196611, 20, 0, 196612, 20, 0, 196613, 20, 0, 196614, 20, 0, 196615, 20, 0, 196616, 20, 0, 196617, 20, 0, 262144, 20, 0, 262145, 20, 0, 262146, 20, 0, 262147, 20, 0, 262148, 20, 0, 262149, 20, 0, 262150, 20, 0, 262151, 20, 0, 262152, 20, 0, 262153, 20, 0, 327680, 20, 0, 327681, 20, 0, 327682, 20, 0, 327683, 20, 0, 327684, 20, 0, 327685, 20, 0, 327686, 20, 0, 327687, 20, 0, 327688, 20, 0, 327689, 20, 0 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 34, 35 )
+rotation = -5.23598
+texture = ExtResource( 1 )
+offset = Vector2( 58, 0 )
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_item_cull_mask = 3
+
+[node name="Light2D2" type="Light2D" parent="."]
+position = Vector2( 34, 77 )
+rotation = -6.80677
+texture = ExtResource( 1 )
+offset = Vector2( 58, 0 )
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 1 )
+shadow_item_cull_mask = 3
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 80, 48 )
+z_index = 1
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 9, 12, 46, 41 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+light_mask = 2
+position = Vector2( 80, 48 )
+occluder = SubResource( 1 )
+light_mask = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 1, 1, 1, 0.364706 )

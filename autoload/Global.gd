@@ -27,6 +27,7 @@ enum WeaponNames {
 const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 
 const GROUP_PLAYER := "player"
+const GROUP_HOSTILES := "hostiles"
 const GROUP_ZOMBIE := "zombie"
 const GROUP_SPECIAL := "special"
 const GROUP_FIRE := "fire"

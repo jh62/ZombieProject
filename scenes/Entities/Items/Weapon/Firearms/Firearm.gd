@@ -133,8 +133,6 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 
 				EventBus.emit_signal("on_bullet_spawn", _bullet_pos, damage, knockback, equipper.aiming, bullet_type)
 
-#				EventBus.emit_signal("create_shake", .05, max(14, knockback * 4), knockback, 0)
-
 			var snd = get_sound_shoot()
 			EventBus.emit_signal("play_sound_random", snd, global_position)
 
