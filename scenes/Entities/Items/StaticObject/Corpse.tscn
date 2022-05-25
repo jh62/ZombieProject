@@ -24,7 +24,7 @@ material_type = 4
 [node name="Sprite" parent="." index="0"]
 light_mask = 1
 texture = ExtResource( 1 )
-hframes = 6
+hframes = 12
 vframes = 5
 region_enabled = false
 

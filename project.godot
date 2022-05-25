@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Zombie",
+"class": "Abomination",
+"language": "GDScript",
+"path": "res://scenes/Entities/Mobiles/Zombie/Abomination.gd"
+}, {
 "base": "Pickable",
 "class": "Ammo",
 "language": "GDScript",
@@ -23,6 +28,11 @@ _global_script_classes=[ {
 "class": "BaseWeapon",
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Weapon/BaseWeapon.gd"
+}, {
+"base": "Reference",
+"class": "BaseZombie",
+"language": "GDScript",
+"path": "res://scenes/Entities/Mobiles/Zombie/BaseZombie.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Bike",
@@ -260,9 +270,11 @@ _global_script_classes=[ {
 "path": "res://scripts/fsm/states/zombie/ZombieStandupState.gd"
 } ]
 _global_script_class_icons={
+"Abomination": "",
 "Ammo": "",
 "BaseItem": "",
 "BaseWeapon": "",
+"BaseZombie": "",
 "Bike": "",
 "Building": "",
 "CrawlerAttackState": "",
