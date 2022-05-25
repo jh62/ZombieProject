@@ -31,7 +31,7 @@ func enter_state() -> void:
 
 func update(delta) -> void:
 	if !owner.can_move || (owner.target == null && owner.waypoints.empty()):
-		var state = owner.States.idle.new(owner)
+		var state = owner.states.idle.new(owner)
 		owner.fsm.travel_to(state)
 		return
 
@@ -44,7 +44,7 @@ func update(delta) -> void:
 			return
 
 		if owner.target in owner.area_attack.get_overlapping_bodies() && owner.target.is_alive():
-			var new_state = owner.States.attack.new(owner, owner.target)
+			var new_state = owner.states.attack.new(owner, owner.target)
 			owner.fsm.travel_to(new_state)
 			return
 	else:
@@ -83,7 +83,7 @@ func update(delta) -> void:
 	if wp_idx >= owner.waypoints.size():
 		if (owner.target is Vector2):
 			owner.target = null
-		var new_state = owner.States.idle.new(owner)
+		var new_state = owner.states.idle.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
 

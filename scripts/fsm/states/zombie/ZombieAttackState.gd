@@ -29,14 +29,14 @@ func _on_animation_finished(anim : String) -> void:
 	var is_facing = owner.dir.dot(target_dir) > 0
 	
 	if owner.is_visible_in_viewport():
-		EventBus.emit_signal("play_sound_random", owner.SOUNDS.attack, owner.global_position)
+		EventBus.emit_signal("play_sound_random", owner.sounds.attack, owner.global_position)
 
 	if attack_target.is_alive():
 		if is_facing && attack_target in owner.area_attack.get_overlapping_bodies():
 			attack_target.on_hit_by(owner)
 			
 			if owner.zombie_type == owner.Type.FIREFIGHTER:
-				EventBus.emit_signal("play_sound_random", owner.SOUNDS.axe_hit, owner.global_position)
+				EventBus.emit_signal("play_sound_random", owner.sounds.axe_hit, owner.global_position)
 				
 
-	owner.fsm.travel_to(owner.States.idle.new(owner))
+	owner.fsm.travel_to(owner.states.idle.new(owner))

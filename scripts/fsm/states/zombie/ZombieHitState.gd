@@ -50,4 +50,4 @@ func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel) # this prevents getting the collision report stuck on the last collider
 
 func _on_animation_finished(anim : String) -> void:
-	owner.fsm.travel_to(owner.States.idle.new(owner))
+	owner.fsm.travel_to(owner.states.idle.new(owner))

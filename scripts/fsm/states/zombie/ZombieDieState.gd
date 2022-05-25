@@ -53,7 +53,7 @@ func update(delta) -> void:
 		return
 
 	if elapsed >= dead_time:
-		var new_state = owner.States.standup.new(owner)
+		var new_state = owner.states.standup.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
 

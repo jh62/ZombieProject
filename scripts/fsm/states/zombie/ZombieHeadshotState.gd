@@ -1,4 +1,4 @@
-class_name ZombieHeadshotState extends State
+class_name ZombieDeadState extends State
 
 const SOUNDS := [
 	preload("res://assets/sfx/impact/headshot_1.wav"),
@@ -8,7 +8,7 @@ func _init(owner).(owner):
 	pass
 
 func get_name():
-	return "headshot"
+	return "dead"
 
 func enter_state() -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()

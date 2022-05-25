@@ -19,7 +19,7 @@ func exit_state() -> void:
 
 func update(delta) -> void:
 	if owner.dir.length() == 0:
-		var new_state = owner.States.idle.new(owner)
+		var new_state = owner.states.idle.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
 

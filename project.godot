@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Zombie",
+"base": "BaseZombie",
 "class": "Abomination",
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Zombie/Abomination.gd"
@@ -29,7 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Weapon/BaseWeapon.gd"
 }, {
-"base": "Reference",
+"base": "Mobile",
 "class": "BaseZombie",
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Zombie/BaseZombie.gd"
@@ -214,10 +214,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Items/Trees/TreeB.gd"
 }, {
+"base": "BaseZombie",
+"class": "Zombie",
+"language": "GDScript",
+"path": "res://scenes/Entities/Mobiles/Zombie/Zombie.gd"
+}, {
 "base": "State",
 "class": "ZombieAttackState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieAttackState.gd"
+}, {
+"base": "State",
+"class": "ZombieDeadState",
+"language": "GDScript",
+"path": "res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"
 }, {
 "base": "State",
 "class": "ZombieDieState",
@@ -233,11 +243,6 @@ _global_script_classes=[ {
 "class": "ZombieEatWaitState",
 "language": "GDScript",
 "path": "res://scripts/fsm/states/zombie/ZombieEatWaitState.gd"
-}, {
-"base": "State",
-"class": "ZombieHeadshotState",
-"language": "GDScript",
-"path": "res://scripts/fsm/states/zombie/ZombieHeadshotState.gd"
 }, {
 "base": "State",
 "class": "ZombieHitState",
@@ -311,11 +316,12 @@ _global_script_class_icons={
 "Throwable": "",
 "TrailSmoke": "",
 "TreeEntity": "",
+"Zombie": "",
 "ZombieAttackState": "",
+"ZombieDeadState": "",
 "ZombieDieState": "",
 "ZombieEatState": "",
 "ZombieEatWaitState": "",
-"ZombieHeadshotState": "",
 "ZombieHitState": "",
 "ZombieIdleState": "",
 "ZombieMeleeDeathState": "",

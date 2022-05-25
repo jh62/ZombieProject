@@ -1,7 +1,6 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scenes/Entities/Mobiles/Mobile.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/res/zombies/hit.tres" type="Texture" id=2]
 [ext_resource path="res://scenes/Entities/Mobiles/Zombie/Abomination.gd" type="Script" id=3]
 [ext_resource path="res://assets/res/zombies/abomination/abo_idle.tres" type="Texture" id=4]
 [ext_resource path="res://assets/res/zombies/abomination/abo_walk.tres" type="Texture" id=5]
@@ -728,7 +727,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -752,7 +751,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 5 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -764,7 +763,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 0, 3 ]
+"values": [ 2, 3 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -793,7 +792,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -817,7 +816,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 5 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -829,7 +828,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.166667 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 6 ]
+"values": [ 6, 7 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -858,7 +857,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -882,7 +881,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 5 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -891,10 +890,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.167 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 12, 14 ]
+"values": [ 6, 7, 14 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -923,7 +922,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -947,7 +946,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 5 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:frame")
@@ -956,10 +955,10 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.167 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 8, 10 ]
+"values": [ 2, 3, 10 ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Sprite:normal_map")
@@ -988,7 +987,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:hframes")
@@ -1012,7 +1011,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 5 ]
+"values": [ 2 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:normal_map")
@@ -1033,10 +1032,10 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.167 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.166667, 0.167 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 16, 18 ]
+"values": [ 2, 3, 18 ]
 }
 
 [sub_resource type="Animation" id=26]
@@ -1785,11 +1784,11 @@ tracks/5/keys = {
 }
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 2.0
+radius = 3.0
 height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=48]
-radius = 3.0
+radius = 6.0
 height = 8.0
 
 [sub_resource type="CircleShape2D" id=38]
@@ -1799,16 +1798,17 @@ radius = 80.0
 radius = 5.0
 
 [sub_resource type="CircleShape2D" id=46]
-radius = 14.0
+radius = 13.0
 
 [sub_resource type="CircleShape2D" id=47]
+radius = 13.0384
 
 [node name="Abomination" instance=ExtResource( 1 )]
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 3 )
 max_speed = 10.0
-max_hitpoints = 80.0
+max_hitpoints = 200.0
 sight_radius = 60.0
 hearing_distance = 200.0
 attack_damage = 100
@@ -1817,7 +1817,7 @@ zombie_type = 3
 [node name="Sprite" parent="." index="0"]
 light_mask = 8
 texture = ExtResource( 6 )
-normal_map = ExtResource( 16 )
+normal_map = ExtResource( 15 )
 vframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="1"]
@@ -1854,6 +1854,7 @@ position = Vector2( 0, 6 )
 shape = SubResource( 1 )
 
 [node name="AreaBody" type="Area2D" parent="." index="3"]
+visible = false
 collision_layer = 2048
 collision_mask = 32
 
@@ -1869,6 +1870,7 @@ collision_mask = 2
 shape = SubResource( 38 )
 
 [node name="AreaHead" type="Area2D" parent="." index="5"]
+visible = false
 collision_layer = 512
 collision_mask = 128
 
@@ -1885,6 +1887,7 @@ collision_mask = 1033
 shape = SubResource( 46 )
 
 [node name="AttackArea" type="Area2D" parent="." index="7"]
+visible = false
 collision_layer = 0
 collision_mask = 2
 

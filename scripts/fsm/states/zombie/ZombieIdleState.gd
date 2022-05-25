@@ -1,6 +1,6 @@
 class_name ZombieIdleState extends State
 
-var update_delay := rand_range(2.0, 4.0)
+var update_delay := rand_range(4.0, 6.0)
 var last_update := 0.0
 
 func _init(owner).(owner):
@@ -25,7 +25,7 @@ func update(delta) -> void:
 	if !owner.can_move:
 		return
 
-#	last_update += delta
+	last_update += delta
 
 	if last_update >= update_delay && (owner.target == null || owner.target is Vector2):
 		var target_pos := owner.global_position + Vector2(1.0,1.0).rotated(deg2rad(randi()%360)) * 50
@@ -35,7 +35,7 @@ func update(delta) -> void:
 		last_update = 0.0
 
 	if owner.target != null:
-		var new_state = owner.States.walk.new(owner)
+		var new_state = owner.states.walk.new(owner)
 		owner.fsm.travel_to(new_state)
 		return
 

@@ -27,7 +27,7 @@ func enter_state() -> void:
 	owner.dir = Vector2.ZERO
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 
-	EventBus.emit_signal("play_sound_random", owner.SOUNDS.eating, owner.global_position)
+	EventBus.emit_signal("play_sound_random", owner.sounds.eating, owner.global_position)
 
 func exit_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)

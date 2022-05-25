@@ -41,5 +41,5 @@ func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel)
 
 func _on_animation_finished(anim : String) -> void:
-	var new_state = owner.States.idle.new(owner)
+	var new_state = owner.states.idle.new(owner)
 	owner.fsm.travel_to(new_state)

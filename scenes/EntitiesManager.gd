@@ -5,11 +5,6 @@ const Blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
 const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
 const Shell := preload("res://scenes/Entities/Items/Projectile/Shells/Shells.tscn")
 
-const pool_decals := []
-const pool_blood := []
-const pool_bullets := []
-const pool_shells := []
-
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
 const Explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn")
@@ -18,6 +13,11 @@ const Magazine := preload("res://scenes/Entities/Items/Magazine/Magazine.tscn")
 onready var n_Ground := $Ground
 onready var n_Statics := $Statics
 onready var n_Mobs := $Mobs
+
+var pool_decals := []
+var pool_blood := []
+var pool_bullets := []
+var pool_shells := []
 
 var decal_idx := 0
 var blood_idx := 0
@@ -31,7 +31,7 @@ func _ready() -> void:
 	EventBus.connect("on_mob_spawn", self, "_spawn_mob")
 	EventBus.connect("on_object_spawn", self, "_spawn_object")
 	EventBus.connect("on_weapon_reloaded", self, "_on_weapon_reloaded")
-	
+
 	for i in 34:
 		var bullet := Bullet.instance()
 		pool_bullets.append(bullet)
@@ -50,7 +50,7 @@ func _ready() -> void:
 		
 func _spawn_blood(position) -> void:
 	var blood = pool_blood[blood_idx]
-	
+			
 	if blood.get_parent() != n_Ground:
 		n_Ground.add_child(blood)
 		
