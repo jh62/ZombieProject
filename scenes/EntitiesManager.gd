@@ -48,7 +48,7 @@ func _ready() -> void:
 		var blood := Blood.instance()
 		pool_blood.append(blood)
 		
-func _spawn_blood(position) -> void:
+func _spawn_blood(position : Vector2) -> void:
 	var blood = pool_blood[blood_idx]
 			
 	if blood.get_parent() != n_Ground:
@@ -95,6 +95,8 @@ func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0
 		target_pos = get_global_mouse_position()  + precision
 		direction = position.direction_to(target_pos)
 
+	direction = position.direction_to(target_pos)
+	
 	if bullet.get_parent() != n_Mobs:
 		n_Mobs.add_child(bullet)
 	

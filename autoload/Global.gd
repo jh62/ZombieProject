@@ -40,6 +40,8 @@ const MAX_SPECIAL_ZOMBIES := 4
 
 var MAP_SIZE := Vector2()
 
+var CLOCK := 1.0
+
 const GameOptions := {
 	"gameplay": {
 		"difficulty": Difficulty.NORMAL,

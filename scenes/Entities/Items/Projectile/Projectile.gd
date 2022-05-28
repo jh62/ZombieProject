@@ -22,7 +22,7 @@ func _ready() -> void:
 func _on_impact(body) -> void:
 	if body.has_method("on_hit_by"):
 		body.call_deferred("on_hit_by", self)
-			
+	
 	if !(body is Mobile):
 		EventBus.emit_signal("spawn_decal", global_position)
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)

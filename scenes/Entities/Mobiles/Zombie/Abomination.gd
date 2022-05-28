@@ -8,7 +8,7 @@ func _ready() -> void:
 		"walk": preload("res://scripts/fsm/states/zombie/ZombieMoveState2.gd"),
 		"attack": preload("res://scripts/fsm/states/zombie/ZombieAttackState.gd"),
 		"die": preload("res://scripts/fsm/states/zombie/ZombieDieState.gd"),
-		"hit": preload("res://scripts/fsm/states/zombie/ZombieHitState.gd"),
+		"hit": preload("res://scripts/fsm/states/abomination/AbominationHitState.gd"),
 	}
 
 	sounds  = {
@@ -60,7 +60,7 @@ func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
 
 	var new_state : State
-
+#
 	if !is_alive():		
 		new_state = states.die.new(self)
 	else:
@@ -70,4 +70,3 @@ func on_hit_by(attacker) -> void:
 
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",sounds.growl, global_position)
-

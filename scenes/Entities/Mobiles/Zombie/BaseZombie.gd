@@ -7,7 +7,7 @@ var states := {}
 var sounds  := {}
 
 enum Type {
-	COMMON,
+	COMMON = 0,
 	POLICE,
 	FIREFIGHTER,
 	ABOMINATION
@@ -178,3 +178,9 @@ func search_nearby() -> void:
 	var mob = area_perception.get_overlapping_bodies()[0]
 	target = mob
 	knows_about = MAX_KNOWS_ABOUT
+
+func on_footstep_keyframe():
+	if !is_visible_in_viewport():
+		return
+	if map != null:
+		map._on_mob_footstep(self)

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/abomination_cement_3.wav-bab75116f53733fb7f675f0b4ac79805.sample"
+
+[deps]
+
+source_file="res://assets/sfx/footsteps/abomination/abomination_cement_3.wav"
+dest_files=[ "res://.import/abomination_cement_3.wav-bab75116f53733fb7f675f0b4ac79805.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

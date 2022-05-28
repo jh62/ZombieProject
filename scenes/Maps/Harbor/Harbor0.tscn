@@ -996,6 +996,7 @@ light_mask = 0
 z_index = -2
 
 [node name="TileMap" parent="Navigation" index="0"]
+visible = false
 light_mask = 0
 z_index = 1
 tile_set = ExtResource( 2 )

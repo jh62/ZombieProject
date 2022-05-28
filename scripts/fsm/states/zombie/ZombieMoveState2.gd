@@ -29,6 +29,9 @@ func enter_state() -> void:
 	if owner.target != null:
 		update_waypoints(owner.target)
 
+func exit_state() -> void:
+	print_debug("exiting")
+
 func update(delta) -> void:
 	if !owner.can_move || (owner.target == null && owner.waypoints.empty()):
 		var state = owner.states.idle.new(owner)

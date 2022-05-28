@@ -21,7 +21,7 @@ const MaterialSound := {
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_3.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_4.wav"),
-			]
+			]			
 		}
 	},
 	TileMaterial.CEMENT:{
@@ -37,6 +37,11 @@ const MaterialSound := {
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_3.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_4.wav"),
+			],
+			Globals.GROUP_SPECIAL: [
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_1.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_2.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_3.wav"),
 			]
 		}
 	},
@@ -265,7 +270,7 @@ func _on_mob_footstep(mob : Mobile) -> void:
 	if grp == Globals.GROUP_ZOMBIE:
 		step_sounds += 1
 
-		if step_sounds > 1:
+		if step_sounds > 2:
 			if yielding:
 				return
 			yielding = true
@@ -276,7 +281,7 @@ func _on_mob_footstep(mob : Mobile) -> void:
 
 	var snd = MaterialSound[TileMaterial.CEMENT].sound.get(grp)
 	var volume_db
-
+	
 	match grp:
 		Globals.GROUP_ZOMBIE:
 			volume_db = Global.GameOptions.audio.zombie_footsteps
