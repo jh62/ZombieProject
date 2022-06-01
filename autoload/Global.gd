@@ -24,6 +24,14 @@ enum WeaponNames {
 	DISARMED
 }
 
+enum ZombieType {
+	COMMON = 0,
+	POLICE,
+	FIREFIGHTER,
+	ABOMINATION,
+	CRAWLER
+}
+
 const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 
 const GROUP_PLAYER := "player"
@@ -44,7 +52,7 @@ var CLOCK := 1.0
 
 const GameOptions := {
 	"gameplay": {
-		"difficulty": Difficulty.NORMAL,
+		"difficulty": Difficulty.HARD,
 		"discard_bullets": 0,
 		"auto_pickup": 0,
 		"death_wish": 0,
@@ -57,7 +65,7 @@ const GameOptions := {
 		"render_mist": 1,
 		"render_noise": 1,
 		"render_vignette": 1,
-		"corpses_decay": 0
+		"corpses_decay": 1
 	},
 	"audio": {
 		"music_db": 0.0,

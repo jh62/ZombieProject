@@ -1,4 +1,4 @@
-class_name CrawlerMoveState2 extends State
+class_name CrawlerMoveState extends State
 
 var update_delay := rand_range(.650, .850) #650
 var growl_delay := rand_range(18.0, 32.0)
@@ -21,24 +21,31 @@ func update_waypoints(target) -> void:
 	owner.waypoints = owner.map.get_waypoint_nav(owner.global_position, target_pos)
 	wp_idx = 0
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+	
+	wp_idx = 0
+	last_update = 0.0
+	last_growl = 0.0
+	steering_force = Vector2()
+	push_force = Vector2()
 
 	if owner.target != null:
 		update_waypoints(owner.target)
+		
+	anim_p.queue("{0}_{1}".format({0:get_name(),1:facing}))
 
 func update(delta) -> void:
 	if !owner.can_move || (owner.target == null && owner.waypoints.empty()):
-		var state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
 	if (owner.target is Mobile):
 		if owner.target in owner.area_attack.get_overlapping_bodies():
-			var new_state = owner.States.attack.new(owner, owner.target)
-			owner.fsm.travel_to(new_state)
+			owner.fsm.travel_to(owner.states.attack, {
+				"target": owner.target
+			})
 			return
 
 		if owner.is_visible_in_viewport():
@@ -49,8 +56,9 @@ func update(delta) -> void:
 				var is_block_los := space.intersect_ray(owner.global_position, owner.target.global_position, [owner], 9, true, false)
 
 				if !is_block_los:
-					var new_state = owner.States.flee.new(owner, owner.target)
-					owner.fsm.travel_to(new_state)
+					owner.fsm.travel_to(owner.states.flee, {
+						"threat": owner.target
+					})
 					return
 
 	last_update += delta
@@ -63,8 +71,7 @@ func update(delta) -> void:
 	if wp_idx >= owner.waypoints.size():
 		if (owner.target is Vector2):
 			owner.target = null
-		var new_state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 	
 	var facing := Mobile.get_facing_as_string(owner.facing)

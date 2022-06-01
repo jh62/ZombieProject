@@ -9,11 +9,11 @@ func _init(_owner : KinematicBody2D) -> void:
 func get_name():
 	pass
 
-func enter_state() -> void:
+func enter_state(args : Dictionary) -> void:
 	pass
 
 func exit_state() -> void:
-	for connection in get_incoming_connections():
+	for connection in get_incoming_connections(): #disconnects all signals from state
 		connection.source.disconnect(connection.signal_name, self, connection.method_name)
 
 func update(_delta) -> void:

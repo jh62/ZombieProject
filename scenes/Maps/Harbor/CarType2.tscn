@@ -20,7 +20,7 @@ polygon = PoolVector2Array( -3, -8, -3, -2, 6, -2, 6, -8 )
 collision_layer = 8
 collision_mask = 0
 script = ExtResource( 1 )
-max_hitpoints = 25.0
+max_hitpoints = 150.0
 material_type = 0
 
 [node name="Sprite" type="Sprite" parent="."]

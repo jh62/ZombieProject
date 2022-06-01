@@ -7,7 +7,7 @@ enum TileMaterial {
 	METAL
 }
 
-const MaterialSound := {
+var MaterialSound := {
 	TileMaterial.GRASS: {
 		"sound": {
 			Globals.GROUP_PLAYER: [
@@ -16,12 +16,17 @@ const MaterialSound := {
 				preload("res://assets/sfx/footsteps/player/footstep_grass_3.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_grass_4.wav")
 			],
-			Globals.GROUP_ZOMBIE: [
+			Global.ZombieType.COMMON: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_3.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_grass_z_4.wav"),
-			]			
+			],
+			Global.ZombieType.ABOMINATION: [
+				preload("res://assets/sfx/footsteps/abomination/abomination_grass_1.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_grass_2.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_grass_3.wav"),
+			]
 		}
 	},
 	TileMaterial.CEMENT:{
@@ -32,13 +37,13 @@ const MaterialSound := {
 				preload("res://assets/sfx/footsteps/player/footstep_cement_3.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_cement_4.wav"),
 			],
-			Globals.GROUP_ZOMBIE: [
+			Global.ZombieType.COMMON: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_3.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_4.wav"),
 			],
-			Globals.GROUP_SPECIAL: [
+			Global.ZombieType.ABOMINATION: [
 				preload("res://assets/sfx/footsteps/abomination/abomination_cement_1.wav"),
 				preload("res://assets/sfx/footsteps/abomination/abomination_cement_2.wav"),
 				preload("res://assets/sfx/footsteps/abomination/abomination_cement_3.wav"),
@@ -47,8 +52,23 @@ const MaterialSound := {
 	},
 	TileMaterial.DIRT:{
 		"sound": {
-			Globals.GROUP_PLAYER: [],
-			Globals.GROUP_ZOMBIE: []
+			Globals.GROUP_PLAYER: [
+				preload("res://assets/sfx/footsteps/player/footstep_cement_1.wav"),
+				preload("res://assets/sfx/footsteps/player/footstep_cement_2.wav"),
+				preload("res://assets/sfx/footsteps/player/footstep_cement_3.wav"),
+				preload("res://assets/sfx/footsteps/player/footstep_cement_4.wav"),
+			],
+			Global.ZombieType.COMMON: [
+				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_1.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_2.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_3.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_cement_z_4.wav"),
+			],
+			Global.ZombieType.ABOMINATION: [
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_1.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_2.wav"),
+				preload("res://assets/sfx/footsteps/abomination/abomination_cement_3.wav"),
+			]
 		}
 	},
 	TileMaterial.METAL:{
@@ -58,7 +78,12 @@ const MaterialSound := {
 				preload("res://assets/sfx/footsteps/player/footstep_metal_2.wav"),
 				preload("res://assets/sfx/footsteps/player/footstep_metal_3.wav"),
 			],
-			Globals.GROUP_ZOMBIE: [
+			Global.ZombieType.COMMON: [
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_1.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_2.wav"),
+				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_3.wav"),
+			],
+			Global.ZombieType.ABOMINATION: [
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_1.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_2.wav"),
 				preload("res://assets/sfx/footsteps/zombie/footstep_metal_z_3.wav"),
@@ -248,12 +273,42 @@ var step_sounds := 0
 var yielding := false
 
 func _on_mob_footstep(mob : Mobile) -> void:
-	var grp
+	
+	var tile_pos := n_TileMap1.world_to_map(mob.global_position)
+	var tile_id := n_TileMap1.get_cellv(tile_pos)
+	var tile_type
+	
+	match tile_id:
+		21,44:
+			tile_type = TileMaterial.CEMENT
+		22,23:
+			tile_type = TileMaterial.DIRT
+		_:
+			tile_type = TileMaterial.GRASS
+			
+	var sound
+	
+			
+	if mob.is_in_group(Global.GROUP_HOSTILES):
+		
+		step_sounds += 1
 
-	if mob.is_in_group(Global.GROUP_PLAYER):
-		grp = Global.GROUP_PLAYER
-		var map_pos := n_TileMap4.world_to_map(mob.global_position)
-		if n_TileMap4.get_cellv(map_pos) != TileMap.INVALID_CELL:
+		if step_sounds > 4:
+			if yielding:
+				return
+			yielding = true
+			yield(get_tree().create_timer(.14),"timeout")
+			yielding = false
+			step_sounds = 0
+			return
+		
+		sound = MaterialSound[tile_type]["sound"].get(mob.zombie_type, MaterialSound[tile_type]["sound"][Global.ZombieType.COMMON])
+		EventBus.emit_signal("play_sound_random", sound, mob.global_position, rand_range(.95,1.05), Global.GameOptions.audio.zombie_footsteps)
+	elif mob.is_in_group(Global.GROUP_PLAYER):
+		sound = MaterialSound[tile_type]["sound"][Global.GROUP_PLAYER]
+		EventBus.emit_signal("play_sound_random", sound, mob.global_position, rand_range(.95,1.05), Global.GameOptions.audio.player_footsteps)
+		
+		if n_TileMap4.get_cellv(tile_pos) != TileMap.INVALID_CELL:
 			if n_TileMap4.modulate.a == 1.0:
 				$Tween.stop_all()
 				$Tween.interpolate_property(n_TileMap4,"modulate", n_TileMap4.modulate,Color(1,1,1,.15), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
@@ -263,32 +318,6 @@ func _on_mob_footstep(mob : Mobile) -> void:
 				$Tween.stop_all()
 				$Tween.interpolate_property(n_TileMap4,"modulate", n_TileMap4.modulate, Color(1,1,1,1.0), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
 				$Tween.start()
-
-	else:
-		grp = Global.GROUP_ZOMBIE
-
-	if grp == Globals.GROUP_ZOMBIE:
-		step_sounds += 1
-
-		if step_sounds > 2:
-			if yielding:
-				return
-			yielding = true
-			yield(get_tree().create_timer(.3),"timeout")
-			yielding = false
-			step_sounds = 0
-			return
-
-	var snd = MaterialSound[TileMaterial.CEMENT].sound.get(grp)
-	var volume_db
-	
-	match grp:
-		Globals.GROUP_ZOMBIE:
-			volume_db = Global.GameOptions.audio.zombie_footsteps
-		_:
-			volume_db = Global.GameOptions.audio.player_footsteps
-
-	EventBus.emit_signal("play_sound_random", snd, mob.global_position, rand_range(.95,1.05), volume_db)
 
 func _on_AreaRoof_body_entered(body : Node2D) -> void:
 	pass

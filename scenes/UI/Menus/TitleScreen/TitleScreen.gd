@@ -153,7 +153,7 @@ func set_menu_screen(new_value) -> void:
 			progress_bar.visible = true
 			progress_bar.value = 0.0
 			splash_screen.visible = true
-			loader = ResourceLoader.load_interactive("res://scenes/Main.tscn")
+			loader = ResourceLoader.load_interactive("res://scenes/World/WorldMap.tscn")
 
 #	for key in Menus:
 #		var menu = Menus[key]

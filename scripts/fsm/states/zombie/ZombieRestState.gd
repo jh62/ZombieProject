@@ -8,10 +8,9 @@ func _init(owner).(owner):
 func get_name():
 	return "rest"
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("die_{0}".format({0:facing}))
 
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AreaBody/CollisionShape2D").set_deferred("disabled", true)
@@ -19,6 +18,9 @@ func enter_state() -> void:
 	owner.get_node("AreaPerception/CollisionShape2D").set_deferred("disabled", false)
 	owner.get_node("SoftCollision/CollisionShape2D").set_deferred("disabled", true)
 	owner.get_node("AttackArea/CollisionShape2D").set_deferred("disabled", true)
+	
+	elapsed = 0.0
+	anim_p.play("die_{0}".format({0:facing}))
 
 func update(delta) -> void:
 	if owner.target == null:
@@ -28,8 +30,7 @@ func update(delta) -> void:
 
 	if elapsed >= 2.0:
 		if owner.target is Vector2 || owner.area_perception.overlaps_body(owner.target):
-			var new_state = owner.states.standup.new(owner)
-			owner.fsm.travel_to(new_state)
+			owner.fsm.travel_to(owner.states.standup)
 			return
 
 	elapsed += delta

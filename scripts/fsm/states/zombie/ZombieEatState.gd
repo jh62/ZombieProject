@@ -8,26 +8,28 @@ const Sounds := [
 	preload("res://assets/sfx/misc/squish_3.wav"),
 ]
 
-var corpse : Mobile
+var corpse
 
-func _init(owner, _corpse).(owner):
-	corpse = _corpse
+func _init(owner).(owner):
+	pass
 
 func get_name():
 	return "eat"
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := "s" if owner.facing.y > 0 else "n"
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
-	corpse.is_eaten = true
 	owner.target = null
 	owner.waypoints = []
 	owner.dir = Vector2.ZERO
 	owner.get_node("CollisionShape2D").set_deferred("disabled", true)
+	
+	corpse = args.corpse
+	corpse.is_eaten = true
 
 	EventBus.emit_signal("play_sound_random", owner.sounds.eating, owner.global_position)
+	anim_p.queue("{0}_{1}".format({0:get_name(),1:facing}))
 
 func exit_state() -> void:
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)

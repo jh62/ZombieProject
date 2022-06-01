@@ -18,9 +18,9 @@ func input(event: InputEvent) -> void:
 		
 	current_state.input(event)
 
-func travel_to(new_state : State) -> void:
+func travel_to(new_state : State, args) -> void:
 	if current_state != null:
 		current_state.exit_state()
 
-	new_state.enter_state()
+	new_state.enter_state(args)
 	current_state = new_state

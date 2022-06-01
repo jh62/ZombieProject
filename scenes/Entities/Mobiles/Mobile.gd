@@ -20,7 +20,15 @@ var fsm : StateMachine
 var _visible_viewport := true
 var can_move := true setget set_can_move
 
-# virtual methods
+
+# class methods
+func _ready() -> void:
+	add_to_group(Global.GROUP_MOBILE)
+	fsm = StateMachine.new(self)
+
+func is_alive() -> bool:
+	return hitpoints > 0
+
 func kill() -> void:
 	hitpoints = 0
 
@@ -35,14 +43,6 @@ func on_hit_by(_attacker : Node2D) -> void:
 func _process_animations() -> void:
 	pass
 
-# class methods
-func _ready() -> void:
-	add_to_group(Global.GROUP_MOBILE)
-	fsm = StateMachine.new(self)
-
-func is_alive() -> bool:
-	return hitpoints > 0
-
 func _process(delta: float) -> void:
 	if is_visible_in_viewport():
 		_process_animations()
@@ -56,6 +56,9 @@ func get_anim_player() -> AnimationPlayer:
 
 func set_hitpoints(new_value) -> void:
 	hitpoints = max(0, new_value)
+	
+	if !is_alive() && Global.GameOptions.graphics.corpses_decay:
+		$TimerDecay.start()
 
 func on_footstep_keyframe():
 	if !is_visible_in_viewport():
@@ -103,3 +106,10 @@ func check_LOS(target) -> bool:
 	n_RayCast.enabled = false
 
 	return colliding
+
+func _on_TimerDecay_timeout():
+	sprite.modulate.a -= 0.03 #0.03
+
+	if owner.modulate.a <= .1:
+		$TimerDecay.stop()
+		owner.call_deferred("queue_free")

@@ -98,6 +98,9 @@ func _on_AreaDoor_body_exited(body):
 	EventBus.emit_signal("on_tooltip", "")
 
 func _update_tooltip() -> void:
+	if $AreaDoor.get_overlapping_bodies().empty():
+		return
+	
 	var button = InputMap.get_action_list("action_alt")[0].as_text()
 	var _text = "[center]Press [color=#fffc00]{0}[/color] to {1} [color=#de2d22]DOOR[/color][/center]".format({0:button,1:("open" if !is_open else "close")})
 	EventBus.emit_signal("on_tooltip", _text)

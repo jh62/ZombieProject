@@ -31,6 +31,7 @@ func initialize(_player, _bike) -> void:
 	player.connect("on_footstep", self, "_on_player_footstep")
 	bike.connect("on_fuel_changed", self, "_on_bike_fuel_changed")
 
+	EventBus.connect("on_player_death", self, "_on_player_death")
 	EventBus.connect("on_weapon_reloaded", self, "update_weapon_status")
 	EventBus.connect("on_request_update_health", self, "update_healthbar")
 	EventBus.connect("fuel_pickedup", self, "_on_fuelcan_pickup")
@@ -59,9 +60,12 @@ func update_healthbar() -> void:
 func _on_player_hit() -> void:
 	update_healthbar()
 
+func _on_player_death(player) -> void:
+	visible = false
+
 func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
-	n_LabelLootCount.text = "x {0}".format({0:player.loot_count})
+	n_LabelLootCount.text = "x {0}".format({0:PlayerStatus.loot_count})
 
 func update_weapon_status(_weapon_type := -1) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly

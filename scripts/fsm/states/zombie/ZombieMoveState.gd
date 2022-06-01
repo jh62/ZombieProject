@@ -1,4 +1,4 @@
-class_name ZombieMoveState2 extends State
+class_name ZombieMoveState extends State
 
 var update_delay := rand_range(.75, .85)
 var growl_delay := rand_range(15.0, 18.0)
@@ -21,21 +21,26 @@ func update_waypoints(target) -> void:
 	owner.waypoints = owner.map.get_waypoint_nav(owner.global_position, target_pos)
 	wp_idx = 0
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+	var anim_name := "{0}_{1}".format({0:get_name(),1:facing})
+	
+	anim_p.queue(anim_name)
+	
+	wp_idx = 0
+	last_update = 0.0
+	last_growl = 0.0
 
 	if owner.target != null:
 		update_waypoints(owner.target)
 
 func exit_state() -> void:
-	print_debug("exiting")
+	pass
 
 func update(delta) -> void:
 	if !owner.can_move || (owner.target == null && owner.waypoints.empty()):
-		var state = owner.states.idle.new(owner)
-		owner.fsm.travel_to(state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
 	if (owner.target is Mobile):
@@ -47,8 +52,9 @@ func update(delta) -> void:
 			return
 
 		if owner.target in owner.area_attack.get_overlapping_bodies() && owner.target.is_alive():
-			var new_state = owner.states.attack.new(owner, owner.target)
-			owner.fsm.travel_to(new_state)
+			owner.fsm.travel_to(owner.states.attack, {
+				"target": owner.target
+			})
 			return
 	else:
 		owner.knows_about = 0.0
@@ -86,8 +92,7 @@ func update(delta) -> void:
 	if wp_idx >= owner.waypoints.size():
 		if (owner.target is Vector2):
 			owner.target = null
-		var new_state = owner.states.idle.new(owner)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
 	if owner.is_visible_in_viewport():

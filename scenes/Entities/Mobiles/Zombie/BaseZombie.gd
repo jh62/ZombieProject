@@ -3,15 +3,7 @@ class_name BaseZombie extends Mobile
 var MAX_KNOWS_ABOUT := 7.0
 
 var states := {}
-
 var sounds  := {}
-
-enum Type {
-	COMMON = 0,
-	POLICE,
-	FIREFIGHTER,
-	ABOMINATION
-}
 
 export var map_node : NodePath
 export var state : Script
@@ -19,7 +11,7 @@ export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 3
-export(Type) var zombie_type := Type.COMMON
+export(Global.ZombieType) var zombie_type := Global.ZombieType.COMMON
 
 onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead
@@ -34,6 +26,7 @@ var map : Map
 var waypoints : PoolVector2Array
 var down_times := 0
 var knows_about := 0.0 setget set_knows_about
+var last_hit := 0
 
 func _ready() -> void:
 	add_to_group(Globals.GROUP_HOSTILES)
@@ -51,10 +44,10 @@ func initialize() -> void:
 	if state != null:
 		new_state = state.new(self)
 	elif states.has("idle"):
-		new_state = states.idle.new(self)
+		new_state = states.idle
 	
 	if new_state != null:
-		fsm.travel_to(new_state)
+		fsm.travel_to(new_state, null)
 
 	hitpoints = max_hitpoints
 	damage = attack_damage
@@ -64,6 +57,8 @@ func _on_player_death(player : Node2D) -> void:
 	pass
 
 func _process_animations() -> void:
+	._process_animations()
+	
 	var epsilon := .25
 
 	if dir.x < -epsilon || dir.x > epsilon:
@@ -80,8 +75,7 @@ func _process_animations() -> void:
 
 func kill() -> void:
 	.kill()
-	var new_state = states.die.new(self)
-	fsm.travel_to(new_state)
+	fsm.travel_to(states.die, null)
 
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)

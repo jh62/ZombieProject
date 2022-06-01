@@ -1,7 +1,6 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
-[ext_resource path="res://scenes/Maps/Harbor/Harbor0.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/music/pause.wav" type="AudioStream" id=9]
@@ -222,6 +221,18 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("UI/IntroTransition:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=8]
@@ -486,6 +497,18 @@ tracks/9/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/IntroTransition:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.7, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -781,8 +804,6 @@ __meta__ = {
 [node name="MapManager" type="Node" parent="."]
 script = SubResource( 17 )
 
-[node name="Harbor0" parent="MapManager" instance=ExtResource( 3 )]
-
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
 is_active = false
 mob_max = 50
@@ -837,7 +858,7 @@ __meta__ = {
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
-layer = 100
+layer = 128
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
 
@@ -1012,6 +1033,13 @@ bbcode_enabled = true
 fit_content_height = true
 scroll_active = false
 script = ExtResource( 25 )
+
+[node name="IntroTransition" type="ColorRect" parent="UI"]
+light_mask = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
 
 [node name="Tween" type="Tween" parent="."]
 

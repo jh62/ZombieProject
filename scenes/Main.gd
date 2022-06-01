@@ -11,6 +11,16 @@ var n_Entities
 
 func _ready() -> void:
 	randomize()
+	
+	var map
+	
+	match PlayerStatus.current_level:
+		_:
+			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
+			
+	n_MapManager.add_child(map)
+	
+	yield(get_tree().create_timer(0.1),"timeout")
 
 	var current_map = n_MapManager.get_map()
 	var _player = current_map.find_node("Player", true, false)
@@ -159,7 +169,7 @@ func _on_escape() -> void:
 func _on_Player_on_death(player_mob):
 	player_mob.can_move = false
 	player_mob.set_process_unhandled_key_input(false)
-
+	
 	var lose := preload("res://assets/music/losing.mp3")
 	EventBus.emit_signal("play_music", lose)
 

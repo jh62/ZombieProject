@@ -1428,12 +1428,9 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.166667, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.333333 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "on_footstep_keyframe"
-}, {
 "args": [  ],
 "method": "on_footstep_keyframe"
 } ]
@@ -1510,12 +1507,9 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.166667, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.334 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "on_footstep_keyframe"
-}, {
 "args": [  ],
 "method": "on_footstep_keyframe"
 } ]
@@ -1592,12 +1586,9 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.166667, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.333333 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "on_footstep_keyframe"
-}, {
 "args": [  ],
 "method": "on_footstep_keyframe"
 } ]
@@ -1674,12 +1665,9 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.166667, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.333333 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "on_footstep_keyframe"
-}, {
 "args": [  ],
 "method": "on_footstep_keyframe"
 } ]
@@ -1756,12 +1744,9 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.166667, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.333333 ),
+"transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [  ],
-"method": "on_footstep_keyframe"
-}, {
 "args": [  ],
 "method": "on_footstep_keyframe"
 } ]
@@ -1784,7 +1769,7 @@ radius = 3.0
 height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=48]
-radius = 6.0
+radius = 7.0
 height = 8.0
 
 [sub_resource type="CircleShape2D" id=38]
@@ -1804,7 +1789,7 @@ collision_layer = 12
 collision_mask = 15
 script = ExtResource( 3 )
 max_speed = 10.0
-max_hitpoints = 200.0
+max_hitpoints = 1000.0
 sight_radius = 60.0
 hearing_distance = 200.0
 attack_damage = 100
@@ -1851,7 +1836,6 @@ position = Vector2( 0, 6 )
 shape = SubResource( 1 )
 
 [node name="AreaBody" type="Area2D" parent="." index="3"]
-visible = false
 collision_layer = 2048
 collision_mask = 32
 

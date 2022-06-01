@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://assets/res/maps/worldmap/worldmap.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/maps/worldmap/player_icon.tres" type="Texture" id=2]
@@ -102,7 +102,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ true ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("Path2D/PathFollow2D2:self_modulate")
@@ -139,6 +139,54 @@ tracks/8/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.78 ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("ColorRectBlack:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("ColorRectBlack:rect_size")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 320, 180 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("ColorRectBlack:rect_position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Path2D:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -205,39 +253,25 @@ tracks/4/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/5/type = "method"
-tracks/5/path = NodePath("AnimationPlayer")
+tracks/5/type = "value"
+tracks/5/path = NodePath("Path2D/PathFollow2D2:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "path_2", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Path2D/PathFollow2D2:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 1.5, 2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.117647 ) ]
 }
-tracks/7/type = "value"
-tracks/7/path = NodePath("Path2D/PathFollow2D2:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/path = NodePath("Path2D/PathFollow2D2:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -308,27 +342,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/5/type = "method"
-tracks/5/path = NodePath("AnimationPlayer")
+tracks/5/type = "value"
+tracks/5/path = NodePath("Path2D/PathFollow2D2:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "path_3", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Path2D/PathFollow2D2:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.666667, 1, 1.66667, 1.83334 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
@@ -399,27 +419,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
-tracks/5/type = "method"
-tracks/5/path = NodePath("AnimationPlayer")
+tracks/5/type = "value"
+tracks/5/path = NodePath("Path2D/PathFollow2D2:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "path_4", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Path2D/PathFollow2D2:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.833333, 1, 1.66667, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 0,
@@ -490,42 +496,85 @@ tracks/4/keys = {
 "update": 1,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ) ]
 }
-tracks/5/type = "method"
-tracks/5/path = NodePath("AnimationPlayer")
+tracks/5/type = "value"
+tracks/5/path = NodePath("Path2D/PathFollow2D2:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 2 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ "path_1", -1, 1.0, false ],
-"method": "play"
-} ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Path2D/PathFollow2D2:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
 "times": PoolRealArray( 0, 0.833335, 1.16667 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 0.117647 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "transition"
+length = 2.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRectBlack:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ColorRectBlack:rect_position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -160, -150 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ColorRectBlack:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 640, 480 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Path2D:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [node name="WorldMap" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="TextureMap" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
+stretch_mode = 6
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource( 1 )
@@ -557,7 +606,6 @@ shadow_enabled = true
 shadow_gradient_length = 0.1
 
 [node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
-visible = false
 position = Vector2( 138.209, 30.5087 )
 z_index = 1
 offset = 204.645
@@ -724,17 +772,34 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="ColorRectBlack" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -90.0
+margin_right = 160.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0, 0, 0, 1 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "path_1"
+autoplay = "RESET"
 anims/RESET = SubResource( 2 )
 anims/path_1 = SubResource( 3 )
 anims/path_2 = SubResource( 4 )
 anims/path_3 = SubResource( 5 )
 anims/path_4 = SubResource( 6 )
+anims/transition = SubResource( 11 )
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="BlackTransition" type="CanvasModulate" parent="."]
 visible = false
 color = Color( 0.313726, 0.313726, 0.313726, 1 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 7 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

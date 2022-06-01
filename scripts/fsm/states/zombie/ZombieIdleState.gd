@@ -9,14 +9,17 @@ func _init(owner).(owner):
 func get_name():
 	return "idle"
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
+	
+	last_update = 0.0
 
 	owner.waypoints = []
 	owner.get_node("CollisionShape2D").set_deferred("disabled", false)
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", false)
+	
+	anim_p.queue("{0}_{1}".format({0:get_name(),1:facing}))
 
 func update(delta) -> void:
 	if owner.knows_about > 0.0:
@@ -35,8 +38,7 @@ func update(delta) -> void:
 		last_update = 0.0
 
 	if owner.target != null:
-		var new_state = owner.states.walk.new(owner)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.walk, null)
 		return
 
 	if !owner.is_visible_in_viewport():

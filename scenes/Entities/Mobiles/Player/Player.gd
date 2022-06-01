@@ -13,13 +13,7 @@ signal on_hit
 signal on_item_pickedup
 signal on_loot_pickedup
 
-var states := {
-	"idle": preload("res://scripts/fsm/states/IdleState.gd"),
-	"run": preload("res://scripts/fsm/states/RunState.gd"),
-	"die": preload("res://scripts/fsm/states/DieState.gd"),
-	"hit": preload("res://scripts/fsm/states/HitState.gd"),
-	"search": preload("res://scripts/fsm/states/SearchState.gd")
-}
+var states := {}
 
 onready var equipment := $Equipment
 onready var vision := $Vision
@@ -27,17 +21,23 @@ onready var ray := $RayHeadshot
 onready var camera := $Camera2D
 onready var crosshair := $Crosshair
 
-var loot_count := 0
 var aiming = false
 var busy_time := 0.0 setget set_busy_time
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
-	var current_state = states.idle.new(self)
-	fsm.current_state = current_state
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_unpause", self, "_on_unpaused")
+	
+	states = {
+		"idle": preload("res://scripts/fsm/states/IdleState.gd").new(self),
+		"run": preload("res://scripts/fsm/states/RunState.gd").new(self),
+		"die": preload("res://scripts/fsm/states/DieState.gd").new(self),
+		"hit": preload("res://scripts/fsm/states/HitState.gd").new(self),
+		"search": preload("res://scripts/fsm/states/SearchState.gd").new(self)
+	}
+	fsm.current_state = states.idle
 
 	self.max_hitpoints = PlayerStatus.max_hitpoints
 	self.hitpoints = max_hitpoints
@@ -101,7 +101,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if busy_time > 0:
 		return
-
+		
 	if can_move:
 		if event.is_action_pressed("action"):
 			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
@@ -187,10 +187,10 @@ func begin_search() -> void:
 	if aiming:
 		aiming = false
 
-	fsm.travel_to(states.search.new(self))
+	fsm.travel_to(states.search, null)
 
 func stop_search() -> void:
-	fsm.travel_to(states.idle.new(self))
+	fsm.travel_to(states.idle, null)
 
 func kill() -> void:
 	if fsm.current_state.get_name().begins_with("die"):
@@ -199,7 +199,7 @@ func kill() -> void:
 	$Flashlight.enabled = false
 	$Vision.enabled = false
 
-	fsm.travel_to(states.die.new(self))
+	fsm.travel_to(states.die, null)
 	EventBus.emit_signal("on_player_death", self)
 	emit_signal("on_death")
 
@@ -211,7 +211,9 @@ func on_hit_by(attacker) -> void:
 #		vel *= vel * attacker.dir
 		kill()
 	else:
-		fsm.travel_to(states.hit.new(self, attacker))
+		fsm.travel_to(states.hit, {
+			"attacker": attacker
+		})
 
 	emit_signal("on_hit")
 
@@ -229,7 +231,7 @@ func _on_item_pickedup(item) -> void:
 	equip_item(item)
 
 func _on_loot_pickedup() -> void:
-	loot_count += 1
+	PlayerStatus.loot_count += 1
 	emit_signal("on_loot_pickedup")
 
 func _on_ProgressWheel_on_progress_complete():

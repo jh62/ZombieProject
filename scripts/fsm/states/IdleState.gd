@@ -6,7 +6,7 @@ func _init(owner).(owner):
 func get_name():
 	return "idle"
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_name = get_name()
 	var anim_data := Mobile.get_facing_as_string(owner.facing)
 	var current_anim := "{0}_{1}".format({0:anim_name,1:anim_data})
@@ -16,8 +16,7 @@ func enter_state() -> void:
 
 func update(delta) -> void:
 	if owner.dir.length() > 0:
-		var new_state = owner.states.run.new(owner)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.run, null)
 		return
 
 	var facing := Mobile.get_facing_as_string(owner.facing)

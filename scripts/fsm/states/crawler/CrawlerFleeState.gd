@@ -2,13 +2,6 @@ class_name CrawlerFleeState extends State
 
 const CrawlerCrySound := preload("res://assets/sfx/mobs/crawler/misc/crawler_cry.wav")
 
-var flee_positions := [
-	Vector2.ZERO,
-	Vector2(Global.MAP_SIZE.x, 0),
-	Vector2(0, Global.MAP_SIZE.y),
-	Vector2(Global.MAP_SIZE.x, Global.MAP_SIZE.y)
-]
-
 var update_delay := rand_range(.5, 0.650) #650
 var growl_delay := rand_range(18.0, 24.0)
 var flee_delay := rand_range(5.0, 10.0)
@@ -21,38 +14,45 @@ var flee_time := 0.0
 var threat : Node2D
 var steering_force := Vector2()
 
-func _init(owner, _threat).(owner):
-	threat = _threat
+func _init(owner).(owner):
+	pass
 
 func get_name():
 	return "walk"
 
-func update_waypoints(target : Vector2) -> void:
+func update_waypoints(target) -> void:
+	if target is Node2D: #quick bug fix. Gotta check later.
+		target = target.global_position
+		
 	owner.waypoints = owner.map.get_waypoint_nav(owner.global_position, target)
 	wp_idx = 0
 
-var check := false
-
-func enter_state() -> void:
-	check = true
+func enter_state(args) -> void:
+	var anim_p : AnimationPlayer = owner.get_anim_player()
+	var facing := Mobile.get_facing_as_string(owner.facing)
+	
+	wp_idx = 0
+	last_update = 0.0
+	last_growl = 0.0
+	flee_time = 0.0
+	steering_force = Vector2()
+	threat = args.threat
+	
 	owner.target = _get_new_flee_position(owner.global_position, 200, threat.facing)
 	update_waypoints(owner.target)
 
-	var anim_p : AnimationPlayer = owner.get_anim_player()
-	var facing := Mobile.get_facing_as_string(owner.facing)
-	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
-
 	EventBus.emit_signal("play_sound", CrawlerCrySound, owner.global_position)
+	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
 func update(delta) -> void:
 	if threat in owner.area_attack.get_overlapping_bodies():
-		var new_state = owner.States.attack.new(owner, threat)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.attack, {
+				"target": threat
+			})
 		return
 
 	if !owner.can_move || threat == null || !threat.is_alive():
-		var state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
 	if flee_time >= flee_delay:
@@ -66,8 +66,7 @@ func update(delta) -> void:
 
 		if !is_looking:
 			owner.target = threat
-			var state = owner.States.walk.new(owner)
-			owner.fsm.travel_to(state)
+			owner.fsm.travel_to(owner.states.walk, null)
 			return
 
 		var space := owner.get_world_2d().direct_space_state
@@ -75,8 +74,7 @@ func update(delta) -> void:
 
 		if is_block_los:
 			owner.target = threat
-			var state = owner.States.walk.new(owner)
-			owner.fsm.travel_to(state)
+			owner.fsm.travel_to(owner.states.walk, null)
 			return
 
 	last_update += delta

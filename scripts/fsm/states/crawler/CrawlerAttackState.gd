@@ -8,47 +8,42 @@ const SOUNDS := [
 
 const ATTACK_DISTANCE := 16
 
-var attack_target : Player
-
-func _init(owner, _attack_target).(owner):
-	attack_target = _attack_target
+func _init(owner).(owner):
+	pass
 
 func get_name():
 	return "attack"
 
-func enter_state() -> void:
-	owner.dir = owner.global_position.direction_to(attack_target.global_position)
-
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.connect("animation_started", self, "_on_animation_started")
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
+	
+	owner.target = args.target
+	owner.dir = owner.global_position.direction_to(owner.target.global_position)
+	
 	anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 
 func update(delta) -> void:
 	owner.move_and_slide(Vector2.ZERO) # this prevents getting the collision report stuck on the last attack_target
 
 func _on_animation_started(anim : String) -> void:
-	if !attack_target.is_alive():
-		owner.fsm.travel_to(owner.States.idle.new(owner))
+	if !owner.target.is_alive():
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
-
-#	owner.facing = owner.global_position.direction_to(attack_target.global_position)
-#	owner.dir = owner.facing2
-#	print_debug(owner.facing)
 
 func _on_animation_finished(anim : String) -> void:
-	if !attack_target.is_alive() || !(attack_target in owner.area_attack.get_overlapping_bodies()):
-		var next_state = owner.States.idle.new(owner)
-		owner.fsm.travel_to(next_state)
+	if !owner.target.is_alive() || !(owner.target in owner.area_attack.get_overlapping_bodies()):
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
-	var target_pos := attack_target.global_position
-	var target_dir := owner.global_position.direction_to(target_pos).round()
+	var target_pos = owner.target.global_position
+	var target_dir = owner.global_position.direction_to(target_pos).round()
 	var facing_direction = target_pos.direction_to(owner.global_position).dot(target_dir) < 0
 
 	if owner.is_visible_in_viewport():
 		EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 	if facing_direction:
-		attack_target.on_hit_by(owner)
+		owner.target.on_hit_by(owner)

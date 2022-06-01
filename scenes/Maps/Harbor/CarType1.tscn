@@ -11,7 +11,6 @@ polygon = PoolVector2Array( -15, 5, -15, -3, -11, -4, -7, -7, 2, -7, 5, -5, 8, -
 
 [node name="CarType1" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-max_hitpoints = 25.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]

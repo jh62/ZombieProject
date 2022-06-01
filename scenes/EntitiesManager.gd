@@ -137,8 +137,7 @@ func _spawn_mob(position) -> void:
 		_mob.speed *= rand_range(1.0,1.5)
 		
 		if .07 > randf():
-			var new_state = _mob.States.rest.new(_mob)
-			_mob.fsm.travel_to(new_state)
+			_mob.fsm.travel_to(_mob.states.rest, null)
 
 	EventBus.emit_signal("mob_spawned", _mob)
 

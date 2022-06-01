@@ -1,6 +1,6 @@
 class_name AbominationHitState extends State
 
-var SOUNDS := {
+const SOUNDS := {
 	"bullet_impact":[
 		preload("res://assets/sfx/impact/bullet_body_1.wav"),
 		preload("res://assets/sfx/impact/bullet_body_2.wav"),
@@ -22,19 +22,28 @@ var SOUNDS := {
 
 var attacker
 
-func _init(owner, _attacker).(owner):
-	attacker = _attacker
+func _init(owner).(owner):
+	pass
 
 func get_name():
 	return "hit"
 
-func enter_state() -> void:
+func enter_state(args) -> void:
 	var anim_p : AnimationPlayer = owner.get_anim_player()
 	var facing := Mobile.get_facing_as_string(owner.facing)
 	anim_p.play("walk_{0}".format({0:facing}))
 	anim_p.connect("animation_finished", self, "_on_animation_finished")
 	owner.get_node("AreaHead/CollisionShape2D").set_deferred("disabled", true)
-
+	
+	var diff = OS.get_system_time_msecs() - owner.last_hit
+	
+	if diff < 140:
+		return
+	
+	owner.last_hit = OS.get_system_time_msecs()
+	
+	attacker = args.attacker
+	
 	if attacker is Projectile:
 		EventBus.emit_signal("play_sound_random", SOUNDS.bullet_impact, owner.global_position)
 	else:
@@ -43,7 +52,7 @@ func enter_state() -> void:
 	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
 
 func update(delta) -> void:
-	owner.vel = owner.move_and_slide(owner.vel) # this prevents getting the collision report stuck on the last collider
+	owner.vel = owner.move_and_slide(owner.vel) # prevents getting stuck on the last collider
 
 func _on_animation_finished(anim : String) -> void:
-	owner.fsm.travel_to(owner.states.idle.new(owner))
+	owner.fsm.travel_to(owner.states.idle, null)
