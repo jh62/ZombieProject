@@ -10,7 +10,7 @@ func _ready():
 	n_AnimPlayer.play("path_{0}".format({0:current_level}))
 
 func _process(delta):
-	n_Path2DFollow.unit_offset = n_Path2DFollow.unit_offset
+	n_Path2DFollow.unit_offset = $Path2D/PathFollow2D.unit_offset
 
 func _on_AnimationPlayer_animation_finished(anim_name : String):	
 	if anim_name.begins_with("path"):

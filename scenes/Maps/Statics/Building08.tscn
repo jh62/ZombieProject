@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Maps/Statics/Building.gd" type="Script" id=2]
+[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -25, 9, -25, -33, 25, -33, 25, 9 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+closed = false
+cull_mode = 1
+polygon = PoolVector2Array( -25, 9, -25, 32 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+closed = false
+cull_mode = 2
+polygon = PoolVector2Array( 25, 9, 25, 33 )
+
+[node name="Building08" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+region_rect = Rect2( 946, 92.3111, 50, 67.6889 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
+visible = false
+occluder = SubResource( 2 )
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="Sprite" index="2"]
+visible = false
+occluder = SubResource( 3 )
+
+[node name="CollisionShape" parent="." index="1"]
+polygon = PoolVector2Array( 24, -24, -24, -24, -24, 32, 24, 32 )
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( 24, -35, -24, -35, -24, -24, 24, -24 )
+
+[node name="VisibilityNotifier2D" parent="." index="3"]
+visible = false

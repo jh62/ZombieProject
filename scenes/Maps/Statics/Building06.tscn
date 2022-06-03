@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Building.gd" type="Script" id=2]
+[ext_resource path="res://scenes/Maps/Statics/Building.gd" type="Script" id=2]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
@@ -10,7 +10,7 @@ polygon = PoolVector2Array( -30.7134, 0.992658, -30.7134, -0.0827215, 30.7134, -
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -32, -24, -32, 24, -31, -2, 31, -2, 32, 24, 32, -24 )
 
-[node name="Building" instance=ExtResource( 1 )]
+[node name="Building06" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="Sprite" parent="." index="0"]
@@ -26,7 +26,6 @@ occluder = SubResource( 1 )
 occluder = SubResource( 2 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( -32, 24, 32, 24, 32, -17, -32, -17 )
 
 [node name="Area2D" parent="." index="2"]

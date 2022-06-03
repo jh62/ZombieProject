@@ -1,4 +1,4 @@
-class_name Crawler extends Zombie
+class_name Crawler extends BaseZombie
 
 func _ready():
 	add_to_group(Globals.GROUP_SPECIAL)
@@ -25,12 +25,11 @@ func _on_player_death(player : Node2D) -> void:
 	fsm.travel_to(states.idle, null)
 
 func on_hit_by(attacker) -> void:
-	.on_hit_by(attacker)
-	
-	if attacker is MeleeWeapon:
-		fsm.travel_to(states.die, {
-			"melee_type": attacker.melee_type
-		})
-		return
+	if Global.GameOptions.graphics.render_blood:
+		var angle := PI * rand_range(0.0, 2.0)
+		var radius := 10.0	
+		var _blood_pos = global_position + Vector2(cos(angle),sin(angle)) * radius
+		
+		EventBus.emit_signal("spawn_blood", _blood_pos)
 	
 	fsm.travel_to(states.die, null)

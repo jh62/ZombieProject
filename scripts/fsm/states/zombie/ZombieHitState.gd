@@ -1,12 +1,6 @@
 class_name ZombieHitState extends State
 
-const SOUNDS := {
-	"bullet_impact":[
-		preload("res://assets/sfx/impact/bullet_body_1.wav"),
-		preload("res://assets/sfx/impact/bullet_body_2.wav"),
-		preload("res://assets/sfx/impact/bullet_body_3.wav"),
-		preload("res://assets/sfx/impact/bullet_body_4.wav"),
-	],
+const SOUNDS := {	
 	"body_impact":[
 		preload("res://assets/sfx/impact/body_hit_1.wav"),
 		preload("res://assets/sfx/impact/body_hit_2.wav"),
@@ -22,6 +16,7 @@ const SOUNDS := {
 }
 
 var attacker
+var last_hit = 0.0
 
 func _init(owner).(owner):
 	pass
@@ -43,19 +38,17 @@ func enter_state(args) -> void:
 	if "knockback" in attacker:
 		owner.vel *= -(attacker.knockback * .25)
 		
-	var diff = OS.get_system_time_msecs() - owner.last_hit
-	
-	if diff < 140:
+	var diff = OS.get_system_time_msecs() - last_hit
+
+	if diff < 750:
 		return
-	
-	owner.last_hit = OS.get_system_time_msecs()
 
-	if attacker is Projectile:
-		EventBus.emit_signal("play_sound_random", SOUNDS.bullet_impact, owner.global_position)
-	else:
-		EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
-
+	last_hit = OS.get_system_time_msecs()
+#
 	EventBus.emit_signal("play_sound_random", SOUNDS.hurt, owner.global_position)
+	
+	if attacker is MeleeWeapon:
+		EventBus.emit_signal("play_sound_random", SOUNDS.body_impact, owner.global_position)
 
 func update(delta) -> void:
 	owner.vel = owner.move_and_slide(owner.vel) # this prevents getting the collision report stuck on the last collider

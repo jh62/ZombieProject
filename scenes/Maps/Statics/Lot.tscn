@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/maps/objects.tres" type="Texture" id=2]
-[ext_resource path="res://scenes/Maps/Outskirts_1/Statics/Lot.gd" type="Script" id=3]
+[ext_resource path="res://scenes/Maps/Statics/Lot.gd" type="Script" id=3]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 96, 59, 96, -59, -96, -59, -96, 59, -66, 59, -66, 73, -100, 73, -100, 61, -100, -74, 98, -74, 99, 73, -21, 73, -21, 59, 42, 59 )

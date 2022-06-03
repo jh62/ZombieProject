@@ -2202,6 +2202,7 @@ radius = 14.0
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 3 )
+max_speed = 20.0
 max_hitpoints = 50.0
 zombie_type = 1
 

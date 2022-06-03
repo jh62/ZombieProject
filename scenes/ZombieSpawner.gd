@@ -15,6 +15,9 @@ var spawn_count := 0
 func _ready() -> void:
 	yield(get_tree().create_timer(0.15),"timeout")
 	map = get_parent().n_MapManager.get_map()
+	
+	if Global.DEBUG_MODE:
+		print_debug("Spawning max {0}".format({0:mob_max}))
 
 	if is_active:
 		n_timer.start(spawn_delay_sec)
@@ -54,6 +57,7 @@ func _on_Timer_timeout():
 		if z.is_alive():
 			spawn_count += 1
 
+	n_timer.stop()
 	n_timer.start(restart_delay)
 
 func set_active(active : bool) -> void:

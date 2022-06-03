@@ -18,7 +18,7 @@ const SOUNDS := {
 }
 
 export var door_type := 0 setget set_door_type
-export var is_open := false
+export var is_open := false setget set_is_open
 export var key_id := -1
 export var blocks_tile := false
 
@@ -30,6 +30,9 @@ var tiles_blocked := [Vector2.ZERO]
 func _ready():
 	EventBus.connect("action_pressed", self, "on_action_pressed")
 	activate_door()
+	
+func set_is_open(_is_open) -> void:
+	is_open = _is_open
 
 func on_action_pressed(event, facing) -> void:
 	if event != EventBus.ActionEvent.USE_KEY:		

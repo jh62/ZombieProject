@@ -77,10 +77,16 @@ func on_hit_by(attacker) -> void:
 
 func _on_body_entered(body : Node2D):
 	n_sprite.self_modulate.a = .35
+	
+	if has_node("SpriteTop"):
+		get_node("SpriteTop").self_modulate.a = .35
 
 func _on_body_exited(body):
-	if n_Area2d.get_overlapping_bodies().size() == 0:
+	if n_Area2d.get_overlapping_bodies().size() == 0:		
 		n_sprite.self_modulate.a = 1.0
+		
+		if has_node("SpriteTop"):
+			get_node("SpriteTop").self_modulate.a = 1.0
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(true)

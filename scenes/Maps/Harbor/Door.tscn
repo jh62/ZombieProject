@@ -17,6 +17,7 @@ radius = 120.004
 [node name="Door" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 material_type = 1
+is_open = true
 blocks_tile = true
 
 [node name="Sprite" parent="." index="0"]
@@ -34,10 +35,6 @@ light_mask = 10
 
 [node name="CollisionShape" parent="." index="1"]
 polygon = PoolVector2Array( -8, -6, -8, 8, 8, 8, 8, -6 )
-disabled = true
-
-[node name="Area2D" parent="." index="2"]
-visible = true
 
 [node name="VisibilityNotifier2D" parent="." index="3"]
 visible = false
@@ -52,6 +49,7 @@ position = Vector2( 0, 1 )
 shape = SubResource( 2 )
 
 [node name="AreaOpen" type="Area2D" parent="." index="5"]
+visible = false
 collision_layer = 0
 collision_mask = 4
 

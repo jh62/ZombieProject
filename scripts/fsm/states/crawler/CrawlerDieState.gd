@@ -30,7 +30,7 @@ func enter_state(args) -> void:
 	
 	owner.hitpoints = 0.0
 	
-	if args.has("melee_type"):
+	if args != null && args.has("melee_type"):
 		EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 		EventBus.emit_signal("play_sound_random", SoundImpactFlesh, owner.global_position)
 	

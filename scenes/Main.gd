@@ -16,7 +16,8 @@ func _ready() -> void:
 	
 	match PlayerStatus.current_level:
 		_:
-			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
+#			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
+			map = preload("res://scenes/Maps/Outskirts/Outskirts_0.tscn").instance()
 			
 	n_MapManager.add_child(map)
 	
@@ -30,6 +31,7 @@ func _ready() -> void:
 	n_Crosshair = n_Player.crosshair
 
 	n_Hud.initialize(_player, _bike)
+	$SoundManager.player = _player
 
 	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
@@ -42,11 +44,11 @@ func _ready() -> void:
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-#	var n_Camera : Camera2D = n_Player.get_node("Camera2D")
-#	n_Camera.limit_top = 0
-#	n_Camera.limit_bottom = Global.MAP_SIZE.y
-#	n_Camera.limit_left = 0
-#	n_Camera.limit_right = Global.MAP_SIZE.x
+	var n_Camera : Camera2D = n_Player.get_node("Camera2D")
+	n_Camera.limit_top = 0
+	n_Camera.limit_bottom = Global.MAP_SIZE.y
+	n_Camera.limit_left = 0
+	n_Camera.limit_right = Global.MAP_SIZE.x
 
 	if Global.DEBUG_MODE:
 		$WorldEnvironment.queue_free()
@@ -89,7 +91,7 @@ func _ready() -> void:
 			weapon.bullets = 160
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 100
+				n_ZombieSpawner.mob_max = 30
 				n_ZombieSpawner.mob_group_max = 4
 				n_ZombieSpawner.restart_delay = 30
 		Globals.Difficulty.NORMAL:
@@ -97,7 +99,7 @@ func _ready() -> void:
 			weapon.bullets = 120
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 120
+				n_ZombieSpawner.mob_max = 50
 				n_ZombieSpawner.mob_group_max = 8
 				n_ZombieSpawner.restart_delay = 25
 		Globals.Difficulty.HARD:
@@ -105,7 +107,7 @@ func _ready() -> void:
 			weapon.bullets = 90
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 150
+				n_ZombieSpawner.mob_max = 70
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
 

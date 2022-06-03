@@ -29,25 +29,7 @@ func _ready() -> void:
 	"eating":[
 		preload("res://assets/sfx/mobs/zombie/eat/zombie_eating_1.wav")
 	]
-}
-
-	match Global.GameOptions.gameplay.difficulty:
-		Globals.Difficulty.HARD:
-			max_hitpoints *= 1.25
-			max_speed *= 1.25
-			sight_radius *= 1.25
-			hearing_distance *= 1.25
-			awareness_timer *= 1.25
-			attack_damage *= 1.25
-		Globals.Difficulty.EASY:
-			max_hitpoints *= .75
-			max_speed *= .75
-			sight_radius *= .75
-			hearing_distance *= .75
-			awareness_timer *= .75
-			attack_damage *= .75
-		_:
-			pass
+}	
 
 func _on_player_death(player : Node2D) -> void:
 	if !is_alive():
@@ -59,7 +41,7 @@ func _on_player_death(player : Node2D) -> void:
 	var new_state
 	var args
 
-	if !(player in area_attack.get_overlapping_bodies()) || global_position.distance_to(player.global_position) > area_attack.get_node("CollisionShape2D").shape.radius:
+	if !(player in area_attack.get_overlapping_bodies()): #|| global_position.distance_to(player.global_position) > area_attack.get_node("CollisionShape2D").shape.radius:
 		new_state = states.idle
 	else:
 		new_state = states.eat_wait
@@ -87,30 +69,15 @@ func on_hit_by(attacker) -> void:
 			"attacker": attacker
 		})
 
+func on_headshot() -> void:
+	hitpoints = 0
+	fsm.travel_to(states.die, {
+		"headshot": true
+	})
+	
+func _on_AreaHead_body_entered(body : Node2D):
+	pass
+
 func play_random_sound() -> void:
 	EventBus.emit_signal("play_sound_random",sounds.growl, global_position)
 
-func _on_screen_exited():
-	._on_screen_exited()
-
-	if target == null || (target is Vector2):
-		return
-
-	target = target.global_position # go to last known location
-
-func set_can_move(_can_move) -> void:
-	can_move = _can_move
-
-func set_knows_about(_value) -> void:
-	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
-	
-func search_nearby() -> void:
-	if !is_alive():
-		return
-		
-	if area_perception.get_overlapping_bodies().size() == 0:
-		return
-	
-	var mob = area_perception.get_overlapping_bodies()[0]
-	target = mob
-	knows_about = MAX_KNOWS_ABOUT

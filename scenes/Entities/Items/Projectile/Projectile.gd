@@ -11,6 +11,13 @@ const HITSOUNDS := [
 	preload("res://assets/sfx/impact/ricochet_3.wav")
 ]
 
+const BodyHitSounds := [
+	preload("res://assets/sfx/impact/bullet_body_1.wav"),
+	preload("res://assets/sfx/impact/bullet_body_2.wav"),
+	preload("res://assets/sfx/impact/bullet_body_3.wav"),
+	preload("res://assets/sfx/impact/bullet_body_4.wav"),
+]
+
 onready var collision := $CollisionShape2D
 
 var damage := 0.0
@@ -20,13 +27,19 @@ func _ready() -> void:
 	pass
 
 func _on_impact(body) -> void:
-	if body.has_method("on_hit_by"):
-		body.call_deferred("on_hit_by", self)
-	
+	if !is_inside_tree():
+		return
+		
 	if !(body is Mobile):
 		EventBus.emit_signal("spawn_decal", global_position)
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
-
+	else:
+		EventBus.emit_signal("play_sound_random_full", BodyHitSounds, global_position)
+		pass
+		
+	if body.has_method("on_hit_by"):
+		body.call_deferred("on_hit_by", self)
+		
 	if get_parent() != null:
 		get_parent().remove_child(self)
 

@@ -1,0 +1,72 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Maps/Statics/Building.gd" type="Script" id=2]
+[ext_resource path="res://assets/res/items/gas_station.tres" type="Texture" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+cull_mode = 1
+polygon = PoolVector2Array( -55, -54, -71, -47, -71, 7, -55, 7, -55, -15, 95, -16, 95, -54 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+closed = false
+cull_mode = 2
+polygon = PoolVector2Array( -13, -15, -13, 24 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+cull_mode = 2
+polygon = PoolVector2Array( -34, 30, -34, 32, -30, 32, -30, 30 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 2, 1 )
+
+[node name="GasStation" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )
+region_rect = Rect2( 80, 0, 110, 110 )
+
+[node name="LightOccluder2D" parent="Sprite" index="0"]
+visible = true
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="Sprite" index="1"]
+position = Vector2( -41, 0 )
+occluder = SubResource( 3 )
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="Sprite" index="2"]
+position = Vector2( 67, 0 )
+occluder = SubResource( 3 )
+
+[node name="SpriteTop" type="Sprite" parent="." index="1"]
+light_mask = 0
+position = Vector2( -95, -25 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 80, 64 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="SpriteTop" index="0"]
+occluder = SubResource( 4 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="SpriteTop" index="1"]
+position = Vector2( 48, 0 )
+occluder = SubResource( 4 )
+
+[node name="CollisionShape" parent="." index="2"]
+visible = true
+polygon = PoolVector2Array( -71, 7, -71, -41, 54, -40, 54, 24, -54, 24, -54, 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+position = Vector2( -127, 6 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." index="4"]
+position = Vector2( -79, 6 )
+shape = SubResource( 5 )
+
+[node name="Area2D" parent="." index="5"]
+visible = true
+
+[node name="CollisionShapeArea" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -134, -46, -70, -46, -56, -54, 54, -54, 54, -40, -14, -40, -71, -9, -134, -9 )

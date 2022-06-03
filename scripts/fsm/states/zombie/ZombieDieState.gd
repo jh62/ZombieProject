@@ -23,7 +23,7 @@ const SoundHeadshot := [
 
 const Guts := preload("res://scenes/Entities/Items/Guts/Guts.tscn")
 
-var dead_time := 2.0 # rand_range(5.0,18.0)
+var dead_time := rand_range(5.0,18.0)
 
 var can_raise
 var elapsed := 0.0
@@ -69,9 +69,9 @@ func enter_state(args) -> void:
 			EventBus.emit_signal("on_object_spawn", Guts, owner.global_position)
 			EventBus.emit_signal("play_sound_random", SoundImpactFlesh, owner.global_position)
 		elif args.has("headshot"):
+			can_raise = false
 			anim_p.play("headshot_{1}".format({0:get_name(),1:facing}))
 			EventBus.emit_signal("play_sound_random", SoundHeadshot, owner.global_position)
-			can_raise = false
 	else:
 		anim_p.play("{0}_{1}".format({0:get_name(),1:facing}))
 	

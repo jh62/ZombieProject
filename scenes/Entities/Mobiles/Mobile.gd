@@ -33,12 +33,14 @@ func kill() -> void:
 	hitpoints = 0
 
 func on_hit_by(_attacker : Node2D) -> void:
+	if !Global.GameOptions.graphics.render_blood:
+		return
+	
 	var angle := PI * rand_range(0.0, 2.0)
 	var radius := 10.0
-
-	if Global.GameOptions.graphics.render_blood:
-		var _blood_pos = global_position + Vector2(cos(angle),sin(angle)) * radius
-		EventBus.emit_signal("spawn_blood", _blood_pos)
+	var _blood_pos = global_position + Vector2(cos(angle),sin(angle)) * radius
+	
+	EventBus.emit_signal("spawn_blood", _blood_pos)
 
 func _process_animations() -> void:
 	pass
@@ -63,6 +65,7 @@ func set_hitpoints(new_value) -> void:
 func on_footstep_keyframe():
 	if !is_visible_in_viewport():
 		return
+		
 	emit_signal("on_footstep", self)
 
 static func get_facing_as_string(_facing : Vector2) -> String:
@@ -110,6 +113,6 @@ func check_LOS(target) -> bool:
 func _on_TimerDecay_timeout():
 	sprite.modulate.a -= 0.03 #0.03
 
-	if owner.modulate.a <= .1:
+	if modulate.a <= .1:
 		$TimerDecay.stop()
-		owner.call_deferred("queue_free")
+		call_deferred("queue_free")

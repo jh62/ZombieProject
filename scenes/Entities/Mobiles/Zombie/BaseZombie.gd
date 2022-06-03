@@ -11,7 +11,7 @@ export var sight_radius := 80.0
 export var hearing_distance := 300.0
 export var awareness_timer := 15.0
 export var attack_damage := 3
-export(Global.ZombieType) var zombie_type := Global.ZombieType.COMMON
+export(Globals.ZombieType) var zombie_type := Globals.ZombieType.COMMON
 
 onready var area_perception := $AreaPerception
 onready var area_head := $AreaHead
@@ -48,6 +48,24 @@ func initialize() -> void:
 	
 	if new_state != null:
 		fsm.travel_to(new_state, null)
+		
+	match Global.GameOptions.gameplay.difficulty:
+		Globals.Difficulty.HARD:
+			max_hitpoints *= 1.25
+			max_speed *= 1.25
+			sight_radius *= 1.25
+			hearing_distance *= 1.25
+			awareness_timer *= 1.25
+			attack_damage *= 1.25
+		Globals.Difficulty.EASY:
+			max_hitpoints *= .75
+			max_speed *= .75
+			sight_radius *= .75
+			hearing_distance *= .75
+			awareness_timer *= .75
+			attack_damage *= .75
+		_:
+			pass
 
 	hitpoints = max_hitpoints
 	damage = attack_damage
@@ -158,6 +176,9 @@ func _on_screen_exited():
 		return
 
 	target = target.global_position # go to last known location
+	
+	if target == null || (target is Vector2):
+		return
 
 func set_knows_about(_value) -> void:
 	knows_about = clamp(_value, 0.0, MAX_KNOWS_ABOUT)
@@ -176,5 +197,8 @@ func search_nearby() -> void:
 func on_footstep_keyframe():
 	if !is_visible_in_viewport():
 		return
-	if map != null:
-		map._on_mob_footstep(self)
+		
+	map._on_mob_footstep(self)
+
+func set_can_move(_can_move) -> void:
+	can_move = _can_move

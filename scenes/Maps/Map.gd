@@ -273,7 +273,6 @@ var step_sounds := 0
 var yielding := false
 
 func _on_mob_footstep(mob : Mobile) -> void:
-	
 	var tile_pos := n_TileMap1.world_to_map(mob.global_position)
 	var tile_id := n_TileMap1.get_cellv(tile_pos)
 	var tile_type
@@ -290,7 +289,6 @@ func _on_mob_footstep(mob : Mobile) -> void:
 	
 			
 	if mob.is_in_group(Global.GROUP_HOSTILES):
-		
 		step_sounds += 1
 
 		if step_sounds > 4:
@@ -304,11 +302,14 @@ func _on_mob_footstep(mob : Mobile) -> void:
 		
 		sound = MaterialSound[tile_type]["sound"].get(mob.zombie_type, MaterialSound[tile_type]["sound"][Global.ZombieType.COMMON])
 		EventBus.emit_signal("play_sound_random", sound, mob.global_position, rand_range(.95,1.05), Global.GameOptions.audio.zombie_footsteps)
-	elif mob.is_in_group(Global.GROUP_PLAYER):
+		return
+		
+	if mob.is_in_group(Global.GROUP_PLAYER):
 		sound = MaterialSound[tile_type]["sound"][Global.GROUP_PLAYER]
 		EventBus.emit_signal("play_sound_random", sound, mob.global_position, rand_range(.95,1.05), Global.GameOptions.audio.player_footsteps)
 		
 		if n_TileMap4.get_cellv(tile_pos) != TileMap.INVALID_CELL:
+			
 			if n_TileMap4.modulate.a == 1.0:
 				$Tween.stop_all()
 				$Tween.interpolate_property(n_TileMap4,"modulate", n_TileMap4.modulate,Color(1,1,1,.15), 0.33,Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, .15)
