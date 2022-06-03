@@ -39,8 +39,7 @@ var eat_time := rand_range(12,18)
 
 func update(delta) -> void:
 	if elapsed >= eat_time:
-		var new_state := ZombieIdleState.new(owner)
-		owner.fsm.travel_to(new_state)
+		owner.fsm.travel_to(owner.states.idle, null)
 		return
 
 	elapsed += delta

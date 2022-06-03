@@ -28,5 +28,5 @@ light_mask = 1
 visible = true
 polygon = PoolVector2Array( -15, 0, 0, 5, 14, 0, 0, -8 )
 
-[node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array( -4, -9, 7, -9, 9, -6, 15, -6, 15, 5, -16, 5, -16, -6, -6, -6 )
+[node name="Area2D" parent="." index="2"]
+visible = true

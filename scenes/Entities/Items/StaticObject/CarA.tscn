@@ -30,8 +30,5 @@ visible = true
 position = Vector2( 0, -3 )
 polygon = PoolVector2Array( -16, 2, 1, 8, 15, 2, 1, -5 )
 
-[node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array( -16, -6, -16, 6, 15, 6, 15, -5, 10, -6, 7, -9, -4, -9, -7, -6 )
-
 [node name="VisibilityNotifier2D" parent="." index="3"]
 visible = false
