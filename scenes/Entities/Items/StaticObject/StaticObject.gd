@@ -76,17 +76,17 @@ func on_hit_by(attacker) -> void:
 		EventBus.emit_signal("play_sound_random", snd, global_position, rand_range(.95, 1.06), 0.0)
 
 func _on_body_entered(body : Node2D):
-	n_sprite.self_modulate.a = .35
-	
+	n_sprite.modulate.a = .35
+				
 	if has_node("SpriteTop"):
-		get_node("SpriteTop").self_modulate.a = .35
+		get_node("SpriteTop").modulate.a = .35
 
 func _on_body_exited(body):
 	if n_Area2d.get_overlapping_bodies().size() == 0:		
-		n_sprite.self_modulate.a = 1.0
+		n_sprite.modulate.a = 1.0
 		
 		if has_node("SpriteTop"):
-			get_node("SpriteTop").self_modulate.a = 1.0
+			get_node("SpriteTop").modulate.a = 1.0
 
 func _on_VisibilityNotifier2D_screen_entered():
 	set_process(true)

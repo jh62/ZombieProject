@@ -1,5 +1,8 @@
 class_name Projectile extends RigidBody2D
 
+signal on_impact(bullet)
+signal on_exit_screen(bullet)
+
 enum Type {
 	BULLET = 0,
 	SHELL
@@ -35,13 +38,15 @@ func _on_impact(body) -> void:
 		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
 	else:
 		EventBus.emit_signal("play_sound_random_full", BodyHitSounds, global_position)
-		pass
 		
 	if body.has_method("on_hit_by"):
 		body.call_deferred("on_hit_by", self)
 		
-	if get_parent() != null:
-		get_parent().remove_child(self)
+	emit_signal("on_impact", self)
+#
+#	if get_parent() != null:
+#		get_parent().remove_child(self)
+#		print_debug("rmove")
 
 func _on_Projectile_body_entered(body: Node) -> void:
 	_on_impact(body)
@@ -52,7 +57,10 @@ func _on_Projectile_body_shape_entered(body_id, body, body_shape, local_shape):
 func _on_VisibilityTimer_timeout():
 	if get_parent() != null:
 		get_parent().remove_child(self)
+		print_debug("removing myself")
 
 func _on_VisibilityNotifier2D_viewport_exited(viewport):
-	if $VisibilityTimer.is_inside_tree():
-		$VisibilityTimer.start(.15)
+#	if $VisibilityTimer.is_inside_tree():
+#		$VisibilityTimer.start(.15)
+	emit_signal("on_exit_screen", self)
+		

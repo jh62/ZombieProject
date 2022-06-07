@@ -71,8 +71,3 @@ max_distance = 240.0
 
 [node name="AudioStreamPlayer2D9" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
 max_distance = 240.0
-
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

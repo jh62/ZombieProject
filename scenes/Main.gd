@@ -15,8 +15,9 @@ func _ready() -> void:
 	var map
 	
 	match PlayerStatus.current_level:
+		4:
+			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
 		_:
-#			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
 			map = preload("res://scenes/Maps/Outskirts/Outskirts_0.tscn").instance()
 			
 	n_MapManager.add_child(map)
@@ -33,7 +34,6 @@ func _ready() -> void:
 	n_Hud.initialize(_player, _bike)
 	$SoundManager.player = _player
 
-	EventBus.connect("fuel_pickedup", self, "_on_fuel_pickedup")
 	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
 	EventBus.connect("on_escape", self, "_on_escape")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
@@ -107,7 +107,7 @@ func _ready() -> void:
 			weapon.bullets = 90
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 70
+				n_ZombieSpawner.mob_max = 100
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
 
@@ -150,7 +150,9 @@ func _on_Bike_on_full_tank():
 	n_Player.can_move = false
 	n_Player.set_process_unhandled_key_input(false)
 
-	$AnimationPlayer.play("win")
+	$AnimationPlayer.play("win_full_tank")
+	
+	PlayerStatus.current_level += 1
 
 	var music := preload("res://assets/music/winning.mp3")
 	EventBus.emit_signal("play_music", music)
@@ -202,26 +204,12 @@ func _on_request_update_health() -> void:
 	label.bbcode_text = "[center][color=lime]+HEALTH"
 	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
 
-func _on_fuel_pickedup(amount) -> void:
-	pass
-
-const messages := [
-		"That was not enough. I need more.",
-		"I need a few more.",
-		"I need some more.",
-		"Damn, I need to find another one."
-	]
-
-func _on_Bike_on_fuel_stopped(amount):
-	if amount >= Globals.MAX_FUEL_LITERS:
-		return
-
-	messages.shuffle()
-	$UI/DialogPopup/MarginContainer/LabelDialog.text = messages.front()
-	$AnimationPlayer.call_deferred("play","fuel_changed")
-
 func _on_PauseMessage_on_pause():
 	n_Dialog.visible = !n_Dialog.visible
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	pass
+	
+	match anim_name:
+		"win_full_tank":
+			var new_scene = load("res://scenes/World/WorldMap.tscn")
+			get_tree().change_scene_to(new_scene)

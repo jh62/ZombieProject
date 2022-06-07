@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/res/maps/worldmap/worldmap.tres" type="Texture" id=1]
 [ext_resource path="res://assets/res/maps/worldmap/player_icon.tres" type="Texture" id=2]
@@ -8,10 +8,6 @@
 [ext_resource path="res://assets/fx/flashlight.png" type="Texture" id=6]
 [ext_resource path="res://assets/res/env/enviroment.tres" type="Environment" id=7]
 [ext_resource path="res://assets/res/fx/material_unshaded.tres" type="Material" id=8]
-[ext_resource path="res://assets/res/maps/worldmap/outskirts.tres" type="Texture" id=9]
-[ext_resource path="res://assets/res/maps/worldmap/harbor.tres" type="Texture" id=10]
-[ext_resource path="res://assets/res/maps/worldmap/outpost.tres" type="Texture" id=11]
-[ext_resource path="res://assets/res/maps/worldmap/city.tres" type="Texture" id=12]
 [ext_resource path="res://assets/maps/worldmap.png" type="Texture" id=13]
 
 [sub_resource type="Curve2D" id=1]
@@ -42,18 +38,6 @@ region = Rect2( 370, 91, 10, 33 )
 [sub_resource type="OccluderPolygon2D" id=16]
 polygon = PoolVector2Array( 4, 8, 4, 0, 10, 0, 10, 12, 9, 12, 9, 21, 8, 21, 8, 28, 7, 28, 7, 29, 4, 29, 4, 33, 0, 33, 0, 14, 3, 14, 3, 8 )
 
-[sub_resource type="OccluderPolygon2D" id=7]
-polygon = PoolVector2Array( 32, 48, 32, 31, 44, 31, 44, 39 )
-
-[sub_resource type="OccluderPolygon2D" id=8]
-polygon = PoolVector2Array( 81, -5, 81, -18, 88, -18, 88, -5 )
-
-[sub_resource type="OccluderPolygon2D" id=9]
-polygon = PoolVector2Array( 46, 31, 46, 43, 57, 43, 57, 37, 50, 37, 50, 31 )
-
-[sub_resource type="OccluderPolygon2D" id=10]
-polygon = PoolVector2Array( 6, 15, 15, 15, 15, 16, 23, 16, 23, 15, 33, 15, 33, 20, 6, 20 )
-
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
@@ -69,7 +53,7 @@ tracks/0/keys = {
 "values": [ 0.0 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureOutskirts/LabelOutskirts:custom_colors/font_color")
+tracks/1/path = NodePath("Labels/LabelOutskirts:custom_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -81,7 +65,7 @@ tracks/1/keys = {
 "values": [ Color( 0.929412, 1, 0.027451, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TextureOutpost/LabelMilitary:custom_colors/font_color")
+tracks/2/path = NodePath("Labels/LabelMilitary:custom_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -93,7 +77,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("TextureCity/LabelCity:custom_colors/font_color")
+tracks/3/path = NodePath("Labels/LabelCity:custom_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -105,7 +89,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TextureHarbor/LabelHarbor:custom_colors/font_color")
+tracks/4/path = NodePath("Labels/LabelHarbor:custom_colors/font_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -254,7 +238,7 @@ tracks/0/keys = {
 "values": [ 0.0, 0.133334 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureOutskirts/LabelOutskirts:custom_colors/font_color")
+tracks/1/path = NodePath("Labels/LabelOutskirts:custom_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -266,7 +250,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.929412, 1, 0.027451, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TextureHarbor/LabelHarbor:custom_colors/font_color")
+tracks/2/path = NodePath("Labels/LabelHarbor:custom_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -278,7 +262,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("TextureCity/LabelCity:custom_colors/font_color")
+tracks/3/path = NodePath("Labels/LabelCity:custom_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -290,7 +274,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TextureOutpost/LabelMilitary:custom_colors/font_color")
+tracks/4/path = NodePath("Labels/LabelMilitary:custom_colors/font_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -343,7 +327,7 @@ tracks/0/keys = {
 "values": [ 0.2, 0.45 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureOutskirts/LabelOutskirts:custom_colors/font_color")
+tracks/1/path = NodePath("Labels/LabelOutskirts:custom_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -355,7 +339,7 @@ tracks/1/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TextureOutpost/LabelMilitary:custom_colors/font_color")
+tracks/2/path = NodePath("Labels/LabelMilitary:custom_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -367,7 +351,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("TextureCity/LabelCity:custom_colors/font_color")
+tracks/3/path = NodePath("Labels/LabelCity:custom_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -379,7 +363,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TextureHarbor/LabelHarbor:custom_colors/font_color")
+tracks/4/path = NodePath("Labels/LabelHarbor:custom_colors/font_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -420,7 +404,7 @@ tracks/0/keys = {
 "values": [ 0.45, 0.78 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureOutskirts/LabelOutskirts:custom_colors/font_color")
+tracks/1/path = NodePath("Labels/LabelOutskirts:custom_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -432,7 +416,7 @@ tracks/1/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TextureOutpost/LabelMilitary:custom_colors/font_color")
+tracks/2/path = NodePath("Labels/LabelMilitary:custom_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -444,7 +428,7 @@ tracks/2/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("TextureCity/LabelCity:custom_colors/font_color")
+tracks/3/path = NodePath("Labels/LabelCity:custom_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -456,7 +440,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 0, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TextureHarbor/LabelHarbor:custom_colors/font_color")
+tracks/4/path = NodePath("Labels/LabelHarbor:custom_colors/font_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -497,7 +481,7 @@ tracks/0/keys = {
 "values": [ 0.78, 0.98 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("TextureCity/LabelCity:custom_colors/font_color")
+tracks/1/path = NodePath("Labels/LabelCity:custom_colors/font_color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -509,7 +493,7 @@ tracks/1/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("TextureOutpost/LabelMilitary:custom_colors/font_color")
+tracks/2/path = NodePath("Labels/LabelMilitary:custom_colors/font_color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -521,7 +505,7 @@ tracks/2/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("TextureOutskirts/LabelOutskirts:custom_colors/font_color")
+tracks/3/path = NodePath("Labels/LabelOutskirts:custom_colors/font_color")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -533,7 +517,7 @@ tracks/3/keys = {
 "values": [ Color( 0, 1, 0, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("TextureHarbor/LabelHarbor:custom_colors/font_color")
+tracks/4/path = NodePath("Labels/LabelHarbor:custom_colors/font_color")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -634,9 +618,10 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 1 )
-stretch_mode = 6
+expand = true
 
 [node name="Path2D" type="Path2D" parent="."]
+self_modulate = Color( 0.501961, 0.6, 1, 0 )
 curve = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -668,13 +653,14 @@ shadow_filter = 3
 shadow_filter_smooth = 10.0
 
 [node name="PathFollow2D2" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 135.06, 39.5973 )
+position = Vector2( 135.06, 39.5969 )
 z_index = 1
 offset = 203.395
 v_offset = -18.0
 rotate = false
 
 [node name="TextureRect" type="TextureRect" parent="Path2D/PathFollow2D2"]
+self_modulate = Color( 1, 1, 1, 0.862745 )
 light_mask = 0
 anchor_left = 0.5
 anchor_top = 0.5
@@ -702,8 +688,11 @@ __meta__ = {
 }
 
 [node name="Objects" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 0.125
+anchor_bottom = 0.222222
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Outskirts_building" type="TextureRect" parent="Objects"]
 anchor_left = 0.7
@@ -711,7 +700,8 @@ anchor_top = 4.1
 anchor_right = 0.875
 anchor_bottom = 4.35
 texture = SubResource( 12 )
-stretch_mode = 3
+expand = true
+stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -720,10 +710,10 @@ __meta__ = {
 anchor_left = 0.875
 anchor_top = 3.75
 anchor_right = 1.1
-anchor_bottom = 4.05
-margin_bottom = -1.0
+anchor_bottom = 4.025
 texture = SubResource( 13 )
-stretch_mode = 3
+expand = true
+stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -734,7 +724,8 @@ anchor_top = 2.35
 anchor_right = 2.6
 anchor_bottom = 3.075
 texture = SubResource( 14 )
-stretch_mode = 3
+expand = true
+stretch_mode = 4
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -745,6 +736,7 @@ anchor_top = 0.925
 anchor_right = 3.95
 anchor_bottom = 1.75
 texture = SubResource( 15 )
+expand = true
 stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": true
@@ -754,29 +746,20 @@ __meta__ = {
 self_modulate = Color( 1, 1, 1, 0 )
 occluder = SubResource( 16 )
 
-[node name="TextureOutskirts" type="TextureRect" parent="."]
-visible = false
-anchor_left = 0.025
-anchor_top = 0.633333
-anchor_right = 0.225
-anchor_bottom = 0.988889
-margin_bottom = -1.52588e-05
-rect_pivot_offset = Vector2( 32, 32 )
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 4
+[node name="Labels" type="Control" parent="."]
+anchor_right = 0.125
+anchor_bottom = 0.222222
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="TextureOutskirts"]
-light_mask = 3
-occluder = SubResource( 7 )
-light_mask = 3
-
-[node name="LabelOutskirts" type="Label" parent="TextureOutskirts"]
+[node name="LabelOutskirts" type="Label" parent="Labels"]
 light_mask = 0
 material = ExtResource( 8 )
-anchor_left = 0.0703125
-anchor_right = 0.929688
-anchor_bottom = 0.34375
+anchor_left = 0.25
+anchor_top = 2.85
+anchor_right = 1.5
+anchor_bottom = 3.625
 custom_colors/font_color = Color( 0.929412, 1, 0.027451, 1 )
 custom_constants/line_spacing = -4
 custom_fonts/font = ExtResource( 5 )
@@ -788,28 +771,13 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="TextureOutpost" type="TextureRect" parent="."]
-visible = false
-anchor_left = 0.1875
-anchor_top = 0.355556
-anchor_right = 0.3875
-anchor_bottom = 0.711111
-margin_bottom = -1.52588e-05
-rect_pivot_offset = Vector2( 32, 32 )
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 4
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="TextureOutpost"]
-position = Vector2( -52, 50 )
-occluder = SubResource( 8 )
-
-[node name="LabelMilitary" type="Label" parent="TextureOutpost"]
+[node name="LabelMilitary" type="Label" parent="Labels"]
 light_mask = 0
 material = ExtResource( 8 )
-anchor_left = 0.0625
-anchor_right = 0.9375
-anchor_bottom = 0.34375
+anchor_left = 1.3
+anchor_top = 1.6
+anchor_right = 2.9
+anchor_bottom = 2.375
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/line_spacing = -4
 custom_fonts/font = ExtResource( 5 )
@@ -821,27 +789,13 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="TextureCity" type="TextureRect" parent="."]
-visible = false
-anchor_left = 0.3
-anchor_top = 0.0777778
-anchor_right = 0.5
-anchor_bottom = 0.433333
-margin_bottom = -1.52588e-05
-rect_pivot_offset = Vector2( 32, 32 )
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 4
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="TextureCity"]
-occluder = SubResource( 9 )
-
-[node name="LabelCity" type="Label" parent="TextureCity"]
+[node name="LabelCity" type="Label" parent="Labels"]
 light_mask = 0
 material = ExtResource( 8 )
-anchor_left = 0.15625
-anchor_right = 0.84375
-anchor_bottom = 0.34375
+anchor_left = 2.325
+anchor_top = 0.575
+anchor_right = 3.475
+anchor_bottom = 1.125
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/line_spacing = -4
 custom_fonts/font = ExtResource( 5 )
@@ -854,30 +808,13 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="TextureHarbor" type="TextureRect" parent="."]
-visible = false
-anchor_left = 0.45
-anchor_top = 0.222222
-anchor_right = 0.95
-anchor_bottom = 0.755556
-margin_right = -48.0
-margin_bottom = -16.0001
-rect_pivot_offset = Vector2( 32, 32 )
-texture = ExtResource( 10 )
-stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="TextureHarbor"]
-occluder = SubResource( 10 )
-
-[node name="LabelHarbor" type="Label" parent="TextureHarbor"]
+[node name="LabelHarbor" type="Label" parent="Labels"]
 light_mask = 0
 material = ExtResource( 8 )
-anchor_left = 0.179688
-anchor_right = 0.820313
-anchor_bottom = 0.625
+anchor_left = 4.4
+anchor_top = 0.375
+anchor_right = 5.7
+anchor_bottom = 1.375
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/line_spacing = -4
 custom_fonts/font = ExtResource( 5 )
@@ -892,7 +829,6 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "path_3"
 anims/RESET = SubResource( 2 )
 anims/path_1 = SubResource( 3 )
 anims/path_2 = SubResource( 4 )
@@ -910,10 +846,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -160.0
-margin_top = -90.0
-margin_right = 160.0
-margin_bottom = 90.0
+margin_right = 320.0
+margin_bottom = 180.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0, 0, 0, 1 )

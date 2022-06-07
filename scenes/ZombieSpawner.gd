@@ -27,8 +27,9 @@ func _spawn_mob(count := randi() % mob_group_max + 1) -> void:
 	for area in areas.get_children():
 		var area_pos = area.global_position
 
-		#if area.is_on_screen(): # don't spawn zombies in player's view, it's not nice
-		#	continue
+		if area.is_on_screen(): # don't spawn zombies in player's view, it's not nice
+			continue
+			
 		for i in count:
 			var angle := rand_range(0.0, 2.0) * PI
 			var direction = Vector2(cos(angle), sin(angle))

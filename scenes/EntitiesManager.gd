@@ -25,14 +25,14 @@ var bullet_idx := 0
 var shell_idx := 0
 
 func _ready() -> void:
-	EventBus.connect("on_bullet_spawn", self, "_spawn_bullet")
+	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
 	EventBus.connect("spawn_blood", self, "_spawn_blood")
 	EventBus.connect("spawn_decal", self, "_spawn_decal")
 	EventBus.connect("on_mob_spawn", self, "_spawn_mob")
 	EventBus.connect("on_object_spawn", self, "_spawn_object")
 	EventBus.connect("on_weapon_reloaded", self, "_on_weapon_reloaded")
 
-	for i in 34:
+	for i in 2:
 		var bullet := Bullet.instance()
 		pool_bullets.append(bullet)
 	
@@ -66,17 +66,7 @@ func _spawn_decal(position) -> void:
 	decal.global_position = position
 	decal_idx = wrapi(decal_idx + 1, 0, pool_decals.size())
 
-func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0) -> void:
-	var bullet
-	
-	match type:
-		Projectile.Type.BULLET:
-			bullet = pool_bullets[bullet_idx]
-			bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
-		Projectile.Type.SHELL:
-			bullet = pool_shells[shell_idx]
-			shell_idx = wrapi(shell_idx + 1, 0, pool_shells.size())
-			
+func _on_bullet_spawn(position, damage, knockback := 0.0, aimed := false, type := 0) -> void:
 	var target_pos : Vector2
 	var direction : Vector2
 	var precision : Vector2
@@ -97,15 +87,47 @@ func _spawn_bullet(position, damage, knockback := 0.0, aimed := false, type := 0
 
 	direction = position.direction_to(target_pos)
 	
-	if bullet.get_parent() != n_Mobs:
-		n_Mobs.add_child(bullet)
-	
+	match type:
+		Projectile.Type.BULLET:
+			var bullet = pool_bullets[bullet_idx]
+			bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
+			_spawn_bullet(bullet, damage, knockback, position, direction)
+		Projectile.Type.SHELL:
+			var rot := -.12
+			
+			for i in 6:
+				var bullet = pool_bullets[bullet_idx]
+				bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
+#				bullet = pool_shells[shell_idx]
+#				shell_idx = wrapi(shell_idx + 1, 0, pool_shells.size())
+				_spawn_bullet(bullet, damage, knockback, position, direction)
+				direction = direction.rotated(rot)
+				rot += .094
+				
+func _spawn_bullet(bullet : Node2D, damage, knockback, position, direction) -> void:
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.visible = Global.GameOptions.graphics.render_bullets
 	bullet.global_position = position
 	bullet.linear_velocity = Vector2(direction.x, direction.y) * 500
+	
+	if !bullet.is_connected("on_impact", self, "_on_bullet_impact"):
+		bullet.connect("on_impact", self, "_on_bullet_impact")
+		
+	if !bullet.is_connected("on_exit_screen", self, "_on_bullet_impact"):
+		bullet.connect("on_exit_screen", self, "_on_bullet_impact")
+	
+	if !n_Mobs.is_a_parent_of(bullet):
+		n_Mobs.add_child(bullet)
+		
 	bullet.look_at(position + direction)
+	
+func _on_bullet_impact(node : Node2D) -> void:
+	if node.get_parent() != null:
+		print_debug(node.get_parent())
+		node.get_parent().remove_child(node)
+#	if n_Mobs.is_a_parent_of(node):
+#		n_Mobs.remove_child(node)
 
 var bad_spawns := [] # lazy fix
 

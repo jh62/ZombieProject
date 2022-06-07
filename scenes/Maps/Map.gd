@@ -132,6 +132,12 @@ func _ready():
 	EventBus.connect("on_bike_tank_full", self, "_on_bike_on_full_tank")
 	EventBus.connect("tilemap_set_tile", self, "_tilemap_set_tile")
 	EventBus.connect("tilemap_set_tile_at", self, "_tilemap_set_tile_at")
+	
+	yield(self,"ready")
+	call_deferred("_on_map_initialized")
+
+func _on_map_initialized() -> void:
+	pass
 
 func _spawn_fuelcans() -> void:
 	var FuelCan := preload("res://scenes/Entities/Items/FuelCan/FuelCan.tscn")

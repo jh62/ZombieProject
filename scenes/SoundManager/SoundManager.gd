@@ -56,8 +56,6 @@ const STREAM_REPEAT_DELAY := 50
 var last_stream_id := -1
 var last_played := 0.0
 
-var played_sounds := 0
-
 func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_range(.95,1.05), db := 0.0, max_distance := 240.0) -> void:
 	if stream == null:
 		return
@@ -84,8 +82,3 @@ func _play_sound(stream : AudioStream, position = Vector2.ZERO, pitch := rand_ra
 #	audio_p.max_distance = max_distance
 #	audio_p.global_position = position if (position != Vector2.ZERO) else global_position
 	audio_p.play()
-	played_sounds += 1
-
-func _on_Timer_timeout():
-	print_debug("audios played: {0}".format({0:played_sounds}))
-	played_sounds = 0

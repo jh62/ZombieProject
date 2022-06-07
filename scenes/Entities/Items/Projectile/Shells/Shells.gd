@@ -10,6 +10,7 @@ func _ready():
 		shell.linear_velocity = linear_velocity
 		shell.damage = damage
 		shell.knockback = knockback
+		shell.global_position = global_position
 
 	$Projectile.linear_velocity = $Projectile.linear_velocity.rotated(-.12)
 	$Projectile3.linear_velocity = $Projectile3.linear_velocity.rotated(.12)

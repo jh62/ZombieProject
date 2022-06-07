@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
@@ -19,6 +19,13 @@ script/source = "extends Node
 
 func get_map() -> Map:
 	return get_child(0) as Map
+"
+
+[sub_resource type="GDScript" id=19]
+script/source = "extends RichTextLabel
+
+func _process(delta):
+	bbcode_text = \"FPS: {0}\".format({0:str(Engine.get_frames_per_second())})
 "
 
 [sub_resource type="GDScript" id=10]
@@ -511,148 +518,6 @@ tracks/10/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "win"
-length = 13.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 1.0, 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("UI/ScreenMessage:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 12.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("UI/ScreenMessage/Label:percent_visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ 0.0, 0.0, 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("UI/ScreenMessage/Label:text")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "You survived for today" ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("UI/ScreenMessage:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1.5, 3.7, 10.2, 12.1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-tracks/5/type = "method"
-tracks/5/path = NodePath(".")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray(  ),
-"transitions": PoolRealArray(  ),
-"values": [  ]
-}
-tracks/6/type = "method"
-tracks/6/path = NodePath("AnimationPlayer/AudioStreamPlayer")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 1.5, 3.7 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-}, {
-"args": [  ],
-"method": "stop"
-} ]
-}
-tracks/7/type = "method"
-tracks/7/path = NodePath("AnimationPlayer/AudioTypewriterStop")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/keys = {
-"times": PoolRealArray( 3.7 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("UI/ControlRestart:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
-"times": PoolRealArray( 0, 3.7 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/9/type = "value"
-tracks/9/path = NodePath("UI/DialogPopup:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("UI/HUD:visible")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-
 [sub_resource type="Animation" id=18]
 resource_name = "win_final"
 length = 13.0
@@ -765,10 +630,152 @@ tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 3.7 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/DialogPopup:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/HUD:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "win_full_tank"
+length = 13.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:adjustment_saturation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.5, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/ScreenMessage:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 12.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/ScreenMessage/Label:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.5, 3.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/ScreenMessage/Label:text")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "You survived for today" ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/ScreenMessage:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1.5, 3.7, 10.2, 12.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("AnimationPlayer/AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 1.5, 3.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+}, {
+"args": [  ],
+"method": "stop"
+} ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("AnimationPlayer/AudioTypewriterStop")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 3.7 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("UI/ControlRestart:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("UI/DialogPopup:visible")
@@ -805,7 +812,7 @@ __meta__ = {
 script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
-mob_max = 50
+is_active = false
 mob_group_max = 1
 spawn_delay_sec = 0.75
 restartable = true
@@ -860,6 +867,18 @@ __meta__ = {
 layer = 128
 
 [node name="HUD" parent="UI" instance=ExtResource( 12 )]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/HUD"]
+anchor_left = 0.875
+anchor_right = 1.0
+anchor_bottom = 0.222222
+bbcode_enabled = true
+bbcode_text = "FPS: 0"
+text = "FPS: 0"
+script = SubResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="ScreenMessage" type="Control" parent="UI"]
 visible = false
@@ -1047,8 +1066,8 @@ autoplay = "intro"
 anims/RESET = SubResource( 1 )
 anims/death = SubResource( 8 )
 anims/intro = SubResource( 2 )
-anims/win = SubResource( 7 )
 anims/win_final = SubResource( 18 )
+anims/win_full_tank = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
 stream = ExtResource( 16 )

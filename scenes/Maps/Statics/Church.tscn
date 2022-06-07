@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=2]
@@ -16,6 +16,10 @@ polygon = PoolVector2Array( 62, 35, 62, 70 )
 closed = false
 cull_mode = 2
 polygon = PoolVector2Array( -62, 33, -62, 66 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+closed = false
+polygon = PoolVector2Array( -64, 7, 64, 7 )
 
 [node name="Church" instance=ExtResource( 1 )]
 
@@ -37,6 +41,9 @@ occluder = SubResource( 2 )
 [node name="LightOccluder2D3" type="LightOccluder2D" parent="Sprite" index="2"]
 occluder = SubResource( 3 )
 
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="Sprite" index="3"]
+occluder = SubResource( 4 )
+
 [node name="SpriteTop" type="Sprite" parent="." index="1"]
 light_mask = 0
 position = Vector2( 0, -37 )
@@ -45,14 +52,16 @@ region_enabled = true
 region_rect = Rect2( 1616, 102, 127, 144 )
 
 [node name="CollisionShape" parent="." index="2"]
+visible = true
 position = Vector2( 0, -16 )
-polygon = PoolVector2Array( -64, 93, -64, 24, -32, -8, 24, -8, 64, 32, 64, 93 )
+polygon = PoolVector2Array( -64, 93, -64, 24, -31, 16, 29, 16, 64, 32, 64, 93 )
 
 [node name="Area2D" parent="." index="3"]
+visible = true
 position = Vector2( 0, -16 )
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
-polygon = PoolVector2Array( -64, 24, -32, -8, 24, -8, 64, 32, 64, 15, 30, -18, 29, -63, 7, -63, 7, -81, -9, -81, -9, -63, -34, -63, -34, -18, -64, 13 )
+polygon = PoolVector2Array( -64, 24, -31, 16, 30, 16, 64, 32, 64, 15, 30, -18, 29, -63, 7, -63, 7, -81, -9, -81, -9, -63, -34, -63, -34, -18, -64, 13 )
 
 [node name="VisibilityNotifier2D" parent="." index="4"]
 visible = false

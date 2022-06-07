@@ -9,12 +9,12 @@ polygon = PoolVector2Array( 1, -34, -23, -23, -23, 9, 1, -2, 24, 9, 24, -23 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
 closed = false
-cull_mode = 1
+cull_mode = 2
 polygon = PoolVector2Array( -22, 10, -22, 39 )
 
 [sub_resource type="OccluderPolygon2D" id=3]
 closed = false
-cull_mode = 2
+cull_mode = 1
 polygon = PoolVector2Array( 23, 9, 23, 38 )
 
 [node name="SmallHouse" instance=ExtResource( 1 )]
@@ -34,7 +34,8 @@ occluder = SubResource( 2 )
 occluder = SubResource( 3 )
 
 [node name="CollisionShape" parent="." index="1"]
-polygon = PoolVector2Array( 23, -15, -22, -15, -22, 39, 23, 39 )
+visible = true
+polygon = PoolVector2Array( 23, 0, -22, 0, -22, 39, 23, 39 )
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]
 visible = false
