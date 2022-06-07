@@ -122,7 +122,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 									else:
 										collider.kill()
 									spawn_bullet = false
-									EventBus.emit_signal("create_shake", .05, 250, 4, 0)
+									EventBus.emit_signal("create_shake", .05, 120, 4, 0)
 
 #							ray.enabled = false
 

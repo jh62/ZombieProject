@@ -1767,7 +1767,6 @@ tracks/4/keys = {
 [sub_resource type="Animation" id=33]
 resource_name = "walk_e"
 length = 0.666667
-loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1850,7 +1849,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=34]
 resource_name = "walk_n"
 length = 0.666667
-loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -1933,7 +1931,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=35]
 resource_name = "walk_ne"
 length = 0.666667
-loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -2016,7 +2013,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=36]
 resource_name = "walk_s"
 length = 0.666667
-loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -2099,7 +2095,6 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=37]
 resource_name = "walk_se"
 length = 0.666667
-loop = true
 step = 0.166667
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -2202,14 +2197,13 @@ radius = 14.0
 collision_layer = 12
 collision_mask = 15
 script = ExtResource( 3 )
-max_speed = 20.0
 max_hitpoints = 50.0
 zombie_type = 1
 
 [node name="Sprite" parent="." index="0"]
 light_mask = 8
 texture = ExtResource( 2 )
-normal_map = ExtResource( 13 )
+normal_map = ExtResource( 16 )
 vframes = 2
 frame = 4
 

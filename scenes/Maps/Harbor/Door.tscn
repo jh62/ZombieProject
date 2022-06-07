@@ -6,7 +6,7 @@
 
 [sub_resource type="OccluderPolygon2D" id=1]
 closed = false
-polygon = PoolVector2Array( -8, -9, 8, -9 )
+polygon = PoolVector2Array( -10, -9, 11, -9 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 11 )

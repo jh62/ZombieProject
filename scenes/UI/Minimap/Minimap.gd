@@ -1,5 +1,7 @@
 extends NinePatchRect
 
+#const GROUP_MINIMAP_ICON = "minimap_icon"
+
 var minimap_icon
 
 onready var player_marker := $PlayerMarker
@@ -16,7 +18,7 @@ func _ready():
 	grid_scale = rect_size / (get_viewport_rect().size * zoom)
 
 func _mob_spawned(mob : Node2D) -> void:
-	add_to_group("minimap_mob")
+#	add_to_group(GROUP_MINIMAP_ICON)
 	var new_marker = mob_marker.duplicate()
 	add_child(new_marker)
 	new_marker.show()
@@ -41,8 +43,8 @@ func _process(delta):
 		mob_marker.rect_position = obj_pos
 
 		if get_rect().has_point(obj_pos + rect_position):
-			var alpha = float(8.0 / (mob_marker.rect_position.distance_to(player_marker.rect_position)))
-			if alpha < 0.35:
+			var alpha = float(6.0 / (mob_marker.rect_position.distance_to(player_marker.rect_position)))
+			if alpha < 0.45:
 				alpha = 0.0
 			if mob.target != null:
 				mob_marker.modulate =  Color(1.0,1.0,0.0,alpha) if (mob.target is Vector2) else Color(1.0,0.0,0.0,alpha)

@@ -812,7 +812,6 @@ __meta__ = {
 script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
-is_active = false
 mob_group_max = 1
 spawn_delay_sec = 0.75
 restartable = true
@@ -824,7 +823,7 @@ restartable = true
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 z_index = 1000
-color = Color( 0.117647, 0.117647, 0.117647, 1 )
+color = Color( 0.196078, 0.196078, 0.196078, 1 )
 
 [node name="MistLayer" type="CanvasLayer" parent="."]
 layer = 50

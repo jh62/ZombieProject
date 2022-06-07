@@ -165,7 +165,7 @@ func _spawn_weapons() -> void:
 	spawn_zones.shuffle()
 	
 	for zone in spawn_zones:
-		if .25 >= randf():
+		if .37 >= randf():
 			var weapon := Weapon.instance() as PickableWeapon
 			n_Entities.add_child(weapon)
 			weapon.global_position = zone.global_position

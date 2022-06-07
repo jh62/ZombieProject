@@ -3,7 +3,6 @@ extends YSort
 const Decal := preload("res://scenes/Entities/FX/Decals/Decals.tscn")
 const Blood := preload("res://scenes/Entities/FX/Blood/Blood.tscn")
 const Bullet := preload("res://scenes/Entities/Items/Projectile/Projectile.tscn")
-const Shell := preload("res://scenes/Entities/Items/Projectile/Shells/Shells.tscn")
 
 const Zombie := preload("res://scenes/Entities/Mobiles/Zombie/Zombie.tscn")
 const Crawler := preload("res://scenes/Entities/Mobiles/Crawler/Crawler.tscn")
@@ -17,12 +16,10 @@ onready var n_Mobs := $Mobs
 var pool_decals := []
 var pool_blood := []
 var pool_bullets := []
-var pool_shells := []
 
 var decal_idx := 0
 var blood_idx := 0
 var bullet_idx := 0
-var shell_idx := 0
 
 func _ready() -> void:
 	EventBus.connect("on_bullet_spawn", self, "_on_bullet_spawn")
@@ -32,14 +29,10 @@ func _ready() -> void:
 	EventBus.connect("on_object_spawn", self, "_spawn_object")
 	EventBus.connect("on_weapon_reloaded", self, "_on_weapon_reloaded")
 
-	for i in 2:
+	for i in 20:
 		var bullet := Bullet.instance()
 		pool_bullets.append(bullet)
 	
-	for i in 6:
-		var shell := Shell.instance()
-		pool_shells.append(shell)
-		
 	for i in 50:
 		var decal := Decal.instance()
 		pool_decals.append(decal)
@@ -47,7 +40,7 @@ func _ready() -> void:
 	for i in 20:
 		var blood := Blood.instance()
 		pool_blood.append(blood)
-		
+
 func _spawn_blood(position : Vector2) -> void:
 	var blood = pool_blood[blood_idx]
 			
@@ -93,18 +86,26 @@ func _on_bullet_spawn(position, damage, knockback := 0.0, aimed := false, type :
 			bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
 			_spawn_bullet(bullet, damage, knockback, position, direction)
 		Projectile.Type.SHELL:
-			var rot := -.12
+			var rot := -0.2
 			
-			for i in 6:
+			for i in 8:
 				var bullet = pool_bullets[bullet_idx]
 				bullet_idx = wrapi(bullet_idx + 1, 0, pool_bullets.size())
-#				bullet = pool_shells[shell_idx]
-#				shell_idx = wrapi(shell_idx + 1, 0, pool_shells.size())
 				_spawn_bullet(bullet, damage, knockback, position, direction)
-				direction = direction.rotated(rot)
-				rot += .094
+				
+				if direction.x != 0.0:
+					direction.x = direction.rotated(rot).x
+					
+				if direction.y != 0.0:
+					direction.y = direction.rotated(rot).y
+					
+				rot += 0.074
 				
 func _spawn_bullet(bullet : Node2D, damage, knockback, position, direction) -> void:
+	bullet.visible = true
+	bullet.set_process(true)
+	bullet.set_physics_process(true)
+	
 	bullet.damage = damage
 	bullet.knockback = knockback
 	bullet.visible = Global.GameOptions.graphics.render_bullets
@@ -123,11 +124,16 @@ func _spawn_bullet(bullet : Node2D, damage, knockback, position, direction) -> v
 	bullet.look_at(position + direction)
 	
 func _on_bullet_impact(node : Node2D) -> void:
-	if node.get_parent() != null:
-		print_debug(node.get_parent())
-		node.get_parent().remove_child(node)
-#	if n_Mobs.is_a_parent_of(node):
-#		n_Mobs.remove_child(node)
+	node.set_process(false)
+	node.set_physics_process(false)
+	
+	if node.is_connected("on_impact", self, "_on_bullet_impact"):
+		node.disconnect("on_impact", self, "_on_bullet_impact")
+		
+	if node.is_connected("on_exit_screen", self, "_on_bullet_impact"):
+		node.disconnect("on_exit_screen", self, "_on_bullet_impact")
+		
+	n_Mobs.remove_child(node)
 
 var bad_spawns := [] # lazy fix
 
