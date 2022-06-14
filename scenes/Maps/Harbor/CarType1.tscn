@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/maps/harbor/harbor_cars.tres" type="Texture" id=2]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=3]
-[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
@@ -25,14 +24,8 @@ light_mask = 16
 occluder = SubResource( 1 )
 light_mask = 16
 
-[node name="SpriteDestroyed" type="Sprite" parent="." index="1"]
-visible = false
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 720, 352, 32, 32 )
+[node name="CollisionShape" parent="." index="1"]
+polygon = PoolVector2Array( 15, -4, -16, -4, -16, 8, 15, 8 )
 
-[node name="CollisionShape" parent="." index="2"]
-polygon = PoolVector2Array( 14, 0, -1, -5, -16, 0, 0, 6 )
-
-[node name="VisibilityNotifier2D" parent="." index="4"]
+[node name="VisibilityNotifier2D" parent="." index="3"]
 visible = false

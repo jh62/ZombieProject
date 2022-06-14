@@ -1,0 +1,9 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 1
+
+[resource]
+flags = 1
+atlas = SubResource( 1 )
+region = Rect2( 640, 180, 320, 180 )

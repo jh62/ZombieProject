@@ -39,11 +39,14 @@ func _on_animation_finished(anim : String) -> void:
 		return
 
 	var target_pos = owner.target.global_position
-	var target_dir = owner.global_position.direction_to(target_pos).round()
-	var facing_direction = target_pos.direction_to(owner.global_position).dot(target_dir) < 0
+	var target_dir = owner.global_position.direction_to(target_pos)
+#	var facing_direction = target_pos.direction_to(owner.global_position).dot(target_dir) < 0
+	var facing_direction = owner.dir.dot(target_dir) > 0
 
 	if owner.is_visible_in_viewport():
 		EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
 	if facing_direction:
 		owner.target.on_hit_by(owner)
+
+	owner.fsm.travel_to(owner.states.idle, null)

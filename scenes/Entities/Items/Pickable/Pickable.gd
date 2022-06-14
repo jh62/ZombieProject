@@ -43,9 +43,11 @@ func _on_Area2D_body_exited(body):
 
 func _on_Tween_tween_completed(object, key):
 	_flash_bounce = !_flash_bounce
+	
 	var old_val = 0.5 if _flash_bounce else 0.0
 	var new_val = 0.0 if _flash_bounce else 0.5
 	var delay = 0.0 if _flash_bounce else _flash_delay
+	
 
 	tween.interpolate_property($Sprite.material,"shader_param/hit_strength", old_val, new_val, _flash_secs, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT, delay)
 	tween.start()

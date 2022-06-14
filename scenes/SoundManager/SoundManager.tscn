@@ -43,6 +43,34 @@ stream = ExtResource( 2 )
 
 [node name="AudioStreamPlayer16" type="AudioStreamPlayer" parent="AudioStreams"]
 
+[node name="AudioStreamPlayer17" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer18" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer19" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer20" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer21" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer22" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer23" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer24" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer25" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer26" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer27" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer28" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer29" type="AudioStreamPlayer" parent="AudioStreams"]
+
+[node name="AudioStreamPlayer30" type="AudioStreamPlayer" parent="AudioStreams"]
+
 [node name="AudioStreams2D" type="Node" parent="."]
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
@@ -58,16 +86,4 @@ max_distance = 240.0
 max_distance = 240.0
 
 [node name="AudioStreamPlayer2D5" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
-max_distance = 240.0
-
-[node name="AudioStreamPlayer2D6" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
-max_distance = 240.0
-
-[node name="AudioStreamPlayer2D7" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
-max_distance = 240.0
-
-[node name="AudioStreamPlayer2D8" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
-max_distance = 240.0
-
-[node name="AudioStreamPlayer2D9" type="AudioStreamPlayer2D" parent="AudioStreams2D"]
 max_distance = 240.0

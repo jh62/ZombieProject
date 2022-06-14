@@ -25,10 +25,9 @@ func _ready() -> void:
 	EventBus.connect("play_music", self, "_play_music")
 
 func _on_intro_finished() -> void:
-#	TRACKS.shuffle()
-#	$MusicPlayer.stream = TRACKS.front()
-	$MusicPlayer.volume_db = Global.GameOptions.audio.music_db
-	$MusicPlayer.play()
+	if !Global.DEBUG_MODE:
+		$MusicPlayer.volume_db = Global.GameOptions.audio.music_db
+		$MusicPlayer.play()
 
 func _play_music(music) -> void:
 	music_player.stop()

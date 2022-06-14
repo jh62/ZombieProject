@@ -1793,7 +1793,7 @@ script = ExtResource( 3 )
 [node name="Sprite" parent="." index="0"]
 light_mask = 8
 texture = ExtResource( 5 )
-normal_map = ExtResource( 16 )
+normal_map = ExtResource( 12 )
 hframes = 2
 frame = 4
 

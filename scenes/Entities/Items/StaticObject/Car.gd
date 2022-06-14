@@ -1,6 +1,7 @@
 extends StaticObject
 
 const MAX_WARNINGS := 30
+const DestroyedShader := preload("res://assets/res/fx/destroyed_shader.tres")
 
 var exploded = false
 
@@ -18,7 +19,7 @@ func explode() -> void:
 	exploded = true
 	modulate = Color.white
 	$Area2D.set_collision_mask_bit(5, false) # Bullets
-	$SpriteDestroyed.visible = true
+	$Sprite.material = DestroyedShader
 
 	set_process(false)
 	set_physics_process(false)

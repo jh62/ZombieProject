@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/SearchableArea/SearchableArea.gd" type="Script" id=1]
 [ext_resource path="res://scenes/UI/ProgressWheel/ProgressWheel.tscn" type="PackedScene" id=2]
@@ -6,9 +6,6 @@
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
-
-[sub_resource type="CanvasItemMaterial" id=2]
-light_mode = 1
 
 [node name="SearchableArea" type="Area2D"]
 light_mask = 0
@@ -38,9 +35,7 @@ stretch_margin_right = 1
 label_text = "SEARCHING"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-visible = false
 light_mask = 0
-material = SubResource( 2 )
 anchor_right = 0.021875
 anchor_bottom = 0.0444444
 mouse_filter = 2

@@ -1,5 +1,7 @@
 extends Node2D
 
+export var debug_mode := false setget set_debug_mode
+
 onready var n_MapManager := $MapManager
 onready var n_ScreenMessage := $UI/ScreenMessage
 onready var n_Dialog := $UI/DialogPopup
@@ -83,41 +85,53 @@ func _ready() -> void:
 			$VignetteLayer/ColorRect.visible = true
 
 	var n_ZombieSpawner := $ZombieSpawner
-	var weapon
 
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
-			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 160
+			PlayerStatus.set_weapon(
+				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+				0,
+				160
+			)
 
 			if !Global.DEBUG_MODE:
 				n_ZombieSpawner.mob_max = 30
 				n_ZombieSpawner.mob_group_max = 4
 				n_ZombieSpawner.restart_delay = 30
 		Globals.Difficulty.NORMAL:
-			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 120
+			PlayerStatus.set_weapon(
+				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+				0,
+				120
+			)
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 50
+				n_ZombieSpawner.mob_max = 45
 				n_ZombieSpawner.mob_group_max = 8
 				n_ZombieSpawner.restart_delay = 25
 		Globals.Difficulty.HARD:
-			weapon = preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn").instance()
-			weapon.bullets = 90
+			PlayerStatus.set_weapon(
+				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+				0,
+				10
+			)
 
 			if !Global.DEBUG_MODE:
-				n_ZombieSpawner.mob_max = 100
+				n_ZombieSpawner.mob_max = 60
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
 
-	if weapon != null:
-		yield(get_tree().create_timer(.25),"timeout")
-		n_Player.equip_item(weapon)
-		weapon.reload()
+	yield(get_tree().create_timer(.25),"timeout")
+	var _weapon = PlayerStatus.get_weapon(0)
+	n_Player.equip_item(_weapon)
+	_weapon.reload()
 
 	if Global.CINEMATIC_MODE:
 		$UI.layer = -1000
+		
+func set_debug_mode(_mode) -> void:
+	debug_mode = _mode
+	Global.DEBUG_MODE = _mode	
 
 func _unhandled_key_input(event):
 	if Input.is_key_pressed(KEY_F11):

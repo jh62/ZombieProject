@@ -1,16 +1,19 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/UI/SplashScreen/SplashScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/TitleScreen.gd" type="Script" id=2]
-[ext_resource path="res://assets/ui/titlescreen_background.png" type="Texture" id=3]
-[ext_resource path="res://assets/ui/smoke.png" type="Texture" id=4]
-[ext_resource path="res://assets/ui/DAU_newlogo_small.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/bg/tbg1.tres" type="Texture" id=3]
+[ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/title.tres" type="Texture" id=5]
 [ext_resource path="res://assets/ui/ui_theme.tres" type="Theme" id=6]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=7]
-[ext_resource path="res://assets/res/fx/mist.tres" type="Material" id=8]
 [ext_resource path="res://assets/music/main_song.mp3" type="AudioStream" id=9]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/MainMenu.gd" type="Script" id=10]
 [ext_resource path="res://scenes/UI/Menus/TitleScreen/OptionsMenu.gd" type="Script" id=11]
+[ext_resource path="res://assets/ui/bg/tbg6.tres" type="Texture" id=12]
+[ext_resource path="res://assets/ui/bg/tbg3.tres" type="Texture" id=14]
+[ext_resource path="res://assets/ui/bg/tbg5.tres" type="Texture" id=15]
+[ext_resource path="res://assets/ui/bg/tbg4.tres" type="Texture" id=16]
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Label
@@ -207,6 +210,192 @@ func slider_delay(delay := 50) -> bool:
 	slide_delay = now
 	return true
 "
+
+[sub_resource type="Shader" id=27]
+code = "/*
+	Glitch Effect Shader by Yui Kinomoto @arlez80
+
+	MIT License
+*/
+
+shader_type canvas_item;
+
+// 振動の強さ
+uniform float shake_power = 0.03;
+// 振動率
+uniform float shake_rate : hint_range( 0.0, 1.0 ) = 0.2;
+// 振動速度
+uniform float shake_speed = 5.0;
+// 振動ブロックサイズ
+uniform float shake_block_size = 30.5;
+// 色の分離率
+uniform float shake_color_rate : hint_range( 0.0, 1.0 ) = 0.01;
+
+float random( float seed )
+{
+	return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46, -54.3415 ) ) ) );
+}
+
+void fragment( )
+{
+	float enable_shift = float(
+		random( trunc( TIME * shake_speed ) )
+	<	shake_rate
+	);
+
+	vec2 fixed_uv = SCREEN_UV;
+	fixed_uv.x += (
+		random(
+			( trunc( SCREEN_UV.y * shake_block_size ) / shake_block_size )
+		+	TIME
+		) - 0.5
+	) * shake_power * enable_shift;
+
+	vec4 pixel_color = textureLod( SCREEN_TEXTURE, fixed_uv, 0.0 );
+	pixel_color.r = mix(
+		pixel_color.r
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( shake_color_rate, 0.0 ), 0.0 ).r
+	,	enable_shift
+	);
+	pixel_color.b = mix(
+		pixel_color.b
+	,	textureLod( SCREEN_TEXTURE, fixed_uv + vec2( -shake_color_rate, 0.0 ), 0.0 ).b
+	,	enable_shift
+	);
+	COLOR = pixel_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=29]
+shader = SubResource( 27 )
+shader_param/shake_power = 100.0
+shader_param/shake_rate = 0.001
+shader_param/shake_speed = 5.0
+shader_param/shake_block_size = 200.0
+shader_param/shake_color_rate = 1.0
+
+[sub_resource type="Shader" id=25]
+code = "/* 
+Earthbound battle backgrounds shader with scrolling effect and palette cycling like in the original game.
+@retr0_dev
+	
+Apply the shader to a TextureRect or a Sprite. Use a texture with some shapes in a transparent background for best results.
+You can then use a ColorRect or another method to paint the background.
+You can use the shader on multiple TextureRects and obtain a double-buffer effect tweaking the values for each one, remember to Make Unique the shader material.
+*/
+shader_type canvas_item;
+
+uniform float screen_height = 640.0;
+uniform float amplitude = 0.075;
+uniform float frequency = 10.0;
+uniform float speed = 2.0;
+uniform float amplitude_vertical = 0.0;
+uniform float frequency_vertical = 0.0;
+uniform float speed_vertical = 0.0;
+uniform vec2 scroll_direction = vec2(0.0, 0.0);
+uniform float scrolling_speed = 0.08;
+uniform bool enable_palette_cycling = false;
+uniform sampler2D palette;
+uniform float palette_speed = 0.1;
+
+void fragment()
+{
+	float diff_x = amplitude * sin((frequency * UV.y) + (speed * TIME));
+	float diff_y = amplitude_vertical * sin((frequency_vertical * UV.y)  + (speed_vertical * TIME));
+	vec2 scroll = scroll_direction * TIME * scrolling_speed;
+	vec4 tex = texture(TEXTURE, vec2(UV.x + diff_x, UV.y + diff_y) + scroll);
+	float palette_swap = mod(tex.r - TIME * palette_speed, 1.0);
+	
+	if (enable_palette_cycling)
+	{
+		COLOR = vec4(texture(palette, vec2(palette_swap, 0)).rgb, tex.a);
+	}
+	else COLOR = tex;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=26]
+shader = SubResource( 25 )
+shader_param/screen_height = 1129.0
+shader_param/amplitude = 0.003
+shader_param/frequency = 20.0
+shader_param/speed = 0.5
+shader_param/amplitude_vertical = 0.0
+shader_param/frequency_vertical = 0.0
+shader_param/speed_vertical = 0.0
+shader_param/scroll_direction = Vector2( 0, 0 )
+shader_param/scrolling_speed = 0.08
+shader_param/enable_palette_cycling = false
+shader_param/palette_speed = 0.1
+
+[sub_resource type="Shader" id=30]
+code = "shader_type canvas_item;
+
+uniform vec2 frame_coords = vec2(0.0,0.0);
+uniform vec2 nb_frames = vec2(0.0,0.0);
+uniform vec2 velocity = vec2(0.0,0.0);
+uniform float velocity_max = 300.0;
+uniform float trail_size = 6.0;
+uniform float alpha_start = 0.8;
+uniform float alpha_tail = 0.2;
+uniform float alpha_factor = 1.2;
+uniform float noise_margin = 0.68;
+uniform sampler2D noise;
+
+
+vec2 get_mid_uv(vec2 coords, vec2 px_size) {
+	// récupérer les UV des milieux de ces px en partant du dernier
+	float px_mid_x = 1.0 - px_size.x / 2.0;
+	float px_mid_y = 1.0 - px_size.y / 2.0;
+	if (coords.x < 1.0)
+		px_mid_x = px_size.x * ( floor(coords.x / px_size.x) + 1.0 / 2.0 );
+	if (coords.y < 1.0)
+		px_mid_y = px_size.y * ( floor(coords.y / px_size.y) + 1.0 / 2.0 ); 
+	return vec2(px_mid_x, px_mid_y);
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE,UV);
+
+	float UV_X = (UV.x * nb_frames.x - frame_coords.x);
+	float UV_Y = (UV.y * nb_frames.y - frame_coords.y);
+	vec2 uv = vec2(UV_X, UV_Y);
+	
+	// Limite velocity à trail_size pixels max 
+	vec2 v_dir = normalize(velocity);
+	float v_length = length(velocity) * trail_size / velocity_max;
+	
+	float alpha_step = (alpha_start - alpha_tail) / trail_size;
+	float alpha = alpha_tail;
+	while (v_length > 0.0) {
+		vec2 velo = v_length * v_dir * TEXTURE_PIXEL_SIZE;
+		vec2 px_mid_uv = get_mid_uv(UV, TEXTURE_PIXEL_SIZE) + velo;
+		float noiseValue = texture(noise, px_mid_uv).r;
+		vec4 new_color = texture(TEXTURE, px_mid_uv);
+		if (noiseValue > noise_margin && new_color.a > 0.0) {
+			if (COLOR.a == 0.0) {
+				COLOR = new_color;
+				COLOR.a = new_color.a * alpha;
+			}
+			break;
+		}
+		v_length -= 0.5;
+		alpha *= alpha_factor;
+		alpha = min(alpha,alpha_start);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=31]
+shader = SubResource( 30 )
+shader_param/frame_coords = Vector2( 0.425, 0.223 )
+shader_param/nb_frames = Vector2( 0.187, 0.203 )
+shader_param/velocity = Vector2( 0.693, 0 )
+shader_param/velocity_max = 299.793
+shader_param/trail_size = 6.302
+shader_param/alpha_start = 1.199
+shader_param/alpha_tail = 0.2
+shader_param/alpha_factor = 1.2
+shader_param/noise_margin = 0.68
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
@@ -696,34 +885,352 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 3 ) ]
+}
 
 [sub_resource type="Animation" id=17]
-resource_name = "slide"
-length = 5.33333
+resource_name = "slide_1"
+length = 14.0
 step = 0.166667
 tracks/0/type = "value"
-tracks/0/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 3, 3.33333, 5.33333 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 128, 59 ), Vector2( -1, 59 ), Vector2( -112, 59 ), Vector2( -221, 59 ), Vector2( -529, 59 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1, 2, 3, 3.33333, 4.66667, 5.33333 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Vector2( -96, 48 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 13.861 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_2", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="AtlasTexture" id=32]
+flags = 1
+atlas = ExtResource( 4 )
+region = Rect2( 320, 480, 320, 180 )
+
+[sub_resource type="Animation" id=18]
+resource_name = "slide_2"
+length = 14.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 32 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 78, 55 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 13.861 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_3", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "slide_3"
+length = 14.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 14 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -80, 57 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 13.861 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_4", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "slide_4"
+length = 14.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 16 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 40 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 13.861 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_5", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "slide_5"
+length = 14.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 15 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -64, 8 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 13.861 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_6", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "slide_6"
+length = 18.0
+step = 0.166667
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Graphics/Background:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 7.16668, 10 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Graphics/Background:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 12 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Graphics/Background:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AnimationPlayerBackground")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 18.036 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "slide_1", -1, 1.0, false ],
+"method": "play"
+} ]
 }
 
 [node name="TitleScreen" type="Control"]
@@ -737,7 +1244,7 @@ parallax_speed = 150.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
 
 [node name="MainMenu" type="MarginContainer" parent="ActiveMenu"]
@@ -1353,15 +1860,13 @@ layer = -1
 [node name="Graphics" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Graphics"]
 visible = false
+modulate = Color( 1, 1, 1, 0.192157 )
+material = SubResource( 29 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": true
@@ -1371,50 +1876,41 @@ __meta__ = {
 self_modulate = Color( 1, 1, 1, 0 )
 show_behind_parent = true
 light_mask = 0
-anchor_left = -3.61694
-anchor_top = 0.327778
-anchor_right = -1.61694
-anchor_bottom = 1.32778
-margin_right = 2560.0
-margin_bottom = 720.001
+material = SubResource( 26 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 960.0
+margin_bottom = 540.0
 mouse_filter = 2
 texture = ExtResource( 3 )
+expand = true
 stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="TitleLogo" type="TextureRect" parent="CanvasLayer/Graphics"]
-anchor_left = 0.18125
-anchor_right = 0.81875
-anchor_bottom = 0.405556
-margin_left = -2.0
-margin_top = 8.0
-margin_right = -2.0
-margin_bottom = 8.0
+material = SubResource( 31 )
+anchor_top = 0.133333
+anchor_right = 1.0
+anchor_bottom = 0.355556
 mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": true
-}
 
 [node name="Banner" type="Panel" parent="CanvasLayer/Graphics"]
 anchor_left = 0.3375
-anchor_top = 0.444444
+anchor_top = 0.372222
 anchor_right = 0.6625
-anchor_bottom = 0.533333
-margin_top = -15.9999
-margin_bottom = -15.9999
+anchor_bottom = 0.461111
 rect_pivot_offset = Vector2( -52, -95.9999 )
 custom_styles/panel = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Graphics/Banner"]
-anchor_top = 0.625004
+anchor_top = 2.98023e-07
 anchor_right = 1.0
-anchor_bottom = 1.625
+anchor_bottom = 0.999996
 custom_fonts/normal_font = ExtResource( 7 )
 bbcode_enabled = true
 bbcode_text = "[center]ALL HOPE IS [color=red]DEATH[/color][/center]"
@@ -1423,19 +1919,6 @@ fit_content_height = true
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": true
-}
-
-[node name="Mist" type="TextureRect" parent="CanvasLayer/Graphics"]
-material = ExtResource( 8 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 7
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
 }
 
 [node name="CanvasLayer_SplashScreen" type="CanvasLayer" parent="."]
@@ -1465,9 +1948,14 @@ anims/menu_main = SubResource( 13 )
 anims/menu_options = SubResource( 12 )
 
 [node name="AnimationPlayerBackground" type="AnimationPlayer" parent="."]
-autoplay = "slide"
+autoplay = "slide_1"
 anims/RESET = SubResource( 16 )
-anims/slide = SubResource( 17 )
+anims/slide_1 = SubResource( 17 )
+anims/slide_2 = SubResource( 18 )
+anims/slide_3 = SubResource( 19 )
+anims/slide_4 = SubResource( 20 )
+anims/slide_5 = SubResource( 21 )
+anims/slide_6 = SubResource( 22 )
 
 [connection signal="visibility_changed" from="ActiveMenu/MainMenu" to="ActiveMenu/MainMenu" method="_on_MainMenu_visibility_changed"]
 [connection signal="button_up" from="ActiveMenu/MainMenu/CenterContainer/VBoxContainer/ButtonNew" to="." method="_on_ButtonNew_button_up"]

@@ -1,6 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
+[ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=2]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/music/pause.wav" type="AudioStream" id=9]
@@ -10,7 +11,6 @@
 [ext_resource path="res://assets/res/fx/Noise.tres" type="Material" id=15]
 [ext_resource path="res://assets/sfx/misc/typewriter_intro.wav" type="AudioStream" id=16]
 [ext_resource path="res://assets/sfx/misc/typewriter_end.wav" type="AudioStream" id=17]
-[ext_resource path="res://assets/ui/window.png" type="Texture" id=18]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=23]
 [ext_resource path="res://scenes/Tooltips.gd" type="Script" id=25]
 
@@ -981,7 +981,7 @@ anchor_left = 0.21875
 anchor_top = 0.777778
 anchor_right = 0.78125
 anchor_bottom = 1.0
-texture = ExtResource( 18 )
+texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": true
 }

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/StaticObject.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/res/material/CarBlinkShader.tres" type="Material" id=3]
 [ext_resource path="res://assets/res/items/truck.tres" type="Texture" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
@@ -15,7 +14,6 @@ max_hitpoints = 280.0
 material_type = 0
 
 [node name="Sprite" parent="." index="0"]
-material = ExtResource( 3 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 43, 27 )
 
@@ -25,9 +23,8 @@ show_behind_parent = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 position = Vector2( 0, -3 )
-polygon = PoolVector2Array( -18, 10, 5, 9, 15, -4, -10, -9 )
+polygon = PoolVector2Array( -22, 10, -8, 16, 21, 0, 6, -9, -22, 4 )
 
 [node name="VisibilityNotifier2D" parent="." index="3"]
 visible = false

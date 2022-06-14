@@ -7,6 +7,8 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends StaticObject
 
+const OutlineShader := preload(\"res://assets/res/fx/smooth_outline.tres\")
+
 func _ready():
 	$Sprite.frame = randi() % int($Sprite.hframes * $Sprite.vframes)
 

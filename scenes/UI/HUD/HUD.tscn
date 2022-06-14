@@ -12,7 +12,7 @@
 [ext_resource path="res://assets/res/ui/fuelcan_progress.tres" type="Texture" id=10]
 [ext_resource path="res://assets/res/ui/healthbar/healthbar_v_under.tres" type="Texture" id=11]
 [ext_resource path="res://scenes/UI/Minimap/Minimap.tscn" type="PackedScene" id=12]
-[ext_resource path="res://assets/ui/window.png" type="Texture" id=13]
+[ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=13]
 [ext_resource path="res://assets/sfx/misc/notification.wav" type="AudioStream" id=14]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=15]
 
@@ -20,7 +20,7 @@
 
 [sub_resource type="StyleBoxTexture" id=4]
 texture = ExtResource( 13 )
-region_rect = Rect2( 0, 0, 180, 52 )
+region_rect = Rect2( 0, 0, 1, 1 )
 margin_left = 4.0
 margin_right = 4.0
 margin_top = 4.0
@@ -149,6 +149,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play"
+} ]
+}
 
 [node name="HUD" type="Control"]
 anchor_left = 0.5
@@ -254,6 +268,8 @@ __meta__ = {
 margin_right = 47.0
 margin_bottom = 34.0
 mouse_filter = 2
+custom_constants/separation = 20
+alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Gun/VBoxContainer"]
 margin_right = 47.0
@@ -298,9 +314,10 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Gun"]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 10.0
 margin_right = 47.0
-margin_bottom = 23.0
+margin_bottom = 34.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
 text = "RELOAD"
 align = 1
 valign = 1

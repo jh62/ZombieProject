@@ -40,6 +40,8 @@ onready var canvas_graphics := $CanvasLayer/Graphics
 onready var splash_screen := $CanvasLayer_SplashScreen/SplashScreen
 onready var progress_bar := $CanvasLayer_SplashScreen/Progress
 
+onready var n_Background := $CanvasLayer/Graphics/Background
+
 var loader : ResourceInteractiveLoader
 var current_menu = MenuScreen.MAIN setget set_menu_screen
 var load_finished := false
@@ -47,7 +49,7 @@ var last_poll := 0.0
 var resource
 
 func _ready():
-	pass
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _process(time):
 	if loader == null:

@@ -6,7 +6,8 @@
 [ext_resource path="res://assets/res/material/CarBlinkShader.tres" type="Material" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( -14, -7, -14, 5, 14, 5, 14, -5, 9, -5 )
+cull_mode = 2
+polygon = PoolVector2Array( -14, -6, -14, 5, 14, 5, 14, -5, 9, -6, 5, -9, -3, -9, -5, -6 )
 
 [node name="Car" instance=ExtResource( 1 )]
 light_mask = 9
@@ -24,5 +25,4 @@ visible = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
-polygon = PoolVector2Array( 1, -8, -16, 0, 1, 5, 15, -1 )
+polygon = PoolVector2Array( -16, -5, -16, 8, 15, 8, 15, -5 )

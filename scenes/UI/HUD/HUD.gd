@@ -143,10 +143,8 @@ func is_objective_completed(idx) -> bool:
 	
 	return n_Objective.get_node("CheckBox").pressed
 	
-func _update_objective(idx, completed, hint := true, text := "") -> void:
-	if hint:
-		$AnimationPlayer.play("update_obj")
-		$AudioStreamPlayer.play()		
+func _update_objective(idx, completed, hint := true, text := "", delay := 0.5) -> void:
+	yield(get_tree().create_timer(delay), "timeout")
 	
 	var objective_idx = clamp(idx, 0, $Panel/VBoxContainer.get_child_count())
 	var n_Objective := $Panel/VBoxContainer.get_child(objective_idx)
@@ -155,3 +153,6 @@ func _update_objective(idx, completed, hint := true, text := "") -> void:
 	
 	if !text.empty():
 		n_Objective.get_node("Label").text = text
+		
+	if hint:
+		$AnimationPlayer.play("update_obj")

@@ -5,6 +5,7 @@ var last_poll := 0.0
 var resource
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	OS.window_fullscreen = true
 	get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_DISABLED, SceneTree.STRETCH_ASPECT_IGNORE, Vector2(320,180),1)
 
@@ -35,5 +36,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			loader = ResourceLoader.load_interactive("res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn")
 		"outro":
 			get_tree().change_scene_to(resource)
-			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP_HEIGHT, Vector2(320,180),1)
+#			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_VIEWPORT, SceneTree.STRETCH_ASPECT_KEEP_HEIGHT, Vector2(320,180),1)
+			get_tree().set_screen_stretch(SceneTree.STRETCH_MODE_2D, SceneTree.STRETCH_ASPECT_KEEP_HEIGHT, Vector2(320,180),1)
 			call_deferred("queue_free")

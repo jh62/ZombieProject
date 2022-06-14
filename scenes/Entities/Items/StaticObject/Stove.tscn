@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/res/maps/outskirts/objects.tres" type="Texture" id=1]
+[ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "tool
+extends StaticObject
+
+export var flip := false setget set_flip
+
+func set_flip(_flip) -> void:
+	flip = _flip
+	$Sprite.frame = 0 if _flip else 1
+"
+
+[node name="Stove" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 16
+texture = ExtResource( 1 )
+normal_map = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 272, 16, 16, 16 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite"]
+visible = false
+light_mask = 2
+light_mask = 2
+
+[node name="CollisionShape" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -5, -6, 5, -6, 5, 8, -5, 8 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

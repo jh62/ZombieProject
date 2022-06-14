@@ -34,7 +34,6 @@ occluder = SubResource( 2 )
 occluder = SubResource( 3 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
 polygon = PoolVector2Array( 23, 0, -22, 0, -22, 39, 23, 39 )
 
 [node name="CollisionShapeArea" parent="Area2D" index="0"]

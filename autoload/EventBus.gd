@@ -18,7 +18,7 @@ signal create_shake(duration, frequency, amplitude, priority)
 # HUD signals
 signal on_request_update_health
 signal on_tooltip(text)
-signal update_objective(idx, completed, text)
+signal update_objective(idx, completed, text, delay)
 
 # Player signals
 signal action_pressed(action_name, facing)

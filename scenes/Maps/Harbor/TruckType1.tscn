@@ -34,7 +34,7 @@ region_rect = Rect2( 768, 384, 64, 64 )
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="."]
 visible = false
-polygon = PoolVector2Array( 22, 3, 20, -12, 12, -17, -10, -3, -18, 1, -22, 14, -9, 19 )
+polygon = PoolVector2Array( 24, 2, 24, -13, 14, -18, -19, 0, -19, 16, 0, 16, 0, 14 )
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false

@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=1]
 [ext_resource path="res://assets/maps/harbor/harbor_pickup.tres" type="Texture" id=2]
 [ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
-[ext_resource path="res://assets/maps/harbor/harbor_tileset.png" type="Texture" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
@@ -40,12 +39,6 @@ occluder = SubResource( 2 )
 
 [node name="LightOccluder2D3" type="LightOccluder2D" parent="Sprite"]
 occluder = SubResource( 3 )
-
-[node name="SpriteDestroyed" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 720, 272, 48, 32 )
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="."]
 visible = false

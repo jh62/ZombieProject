@@ -141,22 +141,50 @@ func _on_map_initialized() -> void:
 
 func _spawn_fuelcans() -> void:
 	var FuelCan := preload("res://scenes/Entities/Items/FuelCan/FuelCan.tscn")
-	var _fuel_remaning := Global.MAX_FUEL_LITERS
-	var _max_fuelcans := max_fuelcans
+	
+	var _total := Global.MAX_FUEL_LITERS
+	var _fuelcans := []
+	
+	for i in range(0, max_fuelcans):
+		var r := rand_range(1.0, _total)
+		_fuelcans.insert(i, r)
+		_total -= r
+	
+	_fuelcans[_fuelcans.size() - 1] += _total # adds the last remaining bit
+	_fuelcans.shuffle()
 	
 	var spawn_zones := n_SpawnAreasFuel.get_children()
 	spawn_zones.shuffle()
 	
+	var _idx := 0
+	
 	for zone in spawn_zones:
-		var fuelcan := FuelCan.instance()
-		var fuel_amount := float(Global.MAX_FUEL_LITERS / _max_fuelcans)
-		_fuel_remaning = max(0.0, _fuel_remaning - fuel_amount)
-		n_Entities.add_child(fuelcan)
-		fuelcan.global_position = zone.global_position
-		fuelcan.fuel_amount = fuel_amount + rand_range(0.11, 0.73)
-		
-		if _fuel_remaning == 0.0:
+		if _idx >= _fuelcans.size():
 			return
+		var fuelcan := FuelCan.instance()
+		fuelcan.global_position = zone.global_position
+		fuelcan.fuel_amount = _fuelcans[_idx]
+		n_Entities.add_child(fuelcan)
+		_idx += 1
+		
+	
+#	var FuelCan := preload("res://scenes/Entities/Items/FuelCan/FuelCan.tscn")
+#	var _fuel_remaning := Global.MAX_FUEL_LITERS
+#	var _max_fuelcans := max_fuelcans
+#
+#	var spawn_zones := n_SpawnAreasFuel.get_children()
+#	spawn_zones.shuffle()
+	
+#	for zone in spawn_zones:
+#		var fuelcan := FuelCan.instance()
+#		var fuel_amount := float(Global.MAX_FUEL_LITERS / _max_fuelcans)
+#		_fuel_remaning = max(0.0, _fuel_remaning - fuel_amount)
+#		n_Entities.add_child(fuelcan)
+#		fuelcan.global_position = zone.global_position
+#		fuelcan.fuel_amount = fuel_amount + rand_range(0.11, 0.73)
+#
+#		if _fuel_remaning == 0.0:
+#			return
 
 func _spawn_weapons() -> void:
 	var Weapon := preload("res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn")

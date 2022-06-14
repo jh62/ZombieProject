@@ -23,5 +23,4 @@ visible = true
 occluder = SubResource( 1 )
 
 [node name="CollisionShape" parent="." index="1"]
-visible = true
-polygon = PoolVector2Array( 15, -4, 1, -7, -15, 3, 4, 4 )
+polygon = PoolVector2Array( 16, -4, -16, -4, -16, 8, 16, 8 )

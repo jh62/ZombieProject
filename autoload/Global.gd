@@ -1,7 +1,6 @@
 class_name Globals extends Node
 
 const CINEMATIC_MODE := false
-const DEBUG_MODE := false
 
 const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
 const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")
@@ -45,6 +44,8 @@ const GROUP_KEYS := "keys"
 
 const MAX_FUEL_LITERS := 12.5 # 120.5
 const MAX_SPECIAL_ZOMBIES := 4
+
+var DEBUG_MODE := false
 
 var MAP_SIZE := Vector2()
 

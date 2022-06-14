@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Entities/Items/StaticObject/Countertop.gd" type="Script" id=1]
+[ext_resource path="res://assets/res/maps/outskirts/objects.tres" type="Texture" id=2]
+[ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
+
+[node name="CounterTop" type="StaticBody2D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+light_mask = 16
+texture = ExtResource( 2 )
+normal_map = ExtResource( 3 )
+hframes = 3
+vframes = 3
+frame = 8
+region_enabled = true
+region_rect = Rect2( 288, 16, 48, 48 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite"]
+visible = false
+light_mask = 2
+light_mask = 2
+
+[node name="CollisionShape" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -10, -7, 10, -7, 10, 7, -10, 7 )
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShapeArea" type="CollisionPolygon2D" parent="Area2D"]
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+visible = false
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
