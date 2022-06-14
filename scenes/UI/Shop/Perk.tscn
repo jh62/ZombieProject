@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=2]
+[ext_resource path="res://scenes/UI/Shop/Perk.gd" type="Script" id=3]
+
+[sub_resource type="AtlasTexture" id=33]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 160, 720, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+flags = 1
+atlas = ExtResource( 1 )
+region = Rect2( 21, 800, 20, 17 )
+
+[sub_resource type="StyleBoxFlat" id=35]
+bg_color = Color( 0.18, 0.31, 0.31, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.75, 0.75, 0.75, 1 )
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Perk" type="VBoxContainer"]
+anchor_right = 0.1125
+anchor_bottom = 0.227778
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="TextureButton" type="TextureButton" parent="."]
+margin_right = 36.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = SubResource( 33 )
+expand = true
+stretch_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="TextureButton"]
+anchor_left = 0.162162
+anchor_top = 0.146341
+anchor_right = 0.810811
+anchor_bottom = 0.829268
+margin_left = 4.76837e-07
+mouse_filter = 2
+texture = SubResource( 34 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_top = 33.0
+margin_right = 36.0
+margin_bottom = 41.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+custom_styles/panel = SubResource( 35 )
+
+[node name="Label" type="Label" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+text = "$222"
+align = 1
+valign = 3
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="button_up" from="TextureButton" to="." method="_on_TextureButton_button_up"]

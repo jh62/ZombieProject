@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/panel_metal_3.tres" type="Texture" id=8]
 [ext_resource path="res://scenes/UI/Shop/UIShop.gd" type="Script" id=9]
+[ext_resource path="res://scenes/UI/Shop/Perk.tscn" type="PackedScene" id=10]
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 1
@@ -32,15 +33,13 @@ border_width_right = 1
 border_color = Color( 0.0742188, 0.0716095, 0.0716095, 1 )
 border_blend = true
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=36]
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=37]
 
-[sub_resource type="StyleBoxEmpty" id=16]
+[sub_resource type="StyleBoxEmpty" id=38]
 
-[sub_resource type="StyleBoxEmpty" id=17]
-
-[sub_resource type="StyleBoxEmpty" id=18]
+[sub_resource type="StyleBoxEmpty" id=39]
 
 [sub_resource type="AtlasTexture" id=19]
 
@@ -68,18 +67,16 @@ border_blend = true
 default_font = ExtResource( 3 )
 ItemList/colors/font_color = Color( 0.63, 0.63, 0.63, 1 )
 ItemList/colors/font_color_selected = Color( 0.921569, 1, 0, 1 )
-ItemList/colors/guide_color = Color( 0, 0, 0, 0.1 )
 ItemList/constants/hseparation = 0
 ItemList/constants/icon_margin = 0
 ItemList/constants/line_separation = 0
 ItemList/constants/vseparation = 0
 ItemList/fonts/font = ExtResource( 3 )
 ItemList/styles/bg = SubResource( 30 )
-ItemList/styles/bg_focus = SubResource( 14 )
-ItemList/styles/cursor = SubResource( 15 )
-ItemList/styles/cursor_unfocused = SubResource( 16 )
-ItemList/styles/selected = SubResource( 17 )
-ItemList/styles/selected_focus = SubResource( 18 )
+ItemList/styles/bg_focus = SubResource( 36 )
+ItemList/styles/cursor = SubResource( 37 )
+ItemList/styles/cursor_unfocused = SubResource( 38 )
+ItemList/styles/selected = SubResource( 39 )
 VScrollBar/icons/decrement = SubResource( 19 )
 VScrollBar/icons/decrement_highlight = SubResource( 20 )
 VScrollBar/icons/decrement_pressed = SubResource( 21 )
@@ -226,6 +223,64 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="StyleBoxEmpty" id=45]
+
+[sub_resource type="StyleBoxFlat" id=46]
+bg_color = Color( 0.0901961, 0.290196, 0.156863, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.137255, 0.372549, 0.129412, 1 )
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+
+[sub_resource type="StyleBoxFlat" id=41]
+bg_color = Color( 0.862745, 0.0588235, 0.0588235, 1 )
+
+[sub_resource type="ImageTexture" id=42]
+
+[sub_resource type="StyleBoxFlat" id=44]
+bg_color = Color( 0.117647, 0.176471, 0.176471, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0.2, 0.14902, 1 )
+border_blend = true
+
+[sub_resource type="Theme" id=40]
+default_font = ExtResource( 3 )
+Button/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+Button/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
+Button/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
+Button/colors/font_color_pressed = Color( 1, 1, 1, 1 )
+Button/constants/hseparation = 2
+Button/fonts/font = null
+Button/styles/disabled = null
+Button/styles/focus = SubResource( 45 )
+Button/styles/hover = SubResource( 46 )
+Button/styles/normal = null
+Button/styles/pressed = null
+Dialogs/constants/button_margin = 24
+Dialogs/constants/margin = 4
+TooltipPanel/styles/panel = SubResource( 41 )
+WindowDialog/colors/title_color = Color( 1, 1, 1, 1 )
+WindowDialog/constants/close_h_ofs = 18
+WindowDialog/constants/close_v_ofs = 18
+WindowDialog/constants/scaleborder_size = 4
+WindowDialog/constants/title_height = 18
+WindowDialog/fonts/title_font = null
+WindowDialog/icons/close = SubResource( 42 )
+WindowDialog/icons/close_highlight = null
+WindowDialog/styles/panel = SubResource( 44 )
+
 [node name="UIShop" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -282,12 +337,99 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelRight"]
+[node name="Label" type="Label" parent="PanelRight"]
+anchor_left = 0.0643275
+anchor_top = 0.266667
+anchor_right = 0.625731
+anchor_bottom = 0.338889
+margin_top = -3.8147e-06
+text = "PERK SELECTION"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PerksContainer" type="VBoxContainer" parent="PanelRight"]
+anchor_left = 0.0409357
+anchor_top = 0.35
+anchor_right = 0.953216
+anchor_bottom = 0.827778
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GridContainer" type="GridContainer" parent="PanelRight/PerksContainer"]
+margin_right = 156.0
+margin_bottom = 86.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 4
+
+[node name="Perk1" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 36.0
+margin_bottom = 41.0
+perk_name = "Pistol"
+perk_price = 12738
+
+[node name="Perk2" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_right = 76.0
+margin_bottom = 41.0
+
+[node name="Perk3" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_right = 116.0
+margin_bottom = 41.0
+
+[node name="Perk4" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 120.0
+margin_right = 156.0
+margin_bottom = 41.0
+
+[node name="Perk5" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 45.0
+margin_right = 36.0
+margin_bottom = 86.0
+
+[node name="Perk6" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 40.0
+margin_top = 45.0
+margin_right = 76.0
+margin_bottom = 86.0
+
+[node name="Perk7" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 80.0
+margin_top = 45.0
+margin_right = 116.0
+margin_bottom = 86.0
+
+[node name="Perk8" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 120.0
+margin_top = 45.0
+margin_right = 156.0
+margin_bottom = 86.0
+
+[node name="WeaponsContainer" type="VBoxContainer" parent="PanelRight"]
 anchor_left = 0.0643275
 anchor_top = 0.0444444
-anchor_right = 0.660819
-anchor_bottom = 0.211111
-margin_bottom = -3.8147e-06
+anchor_right = 0.619883
+anchor_bottom = 0.205556
 rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -295,21 +437,21 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="Label" type="Label" parent="PanelRight/VBoxContainer"]
-margin_right = 102.0
+[node name="Label" type="Label" parent="PanelRight/WeaponsContainer"]
+margin_right = 95.0
 margin_bottom = 13.0
 text = "Weapon selection"
 uppercase = true
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelRight/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelRight/WeaponsContainer"]
 margin_top = 17.0
-margin_right = 102.0
-margin_bottom = 30.0
+margin_right = 95.0
+margin_bottom = 29.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ItemList" type="ItemList" parent="PanelRight/VBoxContainer/MarginContainer"]
-margin_right = 102.0
+[node name="ItemList" type="ItemList" parent="PanelRight/WeaponsContainer/MarginContainer"]
+margin_right = 95.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 0, 12 )
 focus_mode = 0
@@ -322,10 +464,11 @@ same_column_width = true
 [node name="PanelMargin" type="Panel" parent="PanelRight"]
 anchor_left = 0.0643275
 anchor_top = 0.133333
-anchor_right = 0.660819
+anchor_right = 0.619883
 anchor_bottom = 0.205556
 margin_top = -1.90735e-06
-rect_min_size = Vector2( 0, 12 )
+margin_right = 1.0
+rect_min_size = Vector2( 96, 12 )
 mouse_filter = 2
 custom_styles/panel = SubResource( 32 )
 __meta__ = {
@@ -405,4 +548,34 @@ anims/RESET = SubResource( 7 )
 anims/idle = SubResource( 8 )
 anims/talk = SubResource( 9 )
 
-[connection signal="item_selected" from="PanelRight/VBoxContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
+[node name="TweenItemListTransition" type="Tween" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="CenterContainer"]
+margin_left = 60.0
+margin_top = 55.0
+margin_right = 260.0
+margin_bottom = 125.0
+input_pass_on_modal_close_click = false
+theme = SubResource( 40 )
+popup_exclusive = true
+window_title = ""
+dialog_autowrap = true
+
+[connection signal="gui_input" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_gui_input"]
+[connection signal="item_selected" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="confirmed" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="gui_input" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_gui_input"]
+[connection signal="item_rect_changed" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_item_rect_changed"]
