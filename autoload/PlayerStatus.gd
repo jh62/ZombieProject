@@ -8,6 +8,11 @@ var loot_count := 0
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
+func _ready():
+	var wep = preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.gd").new()
+	wep.bullets = 200
+	weapons[1] = wep
+
 func set_current_level(_val) -> void:
 	current_level = clamp(_val, 1, 4)
 

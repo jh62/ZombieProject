@@ -51,6 +51,10 @@ enum MENU_ACTIVE {
 }
 
 onready var n_ItemList := $PanelRight/WeaponsContainer/MarginContainer/ItemList
+onready var n_PanelAmmo := $PanelRight/AmmoContainer
+onready var n_AmmoCountLabel := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/LabelAmmoCount
+onready var n_AmmoPlus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlus
+onready var n_AmmoMinus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonMinus
 onready var n_PanelMargin := $PanelRight/PanelMargin
 onready var n_PerksContainer := $PanelRight/PerksContainer
 onready var n_Tween := $TweenItemListTransition
@@ -129,6 +133,13 @@ func _on_ItemList_scroll(value) -> void:
 func _on_ItemList_item_selected(index):
 #	if menu_active != MENU_ACTIVE.NONE && menu_active != MENU_ACTIVE.WEAPON_DROP_DOWN:
 #		return
+
+	var _wep = PlayerStatus.get_weapon(1)
+	
+	if _wep != null:
+		n_ChatLabel.text = "Your weapon has {0} bullets left!".format({0:_wep.bullets})
+		n_AnimationPlayerMouth.play("talk")
+		return
 		
 	if n_Tween.is_active():
 		return
@@ -145,16 +156,17 @@ func _on_ItemList_item_selected(index):
 			set_menu_active(MENU_ACTIVE.NONE)
 			
 			n_ItemList.move_item(index, 0)
+		
+			var _item_name : String = n_ItemList.get_item_text(0)
+			var _item_price = _item_name.rsplit("$")[1]
+			$PanelRight/MarginContainer/LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
+	
 			n_Tween.interpolate_property(n_ItemList,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PanelMargin,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PerksContainer,"modulate", color_traslucid, Color.white, item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.start()
 			
 			_play("click")
-			
-			var _item_name : String = n_ItemList.get_item_text(index)
-			var _item_price = _item_name.rsplit("$")[1]
-			$PanelRight/MarginContainer/LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
 		_:
 			set_menu_active(MENU_ACTIVE.WEAPON_DROP_DOWN)
 			
@@ -176,7 +188,7 @@ func _on_ItemList_gui_input(event : InputEvent):
 		return
 		
 	var item = n_ItemList.get_item_at_position(event.position, false)
-	n_ItemList.select(item)
+	n_ItemList.select(item)	
 
 var active_perk
 
@@ -223,6 +235,16 @@ func set_menu_active(_active_menu) -> void:
 	menu_active = _active_menu
 	
 	match menu_active:
+		MENU_ACTIVE.WEAPON_DROP_DOWN:
+			n_PanelAmmo.modulate.a = 0.15
+			n_AmmoPlus.disabled = true
+			n_AmmoMinus.disabled = true
+			continue
+		MENU_ACTIVE.NONE:
+			n_PanelAmmo.modulate.a = 1.0
+			n_AmmoPlus.disabled = false
+			n_AmmoMinus.disabled = false
+			continue
 		_:
 			last_selection_update = 0.0
 	
@@ -230,3 +252,11 @@ func _play(_sound_name) -> void:
 	var _sound = SOUNDS.get(_sound_name, "click")
 	n_Sounds.stream = _sound
 	n_Sounds.play()
+
+
+func _on_ButtonPlus_button_up():
+	n_AmmoCountLabel.text = "1"
+	_play("click")
+
+func _on_ButtonMinus_button_up():
+	_play("click")
