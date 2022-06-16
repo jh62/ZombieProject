@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
@@ -17,6 +17,11 @@
 [ext_resource path="res://assets/ui/merchant_plus.tres" type="Texture" id=15]
 [ext_resource path="res://assets/ui/merchant_plus_pressed.tres" type="Texture" id=16]
 [ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=17]
+[ext_resource path="res://assets/ui/merchant_primary_pressed.tres" type="Texture" id=18]
+[ext_resource path="res://assets/ui/merchant_primary_normal.tres" type="Texture" id=19]
+[ext_resource path="res://assets/ui/merchant_secondary_normal.tres" type="Texture" id=20]
+[ext_resource path="res://assets/ui/merchant_secondary_pressed.tres" type="Texture" id=21]
+[ext_resource path="res://scenes/UI/Shop/weapon_type_group.tres" type="ButtonGroup" id=22]
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 1
@@ -29,9 +34,16 @@ atlas = ExtResource( 7 )
 region = Rect2( 180, 784, 19, 14 )
 
 [sub_resource type="Theme" id=31]
+default_font = ExtResource( 3 )
 Fonts/fonts/large = ExtResource( 3 )
 Fonts/fonts/normal = ExtResource( 3 )
 Label/fonts/font = ExtResource( 3 )
+PopupDialog/styles/panel = null
+TooltipLabel/colors/font_color = Color( 1, 1, 1, 1 )
+TooltipLabel/colors/font_color_shadow = Color( 0, 0, 0, 0.1 )
+TooltipLabel/constants/shadow_offset_x = 1
+TooltipLabel/constants/shadow_offset_y = 1
+TooltipLabel/fonts/font = ExtResource( 17 )
 
 [sub_resource type="StyleBoxFlat" id=30]
 content_margin_left = 4.0
@@ -459,167 +471,6 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="WeaponSelection9" type="NinePatchRect" parent="PanelRight"]
-anchor_left = 0.0409357
-anchor_top = 0.0388889
-anchor_right = 0.953216
-anchor_bottom = 0.333333
-texture = ExtResource( 8 )
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="WeaponsContainer" type="VBoxContainer" parent="PanelRight"]
-anchor_left = 0.0760234
-anchor_top = 0.05
-anchor_right = 0.695906
-anchor_bottom = 0.216667
-margin_right = -7.62939e-06
-rect_clip_content = true
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="PanelRight/WeaponsContainer"]
-margin_right = 106.0
-margin_bottom = 13.0
-text = "Weapon selection"
-align = 1
-uppercase = true
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelRight/WeaponsContainer"]
-margin_top = 17.0
-margin_right = 106.0
-margin_bottom = 29.0
-size_flags_horizontal = 3
-
-[node name="ItemList" type="ItemList" parent="PanelRight/WeaponsContainer/MarginContainer"]
-margin_right = 106.0
-margin_bottom = 12.0
-rect_min_size = Vector2( 0, 12 )
-focus_mode = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = SubResource( 12 )
-allow_reselect = true
-same_column_width = true
-
-[node name="AmmoContainer" type="Panel" parent="PanelRight"]
-anchor_left = 0.701754
-anchor_top = 0.05
-anchor_right = 0.947368
-anchor_bottom = 0.216667
-custom_styles/panel = SubResource( 48 )
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelRight/AmmoContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/margin_bottom = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelRight/AmmoContainer/MarginContainer"]
-margin_right = 42.0
-margin_bottom = 28.0
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.5
-custom_constants/separation = 1
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Label" type="Label" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
-margin_top = 2.0
-margin_right = 42.0
-margin_bottom = 9.0
-size_flags_horizontal = 3
-size_flags_vertical = 5
-custom_fonts/font = ExtResource( 17 )
-text = "AMMO"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="LabelAmmoCount" type="Label" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
-margin_top = 10.0
-margin_right = 42.0
-margin_bottom = 17.0
-size_flags_horizontal = 3
-size_flags_vertical = 5
-custom_fonts/font = ExtResource( 17 )
-text = "0"
-align = 1
-valign = 1
-autowrap = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 42.0
-margin_bottom = 26.0
-size_flags_horizontal = 5
-size_flags_vertical = 5
-custom_constants/separation = 1
-alignment = 1
-
-[node name="ButtonPlus" type="TextureButton" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 12.0
-margin_right = 20.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 8, 8 )
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource( 15 )
-texture_pressed = ExtResource( 16 )
-expand = true
-stretch_mode = 5
-
-[node name="ButtonMinus" type="TextureButton" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 21.0
-margin_right = 29.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 8, 8 )
-texture_normal = ExtResource( 13 )
-texture_pressed = ExtResource( 14 )
-expand = true
-stretch_mode = 5
-
-[node name="PanelMargin" type="Panel" parent="PanelRight"]
-anchor_left = 0.0760234
-anchor_top = 0.138889
-anchor_right = 0.690059
-anchor_bottom = 0.205556
-margin_top = -1.90735e-06
-margin_right = -7.62939e-06
-rect_min_size = Vector2( 96, 12 )
-mouse_filter = 2
-custom_styles/panel = SubResource( 32 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelRight"]
-anchor_left = 0.0409357
-anchor_top = 0.216667
-anchor_right = 0.947368
-anchor_bottom = 0.311111
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="LabelPrice" type="Label" parent="PanelRight/MarginContainer"]
-margin_top = 2.0
-margin_right = 155.0
-margin_bottom = 15.0
-text = "TOTAL PRICE: $0"
-align = 1
-
 [node name="PerkSelection9" type="NinePatchRect" parent="PanelRight"]
 anchor_left = 0.0409357
 anchor_top = 0.355556
@@ -737,6 +588,221 @@ margin_right = 148.0
 margin_bottom = 82.0
 perk_name = "Pistol"
 perk_price = 200
+
+[node name="WeaponSelection9" type="NinePatchRect" parent="PanelRight"]
+anchor_left = 0.0409357
+anchor_top = 0.0388889
+anchor_right = 0.953216
+anchor_bottom = 0.333333
+texture = ExtResource( 8 )
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PriceContainer" type="MarginContainer" parent="PanelRight"]
+anchor_left = 0.0760234
+anchor_top = 0.216667
+anchor_right = 0.573099
+anchor_bottom = 0.311111
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LabelPrice" type="Label" parent="PanelRight/PriceContainer"]
+margin_top = 2.0
+margin_right = 85.0
+margin_bottom = 15.0
+text = "TOTAL PRICE: $0"
+valign = 1
+
+[node name="WeaponsContainer" type="VBoxContainer" parent="PanelRight"]
+anchor_left = 0.0760234
+anchor_top = 0.05
+anchor_right = 0.649123
+anchor_bottom = 0.216667
+margin_right = -7.62939e-06
+rect_clip_content = true
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="PanelRight/WeaponsContainer"]
+margin_right = 98.0
+margin_bottom = 13.0
+text = "Weapon selection"
+align = 1
+uppercase = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelRight/WeaponsContainer"]
+margin_top = 17.0
+margin_right = 98.0
+margin_bottom = 29.0
+size_flags_horizontal = 3
+
+[node name="ItemList" type="ItemList" parent="PanelRight/WeaponsContainer/MarginContainer"]
+margin_right = 98.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 0, 12 )
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource( 12 )
+allow_reselect = true
+same_column_width = true
+
+[node name="WeaponType" type="HBoxContainer" parent="PanelRight"]
+anchor_left = 0.672515
+anchor_top = 0.0611111
+anchor_right = 0.906433
+anchor_bottom = 0.15
+margin_bottom = -1.90735e-06
+custom_constants/separation = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ButtonPrimary" type="TextureButton" parent="PanelRight/WeaponType"]
+margin_left = 3.0
+margin_right = 19.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+hint_tooltip = "Primary weapon selection"
+focus_mode = 0
+toggle_mode = true
+pressed = true
+enabled_focus_mode = 0
+group = ExtResource( 22 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 18 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ButtonSecondary" type="TextureButton" parent="PanelRight/WeaponType"]
+margin_left = 21.0
+margin_right = 37.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+hint_tooltip = "Secondary weapon selection"
+focus_mode = 0
+toggle_mode = true
+enabled_focus_mode = 0
+group = ExtResource( 22 )
+texture_normal = ExtResource( 20 )
+texture_pressed = ExtResource( 21 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AmmoContainer" type="Panel" parent="PanelRight"]
+anchor_left = 0.672515
+anchor_top = 0.144444
+anchor_right = 0.906433
+anchor_bottom = 0.311111
+margin_top = -1.90735e-06
+margin_bottom = -3.8147e-06
+custom_styles/panel = SubResource( 48 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelRight/AmmoContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelRight/AmmoContainer/MarginContainer"]
+margin_right = 40.0
+margin_bottom = 28.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+custom_constants/separation = 1
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Label" type="Label" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
+margin_top = 2.0
+margin_right = 40.0
+margin_bottom = 9.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_fonts/font = ExtResource( 17 )
+text = "AMMO"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="LabelAmmoCount" type="Label" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
+margin_top = 10.0
+margin_right = 40.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_fonts/font = ExtResource( 17 )
+text = "0"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 40.0
+margin_bottom = 26.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = 1
+alignment = 1
+
+[node name="ButtonPlus" type="TextureButton" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 11.0
+margin_right = 19.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 16 )
+expand = true
+stretch_mode = 5
+
+[node name="ButtonMinus" type="TextureButton" parent="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 20.0
+margin_right = 28.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 14 )
+expand = true
+stretch_mode = 5
+
+[node name="PanelMargin" type="Panel" parent="PanelRight"]
+anchor_left = 0.0760234
+anchor_top = 0.138889
+anchor_right = 0.649123
+anchor_bottom = 0.205556
+margin_top = -1.90735e-06
+margin_right = -7.62939e-06
+rect_min_size = Vector2( 96, 12 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Cash" type="NinePatchRect" parent="."]
 anchor_right = 0.46875
@@ -882,6 +948,8 @@ autoplay = true
 
 [connection signal="gui_input" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_gui_input"]
 [connection signal="item_selected" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="button_up" from="PanelRight/WeaponType/ButtonPrimary" to="." method="_on_ButtonPrimary_button_up"]
+[connection signal="button_up" from="PanelRight/WeaponType/ButtonSecondary" to="." method="_on_ButtonSecondary_button_up"]
 [connection signal="button_up" from="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlus" to="." method="_on_ButtonPlus_button_up"]
 [connection signal="button_up" from="PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonMinus" to="." method="_on_ButtonMinus_button_up"]
 [connection signal="confirmed" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]

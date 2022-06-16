@@ -15,9 +15,9 @@ const QUOTES := {
 		"I don't know about that"
 	],
 	"bored": [
-		"Why excatly are you here?",
-		"Can I help you, mate?",
-		"You got money, right?",
+		"Why exactly are you here?",
+		"Can I help you, friend?",
+		"You got cash, right?",
 		"I'll just look at you 'till you buy somethin'"
 	],
 	"undecided": [
@@ -55,12 +55,14 @@ onready var n_PanelAmmo := $PanelRight/AmmoContainer
 onready var n_AmmoCountLabel := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/LabelAmmoCount
 onready var n_AmmoPlus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlus
 onready var n_AmmoMinus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonMinus
+onready var n_ButtonPrimary := $PanelRight/WeaponType/ButtonPrimary
+onready var n_ButtonSecondary := $PanelRight/WeaponType/ButtonSecondary
 onready var n_PanelMargin := $PanelRight/PanelMargin
 onready var n_PerksContainer := $PanelRight/PerksContainer
 onready var n_Tween := $TweenItemListTransition
 onready var n_Dialog := $CenterContainer/ConfirmationDialog
 onready var n_ChatLabel := $ChatBubbleTexture/MarginContainer/ChatLabel
-onready var n_LabelPrice := $PanelRight/MarginContainer/LabelPrice
+onready var n_LabelPrice := $PanelRight/PriceContainer/LabelPrice
 onready var n_AnimationPlayerMouth := $AnimationPlayerMouth
 onready var n_AnimationPlayerEyes := $AnimationPlayerEyes
 onready var n_Sounds := $Sounds
@@ -74,14 +76,7 @@ var last_selection_update := 0.0
 var last_random_chat_delay := MAX_QUOTE_DELAY
 
 func _ready():
-	for _weapon_name in Global.WeaponNames:
-		var _weapon_idx = Global.WeaponNames.get(_weapon_name)
-		
-		if _weapon_idx == Global.WeaponNames.DISARMED:
-			continue
-		
-		var _price = PRICES.get(_weapon_idx)
-		n_ItemList.add_item("{0} ${1}".format({0:_weapon_name, 1:_price}))
+	_populate_weapon_list()
 	
 	for n in $PanelRight/PerksContainer/GridContainer.get_children():
 		n.connect("on_pressed", self, "_on_Perk_pressed")
@@ -115,31 +110,54 @@ func _process(delta):
 			n_AnimationPlayerMouth.play("talk")
 		_:
 			return
+			
+func _populate_weapon_list() -> void:
+	var is_primary = n_ButtonPrimary.pressed && !n_ButtonSecondary.pressed
+	
+	print_debug(is_primary)
+	n_ItemList.clear()
+	
+	for _weapon_name in Global.WeaponNames:
+		var _weapon_idx = Global.WeaponNames.get(_weapon_name)
+		
+		if _weapon_idx == Global.WeaponNames.DISARMED:
+			continue
+			
+		var _secondary_weapons := [Global.WeaponNames.LEADPIPE, Global.WeaponNames.SWORD]
+		
+		if is_primary:
+			if _weapon_idx in _secondary_weapons:
+				continue
+		elif !(_weapon_idx in _secondary_weapons):
+			continue
+		
+		var _price = PRICES.get(_weapon_idx)
+		n_ItemList.add_item("{0} ${1}".format({0:_weapon_name, 1:_price}))
+	
+	update_price()
 	
 func _get_random_quote(_key) -> String:
 	var quotes = QUOTES.get(_key, "default")
 	quotes.shuffle()
 	return quotes.front() as String
+
+func update_price(_idx := 0) -> void:
+	var _item_name = n_ItemList.get_item_text(_idx)
+	var _item_price = _item_name.rsplit("$")[1]
+	n_LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
 	
 func _on_ItemList_scroll(value) -> void:
 	if n_Tween.is_active():
 		return
 		
-	if menu_active != MENU_ACTIVE.WEAPON_DROP_DOWN:
-		n_Scroll.value = 0
+#	if menu_active != MENU_ACTIVE.WEAPON_DROP_DOWN:
+#		n_Scroll.value = 0
 	
 	_play("scroll")
 
 func _on_ItemList_item_selected(index):
 #	if menu_active != MENU_ACTIVE.NONE && menu_active != MENU_ACTIVE.WEAPON_DROP_DOWN:
 #		return
-
-	var _wep = PlayerStatus.get_weapon(1)
-	
-	if _wep != null:
-		n_ChatLabel.text = "Your weapon has {0} bullets left!".format({0:_wep.bullets})
-		n_AnimationPlayerMouth.play("talk")
-		return
 		
 	if n_Tween.is_active():
 		return
@@ -156,10 +174,7 @@ func _on_ItemList_item_selected(index):
 			set_menu_active(MENU_ACTIVE.NONE)
 			
 			n_ItemList.move_item(index, 0)
-		
-			var _item_name : String = n_ItemList.get_item_text(0)
-			var _item_price = _item_name.rsplit("$")[1]
-			$PanelRight/MarginContainer/LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
+			update_price()
 	
 			n_Tween.interpolate_property(n_ItemList,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PanelMargin,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -188,7 +203,7 @@ func _on_ItemList_gui_input(event : InputEvent):
 		return
 		
 	var item = n_ItemList.get_item_at_position(event.position, false)
-	n_ItemList.select(item)	
+	n_ItemList.select(item)
 
 var active_perk
 
@@ -260,3 +275,10 @@ func _on_ButtonPlus_button_up():
 
 func _on_ButtonMinus_button_up():
 	_play("click")
+
+
+func _on_ButtonPrimary_button_up():
+	_populate_weapon_list()
+
+func _on_ButtonSecondary_button_up():
+	_populate_weapon_list()
