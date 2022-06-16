@@ -18,7 +18,6 @@ enum WeaponNames {
 	SMG,
 	RIFLE,
 	LEADPIPE,
-	MACHETE,
 	SWORD,
 	DISARMED
 }

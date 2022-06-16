@@ -1,14 +1,17 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/ui/fonts/font_shop_sign.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/ui/fonts/mago1.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=6]
 [ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/panel_metal_3.tres" type="Texture" id=8]
 [ext_resource path="res://scenes/UI/Shop/UIShop.gd" type="Script" id=9]
 [ext_resource path="res://scenes/UI/Shop/Perk.tscn" type="PackedScene" id=10]
+[ext_resource path="res://assets/ui/chat_bubble.tres" type="Texture" id=11]
+[ext_resource path="res://assets/music/merchant/merchant_music.ogg" type="AudioStream" id=12]
 
 [sub_resource type="AtlasTexture" id=3]
 flags = 1
@@ -103,6 +106,11 @@ expand_margin_bottom = 1.0
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 180, 52 )
 
+[sub_resource type="DynamicFont" id=47]
+size = 14
+use_mipmaps = true
+font_data = ExtResource( 5 )
+
 [sub_resource type="GDScript" id=2]
 script/source = "extends Control
 
@@ -190,6 +198,42 @@ tracks/0/keys = {
 "update": 0,
 "values": [ true ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ChatBubbleTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ChatBubbleTexture/MarginContainer/ChatLabel:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ChatBubbleTexture:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=8]
 resource_name = "idle"
@@ -205,11 +249,46 @@ tracks/0/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("ChatBubbleTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ChatBubbleTexture/MarginContainer/ChatLabel:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ChatBubbleTexture:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="Animation" id=9]
 resource_name = "talk"
-length = 0.33
-loop = true
+length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Background/TextureMouth:visible")
 tracks/0/interp = 1
@@ -217,10 +296,46 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ true, false, true, false, true, false, true, false, true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("ChatBubbleTexture:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("ChatBubbleTexture/MarginContainer/ChatLabel:percent_visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 1.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ChatBubbleTexture:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="StyleBoxEmpty" id=45]
@@ -359,7 +474,7 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="PanelRight/PerksContainer"]
-margin_right = 156.0
+margin_right = 155.0
 margin_bottom = 86.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -368,62 +483,76 @@ columns = 4
 [node name="Perk1" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 36.0
+margin_right = 35.0
 margin_bottom = 41.0
 perk_name = "Pistol"
-perk_price = 12738
+perk_price = 200
 
 [node name="Perk2" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 40.0
-margin_right = 76.0
+margin_left = 39.0
+margin_right = 74.0
 margin_bottom = 41.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk3" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 80.0
-margin_right = 116.0
+margin_left = 78.0
+margin_right = 113.0
 margin_bottom = 41.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk4" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 120.0
-margin_right = 156.0
+margin_left = 117.0
+margin_right = 152.0
 margin_bottom = 41.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk5" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 45.0
-margin_right = 36.0
+margin_right = 35.0
 margin_bottom = 86.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk6" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 40.0
+margin_left = 39.0
 margin_top = 45.0
-margin_right = 76.0
+margin_right = 74.0
 margin_bottom = 86.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk7" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 80.0
+margin_left = 78.0
 margin_top = 45.0
-margin_right = 116.0
+margin_right = 113.0
 margin_bottom = 86.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="Perk8" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 120.0
+margin_left = 117.0
 margin_top = 45.0
-margin_right = 156.0
+margin_right = 152.0
 margin_bottom = 86.0
+perk_name = "Pistol"
+perk_price = 200
 
 [node name="WeaponsContainer" type="VBoxContainer" parent="PanelRight"]
 anchor_left = 0.0643275
@@ -475,6 +604,23 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelRight"]
+anchor_left = 0.0409357
+anchor_top = 0.844444
+anchor_right = 0.947368
+anchor_bottom = 0.977778
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="LabelPrice" type="Label" parent="PanelRight/MarginContainer"]
+margin_top = 5.0
+margin_right = 155.0
+margin_bottom = 18.0
+text = "TOTAL PRICE: $0"
+align = 1
+valign = 1
+
 [node name="Cash" type="NinePatchRect" parent="."]
 anchor_right = 0.46875
 anchor_bottom = 0.177778
@@ -517,6 +663,42 @@ margin_right = 114.0
 margin_bottom = 18.0
 custom_fonts/font = ExtResource( 3 )
 text = "LOOT CASH: $5000000"
+
+[node name="ChatBubbleTexture" type="TextureRect" parent="."]
+visible = false
+anchor_left = 0.2125
+anchor_top = 0.205556
+anchor_right = 0.459375
+anchor_bottom = 0.461111
+texture = ExtResource( 11 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="ChatBubbleTexture"]
+anchor_right = 1.0
+anchor_bottom = 1.02174
+margin_bottom = -1.0
+custom_constants/margin_left = 14
+custom_constants/margin_bottom = -14
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="ChatLabel" type="Label" parent="ChatBubbleTexture/MarginContainer"]
+margin_left = 14.0
+margin_right = 79.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -4
+custom_fonts/font = SubResource( 47 )
+text = "That is a nice weapon, dude!
+"
+autowrap = true
+percent_visible = 0.0
 
 [node name="PanelQuotes" type="Control" parent="."]
 anchor_left = 0.025
@@ -574,8 +756,13 @@ popup_exclusive = true
 window_title = ""
 dialog_autowrap = true
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+autoplay = true
+
+[node name="Sounds" type="AudioStreamPlayer" parent="."]
+
 [connection signal="gui_input" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_gui_input"]
 [connection signal="item_selected" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="confirmed" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
-[connection signal="gui_input" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_gui_input"]
 [connection signal="item_rect_changed" from="CenterContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_item_rect_changed"]

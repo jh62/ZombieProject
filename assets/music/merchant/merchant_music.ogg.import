@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/merchant_music.ogg-8e81eb616233fba009ab4ff75575d86a.oggstr"
+
+[deps]
+
+source_file="res://assets/music/merchant/merchant_music.ogg"
+dest_files=[ "res://.import/merchant_music.ogg-8e81eb616233fba009ab4ff75575d86a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

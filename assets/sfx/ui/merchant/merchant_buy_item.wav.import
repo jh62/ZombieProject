@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/merchant_buy_item.wav-43af5af039609e9859542d3c482d3716.sample"
+
+[deps]
+
+source_file="res://assets/sfx/ui/merchant/merchant_buy_item.wav"
+dest_files=[ "res://.import/merchant_buy_item.wav-43af5af039609e9859542d3c482d3716.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

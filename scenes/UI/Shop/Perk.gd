@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 signal on_pressed(perk_button)
+signal on_purchased(perk_name, perk_price)
 
 export var perk_name := ""
 export var perk_price := 0
@@ -48,6 +49,7 @@ func set_purchased(_purchased) -> void:
 		n_Tween.interpolate_property(n_Label, "percent_visible", 0.0, 1.0, 0.25, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		n_Tween.start()
 		
+		emit_signal("on_purchased", perk_name, perk_price)		
 	else:
 		n_Panel.get("custom_styles/panel").bg_color = Color.darkslategray
 		n_Panel.get("custom_styles/panel").border_color = Color.gray
