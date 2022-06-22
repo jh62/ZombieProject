@@ -1,18 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=1]
+[ext_resource path="res://assets/ui/panel_metal_4.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/UI/Shop/Perk.gd" type="Script" id=3]
-
-[sub_resource type="AtlasTexture" id=33]
-flags = 1
-atlas = ExtResource( 1 )
-region = Rect2( 160, 720, 32, 32 )
-
-[sub_resource type="AtlasTexture" id=34]
-flags = 1
-atlas = ExtResource( 1 )
-region = Rect2( 21, 800, 20, 17 )
+[ext_resource path="res://assets/ui/panel_metal_3.tres" type="Texture" id=4]
+[ext_resource path="res://assets/ui/perk_fast_reload.tres" type="Texture" id=5]
+[ext_resource path="res://assets/ui/panel_metal_5.tres" type="Texture" id=6]
 
 [sub_resource type="StyleBoxFlat" id=35]
 bg_color = Color( 0.18, 0.31, 0.31, 1 )
@@ -30,6 +23,7 @@ corner_radius_bottom_left = 2
 [node name="Perk" type="VBoxContainer"]
 anchor_right = 0.1125
 anchor_bottom = 0.227778
+hint_tooltip = "fwwff"
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
@@ -40,9 +34,13 @@ __meta__ = {
 [node name="TextureButton" type="TextureButton" parent="."]
 margin_right = 36.0
 margin_bottom = 29.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture_normal = SubResource( 33 )
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 4 )
+texture_hover = ExtResource( 6 )
+texture_focused = ExtResource( 4 )
 expand = true
 stretch_mode = 3
 
@@ -53,7 +51,7 @@ anchor_right = 0.810811
 anchor_bottom = 0.829268
 margin_left = 4.76837e-07
 mouse_filter = 2
-texture = SubResource( 34 )
+texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
 __meta__ = {
@@ -64,7 +62,6 @@ __meta__ = {
 margin_top = 33.0
 margin_right = 36.0
 margin_bottom = 41.0
-mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25

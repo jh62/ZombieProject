@@ -29,6 +29,16 @@ const QUOTES := {
 	"annoyed": [
 		"Finally!",
 		"That was quick... just so you know, i was beign sarcastic."
+	],
+	"cashless":[
+		"You ain't got the cash for that!",
+		"I ain't runnin' a charity!",
+		"I wasn't born yesterday, mate!",
+		"You're broke, mate!",
+		"I ain't giving that for free!",
+		"How about gettin' some cash before comin' in here?",
+		"There's a price tag in there! I suggest you read it.",
+		"You cheap bastard."
 	]
 }
 
@@ -41,28 +51,42 @@ const PRICES := {
 	Globals.WeaponNames.RIFLE: 320,
 }
 
+const WEAPONS_SCENES := {
+	0: {
+		Globals.WeaponNames.PISTOL: preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+		Globals.WeaponNames.SHOTGUN: preload("res://scenes/Entities/Items/Weapon/Shotgun/Shotgun.tscn"),
+		Globals.WeaponNames.SMG: preload("res://scenes/Entities/Items/Weapon/Smg/Smg.tscn"),
+		Globals.WeaponNames.RIFLE: preload("res://scenes/Entities/Items/Weapon/AssaultRifle/AssaultRifle.tscn")
+	},
+	1:{
+		Globals.WeaponNames.LEADPIPE: preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/LeadPipe/LeadPipe.tscn"),
+		Globals.WeaponNames.SWORD: preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
+	}
+}
+
 const MIN_QUOTE_DELAY := 7.0
 const MAX_QUOTE_DELAY = 15.0
 
 enum MENU_ACTIVE {
 	NONE = 0,
 	WEAPON_DROP_DOWN,
-	CONFIRM_DIALOG
+	CONFIRM_DIALOG_PERK,
+	CONFIRM_DIALOG_WEAPON,
 }
 
 onready var n_ItemList := $PanelRight/WeaponsContainer/MarginContainer/ItemList
 onready var n_PanelAmmo := $PanelRight/AmmoContainer
 onready var n_AmmoCountLabel := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/LabelAmmoCount
-onready var n_AmmoPlus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonPlus
-onready var n_AmmoMinus := $PanelRight/AmmoContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonMinus
 onready var n_ButtonPrimary := $PanelRight/WeaponType/ButtonPrimary
 onready var n_ButtonSecondary := $PanelRight/WeaponType/ButtonSecondary
 onready var n_PanelMargin := $PanelRight/PanelMargin
 onready var n_PerksContainer := $PanelRight/PerksContainer
+onready var n_AmmoPanel := $PanelRight/AmmoContainer
 onready var n_Tween := $TweenItemListTransition
-onready var n_Dialog := $CenterContainer/ConfirmationDialog
+onready var n_Dialog := $ConfirmationDialogContainer/ConfirmationDialog
+onready var n_DialogWarning := $WarningDialogContainer/WarningDialog
 onready var n_ChatLabel := $ChatBubbleTexture/MarginContainer/ChatLabel
-onready var n_LabelPrice := $PanelRight/PriceContainer/LabelPrice
+onready var n_LabelCash := $Cash/CenterContainer/PanelCash/CenterContainer/LabelCash
 onready var n_AnimationPlayerMouth := $AnimationPlayerMouth
 onready var n_AnimationPlayerEyes := $AnimationPlayerEyes
 onready var n_Sounds := $Sounds
@@ -75,12 +99,18 @@ var color_traslucid := Color(1.0,1.0,1.0,0.15)
 var last_selection_update := 0.0
 var last_random_chat_delay := MAX_QUOTE_DELAY
 
+var selected_weapon_idx := 0
+var selected_weapon_name
+var selected_weapon_price := 0
+var ammo_count := 0
+var current_cash := 0 setget set_cash
+
 func _ready():
-	_populate_weapon_list()
-	
 	for n in $PanelRight/PerksContainer/GridContainer.get_children():
 		n.connect("on_pressed", self, "_on_Perk_pressed")
 		n.connect("on_purchased", self, "_on_Perk_purchased")
+		
+	set_cash(PlayerStatus.get_cash())
 	
 	n_ItemList.rect_size.y = 12
 	n_PanelMargin.rect_size.y = n_ItemList.rect_size.y
@@ -90,6 +120,15 @@ func _ready():
 	
 	n_Dialog.get_cancel().connect("button_up", self, "_on_ConfirmationDialog_canceled")
 	
+	_populate_weapon_list()
+	
+	yield(get_tree().create_timer(0.05), "timeout")
+	
+func _get_player_weapon() -> Firearm:
+	var _idx = 0 if n_ButtonPrimary.pressed else 1
+	var _current_weapon = PlayerStatus.get_weapon(_idx)
+	return _current_weapon
+		
 func _process(delta):
 	last_selection_update += delta
 	
@@ -114,7 +153,6 @@ func _process(delta):
 func _populate_weapon_list() -> void:
 	var is_primary = n_ButtonPrimary.pressed && !n_ButtonSecondary.pressed
 	
-	print_debug(is_primary)
 	n_ItemList.clear()
 	
 	for _weapon_name in Global.WeaponNames:
@@ -131,20 +169,24 @@ func _populate_weapon_list() -> void:
 		elif !(_weapon_idx in _secondary_weapons):
 			continue
 		
+		var owned = _weapon_idx == PlayerStatus.get_weapon(0).get_weapon_type()
 		var _price = PRICES.get(_weapon_idx)
-		n_ItemList.add_item("{0} ${1}".format({0:_weapon_name, 1:_price}))
-	
-	update_price()
+		
+		if owned:
+			n_ItemList.add_item("{0} (owned)".format({0:_weapon_name}))
+#			n_ItemList.move_item(_weapon_idx, 0)
+		else:
+			n_ItemList.add_item("{0} ${1}".format({0:_weapon_name, 1:_price}))
 	
 func _get_random_quote(_key) -> String:
 	var quotes = QUOTES.get(_key, "default")
 	quotes.shuffle()
 	return quotes.front() as String
 
-func update_price(_idx := 0) -> void:
-	var _item_name = n_ItemList.get_item_text(_idx)
-	var _item_price = _item_name.rsplit("$")[1]
-	n_LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
+#func update_price(_idx := 0) -> void:
+#	var _item_name = n_ItemList.get_item_text(_idx)
+#	var _item_price = _item_name.rsplit("$")[1]
+#	n_LabelPrice.text = "TOTAL PRICE: ${0}".format({0:_item_price})
 	
 func _on_ItemList_scroll(value) -> void:
 	if n_Tween.is_active():
@@ -171,10 +213,8 @@ func _on_ItemList_item_selected(index):
 	
 	match menu_active:
 		MENU_ACTIVE.WEAPON_DROP_DOWN:
-			set_menu_active(MENU_ACTIVE.NONE)
-			
-			n_ItemList.move_item(index, 0)
-			update_price()
+			set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_WEAPON)
+			_on_weapon_selected(index)
 	
 			n_Tween.interpolate_property(n_ItemList,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PanelMargin,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -207,33 +247,77 @@ func _on_ItemList_gui_input(event : InputEvent):
 
 var active_perk
 
+func _on_weapon_selected(_weapon_idx):
+	var _weapon_data = n_ItemList.get_item_text(_weapon_idx).split("$")
+	
+	var _name = _weapon_data[0]
+	var _price = _weapon_data[1]
+	
+	var _player_weapon = _get_player_weapon()
+	
+	if _player_weapon != null && Global.WeaponNames.keys()[_player_weapon.get_weapon_type()] == _name:
+		set_menu_active(MENU_ACTIVE.NONE)
+		return
+	
+	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_WEAPON)
+	
+	selected_weapon_idx = _weapon_idx
+	selected_weapon_name = _name
+	selected_weapon_price = int(_price)
+	
+	n_Dialog.dialog_text = "You wish to purchase {0} for ${1}?".format({0:_name,1:_price})
+	n_Dialog.show()
+	_play("dropdown")
+
 func _on_Perk_pressed(_perk_buton):
 	if menu_active != MENU_ACTIVE.NONE:
 		return
 		
 	active_perk = _perk_buton
-	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG)
+	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_PERK)
 	
 	var perk_name = _perk_buton.perk_name
 	var perk_price = _perk_buton.perk_price
+	
 	n_Dialog.dialog_text = "You wish to purchase {0} for {1}?".format({0:perk_name,1:perk_price})
 	n_Dialog.show()
 	_play("dropdown")
 
 func _on_Perk_purchased(_name, _price) -> void:
+	current_cash -= _price
+	active_perk.set_purchased(true)
+		
 	n_ChatLabel.text = "{0} is a nice purchase, mate!".format({0:_name})
 	$AnimationPlayerMouth.play("talk")
 	_play("buy")
 
 func _on_ConfirmationDialog_confirmed():
-	if menu_active != MENU_ACTIVE.CONFIRM_DIALOG:
-		return
-		
-	if active_perk == null:
-		return
-	
-	active_perk.set_purchased(true)
+	var _menu_active = menu_active
 	set_menu_active(MENU_ACTIVE.NONE)
+	
+	match _menu_active:
+		MENU_ACTIVE.CONFIRM_DIALOG_PERK:
+			if active_perk.perk_price > current_cash:
+				n_ChatLabel.text = _get_random_quote("cashless")
+				n_AnimationPlayerMouth.play("talk")
+				return
+		MENU_ACTIVE.CONFIRM_DIALOG_WEAPON:
+			if selected_weapon_price > current_cash:
+				n_ChatLabel.text = _get_random_quote("cashless")
+				n_AnimationPlayerMouth.play("talk")
+				return
+			
+			var is_primary = n_ButtonPrimary.pressed && !n_ButtonSecondary.pressed
+			
+			if is_primary:
+				PlayerStatus.set_weapon(WEAPONS_SCENES.get(0)[selected_weapon_idx], 0, 100)
+			else:
+				PlayerStatus.set_weapon(WEAPONS_SCENES.get(1)[selected_weapon_idx], 1, 100)
+			_populate_weapon_list()
+		_:
+			return
+	
+#	set_menu_active(MENU_ACTIVE.NONE)
 	_play("buy")
 
 func _on_ConfirmationDialog_canceled():
@@ -243,6 +327,10 @@ func _on_ConfirmationDialog_canceled():
 func _on_ConfirmationDialog_item_rect_changed():
 	n_Dialog.rect_position = (get_viewport_rect().size - n_Dialog.rect_size) / 2
 
+func set_cash(_value) -> void:
+	current_cash = max(0, _value)
+	n_LabelCash.text = "${0}".format({0:current_cash})
+	
 func set_menu_active(_active_menu) -> void:
 	if _active_menu == menu_active:
 		return
@@ -252,13 +340,9 @@ func set_menu_active(_active_menu) -> void:
 	match menu_active:
 		MENU_ACTIVE.WEAPON_DROP_DOWN:
 			n_PanelAmmo.modulate.a = 0.15
-			n_AmmoPlus.disabled = true
-			n_AmmoMinus.disabled = true
 			continue
 		MENU_ACTIVE.NONE:
 			n_PanelAmmo.modulate.a = 1.0
-			n_AmmoPlus.disabled = false
-			n_AmmoMinus.disabled = false
 			continue
 		_:
 			last_selection_update = 0.0
@@ -268,7 +352,6 @@ func _play(_sound_name) -> void:
 	n_Sounds.stream = _sound
 	n_Sounds.play()
 
-
 func _on_ButtonPlus_button_up():
 	n_AmmoCountLabel.text = "1"
 	_play("click")
@@ -276,9 +359,14 @@ func _on_ButtonPlus_button_up():
 func _on_ButtonMinus_button_up():
 	_play("click")
 
-
 func _on_ButtonPrimary_button_up():
 	_populate_weapon_list()
+	n_AmmoPanel.visible = true
 
 func _on_ButtonSecondary_button_up():
 	_populate_weapon_list()
+	n_AmmoPanel.visible = false
+
+func _on_AnimationPlayerMouth_animation_changed(old_name, new_name):
+	n_AnimationPlayerMouth.stop()
+	n_AnimationPlayerMouth.play(new_name)
