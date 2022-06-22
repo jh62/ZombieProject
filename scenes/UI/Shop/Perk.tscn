@@ -7,18 +7,9 @@
 [ext_resource path="res://assets/ui/perk_fast_reload.tres" type="Texture" id=5]
 [ext_resource path="res://assets/ui/panel_metal_5.tres" type="Texture" id=6]
 
-[sub_resource type="StyleBoxFlat" id=35]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.18, 0.31, 0.31, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
 border_color = Color( 0.75, 0.75, 0.75, 1 )
-border_blend = true
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [node name="Perk" type="VBoxContainer"]
 anchor_right = 0.1125
@@ -65,14 +56,14 @@ margin_bottom = 41.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
-custom_styles/panel = SubResource( 35 )
+custom_styles/panel = SubResource( 1 )
 
 [node name="Label" type="Label" parent="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
-text = "$222"
+text = "$0"
 align = 1
 valign = 3
 uppercase = true

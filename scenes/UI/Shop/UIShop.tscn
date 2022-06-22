@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
@@ -192,6 +192,28 @@ shader = SubResource( 10 )
 shader_param/deformation = Vector2( -0.15, -0.235 )
 shader_param/sideWaysDeformationFactor = 0.25
 shader_param/knockbackFactor = 0.5
+
+[sub_resource type="StyleBoxTexture" id=55]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 5.0
+margin_right = 5.0
+
+[sub_resource type="StyleBoxTexture" id=56]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 5.0
+margin_right = 5.0
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+expand_margin_top = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=54]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 5.0
+margin_right = 5.0
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -484,7 +506,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 34.0
 margin_bottom = 39.0
-hint_tooltip = "You can reload at full speed, while moving."
+hint_tooltip = "Fast Reload: You can reload at full speed, while moving."
 perk_name = "Fast Reload"
 perk_price = 200
 
@@ -494,9 +516,9 @@ anchor_bottom = 0.0
 margin_left = 38.0
 margin_right = 72.0
 margin_bottom = 39.0
-hint_tooltip = "Walk backwards at full speed."
+hint_tooltip = "Moonwalker: Walk backwards at full speed."
 perk_icon = 1
-perk_name = "Pistol"
+perk_name = "Moonwalker"
 perk_price = 200
 
 [node name="Perk3" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -505,9 +527,9 @@ anchor_bottom = 0.0
 margin_left = 76.0
 margin_right = 110.0
 margin_bottom = 39.0
-hint_tooltip = "Medkits are 25% more effective."
+hint_tooltip = "Fixxxer: Medkits are 25% more effective."
 perk_icon = 2
-perk_name = "Pistol"
+perk_name = "Fixxxer"
 perk_price = 200
 
 [node name="Perk4" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -516,9 +538,9 @@ anchor_bottom = 0.0
 margin_left = 114.0
 margin_right = 148.0
 margin_bottom = 39.0
-hint_tooltip = "Pistols have infinite ammo."
+hint_tooltip = "Free Fire: Pistols have infinite ammo."
 perk_icon = 3
-perk_name = "Pistol"
+perk_name = "Free Fire"
 perk_price = 200
 
 [node name="Perk5" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -527,9 +549,9 @@ anchor_bottom = 0.0
 margin_top = 43.0
 margin_right = 34.0
 margin_bottom = 82.0
-hint_tooltip = "You get 25% more health."
+hint_tooltip = "Tough Guy: You get 25% more health."
 perk_icon = 4
-perk_name = "Pistol"
+perk_name = "Tough Guy"
 perk_price = 200
 
 [node name="Perk6" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -539,9 +561,9 @@ margin_left = 38.0
 margin_top = 43.0
 margin_right = 72.0
 margin_bottom = 82.0
-hint_tooltip = "First death is free (death wish included)."
+hint_tooltip = "Adrenaline: First death is free (death wish included)."
 perk_icon = 5
-perk_name = "Pistol"
+perk_name = "Adrenaline"
 perk_price = 200
 
 [node name="Perk7" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -551,9 +573,9 @@ margin_left = 76.0
 margin_top = 43.0
 margin_right = 110.0
 margin_bottom = 82.0
-hint_tooltip = "You don't need to reload anymore."
+hint_tooltip = "Hollywood Mag: You don't need to reload anymore."
 perk_icon = 6
-perk_name = "Pistol"
+perk_name = "Hollywood Magazine"
 perk_price = 200
 
 [node name="Perk8" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
@@ -563,9 +585,9 @@ margin_left = 114.0
 margin_top = 43.0
 margin_right = 148.0
 margin_bottom = 82.0
-hint_tooltip = "Zombies in no direct LOS won't notice you at full speed."
+hint_tooltip = "Shadow Dancer: Zombies in no direct LOS won't notice you at full speed."
 perk_icon = 7
-perk_name = "Pistol"
+perk_name = "Shadow Dancer"
 perk_price = 200
 
 [node name="WeaponSelection9" type="NinePatchRect" parent="PanelRight"]
@@ -671,9 +693,9 @@ __meta__ = {
 
 [node name="AmmoContainer" type="Panel" parent="PanelRight"]
 anchor_left = 0.666667
-anchor_top = 0.188889
+anchor_top = 0.222222
 anchor_right = 0.900585
-anchor_bottom = 0.266667
+anchor_bottom = 0.3
 margin_bottom = -3.8147e-06
 custom_styles/panel = SubResource( 48 )
 __meta__ = {
@@ -685,7 +707,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="PanelRight/AmmoContainer/CenterContainer"]
+[node name="ButtonAmmo" type="Button" parent="PanelRight/AmmoContainer/CenterContainer"]
 margin_left = 2.0
 margin_right = 36.0
 margin_bottom = 15.0
@@ -812,6 +834,19 @@ align = 1
 valign = 1
 autowrap = true
 
+[node name="ButtonExit" type="Button" parent="."]
+margin_left = 76.0
+margin_top = 152.0
+margin_right = 143.0
+margin_bottom = 173.0
+custom_colors/font_color = Color( 0.462745, 0.462745, 0.462745, 1 )
+custom_colors/font_color_hover = Color( 1, 1, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 1 )
+custom_styles/hover = SubResource( 55 )
+custom_styles/pressed = SubResource( 56 )
+custom_styles/normal = SubResource( 54 )
+text = "EXIT SHOP"
+
 [node name="AnimationPlayerEyes" type="AnimationPlayer" parent="."]
 autoplay = "blink"
 anims/RESET = SubResource( 4 )
@@ -826,17 +861,11 @@ anims/talk = SubResource( 9 )
 [node name="TweenItemListTransition" type="Tween" parent="."]
 
 [node name="ConfirmationDialogContainer" type="CenterContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": true
-}
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="ConfirmationDialogContainer"]
-visible = true
 margin_left = 60.0
 margin_top = 55.0
 margin_right = 260.0
@@ -849,16 +878,11 @@ dialog_text = "do you wish to purchase shotgun for 300 dollar?"
 dialog_autowrap = true
 
 [node name="WarningDialogContainer" type="CenterContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="WarningDialog" type="AcceptDialog" parent="WarningDialogContainer"]
-visible = true
 margin_left = 96.0
 margin_top = 58.0
 margin_right = 224.0
@@ -881,7 +905,10 @@ autoplay = true
 [connection signal="item_selected" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="button_up" from="PanelRight/WeaponType/ButtonPrimary" to="." method="_on_ButtonPrimary_button_up"]
 [connection signal="button_up" from="PanelRight/WeaponType/ButtonSecondary" to="." method="_on_ButtonSecondary_button_up"]
+[connection signal="button_up" from="PanelRight/AmmoContainer/CenterContainer/ButtonAmmo" to="." method="_on_ButtonAmmo_button_up"]
+[connection signal="button_up" from="ButtonExit" to="." method="_on_ButtonExit_button_up"]
 [connection signal="animation_changed" from="AnimationPlayerMouth" to="." method="_on_AnimationPlayerMouth_animation_changed"]
+[connection signal="about_to_show" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="confirmed" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
 [connection signal="item_rect_changed" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_item_rect_changed"]
-[connection signal="item_rect_changed" from="WarningDialogContainer/WarningDialog" to="." method="_on_ConfirmationDialog_item_rect_changed"]
+[connection signal="item_rect_changed" from="WarningDialogContainer/WarningDialog" to="." method="_on_WarningDialog_item_rect_changed"]

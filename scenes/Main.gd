@@ -84,38 +84,20 @@ func _ready() -> void:
 		else:
 			$VignetteLayer/ColorRect.visible = true
 
-	var n_ZombieSpawner := $ZombieSpawner
-
+	var n_ZombieSpawner := $ZombieSpawner	
+	
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				160
-			)
-
 			if !Global.DEBUG_MODE:
 				n_ZombieSpawner.mob_max = 30
 				n_ZombieSpawner.mob_group_max = 4
 				n_ZombieSpawner.restart_delay = 30
 		Globals.Difficulty.NORMAL:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				120
-			)
-
 			if !Global.DEBUG_MODE:
 				n_ZombieSpawner.mob_max = 45
 				n_ZombieSpawner.mob_group_max = 8
 				n_ZombieSpawner.restart_delay = 25
 		Globals.Difficulty.HARD:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				10
-			)
-
 			if !Global.DEBUG_MODE:
 				n_ZombieSpawner.mob_max = 60
 				n_ZombieSpawner.mob_group_max = 10
