@@ -14,6 +14,10 @@ func _ready():
 	pass
 
 func _on_action_pressed(action_type, facing) -> void:
+	if !is_inside_tree():
+		in_use = false
+		return
+		
 	match action_type:
 		EventBus.ActionEvent.USE:
 			in_use = true

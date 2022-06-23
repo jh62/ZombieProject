@@ -61,6 +61,10 @@ func _ready() -> void:
 	EventBus.emit_signal("play_sound_random", get_pickup_sound(), global_position)
 
 func _on_action_pressed(action_type, facing) -> void:
+	if !is_inside_tree():
+		in_use = false
+		return
+		
 	match action_type:
 		EventBus.ActionEvent.USE:
 			in_use = true

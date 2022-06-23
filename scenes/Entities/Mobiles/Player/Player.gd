@@ -145,10 +145,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_pressed("primary_weapon"):
 		equipment.equip_primary()
+		emit_signal("on_item_pickedup")
 		return
 	
 	if Input.is_action_just_pressed("secondary_weapon"):
 		equipment.equip_secondary()
+		emit_signal("on_item_pickedup")
 		return
 
 const look_at_dir := Vector2()
@@ -229,11 +231,14 @@ func on_hit_by(attacker) -> void:
 func get_fuelcan():
 	return find_node("*FuelCan*",true, false)
 
+func get_equipment():
+	return equipment
+	
 func get_equipped():
 	return equipment.get_child(0)
 
-func equip_item(_item, _forced := false) -> void:
-	equipment.equip(_item, _forced)
+func equip_item(_item) -> void:
+	equipment.equip(_item)
 	emit_signal("on_item_pickedup")
 
 func _on_item_pickedup(item) -> void:

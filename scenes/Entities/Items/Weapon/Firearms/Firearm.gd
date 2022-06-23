@@ -46,6 +46,10 @@ func is_obstructed() -> bool:
 	return is_colliding
 
 func _on_action_pressed(action_type, facing) -> void:
+	if !is_inside_tree():
+		in_use = false
+		return
+		
 	match action_type:
 		EventBus.ActionEvent.USE:
 			if is_obstructed():
@@ -147,8 +151,11 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 func is_magazine_empty() -> bool:
 	return magazine == 0
 
-func reload() -> bool:
+func reload(_quiet := false) -> bool:
 	if bullets == 0:
+		return false
+	
+	if magazine == mag_size:
 		return false
 
 	var to_reload := min(bullets, mag_size)
@@ -157,8 +164,9 @@ func reload() -> bool:
 		self.bullets -= to_reload
 
 	self.magazine = to_reload
-
-	var snd = get_reload_sound()
-	EventBus.emit_signal("play_sound_random", snd, global_position)
+	
+	if !(_quiet):
+		var snd = get_reload_sound()
+		EventBus.emit_signal("play_sound_random", snd, global_position)
 
 	return true

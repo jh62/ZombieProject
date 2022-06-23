@@ -164,6 +164,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Entities/Mobiles/Player/Player.gd"
 }, {
+"base": "Node2D",
+"class": "PlayerEquipment",
+"language": "GDScript",
+"path": "res://scenes/Entities/Mobiles/Player/Equipment.gd"
+}, {
 "base": "Zombie",
 "class": "PoliceZombie",
 "language": "GDScript",
@@ -301,6 +306,7 @@ _global_script_class_icons={
 "Pickable": "",
 "PickableWeapon": "",
 "Player": "",
+"PlayerEquipment": "",
 "PoliceZombie": "",
 "Projectile": "",
 "RunState": "",

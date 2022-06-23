@@ -1,4 +1,4 @@
-extends Node2D
+class_name PlayerEquipment extends Node2D
 
 export var item : PackedScene
 
@@ -10,17 +10,16 @@ func _ready() -> void:
 		var t = item.instance()
 		equip(t)
 
-func equip(_item : BaseItem, _force_new := false) -> void:	
-	if !(_force_new):
-		if has_item_equipped():
-			var old_item := get_item()
-			if old_item is Firearm:
-				if _item.get_weapon_type() == old_item.get_weapon_type():
-					_item.bullets += old_item.bullets
-			clear()
-	else:
-		clear()
+func equip(_item) -> void:	
+	if has_item_equipped():
+		var _old_item = get_item()
 
+		if _old_item != _item && _item is Firearm && _old_item.get_weapon_type() == _item.get_weapon_type():
+			_old_item.bullets += _item.bullets
+			return
+
+	unequip_all()
+	
 	_item.equipper = self.owner
 	_item.light_mask = get_parent().get_node("Sprite").light_mask
 	visible = true
@@ -33,20 +32,32 @@ func set_secondary_item(_item) -> void:
 	secondary_item = _item
 	
 func equip_primary() -> void:
-	equip(primary_item, false)
+	equip(primary_item)
 
 func equip_secondary() -> void:
-	equip(secondary_item, false)
+	equip(secondary_item)
+	
+func unequip_all() -> void:
+	for i in get_child_count():
+		var _child = get_child(i)
+		
+		if _child.get_weapon_type() == Globals.WeaponNames.DISARMED:
+			_child.call_deferred("queue_free")
+			continue
+		
+		if _child is Firearm:
+			primary_item = _child
+		else:
+			secondary_item = _child
+			
+		remove_child(_child)
 
 func clear() -> void:
 	for child in get_children():
 		child.call_deferred("queue_free")
 
 func has_item_equipped() -> bool:
-	return get_child_count() > 0
+	return get_child(0) != null
 
-func get_item() -> BaseItem:
-	return get_child(0) as BaseItem
-
-func _process(delta: float) -> void:
-	pass
+func get_item():
+	return get_child(0)

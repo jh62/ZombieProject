@@ -106,7 +106,6 @@ func on_picked_up_by(body) -> void:
 	var is_firearm : bool = current_wep is Firearm && current_wep.bullets > 0
 	var not_same_weapon : bool = item.get_weapon_type() != current_wep.get_weapon_type()
 
-#	if (is_melee || is_firearm) && not_same_weapon:
 	if not_same_weapon:
 		_create_drop(body, current_wep)
 
