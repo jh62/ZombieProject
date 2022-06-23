@@ -102,11 +102,20 @@ func _ready() -> void:
 				n_ZombieSpawner.mob_max = 60
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
+				
+	_player.equipment.set_primary_item(PlayerStatus.get_weapon(0))
+	_player.equipment.set_secondary_item(PlayerStatus.get_weapon(1))
 
-	yield(get_tree().create_timer(.25),"timeout")
-	var _weapon = PlayerStatus.get_weapon(0)
-	n_Player.equip_item(_weapon)
-	_weapon.reload()
+#	var _weapon := PlayerStatus.get_weapon(0)
+#
+#	if _weapon == null:
+#		_weapon = PlayerStatus.get_weapon(1)
+#
+#	if _weapon != null:
+#		_player.equip_item(_weapon)
+#
+#		if _weapon is Firearm:
+#			_weapon.reload()
 
 	if Global.CINEMATIC_MODE:
 		$UI.layer = -1000

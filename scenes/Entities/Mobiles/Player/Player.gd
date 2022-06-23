@@ -26,6 +26,7 @@ var busy_time := 0.0 setget set_busy_time
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
+	
 	EventBus.connect("on_item_pickedup", self, "_on_item_pickedup")
 	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_unpause", self, "_on_unpaused")
@@ -141,6 +142,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif Input.is_action_just_released("action_alt"):
 		emit_signal("on_search_end", self)
 		return
+	
+	if Input.is_action_just_pressed("primary_weapon"):
+		equipment.equip_primary()
+		return
+	
+	if Input.is_action_just_pressed("secondary_weapon"):
+		equipment.equip_secondary()
+		return
 
 const look_at_dir := Vector2()
 
@@ -202,7 +211,7 @@ func kill() -> void:
 	fsm.travel_to(states.die, null)
 	EventBus.emit_signal("on_player_death", self)
 	emit_signal("on_death")
-
+	
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)
 	self.hitpoints -= attacker.damage
@@ -223,8 +232,8 @@ func get_fuelcan():
 func get_equipped():
 	return equipment.get_child(0)
 
-func equip_item(item) -> void:
-	equipment.equip(item)
+func equip_item(_item, _forced := false) -> void:
+	equipment.equip(_item, _forced)
 	emit_signal("on_item_pickedup")
 
 func _on_item_pickedup(item) -> void:
