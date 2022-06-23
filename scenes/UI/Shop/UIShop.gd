@@ -74,6 +74,25 @@ const WEAPONS_SCENES := {
 	Globals.WeaponNames.SWORD: preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
 }
 
+const WEAPON_LOADOUTS := {
+	Globals.WeaponNames.PISTOL: {
+		"max_ammo": 200,
+		"buy_size": 15
+	},
+	Globals.WeaponNames.SHOTGUN: {
+		"max_ammo": 240,
+		"buy_size": 6
+	},
+	Globals.WeaponNames.SMG: {
+		"max_ammo": 900,
+		"buy_size": 30
+	},
+	Globals.WeaponNames.RIFLE: {
+		"max_ammo": 540,
+		"buy_size": 30
+	},
+}
+
 const MIN_QUOTE_DELAY := 15.0
 const MAX_QUOTE_DELAY = 45.0
 
@@ -99,7 +118,8 @@ onready var n_Dialog := $ConfirmationDialogContainer/ConfirmationDialog
 onready var n_DialogWarning := $WarningDialogContainer/WarningDialog
 onready var n_ChatLabel := $ChatBubbleTexture/MarginContainer/ChatLabel
 onready var n_LabelCash := $Cash/CenterContainer/PanelCash/CenterContainer/LabelCash
-onready var n_ButtonAmmo := $PanelRight/AmmoContainer/CenterContainer/ButtonAmmo
+onready var n_ButtonAmmo := $PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer/ButtonAmmo
+onready var n_LabelAmmoCount := $PanelRight/AmmoContainer/CenterContainer/VBoxContainer/AmmoCountLabel
 onready var n_AnimationPlayerMouth := $AnimationPlayerMouth
 onready var n_AnimationPlayerEyes := $AnimationPlayerEyes
 onready var n_Sounds := $Sounds
@@ -115,8 +135,9 @@ var last_random_chat_delay := MAX_QUOTE_DELAY
 var selected_weapon_idx := 0
 var selected_weapon_name := ""
 var selected_weapon_price := 0
-var ammo_count := 0
+
 var ammo_price := 0
+
 var current_cash := 0 setget set_cash
 
 func _ready():
@@ -140,7 +161,7 @@ func _ready():
 	_populate_weapon_list()	
 	yield(get_tree().create_timer(0.05), "timeout")
 	
-func _get_player_weapon() -> Firearm:
+func _get_player_weapon():
 	var _idx = 0 if n_ButtonPrimary.pressed else 1
 	var _current_weapon = PlayerStatus.get_weapon(_idx)
 	return _current_weapon
@@ -190,6 +211,9 @@ func _populate_weapon_list() -> void:
 			n_ItemList.move_item(_item_idx, 0)
 			n_ItemList.set_item_metadata(0, _weapon_idx)
 			update_ammo_price(_price)
+			
+			if is_primary_weapon():
+				update_ammo_info(_p_weapon.bullets)
 		else:
 			n_ItemList.add_item("{0} ${1}".format({0:_weapon_name, 1:_price}))
 			n_ItemList.set_item_metadata(_item_idx, _weapon_idx)
@@ -337,10 +361,13 @@ func _on_ConfirmationDialog_confirmed():
 			var is_primary = n_ButtonPrimary.pressed && !n_ButtonSecondary.pressed
 			
 			if is_primary:
-				PlayerStatus.set_weapon(WEAPONS_SCENES.get(selected_weapon_idx), 0, 100)
+				var _max_bullets = WEAPON_LOADOUTS.get(selected_weapon_idx).buy_size
+				
+				PlayerStatus.set_weapon(WEAPONS_SCENES.get(selected_weapon_idx), 0, _max_bullets)
 				update_ammo_price(selected_weapon_price)
+				update_ammo_info(_max_bullets)
 			else:
-				PlayerStatus.set_weapon(WEAPONS_SCENES.get(selected_weapon_idx))
+				PlayerStatus.set_weapon(WEAPONS_SCENES.get(selected_weapon_idx), 1)
 			
 			_populate_weapon_list()
 			_play("buy")
@@ -356,7 +383,11 @@ func _on_ConfirmationDialog_canceled():
 
 func update_ammo_price(_weapon_price) -> void:
 	ammo_price = ceil(_weapon_price * 0.02)
-	n_ButtonAmmo.hint_tooltip = "${0} each magazine".format({0:ammo_price})
+
+func update_ammo_info(_ammo_count) -> void:
+	n_ButtonAmmo.text = "BUY ${0}".format({0:ammo_price})
+#	n_ButtonAmmo.hint_tooltip = "${0} each magazine".format({0:ammo_price})
+	n_LabelAmmoCount.text = "AMMO: {0}".format({0:_ammo_count})
 	
 func set_cash(_value) -> void:
 	current_cash = max(0, _value)
@@ -413,15 +444,17 @@ func _on_ButtonAmmo_button_up():
 		n_AnimationPlayerMouth.play("talk")
 		return
 		
-	var p_weapon = PlayerStatus.get_weapon(0)
+	var _weapon_ref = PlayerStatus.weapons[0]
+	var _loadout = WEAPON_LOADOUTS.get(selected_weapon_idx)
 	
-	if p_weapon.bullets >= p_weapon.mag_size * 12:
+	if _weapon_ref.bullets > _loadout.max_ammo:
 		set_menu_active(MENU_ACTIVE.WARNING)		
 		n_DialogWarning.dialog_text = "You can't carry anymore of that!"
 		n_DialogWarning.show()
 		return
 		
-	p_weapon.bullets += p_weapon.mag_size
+	_weapon_ref.bullets += _loadout.buy_size
+	update_ammo_info(_weapon_ref.bullets)
 	
 	self.current_cash -= ammo_price
 	_play("buy")

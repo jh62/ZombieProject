@@ -1,5 +1,5 @@
 tool
-extends VBoxContainer
+class_name Perk extends VBoxContainer
 
 signal on_pressed(perk_button)
 signal on_purchased(perk_name, perk_price)

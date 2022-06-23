@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://assets/ui/chat_bubble.tres" type="Texture" id=11]
 [ext_resource path="res://assets/music/merchant/merchant_music.ogg" type="AudioStream" id=12]
 [ext_resource path="res://assets/ui/panel_metal_4.tres" type="Texture" id=13]
+[ext_resource path="res://assets/res/items/ammo_box.tres" type="Texture" id=14]
 [ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=17]
 [ext_resource path="res://assets/ui/merchant_primary_pressed.tres" type="Texture" id=18]
 [ext_resource path="res://assets/ui/merchant_primary_normal.tres" type="Texture" id=19]
@@ -107,17 +108,9 @@ VScrollBar/styles/grabber_pressed = SubResource( 27 )
 VScrollBar/styles/scroll = SubResource( 28 )
 VScrollBar/styles/scroll_focus = SubResource( 29 )
 
-[sub_resource type="StyleBoxEmpty" id=48]
+[sub_resource type="StyleBoxEmpty" id=62]
 
-[sub_resource type="StyleBoxTexture" id=52]
-texture = ExtResource( 13 )
-region_rect = Rect2( 0, 0, 32, 32 )
-margin_left = 4.0
-margin_right = 4.0
-margin_top = 4.0
-margin_bottom = 4.0
-
-[sub_resource type="StyleBoxTexture" id=50]
+[sub_resource type="StyleBoxTexture" id=64]
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 32, 32 )
 margin_left = 4.0
@@ -125,7 +118,19 @@ margin_right = 4.0
 margin_top = 4.0
 margin_bottom = 4.0
 
-[sub_resource type="StyleBoxTexture" id=53]
+[sub_resource type="StyleBoxTexture" id=65]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
+
+[sub_resource type="StyleBoxEmpty" id=60]
+
+[sub_resource type="StyleBoxEmpty" id=61]
+
+[sub_resource type="StyleBoxTexture" id=63]
 texture = ExtResource( 13 )
 region_rect = Rect2( 0, 0, 32, 32 )
 margin_left = 4.0
@@ -644,7 +649,7 @@ same_column_width = true
 
 [node name="WeaponType" type="HBoxContainer" parent="PanelRight"]
 anchor_left = 0.672515
-anchor_top = 0.0888889
+anchor_top = 0.0444444
 anchor_right = 0.906433
 anchor_bottom = 0.177778
 margin_bottom = -1.90735e-06
@@ -655,9 +660,9 @@ __meta__ = {
 }
 
 [node name="ButtonPrimary" type="TextureButton" parent="PanelRight/WeaponType"]
-margin_left = 2.0
-margin_right = 18.0
-margin_bottom = 16.0
+margin_left = 3.0
+margin_right = 19.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 16, 16 )
 hint_tooltip = "Primary weapon selection"
 focus_mode = 0
@@ -674,9 +679,9 @@ __meta__ = {
 }
 
 [node name="ButtonSecondary" type="TextureButton" parent="PanelRight/WeaponType"]
-margin_left = 20.0
-margin_right = 36.0
-margin_bottom = 16.0
+margin_left = 21.0
+margin_right = 37.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 16, 16 )
 hint_tooltip = "Secondary weapon selection"
 focus_mode = 0
@@ -692,35 +697,70 @@ __meta__ = {
 }
 
 [node name="AmmoContainer" type="Panel" parent="PanelRight"]
-anchor_left = 0.666667
-anchor_top = 0.222222
-anchor_right = 0.900585
-anchor_bottom = 0.3
+anchor_left = 0.672515
+anchor_top = 0.177778
+anchor_right = 0.906433
+anchor_bottom = 0.311111
 margin_bottom = -3.8147e-06
-custom_styles/panel = SubResource( 48 )
+custom_styles/panel = SubResource( 62 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelRight/AmmoContainer"]
+[node name="CenterContainer" type="MarginContainer" parent="PanelRight/AmmoContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_vertical = 2
 
-[node name="ButtonAmmo" type="Button" parent="PanelRight/AmmoContainer/CenterContainer"]
-margin_left = 2.0
-margin_right = 36.0
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelRight/AmmoContainer/CenterContainer"]
+margin_right = 40.0
+margin_bottom = 24.0
+size_flags_vertical = 4
+custom_constants/separation = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer"]
+margin_right = 40.0
 margin_bottom = 15.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_right = 19.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 14 )
+stretch_mode = 4
+
+[node name="ButtonAmmo" type="Button" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+margin_left = 23.0
+margin_right = 40.0
+margin_bottom = 15.0
+hint_tooltip = "Cost per each full clip"
 focus_mode = 0
-custom_colors/font_color_hover = Color( 0.54902, 0.54902, 0.54902, 1 )
-custom_colors/font_color_pressed = Color( 0.980392, 0.980392, 0, 1 )
+size_flags_vertical = 5
+size_flags_stretch_ratio = 4.2
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 0.0980392, 0.980392, 0, 1 )
 custom_fonts/font = ExtResource( 17 )
-custom_styles/hover = SubResource( 52 )
-custom_styles/pressed = SubResource( 50 )
-custom_styles/normal = SubResource( 53 )
+custom_styles/hover = SubResource( 64 )
+custom_styles/pressed = SubResource( 65 )
+custom_styles/focus = SubResource( 60 )
+custom_styles/disabled = SubResource( 61 )
+custom_styles/normal = SubResource( 63 )
 enabled_focus_mode = 0
-text = "BUY AMMO"
+text = "BUY"
 expand_icon = true
+
+[node name="AmmoCountLabel" type="Label" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer"]
+margin_top = 17.0
+margin_right = 40.0
+margin_bottom = 24.0
+hint_tooltip = "Ammo count for the current weapon."
+mouse_filter = 0
+custom_fonts/font = ExtResource( 17 )
+text = "AMMO: 200"
+align = 1
+valign = 1
 
 [node name="PanelMargin" type="Panel" parent="PanelRight"]
 anchor_left = 0.0643275
@@ -905,7 +945,7 @@ autoplay = true
 [connection signal="item_selected" from="PanelRight/WeaponsContainer/MarginContainer/ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="button_up" from="PanelRight/WeaponType/ButtonPrimary" to="." method="_on_ButtonPrimary_button_up"]
 [connection signal="button_up" from="PanelRight/WeaponType/ButtonSecondary" to="." method="_on_ButtonSecondary_button_up"]
-[connection signal="button_up" from="PanelRight/AmmoContainer/CenterContainer/ButtonAmmo" to="." method="_on_ButtonAmmo_button_up"]
+[connection signal="button_up" from="PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer/ButtonAmmo" to="." method="_on_ButtonAmmo_button_up"]
 [connection signal="button_up" from="ButtonExit" to="." method="_on_ButtonExit_button_up"]
 [connection signal="animation_changed" from="AnimationPlayerMouth" to="." method="_on_AnimationPlayerMouth_animation_changed"]
 [connection signal="about_to_show" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_about_to_show"]

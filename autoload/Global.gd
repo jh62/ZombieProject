@@ -22,6 +22,17 @@ enum WeaponNames {
 	DISARMED
 }
 
+#enum PerkNames {
+#	FAST_RELOAD,
+#	MOONWALKER,
+#	FIXXXER,
+#	FREE_FIRE,
+#	TOUGH_GUY,
+#	ADRENALINE,
+#	HOLLYWOOD_MAG,
+#	SHADOW_DANCER
+#}
+
 enum ZombieType {
 	COMMON = 0,
 	POLICE,
