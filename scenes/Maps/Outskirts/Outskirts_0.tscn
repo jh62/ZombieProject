@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scenes/Maps/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Entities/Items/Pickable/PickableWeapon/PickableWeapon.tscn" type="PackedScene" id=2]
@@ -42,6 +42,8 @@
 [ext_resource path="res://scenes/Entities/Items/StaticObject/WoodenChair.tscn" type="PackedScene" id=40]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Countertop.tscn" type="PackedScene" id=41]
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Stove.tscn" type="PackedScene" id=42]
+[ext_resource path="res://scenes/Entities/Mobiles/Zombie/Zombie.tscn" type="PackedScene" id=43]
+[ext_resource path="res://scripts/fsm/states/zombie/ZombieRestState.gd" type="Script" id=44]
 
 [sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 25, 196 )
@@ -713,16 +715,16 @@ position = Vector2( 409, 520 )
 [node name="Player" parent="TileMap2/Entities/Mobs" index="0" instance=ExtResource( 5 )]
 position = Vector2( 79, 32 )
 
-[node name="PickableWeapon" parent="TileMap2/Entities/Mobs" index="1" instance=ExtResource( 2 )]
-position = Vector2( 48, 43 )
-random_drop = false
-bullets = 200
-
-[node name="PickableWeapon2" parent="TileMap2/Entities/Mobs" index="2" instance=ExtResource( 2 )]
+[node name="PickableWeapon2" parent="TileMap2/Entities/Mobs" index="1" instance=ExtResource( 2 )]
 position = Vector2( 109, 45 )
 random_drop = false
 weapon_name = 1
-bullets = 200
+bullets = 6
+
+[node name="Zombie" parent="TileMap2/Entities/Mobs" index="2" instance=ExtResource( 43 )]
+position = Vector2( 80, 165 )
+map_node = NodePath("../../../..")
+state = ExtResource( 44 )
 
 [node name="TileMap1" parent="." index="7"]
 tile_set = ExtResource( 3 )

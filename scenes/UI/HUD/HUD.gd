@@ -8,12 +8,12 @@ onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
 onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
 onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
-onready var n_GasTankProgressBar := n_GasTank.get_node("ProgressBar")
-onready var n_GasTankLabel := n_GasTank.get_node("Label")
+onready var n_GasTankProgressBar := $GasTank/CenterContainer/ProgressBar
 onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
 onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/HBoxContainer
 onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/TextureRect
 onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
+onready var n_ReloadLabel := $Gun/Label
 onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/VBoxContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
 onready var n_Minimap := $Minimap
@@ -67,13 +67,14 @@ func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	n_LabelLootCount.text = "x {0}".format({0:PlayerStatus.loot_count})
 
-func update_weapon_status(_weapon_type := -1) -> void:
+func update_weapon_status() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	var weapon = player.equipment.get_item()
+	var _weapon_type = weapon.get_weapon_type()
 
 	n_WeaponIcon.texture = weapon.get_icon()
 
-	n_AmmoRoot.visible = weapon is Firearm
+	n_AmmoRoot.visible = weapon is Firearm && !(PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL)
 
 	if n_AmmoRoot.visible:
 		var mag_left
@@ -82,20 +83,25 @@ func update_weapon_status(_weapon_type := -1) -> void:
 			mag_left = ceil(float(weapon.bullets) / float(weapon.mag_size))
 		else:
 			mag_left = weapon.bullets
-
-		if weapon.magazine > 0:
-			$AnimationPlayer.play("RESET")
-		else:
+			
+		if weapon.is_magazine_empty():
+			
+			if weapon.bullets == 0:
+				n_ReloadLabel.text = "NO AMMO"
+			else:
+				n_ReloadLabel.text = "RELOAD"
+				
 			$AnimationPlayer.play("gun_flash")
+		else:
+			$AnimationPlayer.play("RESET")
 
-		n_AmmoIcon.texture = weapon.get_mag_icon()
+		n_AmmoIcon.texture = weapon.get_mag_icon()		
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 	else:
 		$AnimationPlayer.play("RESET")
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = bike.fuel_amount
-	n_GasTankLabel.text = "{0}%".format({0:str(n_GasTankProgressBar.value / n_GasTankProgressBar.max_value * 100).pad_decimals(0)})
 
 var alpha_when_behind := .05
 
@@ -134,7 +140,7 @@ func _on_player_loot() -> void:
 func _on_bike_fuel_changed(_amount):
 	update_fuel_status()
 
-func _on_weapon_fired(_position ) -> void:
+func _on_weapon_fired(_position) -> void:
 	update_weapon_status()
 
 func is_objective_completed(idx) -> bool:

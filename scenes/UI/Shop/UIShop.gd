@@ -144,6 +144,7 @@ func _ready():
 	for n in $PanelRight/PerksContainer/GridContainer.get_children():
 		n.connect("on_pressed", self, "_on_Perk_pressed")
 		n.connect("on_purchased", self, "_on_Perk_purchased")
+		n.connect("on_mouse_over", self, "_on_Perk_mouse_over")
 		
 	set_cash(PlayerStatus.get_cash())
 	
@@ -158,7 +159,7 @@ func _ready():
 	n_DialogWarning.connect("visibility_changed", self, "_on_WarningDialog_visibility_changed")
 	n_Dialog.window_title
 	
-	_populate_weapon_list()	
+	_populate_weapon_list()
 	yield(get_tree().create_timer(0.05), "timeout")
 	
 func _get_player_weapon():
@@ -179,11 +180,11 @@ func _process(delta):
 	
 	match menu_active:
 		MENU_ACTIVE.NONE:
-			n_ChatLabel.text = _get_random_quote("bored")
-			n_AnimationPlayerMouth.play("talk")
+			var _text = _get_random_quote("bored")
+			set_chat_text(_text)
 		MENU_ACTIVE.WEAPON_DROP_DOWN:
-			n_ChatLabel.text = _get_random_quote("undecided")
-			n_AnimationPlayerMouth.play("talk")
+			var _text = _get_random_quote("undecided")
+			set_chat_text(_text)
 		_:
 			return
 			
@@ -250,18 +251,23 @@ func _on_ItemList_item_selected(index):
 	
 	if menu_active == MENU_ACTIVE.WEAPON_DROP_DOWN:
 		if last_selection_update / last_random_chat_delay >= .25:
-			n_ChatLabel.text = _get_random_quote("annoyed")
-			n_AnimationPlayerMouth.play("talk")
+			var _text = _get_random_quote("annoyed")
+			set_chat_text(_text)
 	
 	match menu_active:
 		MENU_ACTIVE.WEAPON_DROP_DOWN:
-			set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_WEAPON)
-			_on_weapon_selected(index)
-	
+			
+			if !_on_weapon_selected(index):
+				set_menu_active(MENU_ACTIVE.NONE)
+			else:
+				set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_WEAPON)
+			
 			n_Tween.interpolate_property(n_ItemList,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PanelMargin,"rect_min_size", Vector2(96.0, 96.0), Vector2(96.0, 12.0), item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.interpolate_property(n_PerksContainer,"modulate", color_traslucid, Color.white, item_expand_delay, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 			n_Tween.start()
+			
+			print_debug("hola2")
 			
 			_play("click")
 		_:
@@ -289,11 +295,11 @@ func _on_ItemList_gui_input(event : InputEvent):
 
 var active_perk
 
-func _on_weapon_selected(_weapon_idx):
+func _on_weapon_selected(_weapon_idx) -> bool:
 	var _weapon_data = n_ItemList.get_item_text(_weapon_idx)
 	
 	if _weapon_data.ends_with("(owned)"):
-		return
+		return false
 	
 	_weapon_data = _weapon_data.split("$")
 	
@@ -303,8 +309,7 @@ func _on_weapon_selected(_weapon_idx):
 	var _player_weapon = _get_player_weapon()
 	
 	if _player_weapon != null && Global.WeaponNames.keys()[_player_weapon.get_weapon_type()] == _name:
-		set_menu_active(MENU_ACTIVE.NONE)
-		return
+		return false
 	
 	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_WEAPON)
 	
@@ -315,28 +320,67 @@ func _on_weapon_selected(_weapon_idx):
 	n_Dialog.dialog_text = "Do you wish to purchase {0} for ${1}?".format({0:_name,1:_price})
 	n_Dialog.show()
 	_play("dropdown")
+	
+	return true
 
 func _on_Perk_pressed(_perk_buton):
 	if menu_active != MENU_ACTIVE.NONE:
 		return
 		
 	active_perk = _perk_buton
-	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_PERK)
 	
-	var perk_name = _perk_buton.perk_name
-	var perk_price = _perk_buton.perk_price
+	var _perk_name = _perk_buton.perk_name
+	var _perk_price = _perk_buton.perk_price
+	var _perk_type = _perk_buton.perk_type
 	
-	n_Dialog.dialog_text = "Do you wish to purchase the {0} perk for {1}?".format({0:perk_name,1:perk_price})
+	if PlayerStatus.has_perk(_perk_type):
+		set_menu_active(MENU_ACTIVE.WARNING)
+		n_DialogWarning.dialog_text = "You already have that perk!"
+		n_DialogWarning.show()
+		return
+	
+	n_Dialog.dialog_text = "Do you wish to purchase the {0} perk for {1}?".format({0:_perk_name,1:_perk_price})
 	n_Dialog.show()
 	_play("dropdown")
+	
+	set_menu_active(MENU_ACTIVE.CONFIRM_DIALOG_PERK)
 
-func _on_Perk_purchased(_name, _price) -> void:
+func _on_Perk_purchased(_type, _price) -> void:
+	active_perk = null	
 	self.current_cash -= _price
-	active_perk.set_purchased(true)
+	PlayerStatus.perks[_type] = true
 		
-	n_ChatLabel.text = "{0} is a nice purchase, mate!".format({0:_name})
+	n_ChatLabel.text = "Great purchase, mate!"
 	$AnimationPlayerMouth.play("talk")
 	_play("buy")
+
+func _on_Perk_mouse_over(_perk_type) -> void:
+	if .45 < randf():
+		return
+		
+	var _str : String
+	
+	match _perk_type:
+		Perk.PERK_TYPE.ADRENALINE:
+			_str = "Useful for when the odds are against you."
+		Perk.PERK_TYPE.FAST_RELOAD:
+			_str = "Useful for when you're in a hurry."
+		Perk.PERK_TYPE.FIXXXER:
+			_str = "You want that one."
+		Perk.PERK_TYPE.FREE_FIRE:
+			_str = "That's one of my favourites."
+		Perk.PERK_TYPE.HOLLYWOOD_MAG:
+			_str = "That one is really fun."
+		Perk.PERK_TYPE.MOONWALKER:
+			_str = "That is an excelent choice, that one."
+		Perk.PERK_TYPE.SHADOW_DANCER:
+			_str = "Zombies won't see you comin'."
+		Perk.PERK_TYPE.TOUGH_GUY:
+			_str = "That is a hot one right now."
+		_:
+			_str = "I've no idea what that does."
+	
+	set_chat_text(_str)
 
 func _on_ConfirmationDialog_confirmed():
 	var _menu_active = menu_active
@@ -345,15 +389,15 @@ func _on_ConfirmationDialog_confirmed():
 	match _menu_active:
 		MENU_ACTIVE.CONFIRM_DIALOG_PERK:
 			if active_perk.perk_price > current_cash:
-				n_ChatLabel.text = _get_random_quote("broke")
-				n_AnimationPlayerMouth.play("talk")
+				var _text = _get_random_quote("broke")
+				set_chat_text(_text)
 				return
 				
-			_play("buy")
+			active_perk.set_purchased(true)
 		MENU_ACTIVE.CONFIRM_DIALOG_WEAPON:
 			if selected_weapon_price > current_cash:
-				n_ChatLabel.text = _get_random_quote("broke")
-				n_AnimationPlayerMouth.play("talk")
+				var _text = _get_random_quote("broke")
+				set_chat_text(_text)
 				return
 				
 			self.current_cash -= selected_weapon_price
@@ -373,7 +417,7 @@ func _on_ConfirmationDialog_confirmed():
 			_play("buy")
 		MENU_ACTIVE.QUIT_CONFIRM:
 			get_tree().change_scene_to(MainScene)
-			call_deferred("queue_free")	
+			call_deferred("queue_free")
 		_:
 			return
 
@@ -390,8 +434,9 @@ func update_ammo_info(_ammo_count) -> void:
 	n_LabelAmmoCount.text = "AMMO: {0}".format({0:_ammo_count})
 	
 func set_cash(_value) -> void:
-	current_cash = max(0, _value)
-	n_LabelCash.text = "${0}".format({0:current_cash})
+	current_cash = max(0, _value)	
+	var _str := "Loot cash: ${0}".format({0:current_cash}).substr(0, 19)
+	n_LabelCash.text = _str
 	
 func set_menu_active(_active_menu) -> void:
 	if _active_menu == menu_active:
@@ -440,15 +485,15 @@ func _on_ButtonExit_button_up():
 
 func _on_ButtonAmmo_button_up():
 	if current_cash < ammo_price:
-		n_ChatLabel.text = _get_random_quote("broke")
-		n_AnimationPlayerMouth.play("talk")
+		var _text = _get_random_quote("broke")
+		set_chat_text(_text)
 		return
 		
 	var _weapon_ref = PlayerStatus.weapons[0]
 	var _loadout = WEAPON_LOADOUTS.get(selected_weapon_idx)
 	
 	if _weapon_ref.bullets > _loadout.max_ammo:
-		set_menu_active(MENU_ACTIVE.WARNING)		
+		set_menu_active(MENU_ACTIVE.WARNING)
 		n_DialogWarning.dialog_text = "You can't carry anymore of that!"
 		n_DialogWarning.show()
 		return
@@ -470,6 +515,15 @@ func _on_WarningDialog_visibility_changed():
 		$WarningDialogContainer.mouse_filter = MOUSE_FILTER_STOP
 	else:
 		$WarningDialogContainer.mouse_filter = MOUSE_FILTER_IGNORE
+		
+func set_chat_text(_text : String) -> void:
+	if n_AnimationPlayerMouth.is_playing():
+		return
+		
+	last_selection_update = 0.0
+	
+	n_ChatLabel.text = _text
+	n_AnimationPlayerMouth.play("talk")
 
 func _on_ConfirmationDialog_item_rect_changed():
 	n_Dialog.popup_centered()

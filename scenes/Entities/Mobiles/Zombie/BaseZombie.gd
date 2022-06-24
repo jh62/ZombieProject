@@ -124,8 +124,8 @@ func _on_AreaPerception_body_entered(body):
 
 	var facing_target = is_facing_target(mob.global_position)
 	var can_see_target = check_LOS(mob)
-
-	if !(mob.aiming && can_see_target) || (facing_target && can_see_target):
+	
+	if (facing_target && can_see_target) || (can_see_target && !mob.aiming && !PlayerStatus.has_perk(Perk.PERK_TYPE.SHADOW_DANCER)):
 		target = mob
 	else:
 		$TimerPerception.start()
@@ -141,9 +141,12 @@ func _on_TimerPerception_timeout():
 	var facing_target = is_facing_target(mob.global_position)
 	var can_see_target = check_LOS(mob)
 	var distance_to_target = global_position.distance_to(mob.global_position)
-
-	if !(mob.aiming && can_see_target) || (facing_target && can_see_target) || (can_see_target && distance_to_target < sight_radius / 4):
+	
+	if (facing_target && can_see_target) || (can_see_target && !mob.aiming && !PlayerStatus.has_perk(Perk.PERK_TYPE.SHADOW_DANCER)) || (can_see_target && distance_to_target < sight_radius / 4):
 		target = mob
+
+#	if !(mob.aiming && can_see_target) || (facing_target && can_see_target) || (can_see_target && distance_to_target < sight_radius / 4):
+#		target = mob
 
 func _on_fuelcan_explode(_position):
 	if target != null && !(target is Vector2):

@@ -12,13 +12,26 @@ var weapons := {
 	}
 }
 
-var perks := []
+var perks := {
+	Perk.PERK_TYPE.ADRENALINE: false,
+	Perk.PERK_TYPE.FAST_RELOAD: false,
+	Perk.PERK_TYPE.FIXXXER: false,
+	Perk.PERK_TYPE.FREE_FIRE: false,
+	Perk.PERK_TYPE.HOLLYWOOD_MAG: false,
+	Perk.PERK_TYPE.MOONWALKER: false,
+	Perk.PERK_TYPE.SHADOW_DANCER: false,
+	Perk.PERK_TYPE.TOUGH_GUY: false,
+}
+
 var death_count := 0
-var loot_count := 100
+var loot_count := 0 setget set_loot_count
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
-func _ready():
+func _ready():	
+	if has_perk(Perk.PERK_TYPE.TOUGH_GUY):
+		max_hitpoints *= 1.5
+	
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
 			PlayerStatus.set_weapon(
@@ -46,7 +59,7 @@ func _ready():
 			PlayerStatus.set_weapon(
 				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
 				0,
-				120
+				10
 			)
 			PlayerStatus.set_weapon(
 				preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
@@ -79,6 +92,12 @@ func get_weapon(_weapon_idx := 0) -> BaseWeapon:
 		_instance.bullets = _weapon.bullets
 		
 	return _instance
+	
+func set_loot_count(_value) -> void:
+	loot_count = clamp(_value * Global.LOOT_MULTIPLIER, 0, Global.MAX_LOOT_COUNT)
 
 func get_cash() -> int:
-	return loot_count * 25
+	return loot_count * Global.LOOT_MULTIPLIER
+
+func has_perk(_perk_type) -> bool:
+	return perks[_perk_type]

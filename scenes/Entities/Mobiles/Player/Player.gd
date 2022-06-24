@@ -23,6 +23,7 @@ onready var crosshair := $Crosshair
 
 var aiming = false
 var busy_time := 0.0 setget set_busy_time
+var down_times := 0
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
@@ -80,7 +81,13 @@ func _process_animations() -> void:
 func _process(delta: float) -> void:
 	._process(delta)
 
-	var slowdown := 0.25 if (dir.length() != 0) else 1.0
+	var slowdown : float
+	
+	if PlayerStatus.has_perk(Perk.PERK_TYPE.FAST_RELOAD):
+		slowdown = 1.0
+	else:
+		slowdown = 0.25 if (dir.length() != 0) else 1.0		
+	
 	busy_time = max(busy_time - delta * slowdown, 0.0)
 
 	if is_alive():
@@ -171,11 +178,12 @@ func _process_input() -> void:
 
 	look_at_dir.x = m_pos.x
 	look_at_dir.y = m_pos.y
-
-	if look_at_dir.dot(dir) < 0:
-		speed = max_speed * (.18 if aiming else .5)
-	else:
-		speed = max_speed * (.5 if aiming else 1.0)
+	
+	if !PlayerStatus.has_perk(Perk.PERK_TYPE.MOONWALKER):
+		if look_at_dir.dot(dir) < 0:
+			speed = max_speed * (.18 if aiming else .5)
+		else:
+			speed = max_speed * (.5 if aiming else 1.0)
 
 #	if busy_time > 0:
 #		speed = clamp(speed, 0, 3.7)
@@ -211,8 +219,10 @@ func kill() -> void:
 	$Vision.enabled = false
 
 	fsm.travel_to(states.die, null)
-	EventBus.emit_signal("on_player_death", self)
-	emit_signal("on_death")
+	
+	if down_times > 1 || !PlayerStatus.has_perk(Perk.PERK_TYPE.ADRENALINE):
+		EventBus.emit_signal("on_player_death", self)
+		emit_signal("on_death")
 	
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)

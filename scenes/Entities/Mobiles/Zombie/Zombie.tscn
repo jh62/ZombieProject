@@ -2866,7 +2866,6 @@ collision_mask = 32
 shape = SubResource( 48 )
 
 [node name="AreaPerception" type="Area2D" parent="." index="4"]
-visible = false
 collision_layer = 0
 collision_mask = 2
 

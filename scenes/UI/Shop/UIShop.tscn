@@ -522,7 +522,7 @@ margin_left = 38.0
 margin_right = 72.0
 margin_bottom = 39.0
 hint_tooltip = "Moonwalker: Walk backwards at full speed."
-perk_icon = 1
+perk_type = 1
 perk_name = "Moonwalker"
 perk_price = 200
 
@@ -533,7 +533,7 @@ margin_left = 76.0
 margin_right = 110.0
 margin_bottom = 39.0
 hint_tooltip = "Fixxxer: Medkits are 25% more effective."
-perk_icon = 2
+perk_type = 2
 perk_name = "Fixxxer"
 perk_price = 200
 
@@ -544,7 +544,7 @@ margin_left = 114.0
 margin_right = 148.0
 margin_bottom = 39.0
 hint_tooltip = "Free Fire: Pistols have infinite ammo."
-perk_icon = 3
+perk_type = 3
 perk_name = "Free Fire"
 perk_price = 200
 
@@ -555,7 +555,7 @@ margin_top = 43.0
 margin_right = 34.0
 margin_bottom = 82.0
 hint_tooltip = "Tough Guy: You get 25% more health."
-perk_icon = 4
+perk_type = 4
 perk_name = "Tough Guy"
 perk_price = 200
 
@@ -567,7 +567,7 @@ margin_top = 43.0
 margin_right = 72.0
 margin_bottom = 82.0
 hint_tooltip = "Adrenaline: First death is free (death wish included)."
-perk_icon = 5
+perk_type = 5
 perk_name = "Adrenaline"
 perk_price = 200
 
@@ -579,7 +579,7 @@ margin_top = 43.0
 margin_right = 110.0
 margin_bottom = 82.0
 hint_tooltip = "Hollywood Mag: You don't need to reload anymore."
-perk_icon = 6
+perk_type = 6
 perk_name = "Hollywood Magazine"
 perk_price = 200
 
@@ -591,7 +591,7 @@ margin_top = 43.0
 margin_right = 148.0
 margin_bottom = 82.0
 hint_tooltip = "Shadow Dancer: Zombies in no direct LOS won't notice you at full speed."
-perk_icon = 7
+perk_type = 7
 perk_name = "Shadow Dancer"
 perk_price = 200
 
@@ -660,8 +660,8 @@ __meta__ = {
 }
 
 [node name="ButtonPrimary" type="TextureButton" parent="PanelRight/WeaponType"]
-margin_left = 3.0
-margin_right = 19.0
+margin_left = 2.0
+margin_right = 18.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 16, 16 )
 hint_tooltip = "Primary weapon selection"
@@ -679,8 +679,8 @@ __meta__ = {
 }
 
 [node name="ButtonSecondary" type="TextureButton" parent="PanelRight/WeaponType"]
-margin_left = 21.0
-margin_right = 37.0
+margin_left = 20.0
+margin_right = 36.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 16, 16 )
 hint_tooltip = "Secondary weapon selection"
@@ -713,18 +713,18 @@ anchor_bottom = 1.0
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelRight/AmmoContainer/CenterContainer"]
-margin_right = 40.0
+margin_right = 39.0
 margin_bottom = 24.0
 size_flags_vertical = 4
 custom_constants/separation = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer"]
-margin_right = 40.0
+margin_right = 39.0
 margin_bottom = 15.0
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_right = 19.0
+margin_right = 18.0
 margin_bottom = 15.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -732,8 +732,8 @@ texture = ExtResource( 14 )
 stretch_mode = 4
 
 [node name="ButtonAmmo" type="Button" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 23.0
-margin_right = 40.0
+margin_left = 22.0
+margin_right = 39.0
 margin_bottom = 15.0
 hint_tooltip = "Cost per each full clip"
 focus_mode = 0
@@ -753,7 +753,7 @@ expand_icon = true
 
 [node name="AmmoCountLabel" type="Label" parent="PanelRight/AmmoContainer/CenterContainer/VBoxContainer"]
 margin_top = 17.0
-margin_right = 40.0
+margin_right = 39.0
 margin_bottom = 24.0
 hint_tooltip = "Ammo count for the current weapon."
 mouse_filter = 0
@@ -812,12 +812,13 @@ __meta__ = {
 }
 
 [node name="LabelCash" type="Label" parent="Cash/CenterContainer/PanelCash/CenterContainer"]
-margin_left = 6.0
+margin_left = 7.0
 margin_top = 5.0
-margin_right = 114.0
+margin_right = 112.0
 margin_bottom = 18.0
 custom_fonts/font = ExtResource( 3 )
-text = "LOOT CASH: $5000000"
+text = "LOOT CASH: $1000000"
+align = 1
 
 [node name="ChatBubbleTexture" type="TextureRect" parent="."]
 visible = false

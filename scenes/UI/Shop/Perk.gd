@@ -1,8 +1,9 @@
 tool
 class_name Perk extends VBoxContainer
 
-signal on_pressed(perk_button)
-signal on_purchased(perk_name, perk_price)
+signal on_pressed(_perk_button)
+signal on_purchased(_perk_type, _perk_price)
+signal on_mouse_over(_perk_type)
 
 enum PERK_TYPE {
 	FAST_RELOAD,
@@ -15,7 +16,7 @@ enum PERK_TYPE {
 	SHADOW_DANCER
 }
 
-export(PERK_TYPE) var perk_icon := 0 setget set_perk_icon
+export(PERK_TYPE) var perk_type := 0 setget set_perk_icon
 export var perk_name := ""
 export var perk_price := 0
 export var purchased := false
@@ -40,7 +41,7 @@ func _ready():
 	
 	set_perk_name(perk_name)
 	set_perk_price(perk_price)
-	set_perk_icon(perk_icon)
+	set_perk_icon(perk_type)
 
 func set_perk_name(_name) -> void:
 	perk_name = _name.strip_edges()
@@ -62,7 +63,7 @@ func set_purchased(_purchased) -> void:
 		n_Tween.interpolate_property(n_Label, "percent_visible", 0.0, 1.0, 0.5, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		n_Tween.start()
 		
-		emit_signal("on_purchased", perk_name, perk_price)		
+		emit_signal("on_purchased", perk_type, perk_price)
 	else:
 		n_Panel.get("custom_styles/panel").bg_color = Color.darkslategray
 		n_Panel.get("custom_styles/panel").border_color = Color.gray
@@ -72,14 +73,14 @@ func _on_TextureButton_button_up():
 	emit_signal("on_pressed", self)
 
 func set_perk_icon(_icon_idx : int) -> void:
-	perk_icon = wrapi(_icon_idx, 0, PERK_TYPE.size())
+	perk_type = wrapi(_icon_idx, 0, PERK_TYPE.size())
 	
 	if !is_inside_tree():
 		return
 	
 	var button = $TextureButton/TextureRect
 	
-	match perk_icon:
+	match perk_type:
 		PERK_TYPE.ADRENALINE:
 			button.texture = preload("res://assets/ui/perk_adrenaline.tres")		
 		PERK_TYPE.FIXXXER:
@@ -96,3 +97,9 @@ func set_perk_icon(_icon_idx : int) -> void:
 			button.texture = preload("res://assets/ui/perk_shadow_dancer.tres")	
 		_:
 			button.texture = preload("res://assets/ui/perk_fast_reload.tres")
+
+func _on_Perk_mouse_entered():
+	yield(get_tree().create_timer(3.0),"timeout")
+	
+	if get_global_rect().has_point(get_global_mouse_position()):
+		emit_signal("on_mouse_over", perk_type)

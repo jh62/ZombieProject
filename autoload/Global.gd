@@ -22,17 +22,6 @@ enum WeaponNames {
 	DISARMED
 }
 
-#enum PerkNames {
-#	FAST_RELOAD,
-#	MOONWALKER,
-#	FIXXXER,
-#	FREE_FIRE,
-#	TOUGH_GUY,
-#	ADRENALINE,
-#	HOLLYWOOD_MAG,
-#	SHADOW_DANCER
-#}
-
 enum ZombieType {
 	COMMON = 0,
 	POLICE,
@@ -55,11 +44,15 @@ const GROUP_KEYS := "keys"
 const MAX_FUEL_LITERS := 12.5 # 120.5
 const MAX_SPECIAL_ZOMBIES := 4
 
+const MAX_LOOT_COUNT := 1000000
+const LOOT_MULTIPLIER := 5
+
 var DEBUG_MODE := false
 
 var MAP_SIZE := Vector2()
 
 var CLOCK := 1.0
+
 
 const GameOptions := {
 	"gameplay": {

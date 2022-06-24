@@ -73,4 +73,5 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="."]
 
+[connection signal="mouse_entered" from="." to="." method="_on_Perk_mouse_entered"]
 [connection signal="button_up" from="TextureButton" to="." method="_on_TextureButton_button_up"]

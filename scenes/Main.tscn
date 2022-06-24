@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=2]
+[ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=3]
 [ext_resource path="res://scenes/ZombieSpawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/SoundManager/SoundManager.tscn" type="PackedScene" id=8]
 [ext_resource path="res://assets/music/pause.wav" type="AudioStream" id=9]
@@ -812,6 +813,7 @@ __meta__ = {
 script = SubResource( 17 )
 
 [node name="ZombieSpawner" parent="." instance=ExtResource( 4 )]
+is_active = false
 mob_group_max = 1
 spawn_delay_sec = 0.75
 restartable = true
@@ -1029,12 +1031,15 @@ custom_fonts/font = ExtResource( 23 )
 text = "Press Q to skip"
 
 [node name="LabelDemo" type="Label" parent="UI"]
-modulate = Color( 1, 1, 1, 0.313726 )
+modulate = Color( 1, 1, 1, 0.0705882 )
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
+anchor_bottom = 1.0
 margin_left = -20.0
+margin_top = -13.0
 margin_right = 20.0
-margin_bottom = 13.0
+custom_fonts/font = ExtResource( 3 )
 text = "DEMO"
 align = 1
 valign = 1
