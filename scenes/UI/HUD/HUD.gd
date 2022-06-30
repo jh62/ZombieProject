@@ -5,8 +5,8 @@ onready var bike : Bike
 
 onready var n_Stats := $CharStats
 onready var n_HealthBar := $CharStats/HBoxContainer/HealthTextureProgress
-onready var n_LootbagTexture := $LootBag/MarginContainer/HBoxContainer/TextureRect
-onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
+onready var n_LootbagTexture := $LootBag/HBoxLootBag/TextureLootBag
+onready var n_LabelLootCount := $LootBag/HBoxLootBag/LabelLootCount
 onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/CenterContainer/ProgressBar
 onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
@@ -80,6 +80,7 @@ func update_weapon_status(_weapon = null) -> void:
 	n_WeaponIcon.texture = _weapon.get_icon()
 
 	if _weapon is Firearm:
+		
 		if _weapon.is_magazine_empty():
 			
 			if _weapon.bullets == 0:
@@ -90,7 +91,7 @@ func update_weapon_status(_weapon = null) -> void:
 			n_AnimPlayerGun.play("gun_flash")
 		else:
 			n_AnimPlayerGun.play("RESET")
-			
+		
 		n_AmmoRoot.visible = !((PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL))
 		
 		if n_AmmoRoot.visible:
@@ -104,6 +105,7 @@ func update_weapon_status(_weapon = null) -> void:
 			n_AmmoIcon.texture = _weapon.get_mag_icon()
 			n_AmmoLabel.text = "x {0}".format({0:mag_left})
 	else:
+		n_AmmoRoot.visible = false
 		n_AnimPlayerGun.play("RESET")
 
 func update_fuel_status() -> void:

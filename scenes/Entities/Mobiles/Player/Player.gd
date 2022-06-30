@@ -42,6 +42,12 @@ func _ready() -> void:
 
 	self.max_hitpoints = PlayerStatus.max_hitpoints
 	self.hitpoints = max_hitpoints
+	
+	yield(get_tree().create_timer(.5),"timeout") # fix!!
+	var _p_equipment = get_equipment()
+	_p_equipment.set_primary_item(PlayerStatus.get_weapon(0))
+	_p_equipment.set_secondary_item(PlayerStatus.get_weapon(1))
+	_p_equipment.equip_primary()
 
 func _process_animations() -> void:
 	._process_animations()
@@ -85,7 +91,7 @@ func _process(delta: float) -> void:
 	if PlayerStatus.has_perk(Perk.PERK_TYPE.FAST_RELOAD):
 		slowdown = 1.0
 	else:
-		slowdown = 0.25 if (dir.length() != 0) else 1.0		
+		slowdown = 0.25 if (dir.length() != 0) else 1.0
 	
 	busy_time = max(busy_time - delta * slowdown, 0.0)
 

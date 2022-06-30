@@ -24,7 +24,7 @@ var perks := {
 }
 
 var death_count := 0
-var loot_count := 500 setget set_loot_count
+var loot_count := 0 setget set_loot_count
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
@@ -71,8 +71,6 @@ func set_current_level(_val) -> void:
 	current_level = clamp(_val, 1, 4)
 
 func set_weapon(_scene, _weapon_idx := 0, _bullets := 0) -> void:
-	var _weapon = _scene
-	
 	match _weapon_idx:
 		0:
 			weapons[_weapon_idx].bullets = _bullets

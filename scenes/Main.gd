@@ -103,10 +103,10 @@ func _ready() -> void:
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
 				
-	var _p_equipment = _player.get_equipment()				
-	_p_equipment.set_primary_item(PlayerStatus.get_weapon(0))
-	_p_equipment.set_secondary_item(PlayerStatus.get_weapon(1))
-	_p_equipment.equip_primary()
+#	var _p_equipment = _player.get_equipment()				
+#	_p_equipment.set_primary_item(PlayerStatus.get_weapon(0))
+#	_p_equipment.set_secondary_item(PlayerStatus.get_weapon(1))
+#	_p_equipment.equip_primary()
 
 	if Global.CINEMATIC_MODE:
 		$UI.layer = -1000

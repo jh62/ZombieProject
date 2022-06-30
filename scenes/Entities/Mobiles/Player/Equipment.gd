@@ -2,15 +2,29 @@ class_name PlayerEquipment extends Node2D
 
 export var item : PackedScene
 
-var primary_item setget set_primary_item
-var secondary_item setget set_secondary_item
+var _primary_item setget set_primary_item
+var _secondary_item setget set_secondary_item
+var _current
 
 func _ready() -> void:
 	if item != null:
 		var t = item.instance()
 		equip(t)
 
-func equip(_item) -> void:	
+func equip(_item) -> void:
+	_current = _item
+	
+#	if _item is Firearm && _item != _primary_item:
+#		set_primary_item(_item)
+#		var _scene := PackedScene.new()
+#		_scene.pack(_item)
+#		PlayerStatus.set_weapon(_scene, 0, _item.bullets)
+#	elif _item != _secondary_item:
+#		set_secondary_item(_item)
+#		var _scene := PackedScene.new()
+#		_scene.pack(_item)
+#		PlayerStatus.set_weapon(_scene, 1)
+		
 	if has_item_equipped():
 		var _old_item = get_item()
 
@@ -26,19 +40,19 @@ func equip(_item) -> void:
 	add_child(_item)
 
 func set_primary_item(_item) -> void:
-	primary_item = _item
+	_primary_item = _item
 
 func set_secondary_item(_item) -> void:
-	secondary_item = _item
+	_secondary_item = _item
 	
 func equip_primary() -> void:
-	equip(primary_item)
+	equip(_primary_item)
 	
-	if primary_item.is_magazine_empty() && primary_item.has_bullets():
-		primary_item.reload()
+	if _primary_item.is_magazine_empty() && _primary_item.has_bullets():
+		_primary_item.reload()
 
 func equip_secondary() -> void:
-	equip(secondary_item)
+	equip(_secondary_item)
 	
 func unequip_all() -> void:
 	for i in get_child_count():
@@ -47,11 +61,6 @@ func unequip_all() -> void:
 		if _child.get_weapon_type() == Globals.WeaponNames.DISARMED:
 			_child.call_deferred("queue_free")
 			continue
-		
-		if _child is Firearm:
-			primary_item = _child
-		else:
-			secondary_item = _child
 			
 		remove_child(_child)
 
@@ -60,7 +69,7 @@ func clear() -> void:
 		child.call_deferred("queue_free")
 
 func has_item_equipped() -> bool:
-	return get_child(0) != null
+	return get_child_count() > 0 && get_child(0) != null
 
 func get_item():
 	return get_child(0)
