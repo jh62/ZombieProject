@@ -23,7 +23,6 @@ onready var crosshair := $Crosshair
 
 var aiming = false
 var busy_time := 0.0 setget set_busy_time
-var down_times := 0
 
 func _ready() -> void:
 	add_to_group(Global.GROUP_PLAYER)
@@ -218,11 +217,12 @@ func kill() -> void:
 	$Flashlight.enabled = false
 	$Vision.enabled = false
 
-	fsm.travel_to(states.die, null)
+	emit_signal("on_death")
 	
-	if down_times > 1 || !PlayerStatus.has_perk(Perk.PERK_TYPE.ADRENALINE):
+	if PlayerStatus.death_count >= 1 || !PlayerStatus.has_perk(Perk.PERK_TYPE.ADRENALINE):
 		EventBus.emit_signal("on_player_death", self)
-		emit_signal("on_death")
+	
+	fsm.travel_to(states.die, null)
 	
 func on_hit_by(attacker) -> void:
 	.on_hit_by(attacker)

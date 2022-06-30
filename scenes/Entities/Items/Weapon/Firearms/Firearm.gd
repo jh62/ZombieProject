@@ -69,7 +69,7 @@ func _on_action_pressed(action_type, facing) -> void:
 
 			equipper.dir = Vector2.ZERO
 			equipper.busy_time += reload_time
-			EventBus.emit_signal("on_weapon_reloaded", get_weapon_type())
+			EventBus.emit_signal("on_weapon_reloaded", self)
 
 func _on_action_animation_finished(_anim_name, _facing) -> void:
 	match _anim_name:

@@ -47,7 +47,7 @@ signal fuel_emptied
 signal on_bike_tank_full
 
 # Firearm signals
-signal on_weapon_reloaded(weapon_type)
+signal on_weapon_reloaded(_weapon)
 signal on_weapon_fired(position)
 
 # SoundManager

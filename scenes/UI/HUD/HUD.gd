@@ -17,6 +17,8 @@ onready var n_ReloadLabel := $Gun/Label
 onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/VBoxContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
 onready var n_Minimap := $Minimap
+onready var n_AnimPlayerGun := $AnimationPlayerGun
+onready var n_AnimPlayerObjective := $AnimationPlayerObjective
 
 func _ready():
 	pass
@@ -67,38 +69,42 @@ func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
 	n_LabelLootCount.text = "x {0}".format({0:PlayerStatus.loot_count})
 
-func update_weapon_status() -> void:
+func update_weapon_status(_weapon = null) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
-	var weapon = player.equipment.get_item()
-	var _weapon_type = weapon.get_weapon_type()
+	
+	if _weapon == null:
+		_weapon= player.equipment.get_item()
+		
+	var _weapon_type = _weapon.get_weapon_type()
 
-	n_WeaponIcon.texture = weapon.get_icon()
+	n_WeaponIcon.texture = _weapon.get_icon()
 
-	n_AmmoRoot.visible = weapon is Firearm && !(PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL)
+	n_AmmoRoot.visible = _weapon is Firearm && !(PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL)
 
 	if n_AmmoRoot.visible:
 		var mag_left
 
 		if Global.GameOptions.gameplay.discard_bullets:
-			mag_left = ceil(float(weapon.bullets) / float(weapon.mag_size))
+			mag_left = ceil(float(_weapon.bullets) / float(_weapon.mag_size))
 		else:
-			mag_left = weapon.bullets
+			mag_left = _weapon.bullets
+		
+		if _weapon.is_magazine_empty():
 			
-		if weapon.is_magazine_empty():
-			
-			if weapon.bullets == 0:
+			if _weapon.bullets == 0:
 				n_ReloadLabel.text = "NO AMMO"
 			else:
 				n_ReloadLabel.text = "RELOAD"
 				
-			$AnimationPlayer.play("gun_flash")
+			print_debug("flashing")
+			n_AnimPlayerGun.play("gun_flash")
 		else:
-			$AnimationPlayer.play("RESET")
+			n_AnimPlayerGun.play("RESET")
 
-		n_AmmoIcon.texture = weapon.get_mag_icon()		
+		n_AmmoIcon.texture = _weapon.get_mag_icon()
 		n_AmmoLabel.text = "x {0}".format({0:mag_left})
 	else:
-		$AnimationPlayer.play("RESET")
+		n_AnimPlayerGun.play("RESET")
 
 func update_fuel_status() -> void:
 	n_GasTankProgressBar.value = bike.fuel_amount
@@ -161,4 +167,4 @@ func _update_objective(idx, completed, hint := true, text := "", delay := 0.5) -
 		n_Objective.get_node("Label").text = text
 		
 	if hint:
-		$AnimationPlayer.play("update_obj")
+		n_AnimPlayerObjective.play("update_obj")

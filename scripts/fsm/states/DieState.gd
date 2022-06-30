@@ -25,19 +25,20 @@ func enter_state(args) -> void:
 	anim_p.play(current_anim)
 	
 	_dead_elapsed = 0.0
-
+	
 	owner.hitpoints = 0
-	owner.down_times += 1
 	owner.set_process_unhandled_input(false)
 
 	if owner.equipment != null:
 		owner.equipment.set_process(false)
 		owner.equipment.visible = false
 		
-	if owner.down_times > 1 || !PlayerStatus.has_perk(Perk.PERK_TYPE.ADRENALINE):
+	if PlayerStatus.death_count >= 1 || !PlayerStatus.has_perk(Perk.PERK_TYPE.ADRENALINE):
 		owner.set_process(false)
 		owner.set_physics_process(false)
 		owner.get_node("CollisionShape2D").disabled = true
+		
+	PlayerStatus.death_count += 1
 
 	EventBus.emit_signal("play_sound_random", SOUNDS, owner.global_position)
 
@@ -58,8 +59,3 @@ func update(delta) -> void:
 			
 		owner.fsm.travel_to(owner.states.idle, null)
 		return
-		
-#	if owner.is_eaten:
-#		owner.get_node("CollisionShape2D").disabled = true
-#		owner.set_process(false)
-#		owner.set_physics_process(false)

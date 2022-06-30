@@ -24,7 +24,7 @@ var perks := {
 }
 
 var death_count := 0
-var loot_count := 0 setget set_loot_count
+var loot_count := 50 setget set_loot_count
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
