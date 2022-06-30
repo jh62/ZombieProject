@@ -405,14 +405,14 @@ mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Gun/VBoxContainer/VBoxContainer"]
+[node name="AmmoContainer" type="HBoxContainer" parent="Gun/VBoxContainer/VBoxContainer"]
 margin_top = 21.0
 margin_right = 47.0
 margin_bottom = 34.0
 mouse_filter = 2
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Gun/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Gun/VBoxContainer/VBoxContainer/AmmoContainer"]
 margin_right = 24.0
 margin_bottom = 13.0
 mouse_filter = 2
@@ -420,7 +420,7 @@ size_flags_horizontal = 3
 texture = ExtResource( 9 )
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="Gun/VBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Gun/VBoxContainer/VBoxContainer/AmmoContainer"]
 margin_left = 28.0
 margin_right = 47.0
 margin_bottom = 13.0
@@ -521,7 +521,7 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0.470588 )
 anchor_left = 0.2
 anchor_top = 0.0277778
-anchor_right = 0.725
+anchor_right = 0.8
 anchor_bottom = 0.133333
 margin_bottom = -1.90735e-06
 custom_constants/margin_right = 8
@@ -532,27 +532,24 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="GridContainer" type="GridContainer" parent="PerksContainer"]
+[node name="GridContainer" type="HBoxContainer" parent="PerksContainer"]
 margin_left = 8.0
-margin_right = 160.0
-margin_bottom = 18.0
-custom_constants/vseparation = 1
-custom_constants/hseparation = -32
-columns = 8
+margin_right = 184.0
+margin_bottom = 19.0
+alignment = 1
 
 [node name="PerkIconAdrenaline" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_right = 47.0
-margin_bottom = 18.0
+margin_right = 18.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource( 18 )
 expand = true
 stretch_mode = 6
 
 [node name="PerkIconFastReload" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 15.0
-margin_right = 62.0
-margin_bottom = 18.0
+margin_left = 22.0
+margin_right = 41.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 21 )
@@ -560,9 +557,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconFixxxer" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 30.0
-margin_right = 77.0
-margin_bottom = 18.0
+margin_left = 45.0
+margin_right = 63.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 16 )
@@ -570,9 +567,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconFreeFire" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 45.0
-margin_right = 92.0
-margin_bottom = 18.0
+margin_left = 67.0
+margin_right = 86.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 19 )
@@ -580,9 +577,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconHollywood" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 60.0
-margin_right = 107.0
-margin_bottom = 18.0
+margin_left = 90.0
+margin_right = 108.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 23 )
@@ -590,9 +587,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconMoonwalker" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 75.0
-margin_right = 122.0
-margin_bottom = 18.0
+margin_left = 112.0
+margin_right = 131.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 20 )
@@ -600,9 +597,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconShadowDancer" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 90.0
-margin_right = 137.0
-margin_bottom = 18.0
+margin_left = 135.0
+margin_right = 153.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 22 )
@@ -610,9 +607,9 @@ expand = true
 stretch_mode = 6
 
 [node name="PerkIconToughGuy" type="TextureRect" parent="PerksContainer/GridContainer"]
-margin_left = 105.0
-margin_right = 152.0
-margin_bottom = 18.0
+margin_left = 157.0
+margin_right = 176.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 17 )

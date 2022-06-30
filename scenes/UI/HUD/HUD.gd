@@ -10,9 +10,9 @@ onready var n_LabelLootCount := $LootBag/MarginContainer/HBoxContainer/Label
 onready var n_GasTank := $GasTank
 onready var n_GasTankProgressBar := $GasTank/CenterContainer/ProgressBar
 onready var n_WeaponIcon := $Gun/VBoxContainer/VBoxContainer/TextureRect
-onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/HBoxContainer
-onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/TextureRect
-onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/HBoxContainer/Label
+onready var n_AmmoRoot := $Gun/VBoxContainer/VBoxContainer/AmmoContainer
+onready var n_AmmoIcon := $Gun/VBoxContainer/VBoxContainer/AmmoContainer/TextureRect
+onready var n_AmmoLabel := $Gun/VBoxContainer/VBoxContainer/AmmoContainer/Label
 onready var n_ReloadLabel := $Gun/Label
 onready var n_FuelCan := $CharStats/HBoxContainer/MarginContainer/VBoxContainer/TextureProgressFuelCan
 onready var n_Tween := $Tween
@@ -79,16 +79,7 @@ func update_weapon_status(_weapon = null) -> void:
 
 	n_WeaponIcon.texture = _weapon.get_icon()
 
-	n_AmmoRoot.visible = _weapon is Firearm && !(PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL)
-
-	if n_AmmoRoot.visible:
-		var mag_left
-
-		if Global.GameOptions.gameplay.discard_bullets:
-			mag_left = ceil(float(_weapon.bullets) / float(_weapon.mag_size))
-		else:
-			mag_left = _weapon.bullets
-		
+	if _weapon is Firearm:
 		if _weapon.is_magazine_empty():
 			
 			if _weapon.bullets == 0:
@@ -96,13 +87,22 @@ func update_weapon_status(_weapon = null) -> void:
 			else:
 				n_ReloadLabel.text = "RELOAD"
 				
-			print_debug("flashing")
 			n_AnimPlayerGun.play("gun_flash")
 		else:
 			n_AnimPlayerGun.play("RESET")
+			
+		n_AmmoRoot.visible = !((PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && _weapon_type == Global.WeaponNames.PISTOL))
+		
+		if n_AmmoRoot.visible:
+			var mag_left
 
-		n_AmmoIcon.texture = _weapon.get_mag_icon()
-		n_AmmoLabel.text = "x {0}".format({0:mag_left})
+			if Global.GameOptions.gameplay.discard_bullets:
+				mag_left = ceil(float(_weapon.bullets) / float(_weapon.mag_size))
+			else:
+				mag_left = _weapon.bullets
+			
+			n_AmmoIcon.texture = _weapon.get_mag_icon()
+			n_AmmoLabel.text = "x {0}".format({0:mag_left})
 	else:
 		n_AnimPlayerGun.play("RESET")
 

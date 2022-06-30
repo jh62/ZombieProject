@@ -33,6 +33,9 @@ func set_secondary_item(_item) -> void:
 	
 func equip_primary() -> void:
 	equip(primary_item)
+	
+	if primary_item.is_magazine_empty() && primary_item.has_bullets():
+		primary_item.reload()
 
 func equip_secondary() -> void:
 	equip(secondary_item)

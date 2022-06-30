@@ -55,7 +55,7 @@ func _on_action_pressed(action_type, facing) -> void:
 			if is_obstructed():
 				return
 
-			if !has_bullets():
+			if is_magazine_empty() || (PlayerStatus.has_perk(Perk.PERK_TYPE.HOLLYWOOD_MAG) && !has_bullets()):
 				var snd = get_sound_dry()
 				EventBus.emit_signal("play_sound_random", snd, global_position)
 				return
@@ -78,16 +78,19 @@ func _on_action_animation_finished(_anim_name, _facing) -> void:
 				in_use = false
 				return
 
-			if !has_bullets():
+			if is_magazine_empty() || (PlayerStatus.has_perk(Perk.PERK_TYPE.HOLLYWOOD_MAG) && !has_bullets()):
 				in_use = false
-				var snd = get_sound_dry()
-				EventBus.emit_signal("play_sound_random", snd, global_position)
+				
+				if Input.is_action_pressed("action"):
+					var snd = get_sound_dry()
+					EventBus.emit_signal("play_sound_random", snd, global_position)
+					
 				return
 
 func _on_action_animation_started(_anim_name, _facing) -> void:
 	match _anim_name:
-		"shoot":
-			if !has_bullets():
+		"shoot":			
+			if is_magazine_empty() || (PlayerStatus.has_perk(Perk.PERK_TYPE.HOLLYWOOD_MAG) && !has_bullets()):
 				in_use = false
 				var snd = get_sound_dry()
 				EventBus.emit_signal("play_sound_random", snd, global_position)
@@ -97,10 +100,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				self.magazine -= 1
 
 			if !Global.GameOptions.gameplay.discard_bullets:
-				
-				if PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE) && get_weapon_type() == Globals.WeaponNames.PISTOL:
-					pass
-				else:
+				if get_weapon_type() != Globals.WeaponNames.PISTOL || !PlayerStatus.has_perk(Perk.PERK_TYPE.FREE_FIRE):
 					self.bullets -= 1
 
 			equipper.vel += -equipper.facing * knockback
@@ -154,7 +154,7 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 			emit_signal("on_use")
 
 func has_bullets() -> bool:
-	return !is_magazine_empty() && bullets > 0
+	return bullets > 0
 
 func is_magazine_empty() -> bool:
 	return magazine == 0

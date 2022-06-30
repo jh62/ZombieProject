@@ -29,7 +29,11 @@ func update(delta) -> void:
 		return
 
 	if elapsed >= 2.0:
-		if owner.target is Vector2 || owner.area_perception.overlaps_body(owner.target):
+		if owner.target is Vector2:
+			owner.fsm.travel_to(owner.states.standup, null)
+			return
+		
+		if owner.area_perception.overlaps_body(owner.target) && (!PlayerStatus.has_perk(Perk.PERK_TYPE.SHADOW_DANCER) || owner.global_position.distance_to(owner.target.global_position) < owner.sight_radius *.25):
 			owner.fsm.travel_to(owner.states.standup, null)
 			return
 
