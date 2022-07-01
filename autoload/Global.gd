@@ -1,11 +1,5 @@
 class_name Globals extends Node
 
-const CINEMATIC_MODE := false
-
-const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
-const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")
-const POINTER_64 := preload("res://assets/ui/cursors/pointer64.png")
-
 enum Difficulty {
 	EASY = 0,
 	NORMAL,
@@ -29,6 +23,23 @@ enum ZombieType {
 	ABOMINATION,
 	CRAWLER
 }
+
+const PerkPrices := {
+	Perk.PERK_TYPE.ADRENALINE: 10000,
+	Perk.PERK_TYPE.FAST_RELOAD: 2400,
+	Perk.PERK_TYPE.FIXXXER: 1800,
+	Perk.PERK_TYPE.FREE_FIRE: 12000,
+	Perk.PERK_TYPE.HOLLYWOOD_MAG: 18000,
+	Perk.PERK_TYPE.MOONWALKER: 1200,
+	Perk.PERK_TYPE.SHADOW_DANCER: 4400,
+	Perk.PERK_TYPE.TOUGH_GUY: 3600,
+}
+
+const CINEMATIC_MODE := false
+
+const POINTER_16 := preload("res://assets/ui/cursors/pointer16.png")
+const POINTER_32 := preload("res://assets/ui/cursors/pointer32.png")
+const POINTER_64 := preload("res://assets/ui/cursors/pointer64.png")
 
 const NORMAL_MAP_TEXTURE : Texture = preload("res://assets/spritesheet_n.png")
 

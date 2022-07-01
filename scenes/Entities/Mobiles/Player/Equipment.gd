@@ -5,8 +5,8 @@ export var item : PackedScene
 
 onready var _disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
 
-var _primary_item setget set_primary_item
-var _secondary_item setget set_secondary_item
+var _primary_item setget set_primary_item, get_primary
+var _secondary_item setget set_secondary_item, get_secondary
 var _current setget ,get_current
 
 func _ready() -> void:
@@ -75,3 +75,9 @@ func has_item_equipped() -> bool:
 
 func get_item():
 	return get_child(0)
+
+func get_primary():
+	return _primary_item
+
+func get_secondary():
+	return _secondary_item

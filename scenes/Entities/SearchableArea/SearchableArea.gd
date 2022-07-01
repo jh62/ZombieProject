@@ -10,7 +10,7 @@ export var lootpack := {
 	0.28: preload("res://scenes/Entities/Items/Pickable/Medkit/Medkit.tscn")
 }
 
-export var radius := 10 setget set_radius
+export var radius := 6 setget set_radius
 export var min_amount := 1
 export var max_amount := 5
 export var fill_time := 3.5
@@ -84,18 +84,13 @@ func _on_search_start(mob) -> void:
 	if mob.fsm.current_state.get_name().begins_with("search"):
 		return
 
-	if global_position.distance_to(mob.global_position) > (radius * 1.5):
-		return
+#	if global_position.distance_to(mob.global_position) > (radius * 2.0):
+#		return
 
 	var _facing = mob.global_position.direction_to(global_position).round()
 	mob.facing = _facing
 
 	progress_wheel.value = 0
-#	yield(get_tree().create_timer(.15),"timeout")
-
-#	if !(mob in get_overlapping_bodies()):
-#		mob.stop_search()
-#		return
 
 	if !is_connected("on_search_successful", mob, "stop_search"):
 		connect("on_search_successful", mob, "stop_search")

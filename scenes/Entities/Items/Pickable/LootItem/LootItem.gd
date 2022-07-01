@@ -1,11 +1,11 @@
 class_name LootItem extends Pickable
 
+onready var value := randi() % 75 + 5
+
 func _ready():
-	$Sprite.frame = randi() % ($Sprite.hframes * $Sprite.vframes)
+	overlay_text = "${0}".format({0:value})
+	n_Sprite.frame = randi() % (n_Sprite.hframes * n_Sprite.vframes)
 
-func _process(delta):
-	pass
-
-func on_picked_up_by(body) -> void:
-	EventBus.emit_signal("on_loot_pickedup")
+func on_picked_up_by(body : Node2D) -> void:
 	.on_picked_up_by(body)
+	EventBus.emit_signal("on_loot_pickedup")

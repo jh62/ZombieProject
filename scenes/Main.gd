@@ -176,29 +176,6 @@ func _on_Player_on_death(player_mob):
 	$AnimationPlayer.play("death")
 
 var fuel_pickedup_first := false
-var label_idx := 0
-
-var LabelPool := [
-	preload("res://LabelLoot.tscn").instance(),
-	preload("res://LabelLoot.tscn").instance(),
-	preload("res://LabelLoot.tscn").instance()
-]
-
-func _on_loot_pickedup() -> void:
-	var label_root = LabelPool[label_idx]
-	var label = label_root.get_node("Label")
-	n_MapManager.get_map().add_child(label_root)
-	label.rect_global_position = n_Player.global_position
-	label.bbcode_text = "[center][color=white]+LOOT"
-	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
-
-func _on_request_update_health() -> void:
-	var label_root = LabelPool[label_idx]
-	var label = label_root.get_node("Label")
-	n_MapManager.get_map().add_child(label_root)
-	label.rect_global_position = n_Player.global_position
-	label.bbcode_text = "[center][color=lime]+HEALTH"
-	label_idx = wrapi(label_idx + 1, 0, LabelPool.size())
 
 func _on_PauseMessage_on_pause():
 	n_Dialog.visible = !n_Dialog.visible

@@ -1,23 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/Pickable/Pickable.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Entities/Items/Pickable/LootItem/LootItem.gd" type="Script" id=2]
 [ext_resource path="res://assets/res/items/collectibles.tres" type="Texture" id=3]
-[ext_resource path="res://assets/res/fx/smooth_outline.tres" type="Shader" id=4]
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 4 )
-shader_param/Smooth = true
-shader_param/width = 1.0
-shader_param/outline_color = Color( 0, 0, 0, 1 )
-shader_param/pixel_size = 4
-shader_param/width_speed = 1.0
 
 [node name="LootItem" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+overlay_text = "LOOT"
 
 [node name="Sprite" parent="." index="1"]
-material = SubResource( 2 )
 texture = ExtResource( 3 )
 hframes = 17
 vframes = 2

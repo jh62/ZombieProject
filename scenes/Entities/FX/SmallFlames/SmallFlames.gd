@@ -4,7 +4,7 @@ var speed := 2.0
 var dir := Vector2(1,1)
 var lifetime := 50.0
 var elapsed := 0.0
-var damage := .05
+var damage := 10
 
 func _ready():
 	add_to_group(Globals.GROUP_FIRE)

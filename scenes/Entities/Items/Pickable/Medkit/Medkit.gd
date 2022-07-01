@@ -10,5 +10,4 @@ func on_picked_up_by(body) -> void:
 	player.set_hitpoints(to_heal)
 
 	EventBus.emit_signal("on_request_update_health")
-	EventBus.emit_signal("play_sound", get_picked_sound(), global_position)
-	call_deferred("queue_free")
+	.on_picked_up_by(body)

@@ -59,11 +59,6 @@ func _ready():
 		var random_weapon : int = keys[randi()%keys.size()]
 		weapon_name = Globals.WeaponNames.values()[random_weapon]
 
-#	if bullets == -1:
-#		bullets = weapons.get(weapon_name).bullets
-#		if Global.GameOptions.gameplay.difficulty == Global.Difficulty.HARD:
-#			bullets /= 2
-
 	$Sprite.texture = weapons.get(weapon_name).texture
 
 func get_picked_sound() ->  AudioStream:
@@ -100,28 +95,21 @@ func on_picked_up_by(body) -> void:
 		else:
 			_item.magazine = magazine
 		
-	var current_wep = body.get_equipped()
-	
 	var _item_type = _item.get_weapon_type()
-	var _primary = body.get_equipment()._primary_item
-	var _secondary= body.get_equipment()._secondary_item
+	var _primary = body.get_equipment().get_primary()
+	var _secondary= body.get_equipment().get_secondary()
 	
 	if _item_type == _primary.get_weapon_type():
 		_primary.bullets += _item.bullets
-	elif _item_type == _secondary.get_weapon_type():
-		print_debug("pass")
-	else:
+	elif _item_type != _secondary.get_weapon_type():
 		if _item is Firearm:
 			_create_drop(body, _primary)
 		else:
 			_create_drop(body, _secondary)
 		
-#	if !has_weapon:
-#		_create_drop(body, current_wep)
-
 	EventBus.emit_signal("on_tooltip", "")
-
 	EventBus.emit_signal("on_item_pickedup", _item)
+	
 	.on_picked_up_by(body)
 
 func _create_drop(body, old_weapon) -> void:

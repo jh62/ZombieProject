@@ -14,5 +14,5 @@ void fragment() {
 
 [resource]
 shader = SubResource( 1 )
-shader_param/hit_color = Color( 1, 1, 1, 1 )
+shader_param/hit_color = Color( 0.470588, 0.470588, 0.470588, 1 )
 shader_param/hit_strength = 0.0

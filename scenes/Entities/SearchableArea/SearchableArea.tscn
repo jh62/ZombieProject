@@ -6,6 +6,7 @@
 
 [sub_resource type="CircleShape2D" id=1]
 resource_local_to_scene = true
+radius = 6.08276
 
 [node name="SearchableArea" type="Area2D"]
 light_mask = 0
