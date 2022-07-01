@@ -38,7 +38,6 @@ func _ready() -> void:
 
 	EventBus.connect("on_bike_tank_full", self, "_on_Bike_on_full_tank")
 	EventBus.connect("on_escape", self, "_on_escape")
-	EventBus.connect("on_loot_pickedup", self, "_on_loot_pickedup")
 	EventBus.connect("on_request_update_health", self, "_on_request_update_health")
 	EventBus.connect("on_player_death", self, "_on_Player_on_death")
 

@@ -260,7 +260,6 @@ func _on_item_pickedup(item) -> void:
 	equip_item(item)
 
 func _on_loot_pickedup() -> void:
-	PlayerStatus.loot_count += 1
 	emit_signal("on_loot_pickedup")
 
 func _on_ProgressWheel_on_progress_complete():

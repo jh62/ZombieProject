@@ -7,5 +7,6 @@ func _ready():
 	n_Sprite.frame = randi() % (n_Sprite.hframes * n_Sprite.vframes)
 
 func on_picked_up_by(body : Node2D) -> void:
+	PlayerStatus.cash += value
 	.on_picked_up_by(body)
 	EventBus.emit_signal("on_loot_pickedup")

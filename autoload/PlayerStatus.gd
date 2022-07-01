@@ -24,7 +24,7 @@ var perks := {
 }
 
 var death_count := 0
-var loot_count := 0 setget set_loot_count
+var cash := 0 setget set_cash
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
@@ -91,11 +91,11 @@ func get_weapon(_weapon_idx := 0) -> BaseWeapon:
 		
 	return _instance
 	
-func set_loot_count(_value) -> void:
-	loot_count = clamp(_value * Global.LOOT_MULTIPLIER, 0, Global.MAX_LOOT_COUNT)
+func set_cash(_value) -> void:
+	cash = clamp(_value, 0, Global.MAX_CASH)
 
 func get_cash() -> int:
-	return loot_count * Global.LOOT_MULTIPLIER
+	return cash
 
 func has_perk(_perk_type) -> bool:
 	return perks[_perk_type]

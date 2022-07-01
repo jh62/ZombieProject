@@ -55,8 +55,7 @@ const GROUP_KEYS := "keys"
 const MAX_FUEL_LITERS := 12.5 # 120.5
 const MAX_SPECIAL_ZOMBIES := 4
 
-const MAX_LOOT_COUNT := 1000000
-const LOOT_MULTIPLIER := 5
+const MAX_CASH := 100000
 
 var DEBUG_MODE := false
 

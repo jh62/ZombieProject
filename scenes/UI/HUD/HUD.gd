@@ -68,7 +68,7 @@ func _on_player_death(player) -> void:
 
 func update_loot_count() -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly
-	n_LabelLootCount.text = "x {0}".format({0:PlayerStatus.loot_count})
+	n_LabelLootCount.text = "${0}".format({0:PlayerStatus.cash})
 
 func update_weapon_status(_weapon = null) -> void:
 	yield(get_tree().create_timer(.1),"timeout") # so it updates properly

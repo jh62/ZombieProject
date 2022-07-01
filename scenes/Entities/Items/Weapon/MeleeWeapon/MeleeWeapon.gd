@@ -139,7 +139,6 @@ func _on_action_animation_finished(anim_name, facing) -> void:
 
 func _on_TimerAttackCheck_timeout():
 	if $AreaAttack.get_overlapping_areas().empty():
-		print_debug("no bodies")
 		return
 				
 	for b in $AreaAttack.get_overlapping_areas():

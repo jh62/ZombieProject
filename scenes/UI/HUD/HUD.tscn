@@ -458,11 +458,13 @@ __meta__ = {
 margin_right = 64.0
 margin_bottom = 21.0
 mouse_filter = 2
+custom_constants/separation = -2
 alignment = 1
 
 [node name="TextureLootBag" type="TextureRect" parent="LootBag/HBoxLootBag"]
-margin_right = 27.0
+margin_right = 33.0
 margin_bottom = 21.0
+rect_min_size = Vector2( 27, 21 )
 rect_pivot_offset = Vector2( 8, 10 )
 mouse_filter = 2
 size_flags_horizontal = 3
@@ -479,8 +481,6 @@ margin_right = 64.0
 margin_bottom = 21.0
 size_flags_horizontal = 3
 size_flags_vertical = 7
-text = "x 200"
-align = 1
 valign = 1
 
 [node name="GasTank" type="PanelContainer" parent="."]
