@@ -1,43 +1,48 @@
 class_name PlayerEquipment extends Node2D
 
+
 export var item : PackedScene
+
+onready var _disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
 
 var _primary_item setget set_primary_item
 var _secondary_item setget set_secondary_item
-var _current
+var _current setget ,get_current
 
 func _ready() -> void:
 	if item != null:
 		var t = item.instance()
 		equip(t)
 
-func equip(_item) -> void:
-	_current = _item
-	
-#	if _item is Firearm && _item != _primary_item:
-#		set_primary_item(_item)
-#		var _scene := PackedScene.new()
-#		_scene.pack(_item)
-#		PlayerStatus.set_weapon(_scene, 0, _item.bullets)
-#	elif _item != _secondary_item:
-#		set_secondary_item(_item)
-#		var _scene := PackedScene.new()
-#		_scene.pack(_item)
-#		PlayerStatus.set_weapon(_scene, 1)
-		
-	if has_item_equipped():
-		var _old_item = get_item()
+func get_current():
+	return _current
 
-		if _old_item != _item && _item is Firearm && _old_item.get_weapon_type() == _item.get_weapon_type():
-			_old_item.bullets += _item.bullets
-			return
+func equip(_item) -> void:
+	if _item is Firearm && _primary_item != _item && _primary_item.get_weapon_type() == _item.get_weapon_type():
+		_item.bullets += _primary_item.bullets
+		
+	if _item.get_weapon_type() != Global.WeaponNames.DISARMED:
+		var _scene := PackedScene.new()
+		_scene.pack(_item)
+
+		if _item is Firearm:
+			set_primary_item(_item)
+			PlayerStatus.set_weapon(_scene, 0, _item.bullets)
+		else:
+			set_secondary_item(_item)
+			PlayerStatus.set_weapon(_scene, 1)	
+			
 
 	unequip_all()
+	
+	_current = _item
 	
 	_item.equipper = self.owner
 	_item.light_mask = get_parent().get_node("Sprite").light_mask
 	visible = true
-	add_child(_item)
+	add_child(_item)	
+	
+	EventBus.emit_signal("on_update_weapon_status")
 
 func set_primary_item(_item) -> void:
 	_primary_item = _item
@@ -53,16 +58,13 @@ func equip_primary() -> void:
 
 func equip_secondary() -> void:
 	equip(_secondary_item)
+
+func disarm() -> void:
+	equip(_disarmed)
 	
 func unequip_all() -> void:
-	for i in get_child_count():
-		var _child = get_child(i)
-		
-		if _child.get_weapon_type() == Globals.WeaponNames.DISARMED:
-			_child.call_deferred("queue_free")
-			continue
-			
-		remove_child(_child)
+	for _c in get_children():
+		remove_child(_c)
 
 func clear() -> void:
 	for child in get_children():

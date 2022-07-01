@@ -43,7 +43,7 @@ func _ready() -> void:
 	self.max_hitpoints = PlayerStatus.max_hitpoints
 	self.hitpoints = max_hitpoints
 	
-	yield(get_tree().create_timer(.5),"timeout") # fix!!
+	yield(get_tree().create_timer(.5),"timeout") # fix!!	
 	var _p_equipment = get_equipment()
 	_p_equipment.set_primary_item(PlayerStatus.get_weapon(0))
 	_p_equipment.set_secondary_item(PlayerStatus.get_weapon(1))
@@ -119,7 +119,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("action"):
 			EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE, facing)
 			return
-		elif event.is_action_released("action"):
+			
+		if event.is_action_released("action"):
 			EventBus.emit_signal("action_released", EventBus.ActionEvent.USE, facing)
 			return
 
@@ -141,28 +142,27 @@ func _unhandled_input(event: InputEvent) -> void:
 
 			if  event.is_action_pressed("aim") && !(Input.is_action_pressed("action")):
 				emit_signal("on_aiming_start", self)
-				return
 			elif event.is_action_released("aim"):
 				camera.offset = Vector2.ZERO
 				emit_signal("on_aiming_stop", self)
-				return
+				
+			return
+			
+		if Input.is_action_just_pressed("primary_weapon"):
+			equipment.equip_primary()
+			return
+			
+		if Input.is_action_just_pressed("secondary_weapon"):
+			equipment.equip_secondary()
+			return
 
 	if Input.is_action_just_pressed("action_alt"):
 		emit_signal("on_search_start", self)
 		EventBus.emit_signal("action_pressed", EventBus.ActionEvent.USE_KEY, facing)
 		return
-	elif Input.is_action_just_released("action_alt"):
+		
+	if Input.is_action_just_released("action_alt"):
 		emit_signal("on_search_end", self)
-		return
-	
-	if Input.is_action_just_pressed("primary_weapon"):
-		equipment.equip_primary()
-		emit_signal("on_item_pickedup")
-		return
-	
-	if Input.is_action_just_pressed("secondary_weapon"):
-		equipment.equip_secondary()
-		emit_signal("on_item_pickedup")
 		return
 
 const look_at_dir := Vector2()
@@ -251,11 +251,10 @@ func get_equipment():
 	return equipment
 	
 func get_equipped():
-	return equipment.get_child(0)
+	return equipment.get_current()
 
 func equip_item(_item) -> void:
 	equipment.equip(_item)
-	emit_signal("on_item_pickedup")
 
 func _on_item_pickedup(item) -> void:
 	equip_item(item)

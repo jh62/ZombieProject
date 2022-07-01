@@ -88,30 +88,40 @@ func _on_Area2D_body_entered(body):
 		EventBus.emit_signal("on_tooltip", _text)
 
 func on_picked_up_by(body) -> void:
-	var weapon_info = weapons.get(weapon_name)
-	var item = weapon_info.scene.instance()
+	var _weapon_info = weapons.get(weapon_name)
+	var _item = _weapon_info.scene.instance()
 
-	if item is Firearm:
-		item.bullets = weapon_info.bullets if (bullets == -1) else bullets
-		item.mag_size = weapon_info.mag_size
+	if _item is Firearm:
+		_item.bullets = _weapon_info.bullets if (bullets == -1) else bullets
+		_item.mag_size = _weapon_info.mag_size
 
 		if magazine == -1:
-			item.reload()
+			_item.reload()
 		else:
-			item.magazine = magazine
-
+			_item.magazine = magazine
+		
 	var current_wep = body.get_equipped()
-
-	var is_melee := current_wep is MeleeWeapon
-	var is_firearm : bool = current_wep is Firearm && current_wep.bullets > 0
-	var not_same_weapon : bool = item.get_weapon_type() != current_wep.get_weapon_type()
-
-	if not_same_weapon:
-		_create_drop(body, current_wep)
+	
+	var _item_type = _item.get_weapon_type()
+	var _primary = body.get_equipment()._primary_item
+	var _secondary= body.get_equipment()._secondary_item
+	
+	if _item_type == _primary.get_weapon_type():
+		_primary.bullets += _item.bullets
+	elif _item_type == _secondary.get_weapon_type():
+		print_debug("pass")
+	else:
+		if _item is Firearm:
+			_create_drop(body, _primary)
+		else:
+			_create_drop(body, _secondary)
+		
+#	if !has_weapon:
+#		_create_drop(body, current_wep)
 
 	EventBus.emit_signal("on_tooltip", "")
 
-	EventBus.emit_signal("on_item_pickedup", item)
+	EventBus.emit_signal("on_item_pickedup", _item)
 	.on_picked_up_by(body)
 
 func _create_drop(body, old_weapon) -> void:

@@ -35,6 +35,7 @@ func initialize(_player, _bike) -> void:
 
 	EventBus.connect("on_player_death", self, "_on_player_death")
 	EventBus.connect("on_weapon_reloaded", self, "update_weapon_status")
+	EventBus.connect("on_update_weapon_status", self, "update_weapon_status")
 	EventBus.connect("on_request_update_health", self, "update_healthbar")
 	EventBus.connect("fuel_pickedup", self, "_on_fuelcan_pickup")
 	EventBus.connect("fuel_changed", self, "_on_fuelcan_changed")

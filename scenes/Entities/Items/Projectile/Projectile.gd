@@ -26,9 +26,6 @@ onready var collision := $CollisionShape2D
 var damage := 0.0
 var knockback := 0.0
 
-func _ready() -> void:
-	pass
-
 func _on_impact(body) -> void:
 	if !is_inside_tree():
 		return
@@ -43,10 +40,6 @@ func _on_impact(body) -> void:
 		body.call_deferred("on_hit_by", self)
 		
 	emit_signal("on_impact", self)
-#
-#	if get_parent() != null:
-#		get_parent().remove_child(self)
-#		print_debug("rmove")
 
 func _on_Projectile_body_entered(body: Node) -> void:
 	_on_impact(body)
@@ -57,10 +50,6 @@ func _on_Projectile_body_shape_entered(body_id, body, body_shape, local_shape):
 func _on_VisibilityTimer_timeout():
 	if get_parent() != null:
 		get_parent().remove_child(self)
-		print_debug("removing myself")
-
-func _on_VisibilityNotifier2D_viewport_exited(viewport):
-#	if $VisibilityTimer.is_inside_tree():
-#		$VisibilityTimer.start(.15)
-	emit_signal("on_exit_screen", self)
 		
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	emit_signal("on_exit_screen", self)

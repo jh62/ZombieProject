@@ -93,14 +93,9 @@ func start() -> void:
 	if !$Timer.is_stopped():
 		return
 
-	weapon = player.equipment.get_child(0)
-	player.equipment.remove_child(weapon)
+	player.get_equipment().disarm()
 
-	var disarmed := preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn").instance()
-	player.call_deferred("equip_item", disarmed)
-#	player.equip_item(disarmed)
-
-	player.can_move = false
+	player.can_move = false	
 	player.dir = Vector2.ZERO
 	player.vel = Vector2.ZERO
 	fuelcan.on_use()
@@ -111,9 +106,7 @@ func stop() -> void:
 		return
 
 	EventBus.emit_signal("on_tooltip", "")
-
-	player.equipment.clear()
-	player.call_deferred("equip_item", weapon)
+	player.get_equipment().equip_primary()
 
 	player.can_move = true
 	fuelcan.on_use_stop()

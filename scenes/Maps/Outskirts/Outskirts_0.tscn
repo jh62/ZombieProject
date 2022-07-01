@@ -720,14 +720,24 @@ position = Vector2( 79, 32 )
 position = Vector2( 109, 45 )
 random_drop = false
 weapon_name = 1
-bullets = 6
+bullets = 40
 
-[node name="Zombie" parent="TileMap2/Entities/Mobs" index="2" instance=ExtResource( 43 )]
+[node name="PickableWeapon3" parent="TileMap2/Entities/Mobs" index="2" instance=ExtResource( 2 )]
+position = Vector2( 109, 77 )
+random_drop = false
+bullets = 20
+
+[node name="PickableWeapon" parent="TileMap2/Entities/Mobs" index="3" instance=ExtResource( 2 )]
+position = Vector2( 40, 72 )
+random_drop = false
+bullets = 50
+
+[node name="Zombie" parent="TileMap2/Entities/Mobs" index="4" instance=ExtResource( 43 )]
 position = Vector2( 80, 165 )
 map_node = NodePath("../../../..")
 state = ExtResource( 44 )
 
-[node name="FuelCan" parent="TileMap2/Entities/Mobs" index="3" instance=ExtResource( 45 )]
+[node name="FuelCan" parent="TileMap2/Entities/Mobs" index="5" instance=ExtResource( 45 )]
 position = Vector2( 51, 47 )
 fuel_amount = 100.0
 

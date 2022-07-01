@@ -140,10 +140,10 @@ func _on_action_animation_started(_anim_name, _facing) -> void:
 				var _bullet_pos = equipper.global_position
 				var _equipper_facing = equipper.facing.normalized().round()
 
-				if _equipper_facing.x != 0:
-					_bullet_pos.x += _equipper_facing.x * 10
-				if _equipper_facing.y != 0:
-					_bullet_pos.y += _equipper_facing.y * 10
+#				if _equipper_facing.x != 0:
+#					_bullet_pos.x += _equipper_facing.x * 10
+#				if _equipper_facing.y != 0:
+#					_bullet_pos.y += _equipper_facing.y * 10
 
 				EventBus.emit_signal("on_bullet_spawn", _bullet_pos, damage, knockback, equipper.aiming, bullet_type)
 

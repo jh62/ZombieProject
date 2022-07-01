@@ -19,6 +19,7 @@ signal create_shake(duration, frequency, amplitude, priority)
 signal on_request_update_health
 signal on_tooltip(text)
 signal update_objective(idx, completed, text, delay)
+signal on_update_weapon_status()
 
 # Player signals
 signal action_pressed(action_name, facing)
