@@ -101,11 +101,6 @@ func _ready() -> void:
 				n_ZombieSpawner.mob_max = 60
 				n_ZombieSpawner.mob_group_max = 10
 				n_ZombieSpawner.restart_delay = 20
-				
-#	var _p_equipment = _player.get_equipment()				
-#	_p_equipment.set_primary_item(PlayerStatus.get_weapon(0))
-#	_p_equipment.set_secondary_item(PlayerStatus.get_weapon(1))
-#	_p_equipment.equip_primary()
 
 	if Global.CINEMATIC_MODE:
 		$UI.layer = -1000
@@ -130,11 +125,14 @@ func on_intro_ready() -> void:
 	n_Player.set_process_unhandled_key_input(true)
 	EventBus.emit_signal("intro_finished")
 
-func _on_Button_button_up():
+func _on_ButtonRestart_button_up():
 	if Global.GameOptions.gameplay.death_wish:
+		EventBus.emit_signal("on_quit")
+		
 		var new_scene := preload("res://scenes/UI/Menus/TitleScreen/TitleScreen.tscn")
 		get_tree().change_scene_to(new_scene)
 	else:
+		EventBus.emit_signal("on_restart")
 		get_tree().reload_current_scene()
 
 func _on_Bike_on_full_tank():

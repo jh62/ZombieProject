@@ -1,4 +1,4 @@
-extends StaticObject
+class_name Car extends StaticObject
 
 const MAX_WARNINGS := 30
 const DestroyedShader := preload("res://assets/res/fx/destroyed_shader.tres")
@@ -6,7 +6,7 @@ const DestroyedShader := preload("res://assets/res/fx/destroyed_shader.tres")
 var exploded = false
 
 func _ready():
-	$Sprite.frame = randi() % ($Sprite.hframes * $Sprite.vframes)
+	$Sprite.frame = randi() % ($Sprite.hframes * $Sprite.vframes)		
 
 func get_item_name():
 	return "vehicle"

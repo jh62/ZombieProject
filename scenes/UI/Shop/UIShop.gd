@@ -20,7 +20,7 @@ const QUOTES := {
 		"Why exactly are you here?",
 		"Can I help you, friend?",
 		"You got cash, right?",
-		"I'll just look at you 'till you buy somethin'"
+		"I'll just look at you 'till you buy somethin'",
 	],
 	"undecided": [
 		"Pick one!",
@@ -34,9 +34,11 @@ const QUOTES := {
 	],
 	"broke":[
 		"You ain't got the cash for that!",
-		"I ain't runnin' a charity!",
-		"I wasn't born yesterday, mate!",
-		"You're broke, mate!",
+		"I ain't runnin' a charity here!",
+		"I'm not in the business of giving stuff for free.",
+		"You don't have the cash, friend!",
+		"You don't have the cash, guy!",
+		"You don't have the cash, buddy!",
 		"I ain't giving that for free!",
 		"How about gettin' some cash before comin' in here?",
 		"There's a price tag in there! I suggest you read it.",
@@ -117,7 +119,7 @@ onready var n_Tween := $TweenItemListTransition
 onready var n_Dialog := $ConfirmationDialogContainer/ConfirmationDialog
 onready var n_DialogWarning := $WarningDialogContainer/WarningDialog
 onready var n_ChatLabel := $ChatBubbleTexture/MarginContainer/ChatLabel
-onready var n_LabelCash := $Cash/CenterContainer/PanelCash/CenterContainer/LabelCash
+onready var n_LabelCash := $Cash/VBoxContainer/LabelCash
 onready var n_ButtonAmmo := $PanelRight/AmmoContainer/CenterContainer/VBoxContainer/HBoxContainer/ButtonAmmo
 onready var n_LabelAmmoCount := $PanelRight/AmmoContainer/CenterContainer/VBoxContainer/AmmoCountLabel
 onready var n_AnimationPlayerMouth := $AnimationPlayerMouth
@@ -141,6 +143,8 @@ var ammo_price := 0
 var current_cash := 0 setget set_cash
 
 func _ready():
+	Input.set_custom_mouse_cursor(Global.POINTER_64, Input.CURSOR_ARROW, Vector2(0,0))
+	
 	for n in $PanelRight/PerksContainer/GridContainer.get_children():
 		n.connect("on_pressed", self, "_on_Perk_pressed")
 		n.connect("on_purchased", self, "_on_Perk_purchased")
@@ -416,6 +420,7 @@ func _on_ConfirmationDialog_confirmed():
 			_populate_weapon_list()
 			_play("buy")
 		MENU_ACTIVE.QUIT_CONFIRM:
+			PlayerStatus.set_cash(current_cash)
 			get_tree().change_scene_to(MainScene)
 			call_deferred("queue_free")
 		_:
@@ -435,7 +440,7 @@ func update_ammo_info(_ammo_count) -> void:
 	
 func set_cash(_value) -> void:
 	current_cash = max(0, _value)	
-	var _str := "Loot cash: ${0}".format({0:current_cash}).substr(0, 19)
+	var _str := "${0}".format({0:current_cash}).substr(0, 19)
 	n_LabelCash.text = _str
 	
 func set_menu_active(_active_menu) -> void:
@@ -530,3 +535,6 @@ func _on_ConfirmationDialog_item_rect_changed():
 
 func _on_WarningDialog_item_rect_changed():
 	n_DialogWarning.popup_centered()
+
+func _on_WarningDialog_confirmed():
+	set_menu_active(MENU_ACTIVE.NONE)

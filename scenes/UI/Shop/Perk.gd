@@ -18,7 +18,7 @@ enum PERK_TYPE {
 
 export(PERK_TYPE) var perk_type := 0 setget set_perk_icon
 export var perk_name := ""
-export var perk_price := 0
+export var perk_price := -1
 export var purchased := false
 
 onready var n_Panel := $Panel
@@ -28,7 +28,13 @@ onready var n_Tween := $Tween
 onready var PanelStyle := StyleBoxFlat.new()
 
 func _ready():
+	
+	if perk_price == -1:
+		perk_price = Global.PerkPrices.get(perk_type)
+	
 	n_Panel.set("custom_styles/panel", StyleBoxFlat.new())
+	
+	purchased = purchased || PlayerStatus.has_perk(perk_type)
 	
 	if purchased:
 		n_Panel.get("custom_styles/panel").bg_color = Color.webgreen

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/Entities/Items/StaticObject/Car.gd" type="Script" id=1]
 [ext_resource path="res://assets/maps/harbor/harbor_pickup.tres" type="Texture" id=2]
 [ext_resource path="res://assets/spritesheet_n.png" type="Texture" id=3]
+[ext_resource path="res://scenes/Entities/SearchableArea/SearchableFlashing.tscn" type="PackedScene" id=4]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 cull_mode = 1
@@ -53,6 +54,10 @@ collision_mask = 6
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 visible = false
+
+[node name="SearchableFlashing" parent="." instance=ExtResource( 4 )]
+position = Vector2( -13, 0 )
+probability = 0.27
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_body_exited"]

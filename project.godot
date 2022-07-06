@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/Maps/Statics/Building.gd"
 }, {
+"base": "StaticObject",
+"class": "Car",
+"language": "GDScript",
+"path": "res://scenes/Entities/Items/StaticObject/Car.gd"
+}, {
 "base": "BaseZombie",
 "class": "Crawler",
 "language": "GDScript",
@@ -84,10 +89,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/fsm/states/DieState.gd"
 }, {
-"base": "StaticObject",
+"base": "Reference",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Door.gd"
+"path": "res://scenes/Maps/Statics/Door.gd"
 }, {
 "base": "Area2D",
 "class": "Explosion",
@@ -288,6 +293,7 @@ _global_script_class_icons={
 "BaseZombie": "",
 "Bike": "",
 "Building": "",
+"Car": "",
 "Crawler": "",
 "CrawlerAttackState": "",
 "CrawlerDieState": "",

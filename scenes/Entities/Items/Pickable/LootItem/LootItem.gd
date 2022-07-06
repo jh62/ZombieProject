@@ -1,6 +1,6 @@
 class_name LootItem extends Pickable
 
-onready var value := randi() % 75 + 5
+onready var value := randi() % 25 + 5
 
 func _ready():
 	overlay_text = "${0}".format({0:value})

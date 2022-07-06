@@ -1,11 +1,10 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://assets/ui/merchant_bg.tres" type="Texture" id=1]
 [ext_resource path="res://assets/ui/panel_metal_1.tres" type="Texture" id=2]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=3]
 [ext_resource path="res://assets/ui/fonts/font_shop_sign.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/ui/fonts/mago1.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=6]
 [ext_resource path="res://assets/ui/ui_spritesheet.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/panel_metal_3.tres" type="Texture" id=8]
 [ext_resource path="res://scenes/UI/Shop/UIShop.gd" type="Script" id=9]
@@ -147,10 +146,6 @@ border_width_bottom = 1
 border_color = Color( 0.141176, 0.141176, 0.141176, 1 )
 border_blend = true
 expand_margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 180, 52 )
 
 [sub_resource type="DynamicFont" id=47]
 size = 14
@@ -421,6 +416,7 @@ anchor_bottom = 1.00556
 texture = ExtResource( 1 )
 stretch_mode = 3
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true,
 "_edit_use_anchors_": true
 }
@@ -437,15 +433,14 @@ texture = SubResource( 3 )
 stretch_mode = 3
 
 [node name="TextureMouth" type="TextureRect" parent="Background"]
-anchor_left = 0.322148
-anchor_top = 0.315436
-anchor_right = 0.449664
-anchor_bottom = 0.409396
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 48.0
+margin_top = 47.0
+margin_right = 48.0
+margin_bottom = 47.0
 texture = SubResource( 6 )
 stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": true
-}
 
 [node name="PanelRight" type="NinePatchRect" parent="."]
 anchor_left = 0.465625
@@ -513,7 +508,6 @@ margin_right = 34.0
 margin_bottom = 39.0
 hint_tooltip = "Fast Reload: You can reload at full speed, while moving."
 perk_name = "Fast Reload"
-perk_price = 200
 
 [node name="Perk2" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -524,7 +518,6 @@ margin_bottom = 39.0
 hint_tooltip = "Moonwalker: Walk backwards at full speed."
 perk_type = 1
 perk_name = "Moonwalker"
-perk_price = 200
 
 [node name="Perk3" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -535,7 +528,6 @@ margin_bottom = 39.0
 hint_tooltip = "Fixxxer: Medkits are 25% more effective."
 perk_type = 2
 perk_name = "Fixxxer"
-perk_price = 200
 
 [node name="Perk4" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -546,7 +538,6 @@ margin_bottom = 39.0
 hint_tooltip = "Free Fire: Pistols have infinite ammo."
 perk_type = 3
 perk_name = "Free Fire"
-perk_price = 200
 
 [node name="Perk5" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -557,7 +548,6 @@ margin_bottom = 82.0
 hint_tooltip = "Tough Guy: You get 25% more health."
 perk_type = 4
 perk_name = "Tough Guy"
-perk_price = 200
 
 [node name="Perk6" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -569,7 +559,6 @@ margin_bottom = 82.0
 hint_tooltip = "Adrenaline: First death is free (death wish included)."
 perk_type = 5
 perk_name = "Adrenaline"
-perk_price = 200
 
 [node name="Perk7" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -581,7 +570,6 @@ margin_bottom = 82.0
 hint_tooltip = "Hollywood Mag: You don't need to reload anymore."
 perk_type = 6
 perk_name = "Hollywood Magazine"
-perk_price = 200
 
 [node name="Perk8" parent="PanelRight/PerksContainer/GridContainer" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -593,7 +581,6 @@ margin_bottom = 82.0
 hint_tooltip = "Shadow Dancer: Zombies in no direct LOS won't notice you at full speed."
 perk_type = 7
 perk_name = "Shadow Dancer"
-perk_price = 200
 
 [node name="WeaponSelection9" type="NinePatchRect" parent="PanelRight"]
 anchor_left = 0.0409357
@@ -790,35 +777,36 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="CenterContainer" type="CenterContainer" parent="Cash"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="PanelCash" type="Panel" parent="Cash/CenterContainer"]
-margin_left = 15.0
-margin_top = 4.0
-margin_right = 135.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 120, 24 )
+[node name="VBoxContainer" type="VBoxContainer" parent="Cash"]
+anchor_left = 0.0333333
+anchor_top = 0.0624999
+anchor_right = 0.966667
+anchor_bottom = 0.906249
+margin_left = -4.76837e-07
 size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
-
-[node name="CenterContainer" type="CenterContainer" parent="Cash/CenterContainer/PanelCash"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+custom_constants/separation = -1
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="LabelCash" type="Label" parent="Cash/CenterContainer/PanelCash/CenterContainer"]
-margin_left = 7.0
-margin_top = 5.0
-margin_right = 112.0
-margin_bottom = 18.0
-custom_fonts/font = ExtResource( 3 )
-text = "LOOT CASH: $1000000"
+[node name="Label" type="Label" parent="Cash/VBoxContainer"]
+margin_right = 140.0
+margin_bottom = 13.0
+text = "LOOT CASH"
 align = 1
+
+[node name="LabelCash" type="Label" parent="Cash/VBoxContainer"]
+margin_top = 12.0
+margin_right = 140.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 3 )
+text = "$1000000"
+align = 1
+valign = 1
+uppercase = true
 
 [node name="ChatBubbleTexture" type="TextureRect" parent="."]
 visible = false
@@ -833,19 +821,20 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="ChatBubbleTexture"]
+anchor_left = 0.151899
 anchor_right = 1.0
 anchor_bottom = 1.02174
 margin_bottom = -1.0
-custom_constants/margin_left = 14
-custom_constants/margin_bottom = -14
+custom_constants/margin_right = 2
+custom_constants/margin_left = 2
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="ChatLabel" type="Label" parent="ChatBubbleTexture/MarginContainer"]
-margin_left = 14.0
-margin_right = 79.0
-margin_bottom = 60.0
+margin_left = 2.0
+margin_right = 64.0
+margin_bottom = 46.0
 size_flags_horizontal = 3
 size_flags_vertical = 5
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -921,6 +910,8 @@ dialog_autowrap = true
 [node name="WarningDialogContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -14.0
+margin_right = -14.0
 mouse_filter = 2
 
 [node name="WarningDialog" type="AcceptDialog" parent="WarningDialogContainer"]
@@ -952,4 +943,5 @@ autoplay = true
 [connection signal="about_to_show" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_about_to_show"]
 [connection signal="confirmed" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
 [connection signal="item_rect_changed" from="ConfirmationDialogContainer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_item_rect_changed"]
+[connection signal="confirmed" from="WarningDialogContainer/WarningDialog" to="." method="_on_WarningDialog_confirmed"]
 [connection signal="item_rect_changed" from="WarningDialogContainer/WarningDialog" to="." method="_on_WarningDialog_item_rect_changed"]

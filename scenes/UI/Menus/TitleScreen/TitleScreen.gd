@@ -49,7 +49,10 @@ var last_poll := 0.0
 var resource
 
 func _ready():
+	Input.set_custom_mouse_cursor(Global.POINTER_64, Input.CURSOR_ARROW, Vector2(0,0))
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	yield(get_tree(),"idle_frame")
+	_load()
 
 func _process(time):
 	if loader == null:
@@ -81,19 +84,19 @@ func _input(event):
 		return
 
 	match current_menu:
-			MenuScreen.NEW_GAME:
-				if !load_finished:
-					return
-				set_new_scene(resource)
-			_:
+		MenuScreen.NEW_GAME:
+			if !load_finished:
 				return
+			set_new_scene(resource)
+		_:
+			return
 
 func _unhandled_input(event):
-		match current_menu:
-			MenuScreen.CREDITS:
-				set_menu_screen(MenuScreen.MAIN)
-			_:
-				return
+	match current_menu:
+		MenuScreen.CREDITS:
+			set_menu_screen(MenuScreen.MAIN)
+		_:
+			return
 
 func update_progress():
 	var progress = float(loader.get_stage()) / loader.get_stage_count()
@@ -116,12 +119,30 @@ func _on_ButtonCredits_button_up():
 func _on_ButtonExit_button_up():
 	get_tree().quit()
 
-func load() -> void:
-	pass
-
-func save() -> void:
+func _load() -> void:
 	# Gameplay
-	Global.GameOptions.gameplay.difficulty = Globals.Difficulty.values()[n_OptionsDifficulty.selected]
+	n_OptionsDifficulty.selected = Global.GameOptions.gameplay.difficulty
+	n_CheckBoxRealMags.pressed = Global.GameOptions.gameplay.discard_bullets
+	n_CheckBoxDeathWish.pressed = Global.GameOptions.gameplay.death_wish
+	n_CheckBoxAutopick.pressed = Global.GameOptions.gameplay.auto_pickup
+	n_CheckBoxJoypad.pressed = Global.GameOptions.gameplay.joypad
+	# Graphics
+	n_CheckBoxRenderBlood.pressed = Global.GameOptions.graphics.render_blood
+	n_CheckBoxRenderBullets.pressed = Global.GameOptions.graphics.render_bullets
+	n_CheckBoxRenderMags.pressed = Global.GameOptions.graphics.render_mags
+	n_CheckBoxRenderMist.pressed = Global.GameOptions.graphics.render_mist
+	n_CheckBoxRenderNoise.pressed = Global.GameOptions.graphics.render_noise
+	n_CheckBoxRenderVignette.pressed = Global.GameOptions.graphics.render_vignette
+	n_CheckBoxCorpseDecay.pressed = Global.GameOptions.graphics.corpses_decay
+	# Audio
+	n_SliderMusic.value = Global.GameOptions.audio.music_db 
+	n_SliderSound.value = Global.GameOptions.audio.sound_db
+	n_SliderPlayerFootsteps.value = Global.GameOptions.audio.player_footsteps
+	n_SliderZombieFootsteps.value = Global.GameOptions.audio.zombie_footsteps
+
+func _save() -> void:
+	# Gameplay
+	Global.GameOptions.gameplay.difficulty = Global.Difficulty.values()[n_OptionsDifficulty.selected]
 	Global.GameOptions.gameplay.discard_bullets = n_CheckBoxRealMags.pressed
 	Global.GameOptions.gameplay.death_wish = n_CheckBoxDeathWish.pressed
 	Global.GameOptions.gameplay.auto_pickup = n_CheckBoxAutopick.pressed
@@ -162,7 +183,7 @@ func set_menu_screen(new_value) -> void:
 #		menu.visible = key == new_value
 
 func _on_ButtonSave_button_up():
-	save()
+	_save()
 	set_menu_screen(MenuScreen.MAIN)
 
 func _on_ButtonCancel_button_up():

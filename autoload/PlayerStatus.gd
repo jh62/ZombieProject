@@ -4,11 +4,11 @@ var current_level := 1 setget set_current_level
 
 var weapons := {
 	0:{
-		"scene": null,
-		"bullets": 0
+		"scene": preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
+		"bullets": 180
 	},
 	1:{
-		"scene": null
+		"scene": preload("res://scenes/Entities/Items/Weapon/Disarmed/Disarmed.tscn")
 	}
 }
 
@@ -28,45 +28,56 @@ var cash := 0 setget set_cash
 var precision_margin_error := 0.15
 var max_hitpoints := 10
 
-func _ready():	
-	if has_perk(Perk.PERK_TYPE.TOUGH_GUY):
-		max_hitpoints *= 1.5
+var old_status := {
+	"weapons": null,
+	"perks": null,
+	"death_count": 0,
+	"cash": 0,
+	"max_hitpoints": 10,
+	"current_level": 1
+}
+
+func _ready():
+	EventBus.connect("on_quit", self, "_reset")
+	EventBus.connect("on_restart", self, "_reset")
+	EventBus.connect("intro_finished", self, "_backup")
 	
 	match Global.GameOptions.gameplay.difficulty:
-		Globals.Difficulty.EASY:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				220
-			)
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
-				1,
-				220
-			)
 		Globals.Difficulty.NORMAL:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				160
-			)
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
-				1,
-				220
-			)
+			weapons[0].bullets = 120
 		Globals.Difficulty.HARD:
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/Pistol/Pistol.tscn"),
-				0,
-				10
-			)
-			PlayerStatus.set_weapon(
-				preload("res://scenes/Entities/Items/Weapon/MeleeWeapon/Sword/Sword.tscn"),
-				1,
-				220
-			)
+			weapons[0].bullets = 12
+	
+func _reset() -> void:
+	var _status_backup := ConfigFile.new()
+	var _uid := String(get_instance_id())
+	var _error := _status_backup.load_encrypted_pass("res://{0}".format({0:_uid}), _uid)
+	
+	if _error != OK:
+		print_debug("Error loading previous player status.")
+		return
+		
+	weapons = _status_backup.get_value("PlayerStatus", "weapons")
+	perks = _status_backup.get_value("PlayerStatus", "perks")
+	current_level = _status_backup.get_value("PlayerStatus", "current_level")
+	death_count = _status_backup.get_value("PlayerStatus", "death_count")
+	cash = _status_backup.get_value("PlayerStatus", "cash")
+	max_hitpoints = _status_backup.get_value("PlayerStatus", "max_hitpoints")
 
+func _backup() -> void:
+	var _uid := String(get_instance_id())
+	var _status_backup = ConfigFile.new()
+	
+	_status_backup.set_value("PlayerStatus", "weapons", weapons)
+	_status_backup.set_value("PlayerStatus", "perks", perks)
+	_status_backup.set_value("PlayerStatus", "current_level", current_level)
+	_status_backup.set_value("PlayerStatus", "death_count", death_count)
+	_status_backup.set_value("PlayerStatus", "cash", cash)
+	_status_backup.set_value("PlayerStatus", "max_hitpoints", max_hitpoints)
+	
+	_status_backup.save_encrypted_pass("res://{0}".format({0:_uid}), _uid)
+	print_debug("Saved player status.")
+		
 func set_current_level(_val) -> void:
 	current_level = clamp(_val, 1, 4)
 

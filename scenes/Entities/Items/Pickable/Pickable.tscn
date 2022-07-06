@@ -154,9 +154,12 @@ follow_viewport_enable = true
 
 [node name="Label" type="RichTextLabel" parent="CanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 0.4
+anchor_bottom = 0.0888889
 mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
 anims/RESET = SubResource( 6 )

@@ -922,14 +922,10 @@ __meta__ = {
 
 [node name="PauseMessage" type="Control" parent="UI"]
 pause_mode = 2
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = SubResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CenterContainer" type="CenterContainer" parent="UI/PauseMessage"]
 anchor_right = 1.0
@@ -941,9 +937,9 @@ __meta__ = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMessage/CenterContainer"]
 margin_left = 112.0
-margin_top = 67.0
+margin_top = 68.0
 margin_right = 208.0
-margin_bottom = 113.0
+margin_bottom = 111.0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="UI/PauseMessage/CenterContainer/VBoxContainer"]
@@ -956,7 +952,7 @@ valign = 1
 [node name="LabelQuit" type="Label" parent="UI/PauseMessage/CenterContainer/VBoxContainer"]
 margin_top = 17.0
 margin_right = 96.0
-margin_bottom = 46.0
+margin_bottom = 43.0
 rect_min_size = Vector2( 96, 0 )
 text = "Press Q to quit to MAIN MENU"
 align = 1
@@ -1080,6 +1076,6 @@ stream = ExtResource( 16 )
 stream = ExtResource( 17 )
 
 [connection signal="visibility_changed" from="UI/ControlRestart" to="UI/ControlRestart" method="_on_ControlRestart_visibility_changed"]
-[connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_Button_button_up"]
+[connection signal="button_up" from="UI/ControlRestart/ButtonRestart" to="." method="_on_ButtonRestart_button_up"]
 [connection signal="on_pause" from="UI/PauseMessage" to="." method="_on_PauseMessage_on_pause"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -13,13 +13,13 @@ signal on_hit
 signal on_item_pickedup
 signal on_loot_pickedup
 
-var states := {}
-
 onready var equipment := $Equipment
 onready var vision := $Vision
 onready var ray := $RayHeadshot
 onready var camera := $Camera2D
 onready var crosshair := $Crosshair
+
+var states := {}
 
 var aiming = false
 var busy_time := 0.0 setget set_busy_time
@@ -40,8 +40,12 @@ func _ready() -> void:
 	}
 	fsm.current_state = states.idle
 
-	self.max_hitpoints = PlayerStatus.max_hitpoints
-	self.hitpoints = max_hitpoints
+	max_hitpoints = PlayerStatus.max_hitpoints
+	
+	if PlayerStatus.has_perk(Perk.PERK_TYPE.TOUGH_GUY):
+		max_hitpoints *= 1.5
+		
+	hitpoints = max_hitpoints
 	
 	yield(get_tree().create_timer(.5),"timeout") # fix!!	
 	var _p_equipment = get_equipment()
@@ -148,11 +152,11 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 			return
 			
-		if Input.is_action_just_pressed("primary_weapon"):
+		if Input.is_action_just_pressed("primary_weapon")  && get_equipment().get_primary().get_weapon_type() != Global.WeaponNames.DISARMED:
 			equipment.equip_primary()
 			return
 			
-		if Input.is_action_just_pressed("secondary_weapon"):
+		if Input.is_action_just_pressed("secondary_weapon") && get_equipment().get_secondary().get_weapon_type() != Global.WeaponNames.DISARMED:
 			equipment.equip_secondary()
 			return
 

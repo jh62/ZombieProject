@@ -11,6 +11,8 @@ signal intro_finished
 signal on_pause
 signal on_unpause
 signal on_escape
+signal on_restart
+signal on_quit
 
 # Effect signals
 signal create_shake(duration, frequency, amplitude, priority)

@@ -949,6 +949,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="OptionButton" type="ConfirmationDialog" parent="CanvasLayer/CenterContainer"]
+visible = true
 margin_left = 70.0
 margin_top = 55.0
 margin_right = 250.0
