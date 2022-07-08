@@ -1,8 +1,6 @@
 [gd_resource type="Theme" load_steps=40 format=2]
 
 [ext_resource path="res://assets/ui/fonts/default_font.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/res/ui/button_brown_bg.tres" type="StyleBox" id=2]
-[ext_resource path="res://assets/res/ui/button_gray_bg.tres" type="StyleBox" id=3]
 [ext_resource path="res://assets/ui/fonts/font_small_8x.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/ui/fonts/font_small.tres" type="DynamicFont" id=5]
 [ext_resource path="res://assets/ui/panel_green.tres" type="Texture" id=6]
@@ -15,7 +13,11 @@
 
 [sub_resource type="StyleBoxEmpty" id=15]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=44]
+
+[sub_resource type="StyleBoxEmpty" id=46]
+
+[sub_resource type="StyleBoxEmpty" id=45]
 
 [sub_resource type="StyleBoxEmpty" id=18]
 
@@ -139,14 +141,14 @@ border_color = Color( 0.117647, 0.168627, 0.188235, 1 )
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color_hover = Color( 1, 1, 1, 1 )
-Button/colors/font_color_pressed = Color( 0.54902, 0.545098, 0.545098, 1 )
+Button/colors/font_color_hover = Color( 1, 0, 0, 1 )
+Button/colors/font_color_pressed = Color( 0.623529, 0, 0, 1 )
 Button/constants/hseparation = 1
 Button/styles/disabled = SubResource( 1 )
 Button/styles/focus = SubResource( 15 )
-Button/styles/hover = ExtResource( 2 )
-Button/styles/normal = SubResource( 4 )
-Button/styles/pressed = ExtResource( 3 )
+Button/styles/hover = SubResource( 44 )
+Button/styles/normal = SubResource( 46 )
+Button/styles/pressed = SubResource( 45 )
 CheckBox/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 CheckBox/colors/font_color_disabled = Color( 0.9, 0.9, 0.9, 0.2 )
 CheckBox/colors/font_color_focus = Color( 0.94, 0.94, 0.94, 1 )

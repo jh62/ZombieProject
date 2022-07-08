@@ -26,9 +26,6 @@ const ExplosionTypes := {
 var radius := 4.0
 var max_flames := 4
 
-func _ready():
-	pass
-
 func create_small_explosion(_radius := radius, _max_flames := max_flames) -> void:
 	var t := [Type.SMALL_1, Type.SMALL_2]
 	t.shuffle()
@@ -56,7 +53,7 @@ func explode(explosion_type, _radius := radius, _max_flames := max_flames) -> vo
 		var flames := SmallFlames.instance()
 		flames.dir = Vector2(rand_range(-1,1),rand_range(-1,1))
 		flames.speed = randf() * 4.6 + 3.0
-		EventBus.emit_signal("on_object_spawn", flames, global_position)
+		EventBus.emit_signal("on_object_spawn", flames, global_position, -1)
 #		yield(get_tree().create_timer(0.002),"timeout")
 
 func check_explosion() -> void:

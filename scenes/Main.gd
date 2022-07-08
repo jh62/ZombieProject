@@ -14,14 +14,42 @@ var n_Entities
 func _ready() -> void:
 	randomize()
 	
-	var map
+	var maps_dir := "res://scenes/Maps/"
+	var map_name
 	
 	match PlayerStatus.current_level:
 		4:
-			map = preload("res://scenes/Maps/Harbor/Harbor0.tscn").instance()
+			map_name = "Harbor"
+		1:
+			map_name = "Military"
 		_:
-			map = preload("res://scenes/Maps/Outskirts/Outskirts_0.tscn").instance()
+			map_name = "Outskirts"
+#			map_name = "res://scenes/Maps/{0}/{0}_{1}.tscn".format({0:"Outskirts",1:0})
 			
+	var dir := Directory.new()
+	var err := dir.open(maps_dir + "/{0}/".format({0:map_name}))
+	
+	if err != OK:
+		print_debug("FATAL ERROR: Can't load maps!")
+		return
+	
+	var map_count := -1
+	
+	dir.list_dir_begin()
+	var file := dir.get_next()
+	while file != "":
+		if file.begins_with(map_name):
+			map_count += 1
+		file = dir.get_next()
+	dir.list_dir_end()
+
+	if map_count == -1:
+		print_debug("FATAL ERROR: Error while loading map {0}".format({0:map_name}))
+		return
+	
+	var map_path = maps_dir + map_name + "/{0}_{1}.tscn".format({0:map_name,1:(randi() % map_count)})
+	print_debug(map_path)
+	var map = load(map_path).instance()
 	n_MapManager.add_child(map)
 	
 	yield(get_tree().create_timer(0.1),"timeout")
@@ -83,7 +111,7 @@ func _ready() -> void:
 		else:
 			$VignetteLayer/ColorRect.visible = true
 
-	var n_ZombieSpawner := $ZombieSpawner	
+	var n_ZombieSpawner := $ZombieSpawner
 	
 	match Global.GameOptions.gameplay.difficulty:
 		Globals.Difficulty.EASY:
@@ -107,7 +135,7 @@ func _ready() -> void:
 		
 func set_debug_mode(_mode) -> void:
 	debug_mode = _mode
-	Global.DEBUG_MODE = _mode	
+	Global.DEBUG_MODE = _mode
 
 func _unhandled_key_input(event):
 	if Input.is_key_pressed(KEY_F11):

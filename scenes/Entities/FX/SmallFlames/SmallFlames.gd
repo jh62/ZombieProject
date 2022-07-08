@@ -31,12 +31,16 @@ func _process(delta):
 		speed = 0.0
 
 func _on_SmallFlames_body_entered(body : Node2D):
-	if body.is_in_group(Globals.GROUP_HOSTILES):
+	if body.is_in_group(Globals.GROUP_MOBILE):
 		if !body.find_node("Fire", true, false):
 			var Fire := preload("res://scenes/Entities/FX/Fire/Fire.tscn")
 			body.add_child(Fire.instance())
 			call_deferred("queue_free")
-	elif body.is_in_group(Globals.GROUP_FUELCAN):
+			return
+			
+	if body.is_in_group(Globals.GROUP_FUELCAN):
 		body.explode()
-	else:
+		return
+		
+	if body.has_method("on_hit_by"):
 		body.on_hit_by(self)

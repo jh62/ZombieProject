@@ -46,7 +46,7 @@ func _ready():
 		Globals.Difficulty.NORMAL:
 			weapons[0].bullets = 120
 		Globals.Difficulty.HARD:
-			weapons[0].bullets = 12
+			weapons[0].bullets = 60
 	
 func _reset() -> void:
 	var _status_backup := ConfigFile.new()

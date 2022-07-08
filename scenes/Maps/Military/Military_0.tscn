@@ -1,0 +1,189 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/Maps/Map.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Maps/Military/Military.gd" type="Script" id=2]
+[ext_resource path="res://assets/res/maps/tileset.tres" type="TileSet" id=3]
+[ext_resource path="res://scenes/Entities/Items/Bike/Bike.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Entities/Mobiles/Player/Player.tscn" type="PackedScene" id=5]
+
+[node name="Military" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+map_name = "Military Checkpoint"
+
+[node name="SpawnAreas" parent="." index="0"]
+visible = false
+modulate = Color( 1, 0, 0.913725, 1 )
+z_index = 100
+
+[node name="ZombieSpawnArea1" type="VisibilityNotifier2D" parent="SpawnAreas" index="0"]
+position = Vector2( 72, 79.0001 )
+scale = Vector2( 5.52902, 4.35448 )
+
+[node name="ZombieSpawnArea2" type="VisibilityNotifier2D" parent="SpawnAreas" index="1"]
+position = Vector2( 72, 271 )
+scale = Vector2( 5.52902, 4.35448 )
+
+[node name="ZombieSpawnArea3" type="VisibilityNotifier2D" parent="SpawnAreas" index="2"]
+position = Vector2( 70, 490 )
+scale = Vector2( 5.52902, 4.35448 )
+
+[node name="ZombieSpawnArea4" type="VisibilityNotifier2D" parent="SpawnAreas" index="3"]
+position = Vector2( 359, 344 )
+scale = Vector2( 4.31451, 3.39797 )
+
+[node name="ZombieSpawnArea5" type="VisibilityNotifier2D" parent="SpawnAreas" index="4"]
+position = Vector2( 684, 342 )
+scale = Vector2( 4.31451, 3.39797 )
+
+[node name="ZombieSpawnArea6" type="VisibilityNotifier2D" parent="SpawnAreas" index="5"]
+position = Vector2( 420, 95 )
+scale = Vector2( 4.31451, 3.39797 )
+
+[node name="ZombieSpawnArea7" type="VisibilityNotifier2D" parent="SpawnAreas" index="6"]
+position = Vector2( 230, 87 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea8" type="VisibilityNotifier2D" parent="SpawnAreas" index="7"]
+position = Vector2( 718, 188 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea9" type="VisibilityNotifier2D" parent="SpawnAreas" index="8"]
+position = Vector2( 766, 304 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea10" type="VisibilityNotifier2D" parent="SpawnAreas" index="9"]
+position = Vector2( 920, 248 )
+scale = Vector2( 2.07863, 1.79949 )
+
+[node name="ZombieSpawnArea11" type="VisibilityNotifier2D" parent="SpawnAreas" index="10"]
+position = Vector2( 936, 533 )
+scale = Vector2( 2.07863, 1.79949 )
+
+[node name="ZombieSpawnArea12" type="VisibilityNotifier2D" parent="SpawnAreas" index="11"]
+position = Vector2( 781, 452 )
+scale = Vector2( 4.31451, 3.39797 )
+
+[node name="ZombieSpawnArea13" type="VisibilityNotifier2D" parent="SpawnAreas" index="12"]
+position = Vector2( 504, 440 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea14" type="VisibilityNotifier2D" parent="SpawnAreas" index="13"]
+position = Vector2( 423, 499 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea15" type="VisibilityNotifier2D" parent="SpawnAreas" index="14"]
+position = Vector2( 258, 545 )
+scale = Vector2( 2.75725, 2.39899 )
+
+[node name="ZombieSpawnArea16" type="VisibilityNotifier2D" parent="SpawnAreas" index="15"]
+position = Vector2( 194, 484 )
+scale = Vector2( 0.978627, 0.851468 )
+
+[node name="ZombieSpawnArea17" type="VisibilityNotifier2D" parent="SpawnAreas" index="16"]
+position = Vector2( 396, 198 )
+scale = Vector2( 2.28931, 1.99185 )
+
+[node name="ZombieSpawnArea18" type="VisibilityNotifier2D" parent="SpawnAreas" index="17"]
+position = Vector2( 533, 51 )
+scale = Vector2( 4.49466, 3.91064 )
+
+[node name="ZombieSpawnArea19" type="VisibilityNotifier2D" parent="SpawnAreas" index="18"]
+position = Vector2( 778, 206 )
+scale = Vector2( 2.09733, 1.82481 )
+
+[node name="ZombieSpawnArea20" type="VisibilityNotifier2D" parent="SpawnAreas" index="19"]
+position = Vector2( 839, 171 )
+scale = Vector2( 2.09733, 1.82481 )
+
+[node name="SpawnAreasFuel" parent="." index="1"]
+visible = false
+modulate = Color( 0.615686, 1, 0, 1 )
+z_index = 100
+
+[node name="AreaFuel01" type="VisibilityNotifier2D" parent="SpawnAreasFuel" index="0"]
+position = Vector2( 1010, 508 )
+
+[node name="SpawnAreasWeapons" parent="." index="2"]
+visible = false
+modulate = Color( 0.0470588, 1, 0.956863, 1 )
+z_index = 100
+
+[node name="SpawnAreaWeapon1" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="0"]
+position = Vector2( 247, 248 )
+rect = Rect2( 0, 0, 16, 16 )
+
+[node name="SpawnAreaWeapon2" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="1"]
+position = Vector2( 560, 188 )
+
+[node name="SpawnAreaWeapon3" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="2"]
+position = Vector2( 699, 214 )
+
+[node name="SpawnAreaWeapon4" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="3"]
+position = Vector2( 862, 77 )
+
+[node name="SpawnAreaWeapon5" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="4"]
+position = Vector2( 1010, 204 )
+
+[node name="SpawnAreaWeapon6" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="5"]
+position = Vector2( 541, 520 )
+
+[node name="SpawnAreaWeapon7" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="6"]
+position = Vector2( 400, 368 )
+
+[node name="SpawnAreaWeapon8" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="7"]
+position = Vector2( 46, 528 )
+
+[node name="SpawnAreaWeapon9" type="VisibilityNotifier2D" parent="SpawnAreasWeapons" index="8"]
+position = Vector2( 441, 12 )
+
+[node name="Triggers" type="Node2D" parent="." index="3"]
+visible = false
+z_index = 100
+
+[node name="TileMap4" parent="." index="4"]
+z_index = 3
+tile_set = ExtResource( 3 )
+occluder_light_mask = 0
+
+[node name="TileMap3" parent="." index="5"]
+light_mask = 0
+z_index = 2
+tile_set = ExtResource( 3 )
+occluder_light_mask = 9
+
+[node name="TileMap2" parent="." index="6"]
+z_index = 1
+tile_set = ExtResource( 3 )
+centered_textures = true
+occluder_light_mask = 9
+tile_data = PoolIntArray( 4194303, 62, 0, 4128813, 62, 0, 4259839, 62, 0, 4194304, 62, 0, 4194305, 62, 0, 4194306, 62, 0, 4194307, 62, 0, 4194308, 62, 0, 4194309, 62, 0, 4194310, 62, 0, 4194311, 62, 0, 4194312, 62, 0, 4194313, 62, 0, 4194314, 62, 0, 4194315, 62, 0, 4194316, 62, 0, 4194317, 62, 0, 4194318, 62, 0, 4194319, 62, 0, 4194320, 62, 0, 4194321, 62, 0, 4194322, 62, 0, 4194323, 62, 0, 4194324, 62, 0, 4194325, 62, 0, 4194326, 62, 0, 4194327, 62, 0, 4194328, 62, 0, 4194329, 62, 0, 4194330, 62, 0, 4194331, 62, 0, 4194332, 62, 0, 4194333, 62, 0, 4194334, 62, 0, 4194335, 62, 0, 4194336, 62, 0, 4194337, 62, 0, 4194338, 62, 0, 4194339, 62, 0, 4194340, 62, 0, 4194341, 62, 0, 4194342, 62, 0, 4194343, 62, 0, 4194344, 62, 0, 4194345, 62, 0, 4194346, 62, 0, 4194347, 62, 0, 4194348, 62, 0, 4194349, 62, 0 )
+
+[node name="Statics" parent="TileMap2/Entities" index="1"]
+position = Vector2( -1, 0 )
+
+[node name="Bike" parent="TileMap2/Entities/Statics" index="0" instance=ExtResource( 4 )]
+position = Vector2( 109, 48 )
+fuel_amount = 100.0
+can_refuel = false
+
+[node name="Player" parent="TileMap2/Entities/Mobs" index="0" instance=ExtResource( 5 )]
+position = Vector2( 45, 22 )
+
+[node name="TileMap1" parent="." index="7"]
+tile_set = ExtResource( 3 )
+tile_data = PoolIntArray( -1, 62, 0, -65536, 62, 0, -65535, 62, 0, -65534, 62, 0, -65533, 62, 0, -65532, 62, 0, -65531, 62, 0, -65530, 62, 0, -65529, 62, 0, -65528, 62, 0, -65527, 62, 0, -65526, 62, 0, -65525, 62, 0, -65524, 62, 0, -65523, 62, 0, -65522, 62, 0, -65521, 62, 0, -65520, 62, 0, -65519, 62, 0, -65518, 62, 0, -65517, 62, 0, -65516, 62, 0, -65515, 62, 0, -65514, 62, 0, -65513, 62, 0, -65512, 62, 0, -65511, 62, 0, -65510, 62, 0, -65509, 62, 0, -65508, 62, 0, -65507, 62, 0, -65506, 62, 0, -65505, 62, 0, -65504, 62, 0, -65503, 62, 0, -65502, 62, 0, -65501, 62, 0, -65500, 62, 0, -65499, 62, 0, -65498, 62, 0, -65497, 62, 0, -65496, 62, 0, -65495, 62, 0, -65494, 62, 0, -65493, 62, 0, -65492, 62, 0, -65491, 62, 0, -65490, 62, 0, -65489, 62, 0, -65488, 62, 0, -65487, 62, 0, -65486, 62, 0, -65485, 62, 0, -65484, 62, 0, -65483, 62, 0, -65482, 62, 0, -65481, 62, 0, -65480, 62, 0, -65479, 62, 0, -65478, 62, 0, -65477, 62, 0, -65476, 62, 0, -65475, 62, 0, -65474, 62, 0, -65473, 62, 0, -65472, 62, 0, 65535, 62, 0, 64, 62, 0, 131071, 62, 0, 65600, 62, 0, 196607, 62, 0, 131136, 62, 0, 262143, 62, 0, 196672, 62, 0, 327679, 62, 0, 262208, 62, 0, 393215, 62, 0, 327744, 62, 0, 458751, 62, 0, 393280, 62, 0, 524287, 62, 0, 458816, 62, 0, 589823, 62, 0, 524352, 62, 0, 655359, 62, 0, 589888, 62, 0, 720895, 62, 0, 655424, 62, 0, 786431, 62, 0, 720960, 62, 0, 851967, 62, 0, 786496, 62, 0, 917503, 62, 0, 852032, 62, 0, 983039, 62, 0, 917568, 62, 0, 1048575, 62, 0, 983104, 62, 0, 1114111, 62, 0, 1048640, 62, 0, 1179647, 62, 0, 1114176, 62, 0, 1245183, 62, 0, 1179712, 62, 0, 1310719, 62, 0, 1245248, 62, 0, 1376255, 62, 0, 1310784, 62, 0, 1441791, 62, 0, 1376320, 62, 0, 1376321, 62, 0, 1507327, 62, 0, 1441856, 62, 0, 1441857, 62, 0, 1572863, 62, 0, 1507392, 62, 0, 1507393, 62, 0, 1638399, 62, 0, 1572928, 62, 0, 1572929, 62, 0, 1703935, 62, 0, 1638464, 62, 0, 1769471, 62, 0, 1704000, 62, 0, 1835007, 62, 0, 1769536, 62, 0, 1900543, 62, 0, 1835072, 62, 0, 1966079, 62, 0, 1900608, 62, 0, 2031615, 62, 0, 1966144, 62, 0, 2097151, 62, 0, 2031680, 62, 0, 2162687, 62, 0, 2097216, 62, 0, 2228223, 62, 0, 2162752, 62, 0, 2293759, 62, 0, 2228288, 62, 0, 2359295, 62, 0, 2293824, 62, 0, 2424831, 62, 0, 2359360, 62, 0, 2490367, 62, 0, 2424832, 62, 0, 2424833, 62, 0, 2424834, 62, 0, 2424835, 62, 0, 2424836, 62, 0, 2424837, 62, 0, 2424838, 62, 0, 2424839, 62, 0, 2424840, 62, 0, 2424841, 62, 0, 2424842, 62, 0, 2424843, 62, 0, 2424844, 62, 0, 2424845, 62, 0, 2424846, 62, 0, 2424847, 62, 0, 2424848, 62, 0, 2424849, 62, 0, 2424850, 62, 0, 2424851, 62, 0, 2424852, 62, 0, 2424853, 62, 0, 2424854, 62, 0, 2424855, 62, 0, 2424856, 62, 0, 2424857, 62, 0, 2424858, 62, 0, 2424859, 62, 0, 2424860, 62, 0, 2424861, 62, 0, 2424862, 62, 0, 2424863, 62, 0, 2424864, 62, 0, 2424865, 62, 0, 2424866, 62, 0, 2424867, 62, 0, 2424868, 62, 0, 2424869, 62, 0, 2424870, 62, 0, 2424871, 62, 0, 2424872, 62, 0, 2424873, 62, 0, 2424874, 62, 0, 2424875, 62, 0, 2424876, 62, 0, 2424877, 62, 0, 2424878, 62, 0, 2424879, 62, 0, 2424880, 62, 0, 2424881, 62, 0, 2424882, 62, 0, 2424883, 62, 0, 2424884, 62, 0, 2424885, 62, 0, 2424886, 62, 0, 2424887, 62, 0, 2424888, 62, 0, 2424889, 62, 0, 2424890, 62, 0, 2424891, 62, 0, 2424892, 62, 0, 2424893, 62, 0, 2424894, 62, 0, 2424895, 62, 0, 2424896, 62, 0 )
+
+[node name="Navigation" parent="." index="8"]
+light_mask = 0
+z_index = -2
+
+[node name="TileMap" parent="Navigation" index="0"]
+light_mask = 0
+z_index = 10
+tile_set = ExtResource( 3 )
+cell_y_sort = false
+centered_textures = true
+collision_layer = 0
+collision_mask = 0
+occluder_light_mask = 0
+tile_data = PoolIntArray( -1, 43, 0, -65536, -1073741781, 0, -65535, -1073741781, 0, -65534, -1073741781, 0, -65533, -1073741781, 0, -65532, -1073741781, 0, -65531, -1073741781, 0, -65530, -1073741781, 0, -65529, -1073741781, 0, -65528, -1073741781, 0, -65527, -1073741781, 0, -65526, 43, 0, -65525, 43, 0, -65524, 43, 0, -65523, 43, 0, -65522, 43, 0, -65521, 43, 0, -65520, 43, 0, -65519, 43, 0, -65518, 43, 0, -65517, 43, 0, -65516, 43, 0, -65515, 43, 0, -65514, 43, 0, -65513, 43, 0, -65512, 43, 0, -65511, 43, 0, -65510, -1073741781, 0, -65509, -1073741781, 0, -65508, -1073741781, 0, -65507, -1073741781, 0, -65506, -1073741781, 0, -65505, -1073741781, 0, -65504, -1073741781, 0, -65503, -1073741781, 0, -65502, -1073741781, 0, -65501, -1073741781, 0, -65500, -1073741781, 0, -65499, -1073741781, 0, -65498, -1073741781, 0, -65497, -1073741781, 0, -65496, -1073741781, 0, -65495, -1073741781, 0, -65494, -1073741781, 0, -65493, -1073741781, 0, -65492, -1073741781, 0, -65491, -1073741781, 0, -65490, -1073741781, 0, -65489, -1073741781, 0, -65488, -1073741781, 0, -65487, -1073741781, 0, -65486, -1073741781, 0, -65485, -1073741781, 0, -65484, -1073741781, 0, -65483, -1073741781, 0, -65482, -1073741781, 0, -65481, -1073741781, 0, -65480, -1073741781, 0, -65479, -1073741781, 0, -65478, -1073741781, 0, -65477, -1073741781, 0, -65476, -1073741781, 0, -65475, -1073741781, 0, -65474, -1073741781, 0, -65473, -1073741781, 0, -65472, -1073741781, 0, 65535, 43, 0, 64, -1073741781, 0, 131071, 43, 0, 65600, -1073741781, 0, 196607, 43, 0, 131136, -1073741781, 0, 262143, 43, 0, 196672, -1073741781, 0, 327679, 43, 0, 262208, -1073741781, 0, 393215, 43, 0, 327744, -1073741781, 0, 458751, 43, 0, 393280, -1073741781, 0, 524287, 43, 0, 458816, 43, 0, 589823, 43, 0, 524352, -1073741781, 0, 655359, 43, 0, 589888, -1073741781, 0, 720895, 43, 0, 655424, -1073741781, 0, 786431, 43, 0, 720960, -1073741781, 0, 851967, 43, 0, 786496, -1073741781, 0, 917503, 43, 0, 852032, -1073741781, 0, 983039, 43, 0, 917568, -1073741781, 0, 1048575, 43, 0, 983104, -1073741781, 0, 1114111, 43, 0, 1048640, -1073741781, 0, 1179647, 43, 0, 1114176, -1073741781, 0, 1245183, 43, 0, 1179712, -1073741781, 0, 1310719, 43, 0, 1245248, -1073741781, 0, 1376255, 43, 0, 1310784, -1073741781, 0, 1441791, 43, 0, 1376320, -1073741781, 0, 1507327, 43, 0, 1441856, -1073741781, 0, 1572863, -1073741781, 0, 1507392, -1073741781, 0, 1638399, -1073741781, 0, 1572928, -1073741781, 0, 1703935, -1073741781, 0, 1638464, -1073741781, 0, 1769471, -1073741781, 0, 1704000, -1073741781, 0, 1835007, -1073741781, 0, 1769536, 43, 0, 1900543, -1073741781, 0, 1835072, 43, 0, 1966079, -1073741781, 0, 1900608, 43, 0, 2031615, -1073741781, 0, 1966144, -1073741781, 0, 2097151, -1073741781, 0, 2031680, -1073741781, 0, 2162687, -1073741781, 0, 2097216, -1073741781, 0, 2228223, -1073741781, 0, 2162752, -1073741781, 0, 2293759, -1073741781, 0, 2228288, -1073741781, 0, 2359295, -1073741781, 0, 2293824, -1073741781, 0, 2424831, -1073741781, 0, 2359360, -1073741781, 0, 2490367, -1073741781, 0, 2424832, -1073741781, 0, 2424833, -1073741781, 0, 2424834, -1073741781, 0, 2424835, -1073741781, 0, 2424836, -1073741781, 0, 2424837, -1073741781, 0, 2424838, -1073741781, 0, 2424839, -1073741781, 0, 2424840, -1073741781, 0, 2424841, -1073741781, 0, 2424842, -1073741781, 0, 2424843, -1073741781, 0, 2424844, -1073741781, 0, 2424845, -1073741781, 0, 2424846, -1073741781, 0, 2424847, -1073741781, 0, 2424848, -1073741781, 0, 2424849, -1073741781, 0, 2424850, -1073741781, 0, 2424851, -1073741781, 0, 2424852, -1073741781, 0, 2424853, -1073741781, 0, 2424854, -1073741781, 0, 2424855, -1073741781, 0, 2424856, -1073741781, 0, 2424857, -1073741781, 0, 2424858, -1073741781, 0, 2424859, -1073741781, 0, 2424860, -1073741781, 0, 2424861, -1073741781, 0, 2424862, -1073741781, 0, 2424863, -1073741781, 0, 2424864, -1073741781, 0, 2424865, -1073741781, 0, 2424866, -1073741781, 0, 2424867, -1073741781, 0, 2424868, -1073741781, 0, 2424869, -1073741781, 0, 2424870, -1073741781, 0, 2424871, -1073741781, 0, 2424872, -1073741781, 0, 2424873, -1073741781, 0, 2424874, -1073741781, 0, 2424875, -1073741781, 0, 2424876, -1073741781, 0, 2424877, -1073741781, 0, 2424878, -1073741781, 0, 2424879, -1073741781, 0, 2424880, -1073741781, 0, 2424881, -1073741781, 0, 2424882, -1073741781, 0, 2424883, -1073741781, 0, 2424884, -1073741781, 0, 2424885, -1073741781, 0, 2424886, -1073741781, 0, 2424887, -1073741781, 0, 2424888, -1073741781, 0, 2424889, -1073741781, 0, 2424890, -1073741781, 0, 2424891, -1073741781, 0, 2424892, -1073741781, 0, 2424893, -1073741781, 0, 2424894, -1073741781, 0, 2424895, -1073741781, 0, 2424896, -1073741781, 0 )

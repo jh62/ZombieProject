@@ -30,7 +30,6 @@ animations = [ {
 
 [node name="Fire" type="Node2D"]
 script = ExtResource( 2 )
-damage = 2.5
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 light_mask = 3

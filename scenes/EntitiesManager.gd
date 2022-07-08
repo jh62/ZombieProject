@@ -120,20 +120,22 @@ func _spawn_bullet(bullet : Node2D, damage, knockback, position, direction) -> v
 	
 	if !n_Mobs.is_a_parent_of(bullet):
 		n_Mobs.add_child(bullet)
-		
+	
 	bullet.look_at(position + direction)
 	
 func _on_bullet_impact(node : Node2D) -> void:
+	node.visible = false
 	node.set_process(false)
 	node.set_physics_process(false)
-	
+#
 	if node.is_connected("on_impact", self, "_on_bullet_impact"):
 		node.disconnect("on_impact", self, "_on_bullet_impact")
-		
+
 	if node.is_connected("on_exit_screen", self, "_on_bullet_impact"):
 		node.disconnect("on_exit_screen", self, "_on_bullet_impact")
-		
-	n_Mobs.remove_child(node)
+
+	n_Mobs.call_deferred("remove_child", node)
+#	n_Mobs.remove_child(node)
 
 var bad_spawns := [] # lazy fix
 

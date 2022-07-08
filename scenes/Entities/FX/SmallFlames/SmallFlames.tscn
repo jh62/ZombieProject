@@ -30,7 +30,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=6]
-radius = 3.16228
+radius = 3.0
 
 [node name="SmallFlames" type="Area2D"]
 collision_layer = 0
@@ -40,7 +40,9 @@ script = ExtResource( 3 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -3 )
 frames = SubResource( 5 )
+frame = 3
 playing = true
+offset = Vector2( 0, -2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 6 )

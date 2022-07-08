@@ -29,7 +29,7 @@ func on_action_pressed(event, facing) -> void:
 
 	last_open_elapsed = OS.get_system_time_msecs()
 
-	is_open = !is_open
+	is_closed = !is_closed
 	activate_door()
 	emit_signal("on_door_used", global_position, tiles_blocked)
 	EventBus.emit_signal("play_sound", SOUND_SLIDE, global_position)
@@ -42,11 +42,11 @@ func _unhandled_input(event):
 	return
 
 func activate_door() -> void:
-	if is_open:
+	if is_closed:
 		$AnimationPlayer.play("open")
-		is_open = true
+		is_closed = true
 	else:
 		$AnimationPlayer.play("close")
-		is_open = false
+		is_closed = false
 
 	_update_tooltip()

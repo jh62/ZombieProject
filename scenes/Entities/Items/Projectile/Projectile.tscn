@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Entities/Items/Projectile/Projectile.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 1.0
+radius = 2.0
 height = 1.7
 
 [node name="Projectile" type="RigidBody2D"]

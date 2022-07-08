@@ -33,9 +33,11 @@ func explode() -> void:
 
 	var explosion := preload("res://scenes/Entities/Explosion/Explosion.tscn").instance() as Explosion
 	add_child(explosion)
+	
 	explosion.create_big_explosion()
 	explosion.connect("explosion_complete", self, "on_explosion_complete")
-	$Area2D/CollisionShape2D.call_deferred("disabled", true)
+	
+	$Area2D/CollisionShape2D.set_deferred("disabled", true)
 	set_collision_mask_bit(5, false)
 	exploded = true
 	$Sprite.visible = false
@@ -56,7 +58,7 @@ func set_fuelamount(new_amount : float):
 	else:
 		EventBus.emit_signal("fuel_emptied")
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(body):	
 	if (body is Projectile):
 		explode()
 		return

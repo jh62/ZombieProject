@@ -32,8 +32,8 @@ func enter_state(args) -> void:
 	anim_p.play(current_anim)
 	
 	attacker = args.attacker
-
-	owner.vel += attacker.dir * 2.2
+#	owner.vel += attacker.dir * 2.2
+	owner.vel -= owner.facing * 2.2
 	EventBus.emit_signal("play_sound_random", HitSounds, owner.global_position)
 
 	if .45 > randf():

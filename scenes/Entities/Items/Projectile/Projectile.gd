@@ -27,18 +27,14 @@ var damage := 0.0
 var knockback := 0.0
 
 func _on_impact(body) -> void:
-	if !is_inside_tree():
-		return
-		
-	if !(body is Mobile):
-		EventBus.emit_signal("spawn_decal", global_position)
-		EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
-	else:
+	if body.is_in_group(Global.GROUP_HOSTILES):
 		EventBus.emit_signal("play_sound_random_full", BodyHitSounds, global_position)
-		
-	if body.has_method("on_hit_by"):
 		body.call_deferred("on_hit_by", self)
-		
+		return
+	
+	EventBus.emit_signal("spawn_decal", global_position)
+	EventBus.emit_signal("play_sound_random_full", HITSOUNDS, global_position)
+	yield(get_tree().create_timer(0.15),"timeout")
 	emit_signal("on_impact", self)
 
 func _on_Projectile_body_entered(body: Node) -> void:

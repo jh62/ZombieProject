@@ -18,7 +18,7 @@ const SOUNDS := {
 }
 
 export var door_type := 0 setget set_door_type
-export var is_open := false setget set_is_open
+export var is_closed := true setget set_is_open
 export var key_id := -1
 export var blocks_tile := false
 
@@ -32,7 +32,7 @@ func _ready():
 	activate_door()
 	
 func set_is_open(_is_open) -> void:
-	is_open = _is_open
+	is_closed = _is_open
 
 func on_action_pressed(event, facing) -> void:
 	if event != EventBus.ActionEvent.USE_KEY:		
@@ -55,11 +55,11 @@ func on_action_pressed(event, facing) -> void:
 		EventBus.emit_signal("on_tooltip", "Gate is closed. You need a key.")
 		return
 	
-	is_open = !is_open
+	is_closed = !is_closed
 	activate_door()
 	emit_signal("on_door_used", global_position, tiles_blocked)
 	
-	var sound := 1 if is_open else 0
+	var sound := 1 if is_closed else 0
 	EventBus.emit_signal("play_sound", SOUNDS[material_type][sound], global_position)
 
 func check_key(body : Node2D) -> bool:
@@ -81,8 +81,8 @@ func check_key(body : Node2D) -> bool:
 	return true
 
 func activate_door() -> void:
-	$CollisionShape.disabled = !is_open
-	$Sprite.visible = is_open
+	$CollisionShape.disabled = !is_closed
+	$Sprite.visible = is_closed
 	last_open_elapsed = OS.get_system_time_msecs()
 	_update_tooltip()
 	
@@ -105,7 +105,7 @@ func _update_tooltip() -> void:
 		return
 	
 	var button = InputMap.get_action_list("action_alt")[0].as_text()
-	var _text = "[center]Press [color=#fffc00]{0}[/color] to {1} [color=#de2d22]DOOR[/color][/center]".format({0:button,1:("open" if !is_open else "close")})
+	var _text = "[center]Press [color=#fffc00]{0}[/color] to {1} [color=#de2d22]DOOR[/color][/center]".format({0:button,1:("open" if !is_closed else "close")})
 	EventBus.emit_signal("on_tooltip", _text)
 
 func _on_VisibilityNotifier2D_screen_entered():
